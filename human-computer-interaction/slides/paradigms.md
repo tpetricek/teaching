@@ -410,17 +410,27 @@ _[t.petricek@kent.ac.uk](mailto:t.petricek@kent.ac.uk) | [@tomaspetricek](http:/
 
 ----------------------------------------------------------------------------------------------------
 
-The Structure of Scientific Revolutions
+### Papers
 
-ID book information processing 3.3.3.
+- [When second wave HCI meets third wave challenges](https://pure.au.dk/ws/files/93115128/nordichipreprint.pdf), S. Bødker 
+- [Three faces of human-computer interaction](http://www.jonathangrudin.com/wp-content/uploads/2017/03/Annals.pdf), J. Grudin 
+- [The three paradigms of HCI](http://people.cs.vt.edu/~srh/Downloads/HCIJournalTheThreeParadigmsofHCI.pdf), S. Harrison et al.
+- [Third-wave HCI, 10 years later - Participation and sharing](http://interactions.acm.org/archive/view/september-october-2015/third-wave-hci-10-years-later-participation-and-sharing), S. Bødker
+- [A brief survey on user modelling in HCI](https://www.cl.cam.ac.uk/~pr10/publications/ihci10.pdf), P. Biswas, P. Robinson 
+- [MusicJacket—Combining Motion Capture and Vibrotactile Feedback to Teach Violin Bowing](https://ieeexplore.ieee.org/document/5585755),  
+  J. Van Der Linden et al.
 
-http://www.benchmarkrs.com/main/human-factors/what.aspx
-https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/ethnography
-https://www.interaction-design.org/literature/book/the-glossary-of-human-computer-interaction/human-factors
-"Third-wave HCI, 10 years later - Participation and sharing"
+----------------------------------------------------------------------------------------------------
 
-https://www.cl.cam.ac.uk/~pr10/publications/ihci10.pdf
-http://cgi.csc.liv.ac.uk/~floriana/COMP106/04ps.pdf
-http://homepages.rpi.edu/~grayw/courses/psyc2965/fall02/downloads/wk04_GOMS.pdf
-https://en.wikipedia.org/wiki/Place_(Reddit)
-https://ieeexplore.ieee.org/document/5585755
+### Books
+
+- [The Structure of Scientific Revolutions](https://en.wikipedia.org/wiki/The_Structure_of_Scientific_Revolutions), Thomas Kuhn
+- [Interaction Design: Beyond Human-Computer Interaction](https://www.amazon.co.uk/Interaction-Design-Beyond-Human-Computer/dp/0470018666), H. Sharp, Y. Rogers, J. Preece
+
+### Web links
+
+- [What is Human Factors and Ergonomics?](http://www.benchmarkrs.com/main/human-factors/what.aspx)
+- [Ethnography - The Encyclopedia of HCI](https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/ethnography)
+- [Human Factors - The Glossary of HCI](https://www.interaction-design.org/literature/book/the-glossary-of-human-computer-interaction/human-factors)
+- [Place (Reddit) - Wikipedia](https://en.wikipedia.org/wiki/Place_(Reddit))
+
