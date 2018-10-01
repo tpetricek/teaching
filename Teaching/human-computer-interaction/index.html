@@ -1,0 +1,426 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction</title>
+    <meta name="description" content="Human Computer Interaction">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> History and research paradigms</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Why history and research paradigms</strong></h1>
+</section>
+<section >
+<h1>The Structure of Scientific Revolutions</h1>
+<img src="images/paradigms/kuhn.jpg" style="float:right;width:300px"/>
+<p><strong>Research paradigms</strong></p>
+<ul>
+<li>Determine what questions matter</li>
+<li>Assumptions are not questioned</li>
+<li>Provide methods for answering</li>
+</ul>
+<div class="fragment">
+<p><strong>Scientific revolutions</strong></p>
+<ul>
+<li>There is one dominant paradigm</li>
+<li>Problems cause paradigm shifts</li>
+<li>Knowledge is incommensurable</li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Research paradigms in computer interaction and UX</h1>
+<p><strong>What questions do we ask?</strong></p>
+<ul>
+<li>How to prevent certain kind of errors</li>
+<li>How to design a pleasant interface</li>
+</ul>
+<p><strong>How do we answer them?</strong></p>
+<ul>
+<li>Run a controlled experiment</li>
+<li>Work with users on a design</li>
+</ul>
+</section>
+<section >
+<h1>Research paradigms in computer interaction and UX</h1>
+<p><strong>Four paradigms</strong></p>
+<ol>
+<li>Human factors (1950s)</li>
+<li>Cognitive models (1980s)</li>
+<li>Human actors (1990s)</li>
+<li>Experience and emotion (2000s)</li>
+</ol>
+<p><strong>Nature of the paradigms</strong></p>
+<ul>
+<li>They overlap and some can be grouped</li>
+<li>They focus on complementary aspects</li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>I: Human factors (1950s)</strong></h1>
+</section>
+<section >
+<h1>Electronic equipment in World War II</h1>
+<img src="images/paradigms/radar.jpg" style="float:right;width:300px"/>
+<p><strong>Equipment interaction incidents</strong></p>
+<ul>
+<li>Airplane crashes by trained pilots</li>
+<li>Missed enemies on radars</li>
+<li>Controls &amp; instrument displays</li>
+</ul>
+<div class="fragment">
+<p><strong>Goal is to optimize man-machine fit</strong></p>
+<ul>
+<li>Minimize potential for problems</li>
+<li>Experimental psychology</li>
+<li>Testing inside and outside lab</li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/paradigms/mixer.jpg" class="nb" style="width:600px;float:left;margin-right:30px" />
+<br />
+<p>What if it turns out that finding the right knob is hard?</p>
+</section>
+<section >
+<img src="images/paradigms/knobs.png" />
+</section>
+<section >
+<h1><strong>Example:</strong> Knobs distinguishable by touch alone</h1>
+<h3>Typical for human factors paradigm</h3>
+<p><em><i class="fa fa-car-crash"></i></em> Motivated by a critical incident <em>(albeit hypothetical)</em></p>
+<p><em><i class="fa fa-wrench"></i></em> Pragmatic solution to a practical problem</p>
+<p><em><i class="fa fa-flask"></i></em> Experimentally tested <em>(different sizes don't work)</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>II: Cognitive models (1980s)</strong></h1>
+</section>
+<section >
+<h1>Cognitive models and information processing</h1>
+<img src="images/paradigms/newell.jpg" style="float:right;width:300px"/>
+<p><strong>Understand how users think</strong></p>
+<ul>
+<li>Use models to guide design</li>
+<li>Models with predictive power</li>
+<li>Model both brain and computer</li>
+</ul>
+<div class="fragment">
+<p><strong>Assumptions and methods</strong></p>
+<ul>
+<li>Task-focused problems</li>
+<li>Allows systematic evaluation</li>
+<li>Limitations of the model are acceptable</li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/paradigms/word.png" class="nb" style="height:500px;float:left; margin-right:30px" />
+<p>Does this start screen allow efficient use of Word?</p>
+<div class="fragment" style="margin-top:30px">
+<p><em>Hard to answer from human factors perspective!</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Example:</strong> Information processing model</h1>
+<img src="images/paradigms/model.png" class="nb" style="max-width:1000px;margin-left:-25px;"/>
+<div class="fragment">
+<p><strong>Information processing models</strong></p>
+<ul>
+<li>Series of stages acting on mental representation</li>
+<li>Information can be images, rules, models, etc.</li>
+<li>Predict what components are involved</li>
+<li>Predict user reaction time</li>
+</ul>
+</div>
+</section>
+<section >
+<h1><strong>Example:</strong> Information processing model</h1>
+<h3>Typical for cognitive models paradigm</h3>
+<p><em><i class="fa fa-brain"></i></em> Model of how brain works <em>(not ad-hoc human factors)</em></p>
+<p><em><i class="fa fa-chart-line"></i></em> Predictive power <em>(can be tested in a lab)</em></p>
+<p><em><i class="fa fa-user"></i></em> Simplifying assumptions <em>(not actual users in context)</em></p>
+</section>
+<section >
+<h1>Classical cognitive models of computer interaction</h1>
+<p><strong>Human processor model</strong><br />
+Stages in perceptual, cognitive and motor subsystems</p>
+<p><strong>Goals, operators, methods, selection (GOMS)</strong><br />
+Select method consisting of operators to achieve a goal</p>
+<p><strong>Keystroke-level model (KLM)</strong><br />
+How expensive is an operation such as drag and drop?</p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>III: From human factors to human actors (1990s)</strong></h1>
+</section>
+<section >
+<h1>From human factors to human actors</h1>
+<img src="images/paradigms/eniac.jpg" style="float:right;width:350px"/>
+<p><strong>Improve how users work</strong></p>
+<ul>
+<li>Study actual, not model users</li>
+<li>In a real workplace environment</li>
+<li>Help improve work efficiency</li>
+</ul>
+<div class="fragment">
+<p><strong>Assumptions and methods</strong></p>
+<ul>
+<li>Users are part of the process</li>
+<li>Ethnography, prototyping, participatory design</li>
+<li>Knowledge has limited generalizability</li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/paradigms/excel.png" class="nb" style="height:500px;float:left; margin-right:30px" />
+<p>How to add features to Excel?</p>
+<div style="margin-top:30px">
+<p><em>How people learn about them?</em></p>
+</div>
+</section>
+<section >
+<h1>How do people learn to use spreadsheets? (Sarkar et al., 2018)</h1>
+<p><strong>Conducted interviews with small number of users</strong></p>
+<ul>
+<li>Including beginners and experts</li>
+<li>Asking how they learned about new features</li>
+<li>Summarizing important points</li>
+</ul>
+<div class="fragment">
+<p><strong>Important lessons from users</strong></p>
+<ul>
+<li>Learn from experienced users in organization</li>
+<li>Learn from spreadsheets using the feature</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>How can we add a new learnable feature?</strong></p>
+</div>
+</section>
+<section >
+<h1><strong>Example:</strong> How do people learn to use spreadsheets?</h1>
+<h3>Typical for human actors paradigm</h3>
+<p><em><i class="fa fa-users"></i></em> Involves users <em>(ethnography and surveys)</em></p>
+<p><em><i class="fa fa-building"></i></em> Rich context <em>(colleagues and existing spreadsheets)</em></p>
+<p><em><i class="fa fa-comment"></i></em> Qualitative rather than quantitative <em>(hard to test)</em></p>
+<p><em><i class="fa fa-thumbs-up"></i></em> No definite answers <em>(but useful design hints)</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>IV: Cultural and emotional experience (2000s)</strong></h1>
+</section>
+<section >
+<h1>Cultural and emotional experience</h1>
+<img src="images/paradigms/pit.jpg" style="float:right;width:350px"/>
+<p><strong>Changing nature of computing</strong></p>
+<ul>
+<li>Ambient and ubiquitous</li>
+<li>Move from work to leisure use</li>
+<li>
+Technological advances<br />
+enable new experiences
+</li>
+</ul>
+<div class="fragment">
+<p><strong>Assumptions and methods</strong></p>
+<ul>
+<li>Take it or leave it approach</li>
+<li>Ideas from art or philosophy</li>
+</ul>
+</div>
+</section>
+<section >
+<a href="images/paradigms/place.png"><img src="images/paradigms/place.png" class="nb" style="width:600px;float:left;margin-right:30px"/></a>
+<p>Reddit <a href="http://reddit.com/r/place">/r/place</a> allowed users to change 1 pixel in a 1000x1000 grid
+per 5-20 minutes.</p>
+</section>
+<section >
+<h1>Third-wave human computer interaction</h1>
+<h3>Methods and concerns of the third wave</h3>
+<p><em><i class="fa fa-question-circle"></i></em> Can ask questions rather than giving answers</p>
+<p><em><i class="fa fa-sync"></i></em> Think about entire digital ecosystems</p>
+<p><em><i class="fa fa-shoe-prints"></i></em> Understanding human body and mind</p>
+<p><em><i class="fa fa-robot"></i></em> Explore new forms and shapes of interaction</p>
+</section>
+<section >
+<h2>MusicJacket (van der Linden et al., 2010)</h2>
+<img src="images/paradigms/musicjacket.png" class="nb" style="width:580px;float:left;margin-right:30px"/>
+<br />
+<p>Wearable system to support the teaching of good posture and bowing technique to novice violin players.</p>
+</section>
+<section >
+<h1><strong>Example:</strong> MusicJacket</h1>
+<h3>Typical for emotional experience paradigm</h3>
+<p><em><i class="fa fa-american-sign-language-interpreting"></i></em> Uses human body as an interface</p>
+<p><em><i class="fa fa-music"></i></em> Designed for leisure application <em>(somewhat)</em></p>
+<p><em><i class="fa fa-flask"></i></em> Experimentally tested <em>(unlike more art projects)</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1><strong>Four paradigms</strong>: Motivations and methods (1/2)</h1>
+<p><strong>Human factors (1950s)</strong></p>
+<ul>
+<li>Avoid incidents caused by bad interaction</li>
+<li>Pragmatic solution, experimental testing</li>
+</ul>
+<p><strong>Cognitive models (1980s)</strong></p>
+<ul>
+<li>Make interaction efficient in less ad-hoc way</li>
+<li>Cognitive models with predictive power</li>
+</ul>
+</section>
+<section >
+<h1><strong>Four paradigms</strong>: Motivations and methods (2/2)</h1>
+<p><strong>From human factors to human actors (1990s)</strong></p>
+<ul>
+<li>Improve efficiency in a real work environment</li>
+<li>Ethnography, prototyping, participatory design</li>
+</ul>
+<p><strong>Cultural and emotional experience (2000s)</strong></p>
+<ul>
+<li>New formats of computing and non-work focus</li>
+<li>Inspiration from art, qualitative evaluation</li>
+</ul>
+</section>
+<section >
+<h1>CO582: History and research paradigms</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Why paradigms matter</li>
+<li>Four paradigms of human-computer interaction</li>
+<li>Their motivations and methods they use</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p>The Structure of Scientific Revolutions</p>
+<p>ID book information processing 3.3.3.</p>
+<p><a href="http://www.benchmarkrs.com/main/human-factors/what.aspx
+https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/ethnography
+https://www.interaction-design.org/literature/book/the-glossary-of-human-computer-interaction/human-factors
+"Third-wave">http://www.benchmarkrs.com/main/human-factors/what.aspx
+https://www.interaction-design.org/literature/book/the-encyclopedia-of-human-computer-interaction-2nd-ed/ethnography
+https://www.interaction-design.org/literature/book/the-glossary-of-human-computer-interaction/human-factors
+"Third-wave</a> HCI, 10 years later - Participation and sharing"</p>
+<p><a href="https://www.cl.cam.ac.uk/~pr10/publications/ihci10.pdf
+http://cgi.csc.liv.ac.uk/~floriana/COMP106/04ps.pdf
+http://homepages.rpi.edu/~grayw/courses/psyc2965/fall02/downloads/wk04_GOMS.pdf
+https://en.wikipedia.org/wiki/Place_(Reddit)
+https://ieeexplore.ieee.org/document/5585755">https://www.cl.cam.ac.uk/~pr10/publications/ihci10.pdf
+http://cgi.csc.liv.ac.uk/~floriana/COMP106/04ps.pdf
+http://homepages.rpi.edu/~grayw/courses/psyc2965/fall02/downloads/wk04_GOMS.pdf
+https://en.wikipedia.org/wiki/Place_(Reddit)
+https://ieeexplore.ieee.org/document/5585755</a></p>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
