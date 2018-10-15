@@ -13,6 +13,7 @@ University of Kent
 ### Computer Interaction and User Experience (CO582)
 
  * [History and research paradigms](https://tpetricek.github.io/Teaching/human-computer-interaction/paradigms.html)
+ * [Data visualization](https://tpetricek.github.io/Teaching/human-computer-interaction/dataviz.html)
 
 Materials license
 -----------------
