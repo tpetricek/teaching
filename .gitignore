@@ -1,3 +1,6 @@
 .fake
 paket.exe
 Paket.Restore.targets
+packages/
+output/
+paket-files/

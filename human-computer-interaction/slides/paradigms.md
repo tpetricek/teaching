@@ -1,5 +1,5 @@
-- title : Human Computer Interaction
-- description : Human Computer Interaction
+- title : Human Computer Interaction: History and research paradigms
+- description : Human Computer Interaction: History and research paradigms
 - author : Tomas Petricek
 - theme : simple
 - transition : none
