@@ -1,0 +1,527 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Data visualization</title>
+    <meta name="description" content="Human Computer Interaction: Data visualization">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Data visualization</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Data science and data visualization</strong></h1>
+</section>
+<section >
+<h1><strong>Data age 2025</strong>: What sort of data is there?</h1>
+<p><em><i class="fa fa-crown"></i></em> Open data collected by governments, e.g. <a href="http://data.gov.uk">data.gov.uk</a></p>
+<p><em><i class="fa fa-user-secret"></i></em> Not so open data collected by governments</p>
+<p><em><i class="fa fa-users"></i></em> Social networks and other user data</p>
+<p><em><i class="fa fa-briefcase"></i></em> Data collected by businesses or scientists</p>
+<p><em><i class="fa fa-video"></i></em> Multimedia data such as photos, videos, books</p>
+<p><em><i class="fa fa-microchip"></i></em> Devices, sensors and internet of things</p>
+</section>
+<section >
+<h1><strong>Data age 2025</strong>: The growth of the global datasphere</h1>
+<img src="images/dataviz/datagrowth.png" class="nb" />
+</section>
+<section >
+<h1><strong>Data age 2025</strong>: The growth of the global datasphere</h1>
+<img src="images/dataviz/datagrowth-note.png" class="nb" />
+</section>
+<section >
+<h1><strong>Data visualization</strong>: What is the goal?</h1>
+<blockquote>
+<p><em>The goal is to</em> aid our understanding <em>of data by<br />
+leveraging the human visual system's ability to</em><br />
+see patterns, spot trends <em>and</em> identify outliers.</p>
+</blockquote>
+</section>
+<section >
+<img src="images/dataviz/circos.png" class="nb" style="height:520px;float:left; margin-right:30px" />
+<p>Scientific data visualization</p>
+<div style="margin-top:30px">
+<p><em>Helping experts make sense of complex data</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/nyt.png" class="nb" style="height:500px;float:left; margin-right:30px" />
+<p>Telling stories with data in media</p>
+<div style="margin-top:30px">
+<p><em>Make data and facts more accessible</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Data visualization</strong>: How is it a HCI problem?</h1>
+<p><strong>Understanding user needs</strong></p>
+<ul>
+<li>Easy for novices or rich for experts?</li>
+<li>Trigger a surprise or be neutral?</li>
+<li>Is the goal exploration or explanation?</li>
+</ul>
+<div class="fragment">
+<p><strong>Using user experience methods</strong></p>
+<ul>
+<li>Using perception and cognitive theories</li>
+<li>Empirical testing in controlled setting</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Do people care about understanding data?</strong></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/guardian.png" class="nb" style="height:520px;float:left; margin-right:30px" />
+<p><em>I think that the people of this country have had enough of experts...</em></p>
+<div style="margin-top:30px" class="fragment">
+<p>Can good visualization get people interested in data?</p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>How data visualizations work</strong></h1>
+</section>
+<section >
+<h1><strong>Data visualization</strong>: What is a visualization?</h1>
+<blockquote>
+<p><em>Principled mapping of</em> data variables <em>to</em> visual<br />
+features <em>such as position, shape, size and color</em>.</p>
+</blockquote>
+</section>
+<section >
+<img src="images/dataviz/co2bar.png" class="nb" style="height:500px;margin:30px 30px 0px 0px;float:left" />
+<p><em>What are the variables?</em></p>
+<p>What visual features?</p>
+<p><em>What tasks does it enable?</em></p>
+<p>Could perception mislead us?</p>
+</section>
+<section >
+<h2><strong>Form follows function</strong></h2>
+<img src="images/dataviz/bauhaus.jpg" style="width:770px;margin-top:-20px" />
+</section>
+<section >
+<h1><strong>Design principles</strong></h1>
+<p><strong>Form follows function</strong></p>
+<ul>
+<li>Find the best mapping from variables to features</li>
+<li>Considering human perception properties</li>
+<li>Is there objectively best visualization?</li>
+</ul>
+<div class="fragment">
+<p><strong>Beyond conveying facts</strong></p>
+<ul>
+<li>Visualizations with less straightforward goals</li>
+<li>Trigger emotions, convey complexity, have fun</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Systematic visualization design</strong></h1>
+</section>
+<section class="part">
+<h1><strong>Part I</strong>: Data types</h1>
+</section>
+<section >
+<h1><strong>Systematic visualization</strong>: Data types</h1>
+<img src="images/dataviz/types.png" style="float:right;width:200px;margin-right:40px" class="nb" />
+<p><strong>Types of data attributes</strong></p>
+<ul>
+<li>Categorical <em>(e.g. countries, people)</em></li>
+<li>Ordinal <em>(e.g. education level)</em></li>
+<li>Quantitative <em>(e.g. time, money, distance)</em></li>
+</ul>
+<div class="fragment">
+<img src="images/dataviz/ordering.png" style="float:right;width:200px;margin-right:40px" class="nb" />
+<p><strong>Types of quantitative scales</strong></p>
+<ul>
+<li>Sequential <em>(e.g. only positive values)</em></li>
+<li>Diverging <em>(e.g. price change)</em></li>
+<li>Cyclic <em>(e.g. month, time of day)</em></li>
+</ul>
+</div><div class="fragment">
+<p>More types are maps, hierarchies and networks</p>
+</div>
+</section>
+<section class="part">
+<h1><strong>Part II</strong>: Visual channels</h1>
+</section>
+<section >
+<h1><strong>Systematic visualization</strong>: Categorical channels</h1>
+<p><strong>Cannot be measured and ordered</strong></p>
+<p><em>Categories represented as shapes</em></p>
+<img src="images/dataviz/catchan1.png" class="nb" style="width:500px; margin:0px 0px 0px 50px"/>
+<div class="fragment">
+<p><em>Categories represented as colors</em></p>
+<img src="images/dataviz/catchan2.png" class="nb" style="width:500px; margin:0px 0px 0px 50px"/>
+</div>
+</section>
+<section >
+<h1><strong>Systematic visualization</strong>: Magnitude channels</h1>
+<img src="images/dataviz/magnitude.png" style="float:right;width:120px;margin-right:100px" class="nb" />
+<p><strong>Can compare and guess distance</strong></p>
+<ul>
+<li><em>Position on common scale</em></li>
+<li><em>Position on separate scale</em></li>
+<li><em>Length of an element</em></li>
+<li><em>Angle of rotation</em></li>
+<li><em>Area in 2D space</em></li>
+<li><em>Color luminance or saturation</em></li>
+</ul>
+</section>
+<section class="part">
+<h1><strong>EXAMPLES</strong>: Mapping data to channels</h1>
+</section>
+<section >
+<img src="images/dataviz/gapminder.png" class="nb" style="width:600px;float:left;margin:30px 50px 0px 0px" />
+<div class="fragment">
+<p>X position<br />
+<em>GDP (quantitative)</em></p>
+</div><div class="fragment">
+<p>Y position<br />
+<em>Age (quantitative)</em></p>
+</div><div class="fragment">
+<p>Bubble size<br />
+<em>Pop. (quantitative)</em></p>
+</div><div class="fragment">
+<p>Bubble color<br />
+<em>Cont. (categorical)</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/co2compare.png" class="nb" style="width:620px;float:left;margin:0px 20px 0px 0px" />
+<div class="fragment">
+<p>X position<br />
+<em>Country (category)</em></p>
+</div><div class="fragment">
+<p>Y position<br />
+<em>CO2 (quantitative)</em></p>
+</div><div class="fragment">
+<p>Bar color / offset
+<em>Year (category)</em></p>
+</div>
+</section>
+<section class="part">
+<h1><strong>Part III</strong>: Perception properties</h1>
+</section>
+<section >
+<h1><strong>Perception</strong>: How to use color</h1>
+<p><strong>Can encode categories and magnitudes</strong></p>
+<img src="images/dataviz/hsl.png" class="nb" style="height:200px;margin:-10px 0px 10px 20px"/>
+<div class="fragment">
+<p><strong>How to use it correctly</strong></p>
+<ul>
+<li>Choose <strong>distinguishable</strong> categorical colors</li>
+<li>Use linear scale that is perceived <strong>linearly</strong></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/dataviz/colourblind.jpg" class="nb" style="width:730px;float:left;" />
+<p><em><br />Choose<br/> colors that colorblind people can distinguish!</em></p>
+</section>
+<section >
+<img src="images/dataviz/luminance.png" class="nb" style="width:600px;float:left;" />
+<p><em>Use luminance scale that is perceived as linear!</em></p>
+<div style="clear:both;height:20px"></div>
+<img src="images/dataviz/rainbow.png" class="nb" style="width:600px;float:left" />
+<p><em>Rainbow can model magnitude (but not linear by default) or categories.</em></p>
+</section>
+<section >
+<h1><strong>Perception</strong>: Choosing channels</h1>
+<h3>Can we estimate relative values in charts?</h3>
+<ol>
+<li><em>Aligned on common scale</em></li>
+<li><em>Unaligned on common scale</em></li>
+<li><em>Length encoding </em></li>
+<li><em>Angles</em></li>
+<li><em>Circular areas</em></li>
+<li><em>Rectangular areas</em></li>
+</ol>
+</section>
+<section >
+<img src="images/dataviz/area.png" class="nb" style="width:700px;float:left;margin-right:20px" />
+<p><strong>Position</strong><br />
+<em>(+/- 2x)</em></p>
+<p><strong>Length</strong><br />
+<em>(+/- 3x)</em></p>
+<p><strong>Angles</strong><br />
+<em>(+/- 5x)</em></p>
+<p><strong>Areas</strong><br />
+<em>(+/- 6x)</em></p>
+</section>
+<section class="part">
+<h1><strong>Part IV</strong>: Task analysis</h1>
+</section>
+<section >
+<h1><strong>Systematic visualization</strong>: Task analysis</h1>
+<p><strong>Data analytical task (high-level)</strong></p>
+<p><em><i class="fa fa-eye"></i> Discover new hypothesis</em><br />
+<em><i class="fa fa-highlighter"></i> Present some discovery</em></p>
+<div class="fragment">
+<p><strong>Nature of search (mid-level)</strong></p>
+<p><em><i class="fa fa-crosshairs"></i> Lookup (know where) or locate (know what)</em><br />
+<em><i class="fa fa-arrows-alt"></i> Browse general area of interest</em></p>
+</div><div class="fragment">
+<p><strong>Querying of data points (low-level)</strong></p>
+<p><em><i class="fa fa-mouse-pointer"></i> Identify information about data point</em><br />
+<em><i class="fa fa-sliders-h"></i> Compare multiple data points</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>How to lie with charts</strong></h1>
+</section>
+<section >
+<h1>How to lie with charts</h1>
+<h3>Presenting correct data in misleading ways</h3>
+<p><em><i class="fa fa-chart-pie"></i> Poor choice of visual channels</em></p>
+<p><em><i class="fa fa-puzzle-piece"></i> Misusing our ability to spot patterns</em></p>
+<p><em><i class="fa fa-align-left"></i> Ignoring implicit channel properties</em></p>
+<p><em><i class="fa fa-ruler"></i> Misleading perception of scaling</em></p>
+</section>
+<section >
+<img src="images/dataviz/arms.png" style="width:700px;margin-right:30px;margin-left:20px" />
+<div class="fragment">
+<p><em>Area is harder to see than position</em></p>
+<p><em>Easy to confuse length (radius) and area</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/solar.png" class="nb" style="width:600px;float:left;margin-right:30px" />
+<div class="fragment">
+<p><em>Humans are too good at seeing patterns!</em></p>
+<p><em>Implied correlation with too few data points.</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/crop.png" class="nb" style="width:800px;margin-left:20pxmargin-right:30px" />
+<div class="fragment">
+<p><em>Value is position on common axis, not length!</em></p>
+<p><em>Position channel suggests zero as minimum.</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/barrel.png" class="nb" style="width:500px;float:left;margin-right:30px" />
+<div class="fragment" style="margin-top:40px">
+<p><strong>Value is length!</strong><br />
+<em>(height of the barrel)</em></p>
+<p><em>Perception of three-dimensional objects is misleading and difficult.</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Beyond static charts</strong></h1>
+</section>
+<section >
+<h1>Beyond static charts</h1>
+<h3>Animations and interactive charts</h3>
+<p><em><i class="fa fa-search"></i> Allow exploration of large data</em></p>
+<p><em><i class="fa fa-book-open"></i> Tell a story through data</em></p>
+<p><em><i class="fa fa-surprise"></i> Element of surprise in visualization</em></p>
+<p><em><i class="fa fa-brain"></i> Make the viewer think critically</em></p>
+</section>
+<section >
+<img src="images/dataviz/dashboard.png" class="nb" />
+</section>
+<section >
+<h1>Beyond static charts</h1>
+<p><strong>Visualization for data exploration</strong></p>
+<ul>
+<li><em>Designed for experts</em></li>
+<li><em>Viewer has motivation to explore</em></li>
+</ul>
+<p><strong>Visualization for data presentation</strong></p>
+<ul>
+<li><em>Readers do not interact with dashboards in NYT</em></li>
+<li><em>How to tell a story with data?</em></li>
+<li><em>Adapting standard reading metaphors</em></li>
+</ul>
+</section>
+<section >
+<img src="images/dataviz/spiral.gif" class="nb" style="width:550px;float:left;margin-right:60px" />
+<p>Animation makes the point stronger.</p>
+<div style="padding-top:20px">
+<p><em>Neat use of radial projection for circular value!</em></p>
+</div>
+</section>
+<section >
+<img src="images/dataviz/hajj.png" onclick="document.getElementById('hajj').src='images/dataviz/hajj.gif';" id="hajj" 
+  class="nb" style="width:680px;float:left;margin-right:30px;cursor:pointer;" />
+<p><strong>Scrollytelling</strong></p>
+<p><em>Adapts standard online reading interaction.</em></p>
+<br />
+<p><a href="http://www.nytimes.com/interactive/2016/09/06/world/middleeast/2015-hajj-stampede.html"><em>See article online at NYT</em></a></p>
+</section>
+<section >
+<img src="images/dataviz/youdraw.png" class="nb" style="width:680px;float:left;margin-right:30px" />
+<p><strong>You draw it!</strong></p>
+<p><em>Can data visualization make you think more critically?</em></p>
+<br />
+<p><a href="http://gamma.turing.ac.uk/expenditure/"><em>UK spending</em></a><br />
+<a href="https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html"><em>NYT article</em></a></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1><strong>Summary</strong>: Data visualizations</h1>
+<p><strong>What is data visualization?</strong></p>
+<p><em>Principled mapping of data variables to visual<br />
+features such as position, shape, size and color.</em></p>
+<h3>What we need to understand</h3>
+<ul>
+<li>Different types of data variables</li>
+<li>Visual features and possible mappings</li>
+<li>Limitations of human perception</li>
+</ul>
+</section>
+<section >
+<h1><strong>Summary</strong>: Data variables and visual channels</h1>
+<p><strong>Data variables</strong></p>
+<ul>
+<li>Categorical <em>(can distinguish between them)</em></li>
+<li>Ordinal <em>(can be ordered, but not measured)</em></li>
+<li>Quantitative <em>(sequential, diverging or cyclic)</em></li>
+</ul>
+<p><strong>Visual channels</strong></p>
+<ul>
+<li>Categorical <em>(color, shapes)</em></li>
+<li>Quantitative <em>(position, length, angle, area and color)</em></li>
+</ul>
+<p><strong>Remember error rates of visual channels!</strong></p>
+</section>
+<section >
+<h1>CO582: Data visualization</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Systematic approach to data visualization</li>
+<li>Mapping data variables to visual channels</li>
+<li>Relevant properties of human perception</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Related courses</strong></p>
+<ul>
+<li><a href="https://cmu-vis-course.github.io/2017/schedule/">Visualization in HCI course by Adam Perer</a></li>
+<li><a href="http://neildodgson.com/index.php/research-skills">Research Skills course by Neil Dodgson</a></li>
+</ul>
+<p><strong>Textbooks and papers</strong></p>
+<ul>
+<li><a href="https://proquest.safaribooksonline.com/9781466508910">Visualization Analysis and Design</a></li>
+<li><a href="http://cacm.acm.org/magazines/2010/6/92482-a-tour-through-the-visualization-zoo/pdf">A Tour Through the Visualization Zoo</a></li>
+</ul>
+<p><strong>Online links</strong></p>
+<ul>
+<li><a href="https://invizibility.github.io/blog/background/">Genomics Visualization - Aprameya Mysore</a></li>
+<li><a href="https://www.theguardian.com/politics/2017/jan/19/crisis-of-statistics-big-data-democracy">How statistics lost their power - The Guardian</a></li>
+<li><a href="https://www.seagate.com/files/www-content/our-story/trends/files/Seagate-WP-DataAge2025-March-2017.pdf">Data Age 2025 - Segate</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
