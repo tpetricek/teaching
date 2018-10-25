@@ -27,7 +27,7 @@
   font-weight:300;
   font-style:inherit;
 }
-.reveal h2, .reveal h3, .reveal p, .reveal ul, .reveal ol {
+.reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul, .reveal ol {
   font-family:Roboto; 
   width:calc(100%-40px);
   padding:0px 20px 0px 20px;
@@ -46,6 +46,11 @@
 .reveal h3 {
   font-size:36px;
   margin:60px 0px 30px 0px;
+  font-weight:700;
+}
+.reveal h4 {
+  font-size:36px;
+  margin:50px 0px -10px 0px;
   font-weight:700;
 }
 .reveal ul, .reveal ol {
