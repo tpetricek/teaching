@@ -14,6 +14,7 @@ University of Kent
 
  * [History and research paradigms](https://tpetricek.github.io/Teaching/human-computer-interaction/paradigms.html)
  * [Data visualization](https://tpetricek.github.io/Teaching/human-computer-interaction/dataviz.html)
+ * [Modles and theories](https://tpetricek.github.io/Teaching/human-computer-interaction/models.html)
 
 Materials license
 -----------------
