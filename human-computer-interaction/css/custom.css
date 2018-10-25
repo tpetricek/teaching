@@ -6,7 +6,6 @@
 .reveal section {
   text-align:left;
 }
-
 .reveal h1 {
   background:#09357B;
   font:22pt Domine;
@@ -17,7 +16,7 @@
   text-align:left;
   margin:0px 0px 30px 0px;
 }
-.reveal h1 strong {
+.reveal h1 strong, .reveal h2 strong {
   font-weight:normal;
   text-transform:uppercase;
 }
@@ -28,7 +27,7 @@
   font-weight:300;
   font-style:inherit;
 }
-.reveal h2, .reveal h3, .reveal p, .reveal ul, .reveal ol {
+.reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul, .reveal ol {
   font-family:Roboto; 
   width:calc(100%-40px);
   padding:0px 20px 0px 20px;
@@ -47,6 +46,11 @@
 .reveal h3 {
   font-size:36px;
   margin:60px 0px 30px 0px;
+  font-weight:700;
+}
+.reveal h4 {
+  font-size:36px;
+  margin:50px 0px -10px 0px;
   font-weight:700;
 }
 .reveal ul, .reveal ol {
@@ -76,12 +80,22 @@
 .reveal .controls .navigate-down.enabled {
   border-top-color:#9ca1bd;
 }
+.reveal blockquote {
+  border-style:none;
+  width:100%;
+  box-shadow:none;
+  margin-top:50px;
+}
+.reveal blockquote p {
+  font-size:32pt;
+}
 
 .klogo {
   position:absolute;
   right:10px;
   bottom:30px;
   width:140px;
+  z-index:1000;
 }
 .reveal img.nb {
   border-style:none;
