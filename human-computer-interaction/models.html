@@ -1,0 +1,548 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Models and theories</title>
+    <meta name="description" content="Human Computer Interaction: Models and theories">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Models and theories</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Models and theories</strong></h1>
+</section>
+<section >
+<h1>Models and theories</h1>
+<img src="images/models/model.png" style="float:right;max-width:230px" />
+<p><strong>How to design a user interaction?</strong></p>
+<ul>
+<li>Look for problems and try to fix them</li>
+<li>Try whatever comes to mind!</li>
+<li>Try whatever, but test it empirically</li>
+<li>Follow good intuitions of experts</li>
+</ul>
+<div class="fragment">
+<p><strong>How to do it more systematically?</strong></p>
+<ul>
+<li>Design a scientifically justified model</li>
+<li>Base decisions on the model</li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Models - what and why?</h1>
+<blockquote>
+<p>Model is a simplification of reality. It is useful<br />
+if it helps in designing, evaluating or otherwise<br />
+providing a basis for understanding the behavior<br />
+of a computer system.</p>
+</blockquote>
+</section>
+<section >
+<h1>A range of models</h1>
+<style>.reveal .mods td, .reveal .mods tr { text-align:center; border-style:none; vertical-align:middle; } </style>
+<table class="mods"><tr><td>
+<p><strong>Metaphor</strong><br />
+<em>is a lightweight model</em></p>
+</td><td>
+<p><strong>Formula</strong><br />
+<em>is a heavyweight model</em></p>
+</td></tr><tr>
+<td><img src="images/models/desktop.png" style="max-width:360px;margin-left:30px" class="nb"/></td>
+<td>
+<p><span class="math">\(ID=log_2(A/W+1)\)</span></p>
+<p><span class="math">\(MT=a+b\times ID\)</span></p>
+</td></tr></table>
+</section>
+<section >
+<h1>Different models have different aims</h1>
+<h3>Predictive models</h3>
+<p><em><i class="fa fa-clock"></i></em> Know performance a priori</p>
+<p><em><i class="fa fa-chart-line"></i></em> Make quantitative prediction</p>
+<h3>Descriptive models</h3>
+<p><em><i class="fa fa-brain"></i></em> Provide framework for thinking</p>
+<p><em><i class="fa fa-universal-access"></i></em> Raise important design issues</p>
+</section>
+<section >
+<h1>Models by level of description</h1>
+<style>.reveal .sticks img { max-height:200px; border-style:none; box-shadow:none; margin-right:100px; }
+.reveal .sticks td, .reveal .sticks tr { text-align:center; border-style:none; vertical-align:top; } </style>
+<table class="sticks"><tr>
+<td class="fragment">
+<p><strong>Perception</strong><br />
+<em>Colour</em><br />
+<em>Pattern recognition</em></p>
+</td>
+<td><img src="images/models/stick2.png" /></td>
+<td><img src="images/models/stick1.png" /></td>
+<td class="fragment">
+<p><strong>Motoric</strong><br />
+<em>Keyboard, mouse, touch</em></p>
+</td></tr><tr>
+<td class="fragment">
+<p><strong>Cognitive</strong><br />
+<em>Mental models of users</em></p>
+</td>
+<td><img src="images/models/stick3.png" /></td>
+<td><img src="images/models/stick4.png" /></td>
+<td class="fragment">
+<p><strong>Social</strong><br />
+<em>Distributed cognition</em></p>
+</td>
+</tr></table>
+</section>
+<section >
+<h1>Three examples</h1>
+<h4>❶ Motor model of bimanual skill</h4>
+<p><em>How to design interfaces for two hands</em></p>
+<h4>❷ Cognitive dimensions of notations</h4>
+<p><em>Comprehensive, high-level evaluation</em></p>
+<h4>❸ Distributed cognition model</h4>
+<p><em>Modelling systems with multiple participants</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Motor model of bimanual skill</strong></h1>
+</section>
+<section >
+<h1>Models of keyboard and mouse entry</h1>
+<div style="background:#d8d8d8;float:right;padding:10px;margin:30px 20px 0px 30px">
+<p><span class="math">\(ID=log_2(A/W+1)\)</span><br />
+<span class="math">\(MT=a+b\times ID\)</span></p>
+</div>
+<h3>Keystroke level model</h3>
+<p><em>Predictive model of hand moving towards a target</em></p>
+<div class="fragment">
+<img src="images/models/sem.png" style="max-width:500px;margin:-10px 0px 0px 40px;float:right;" class="nb"/>
+<h3>Key action model</h3>
+<p><em>Simple descriptive model of keyboard keys. Is this model correct?</em></p>
+</div>
+</section>
+<section >
+<img src="images/models/sketching.png" class="nb" style="max-width:500px;float:left;margin:20px 40px 0px 40px" />
+<div style="padding-top:30px">
+<p><strong>Two-handed interaction paradigm</strong></p>
+<p><em>Sketching using a curve drawing tool</em></p>
+</div>
+</section>
+<section >
+<h1>Bimanual control and desktop computing</h1>
+<p>Our hands have different roles &amp; perform different tasks</p>
+<table style="margin-left:-20px"><tr><td class="fragment" style="width:50%">
+<p><strong>Nonpreferred hand</strong></p>
+<ul>
+<li><em>Leads preferred hand</em></li>
+<li><em>Performs coarse movements</em></li>
+<li><em>Sets spatial frame of reference for the preferred hand</em></li>
+</ul>
+</td><td class="fragment" style="width:50%">
+<p><strong>Preferred hand</strong></p>
+<ul>
+<li><em>Follows non-preferred</em></li>
+<li><em>Performs fine movements</em></li>
+<li><em>Works within frame of reference established by preferred</em></li>
+</ul>
+</td></tr></table>
+</section>
+<section >
+<h1>Bimanual control and desktop computing</h1>
+<h3>What is this model good for?</h3>
+<p><em><i class="fa fa-stopwatch"></i></em> Evaluating design: <em>Will an operation be easy to do?</em></p>
+<p><em><i class="fa fa-pen-nib"></i></em> Informing design: <em>How to improve usability?</em></p>
+</section>
+<section >
+<h1>Evaluation using bimanual model of interaction</h1>
+<img src="images/models/kbdmouse.png" style="max-width:640px;margin-right:20px;float:left" class="nb"/>
+<div class="fragment">
+<p><strong>Delete a file</strong></p>
+<p>Left: <em>Move to a file icon &amp; select</em></p>
+<p>Right: <em>Press the DELETE key</em></p>
+</div>
+</section>
+<section >
+<h1>Learning from bimanual model of interaction</h1>
+<div class="fragment">
+<img src="images/models/scrolling.png" style="max-width:640px;margin-right:20px;float:left" class="nb"/>
+<p><strong>Scrolling panel</strong></p>
+<p><em>Use nonpreferred hand to set spatial frame of reference</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Cognitive dimensions of notations</strong></h1>
+</section>
+<section >
+<h1>Notations and human computer interaction</h1>
+<img src="images/models/rosetta.jpg" style="float:right;max-width:400px" class="nb"/>
+<p><strong>Notations used in computing</strong></p>
+<ul>
+<li>Programming languages</li>
+<li>Markup and config files</li>
+<li>Rule and macro editors</li>
+</ul>
+<div class="fragment">
+<p><strong>User experience questions</strong></p>
+<ul>
+<li>Does the notation structure support activities of the user?</li>
+<li>Is one notation the best?</li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<h3>Properties of the cognitive dimensions model</h3>
+<p><em><i class="fa fa-paint-brush"></i> Comprehensible broad-brush evaluation</em></p>
+<p><em><i class="fa fa-user"></i> Understandable for non-specialists</em></p>
+<p><em><i class="fa fa-shoe-prints"></i> Distinguish different user needs</em></p>
+<p><em><i class="fa fa-eye"></i> Prompt designers to see more choices</em></p>
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<img src="images/models/cogdim1.png" class="nb" style="max-width:800px" />
+</section>
+<section >
+<h1>Generic activities with different requirements</h1>
+<p><em><i class="fa fa-plus-circle"></i></em> Incrementation - <em>e.g. adding formulas to spreadsheet</em></p>
+<p><em><i class="fa fa-copy"></i></em> Transcription - <em>e.g. copying data from paper</em></p>
+<p><em><i class="fa fa-edit"></i></em> Modification - <em>e.g. changing formula in a spreadsheet</em></p>
+<p><em><i class="fa fa-certificate"></i></em> Exploratory design - <em>e.g. designing software structure</em></p>
+<p><em><i class="fa fa-search"></i></em> Searching - <em>e.g. finding uses of a function</em></p>
+<p><em><i class="fa fa-filter"></i></em> Exploratory understanding - <em>e.g. understanding code</em></p>
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<img src="images/models/cogdim1.png" class="nb" style="max-width:800px" />
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<img src="images/models/cogdim2.png" class="nb" style="max-width:800px" />
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<h3>Example cognitive dimensions (1/2)</h3>
+<p><em><i class="fa fa-ban"></i></em> Viscosity <em>- resistance to change</em></p>
+<p><em><i class="fa fa-eye"></i></em> Visibility <em>- ability to view components easily</em></p>
+<p><em><i class="fa fa-location-arrow"></i></em> Premature commitment <em>- constraints on work order</em></p>
+<p><em><i class="fa fa-archive"></i></em> Hidden dependencies <em>- important links not visible</em></p>
+<p><em><i class="fa fa-key"></i></em> Role-expressiveness <em>- purpose of an entity is clear</em></p>
+</section>
+<section >
+<h1>Cognitive dimensions of notations</h1>
+<h3>Example cognitive dimensions (2/2)</h3>
+<p><em><i class="fa fa-atom"></i></em> Error-proneness <em>- notation invites mistakes</em></p>
+<p><em><i class="fa fa-calculator"></i></em> Abstraction <em>- types and availability of mechanisms</em></p>
+<p><em><i class="fa fa-align-center"></i></em> Consistency <em>- similar syntax means similar semantics</em></p>
+<p><em><i class="fa fa-font"></i></em> Diffuseness <em>- verbosity of language</em></p>
+<p><em><i class="fa fa-lightbulb"></i></em> Hard mental operations <em>- high cognitive demand</em></p>
+</section>
+<section >
+<img src="images/models/proton.png" class="nb" style="float:left;max-width:700px;margin:20px 30px 0px 0px"/>
+<p><strong>Case study</strong></p>
+<p><em>Two ways of specifying email filters</em></p>
+<p>Visual rule editor <em>vs.</em>
+scripting language</p>
+</section>
+<section >
+<h2 style="text-align:center">Two ways of specifying email filters</h2>
+<p>
+<img src="images/models/filter1.png" style="max-width:40%; border-color:#9296cc" />
+<em style="display:inline-block;padding:35px;position:relative;top:-200px">vs.</em>
+<img src="images/models/filter2.png" style="max-width:40%; border-color:#9296cc" />
+</p>
+</section>
+<section >
+<img src="images/models/filter1.png" style="border-color:#9296cc;float:left;max-width:450px;margin:20px 30px 0px 0px"/>
+<p><strong>Incrementation</strong><br />
+Adding new condition</p>
+<div class="fragment" style="padding-top:30px">
+<p>Viscosity<br />
+<em>Not all additions possible</em></p>
+<p>Abstraction<br />
+<em>Condition format is fixed</em></p>
+<p>Hard mental operations
+<em>Everything is simple &amp; clear</em></p>
+</div>
+</section>
+<section >
+<img src="images/models/filter2.png" style="border-color:#9296cc;float:left;max-width:450px;margin:20px 30px 0px 0px"/>
+<p><strong>Incrementation</strong><br />
+Adding new condition</p>
+<div class="fragment" style="padding-top:30px">
+<p>Viscosity<br />
+<em>Edit text for any change</em></p>
+<p>Abstraction<br />
+<em>Possible via a script</em></p>
+<p>Hard mental operations
+<em>Understanding code is hard</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Case study</strong>: Two ways of specifying email filters</h1>
+<img src="images/models/cd.png" style="float:right;max-width:280px" class="nb" />
+<p><strong>Cognitive dimensions framework</strong></p>
+<ul>
+<li>Framework for evaluation</li>
+<li>Consider activities &amp; dimensions</li>
+<li>List of dimensions to consider</li>
+</ul>
+<div class="fragment">
+<p><strong>What is a better notation?</strong></p>
+<ul>
+<li>Wrong question: different trade-offs!</li>
+<li>UI is viscose, less abstract, but simpler</li>
+<li>Script has abstractions, less viscose, but harder</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Distributed cognition model</strong></h1>
+</section>
+<section >
+<img src="images/models/dcog1.png" class="nb" style="max-width:600px;float:left;margin:10px 30px 0px 0px" />
+<p><strong>Analysing typical work situation</strong></p>
+<p><em>Multiple people, interacting with multiple computer systems</em></p>
+</section>
+<section >
+<img src="images/models/dcog2.png" class="nb" style="max-width:600px;float:left;margin:10px 30px 0px 0px" />
+<p><strong>Analysing typical work situation</strong></p>
+<p><em>Multiple people, interacting with multiple computer systems</em></p>
+<p><em>Distributed information processing system</em></p>
+</section>
+<section >
+<h1>Distributed cognition model</h1>
+<img src="images/models/dcog2.png" class="nb" style="float:right;max-width:280px" />
+<p><strong>Properties of the model</strong></p>
+<ul>
+<li>How humans &amp; systems interact</li>
+<li>Extend the scope of UX research</li>
+<li>Most of work is teamwork</li>
+</ul>
+<div class="fragment">
+<p><strong>Mission-critical systems</strong></p>
+<ul>
+<li>Air traffic control, ship navigation</li>
+<li>Hospital working with medical records</li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Distributed cognition model</h1>
+<h3>Principles of distributed cognition model</h3>
+<p><em><i class="fa fa-brain"></i></em> Traditional cognitive science model</p>
+<p><em><i class="fa fa-cogs"></i></em>  Uses the information processing metaphor</p>
+<p><em><i class="fa fa-robot"></i></em> Same model for a machine and a user</p>
+<p><em><i class="fa fa-file"></i></em> Information representation and exchange is the key</p>
+</section>
+<section >
+<h2>Study of work in a hospital radiology unit</h2>
+<img src="images/models/xray.jpg" style="float:left;margin:0px 40px 0px 0px"/>
+<div style="padding-top:5px">
+<p>Mobile unit<br />
+<em>Radiology unit working within a large hospital,
+processing examination requests from other doctors</em></p>
+</div><div class="fragment" style="padding-top:10px">
+<p>How does it work?<br />
+<em>What are important practices?</em><br />
+<em>Can computer system help?</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Case study</strong>: Hospital radiology unit</h1>
+<p><strong>Request Form (RF)</strong></p>
+<ol>
+<li>Conveys request for patient examination</li>
+<li>Provide information about patient to radiographer</li>
+<li>Retains results of examination</li>
+</ol>
+<div class="fragment">
+<p><strong>Radiology unit practice</strong></p>
+<ol>
+<li>Requests with background info received by phone</li>
+<li>Also needs information on location of equipment!</li>
+<li>Examination results stored in computer system</li>
+<li>'Request Form' is used as a check</li>
+</ol>
+</div>
+</section>
+<section >
+<h1><strong>Case study</strong>: Hospital radiology unit</h1>
+<h3>Surprising points we learned</h3>
+<p><em><i class="fa fa-clock"></i></em> Information about request comes before patient</p>
+<p><em><i class="fa fa-unlink"></i></em> Request not linked to patient details</p>
+<p><em><i class="fa fa-h-square"></i></em> Request form is token for examination</p>
+<p><em><i class="fa fa-desktop"></i></em> Computer system only at the end of examination</p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Models by level of description</h1>
+<style>.reveal .sticks2 img { max-height:200px; border-style:none; box-shadow:none; } 
+.reveal .sticks2 { margin-left:-10px;}
+.reveal .sticks2 td p { margin:0px; padding:0px; } .reveal .sticks2 td { text-align:center; border-style:none; vertical-align:top; }</style>
+<table class="sticks2"><tr>
+<td>
+<p><strong>Perception</strong><br />
+<em>Color &amp; vision</em></p>
+</td>
+<td>
+<p><strong>Motor</strong><br />
+<em>Touch etc.</em></p>
+</td>
+<td>
+<p><strong>Cognitive</strong><br />
+<em>Mental model</em></p>
+</td>
+<td>
+<p><strong>Distributed</strong><br />
+<em>Teamwork</em></p>
+</td>
+</tr><tr>
+<td align="center"><img src="images/models/stick2.png" /></td>
+<td align="center"><img src="images/models/stick1.png" /></td>
+<td align="center"><img src="images/models/stick3.png" /></td>
+<td align="center"><img src="images/models/stick4.png" /></td>
+</tr></table>
+</section>
+<section >
+<h1>Examples of models we discussed</h1>
+<p><strong>Motor model of bimanual skill</strong><br />
+<em>Roles of preferred and non-preferred hands</em><br />
+<em>How to evaluate and improve interactions</em></p>
+<p><strong>Cognitive dimensions of notations</strong><br />
+<em>Activities and cognitive dimensions</em><br />
+<em>Evaluating two ways of specifying mail filters</em></p>
+<p><strong>Distributed cognition model</strong><br />
+<em>Distributed information processing</em><br />
+<em>Understanding radiology unit</em></p>
+</section>
+<section >
+<h1>CO582: Models and theories</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Recognize predictive and descriptive models</li>
+<li>Metaphors, formulas &amp; information processing models</li>
+<li>Motor, cognitive and distributed models</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<h3>Books</h3>
+<ul>
+<li>
+<a href="https://www.elsevier.com/books/hci-models-theories-and-frameworks/carroll/978-1-55860-808-5">HCI Models, Theories and Frameworks</a>, ed. J. Carroll <br />
+<em>Chapter 3 (Motor behavior), Chapter 5 (Cognitive dimensions), Chapter 8 (Distributed cognition)</em>
+</li>
+</ul>
+<h3>Papers</h3>
+<ul>
+<li><a href="http://www.dourish.com/classes/ics234bs03/14-RogersEllis-DistCog.pdf">Distributed Cognition: an alternative framework for analysing and explaining collaborative working</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
