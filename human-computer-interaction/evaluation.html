@@ -1,0 +1,584 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Evaluation</title>
+    <meta name="description" content="Human Computer Interaction: Evaluation">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Evaluation</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Evaluation in context</strong></h1>
+<style>
+.reveal .prettybox td { border-style:none; padding:20px; }
+.reveal .prettybox td div { background:#09357B; padding:20px }
+.reveal .prettybox td div.sel { background:#688ECC; }
+.reveal .prettybox td div p { text-align:center; font:22pt Domine; color:white; }
+</style>
+</section>
+<section >
+<table class="prettybox">
+<tr><td><div><p>1. Usability</p></div></td><td><div><p>2. Accessibility</p></div></td></tr>
+<tr><td><div><p>3. Operations</p></div></td><td><div><p>4. Ethics</p></div></td></tr>
+</table>
+</section>
+<section >
+<table class="prettybox">
+<tr><td><div class="sel"><p>1. Usability</p></div></td><td><div><p>2. Accessibility</p></div></td></tr>
+<tr><td><div><p>3. Operations</p></div></td><td><div><p>4. Ethics</p></div></td></tr>
+</table>
+</section>
+<section >
+<img src="images/evaluation/onoff.png" class="nb" style="max-width:550px;float:left;margin:20px 40px 0px 40px" />
+<div style="padding-top:10px" class="fragment">
+<p><strong>Does the user interface work?</strong></p>
+<p><em>Can users enable cookies they want?</em></p>
+</div>
+</section>
+<section >
+<h1>Evaluating user experience</h1>
+<h3>What can we evaluate about user experience?</h3>
+<p><em><i class="fa fa-wheelchair"></i> Are there any usability issues?</em></p>
+<p><em><i class="fa fa-stopwatch"></i> Are users more efficient with a new product?</em></p>
+<p><em><i class="fa fa-brain"></i> Does a design encourage new way of thinking?</em></p>
+<div class="fragment" style="padding-top:20px">
+<p><em><i class="fa fa-hand-point-right"></i></em> <strong>How do we know that what we've done works?</strong></p>
+</div>
+</section>
+<section >
+<table class="prettybox">
+<tr><td><div><p>1. Usability</p></div></td><td><div class="sel"><p>2. Accessibility</p></div></td></tr>
+<tr><td><div><p>3. Operations</p></div></td><td><div><p>4. Ethics</p></div></td></tr>
+</table>
+</section>
+<section >
+<img src="images/evaluation/govuk.png" class="nb fragment" style="max-width:600px;float:left;margin:20px 40px 0px 40px" />
+<div style="padding-top:10px">
+<p><strong>Taking accessibility seriously</strong></p>
+<p><em>What if you need to develop a web that works for everyone?</em></p>
+</div>
+</section>
+<section >
+<h1>Accessibility needs for government web sites</h1>
+<p><strong>Partial list from government accessibility site</strong></p>
+<ol>
+<li>I am colorblind and cannot perceive some colors</li>
+<li>I have low vision and need big font in my browser</li>
+<li>I am blind and use a screenreader</li>
+<li>I am deafblind and use a braille device</li>
+<li>Mild motor impairment so struggle to use a mouse</li>
+<li>Severe motor impairment and use voice control</li>
+<li>Autistic spectrum &amp; have a literal understanding of text</li>
+<li>Epilepsy seizures can be triggered by flashing content</li>
+</ol>
+</section>
+<section >
+<table class="prettybox">
+<tr><td><div><p>1. Usability</p></div></td><td><div><p>2. Accessibility</p></div></td></tr>
+<tr><td><div class="sel"><p>3. Operations</p></div></td><td><div><p>4. Ethics</p></div></td></tr>
+</table>
+</section>
+<section >
+<h1>Can results of evaluation lead to a change?</h1>
+<div class="fragment" style="padding-top:10px">
+<p><em><i class="fa fa-square"></i></em> Framing <em>- what we consider and what we ignore</em></p>
+<p><em><i class="fa fa-code-branch"></i></em> Alternatives <em>- what decisions can you make?</em></p>
+<p><em><i class="fa fa-magic"></i></em> Uncertainties <em>- could the outcome be by accident?</em></p>
+<p><em><i class="fa fa-yen-sign"></i></em> Value <em>- how do you evaluate outcomes?</em></p>
+<p><em><i class="fa fa-directions"></i></em> Decision maker <em>- need one person to decide</em></p>
+<p><em><i class="fa fa-gavel"></i></em> Commitment to action <em>- will we actually do it?</em></p>
+</div>
+</section>
+<section >
+<table class="prettybox">
+<tr><td><div><p>1. Usability</p></div></td><td><div><p>2. Accessibility</p></div></td></tr>
+<tr><td><div><p>3. Operations</p></div></td><td><div class="sel"><p>4. Ethics</p></div></td></tr>
+</table>
+</section>
+<section >
+<img src="images/evaluation/fb.png" class="nb" style="max-width:580px;float:left;margin:20px 40px 0px 40px" />
+<div style="padding-top:10px">
+<p><strong>Should we run all experiments?</strong></p>
+<p><em>But we're just evaluating two versions of an algorithm!</em></p>
+</div>
+</section>
+<section >
+<h1>Ethical issues of evaluation</h1>
+<img src="images/evaluation/fbcontrol.png" class="nb" style="float:right;max-width:200px" />
+<p><strong>Studies directly involving users</strong></p>
+<ul>
+<li>Always requires informed consent</li>
+<li>Consider the risk of intervention</li>
+<li>Explain the purpose of the research</li>
+</ul>
+<div class="fragment">
+<p><strong>Analytics and remote testing</strong></p>
+<ul>
+<li>Facebook terms and conditions allow that</li>
+<li>GDPR lets you get all data about yourself</li>
+<li>Aggregated tracking vs. manipulation</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>From data to conclusions</strong></h1>
+</section>
+<section >
+<h1>Data, information and conclusions</h1>
+<p><strong>Data is what we collect</strong><br />
+<em>Usage statistics, survey data, performance</em><br />
+<em>For example, visited pages on a web site</em></p>
+<p><strong>Information is what we get by analysis</strong><br />
+<em>What groups of users follow what paths</em><br />
+<em>Say, phone users never reach a certain page</em></p>
+<p><strong>Conclusions is what we decide to do</strong><br />
+<em>Interpretation of reasons behind information</em><br />
+<em>For example, make a prominent navigation link!</em></p>
+</section>
+<section >
+<h1>Gathering data</h1>
+<p><strong>Data can range from numbers to written reports</strong></p>
+<p><em><i class="fa fa-microphone"></i></em> Interviews <em>(structured, semi-structured or open)</em></p>
+<p><em><i class="fa fa-check-square"></i></em> Questionnaires <em>(offline or online)</em></p>
+<p><em><i class="fa fa-eye"></i></em> Observation <em>(in the lab or in the wild)</em></p>
+<p><em><i class="fa fa-list-ol"></i></em> Logging <em>(usage data about computer system)</em></p>
+</section>
+<section >
+<h1>Analysing data</h1>
+<img src="images/evaluation/qual.jpg" style="float:right;width:370px" />
+<p><strong>Qualitative data analysis</strong></p>
+<ul>
+<li>Nature of something</li>
+<li>Themes, patterns, stories</li>
+<li>Imprecise, but wide scope</li>
+</ul>
+<div class="fragment">
+<p><strong>Quantitative data analysis</strong></p>
+<ul>
+<li>Numerical methods to ascertain size or scale</li>
+<li>Average values, time spent completing a task</li>
+<li>Precise information about narrow domain</li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Theoretical frameworks for analysis</h1>
+<img src="images/evaluation/qual2.jpg" style="float:right;width:370px" />
+<p><strong>Qualitative data analysis</strong></p>
+<ul>
+<li>Distributed cognition models</li>
+<li>Critical incident analysis</li>
+<li>Categorization by two markers</li>
+</ul>
+<div class="fragment">
+<p><strong>Quantitative data analysis</strong></p>
+<ul>
+<li>Statistical analysis of significance</li>
+<li>GOMS: Goals, Operators, Methods, Selection</li>
+<li>Predictive models of user actions</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Evaluation in controlled setting</strong></h1>
+</section>
+<section >
+<h1>Evaluation in controlled setting</h1>
+<img src="images/evaluation/billenglish.jpg" style="float:right;max-width:350px" />
+<p><strong>Testing a hypothesis</strong></p>
+<ul>
+<li>Users can complete a given task</li>
+<li>Efficiently or without errors</li>
+<li>One method is better than other</li>
+</ul>
+<p><strong>Producing reproducible results</strong></p>
+<ul>
+<li>Experimental setup</li>
+<li>Control all other variables</li>
+<li>Statistical analysis (p-value)</li>
+</ul>
+</section>
+<section >
+<img src="images/evaluation/tank.jpg" style="max-height:300px;margin-left:20px" />
+<img src="images/evaluation/path.jpg" style="max-height:300px;margin-left:20px" />
+<p><strong>Detecting a tank using neural networks</strong></p>
+<div class="fragment">
+<p><em>Tank photos on sunny day, other photos rainy</em></p>
+</div>
+</section>
+<section >
+<h1>Experimental setup</h1>
+<h3>What to test and how to test</h3>
+<p><em><i class="fa fa-exclamation-circle"></i> Time to completion, number or scale of errors</em></p>
+<p><em><i class="fa fa-newspaper"></i> Recall of presented information</em></p>
+<p><em><i class="fa fa-vials"></i> Labs for fully controlled environment</em></p>
+<p><em><i class="fa fa-robot"></i> Amazon Mechanical Turk for online studies</em></p>
+</section>
+<section >
+<img src="images/evaluation/bing.png" style="max-width:550px;float:left;margin:60px 40px 50px 0px" />
+<p><strong>Making sense of numbers</strong></p>
+<p><em>What information people know?</em></p>
+<p><em>What is a good analogy?</em></p>
+<p><em>Does analogy help later recall?</em></p>
+</section>
+<section >
+<h1>To put that in perspective (Riederer et al., 2018)</h1>
+<h3>Finding and evaluating good analogies</h3>
+<p><em><i class="fa fa-robot"></i> About 350 Amazon MTurk workers</em></p>
+<p><em><i class="fa fa-globe-americas"></i></em> <strong>E1:</strong> <em>Compare different multipliers and states</em></p>
+<p><em><i class="fa fa-clipboard"></i></em> <strong>E2:</strong> <em>Is best numerical fit or home state better?</em></p>
+<p><em><i class="fa fa-calendar-alt"></i></em> <strong>E3:</strong> <em>Repeat after 6 weeks without perspective</em></p>
+</section>
+<section >
+<img src="images/evaluation/dataviz1.png" style="max-width:310px; margin-bottom:10px" class="nb" />
+<img src="images/evaluation/dataviz2.png" style="max-width:310px; margin-bottom:10px" class="nb" />
+<img src="images/evaluation/dataviz3.png" style="max-width:310px; margin-bottom:10px" class="nb" />
+<p><strong>Does interactivity make you think?</strong></p>
+<p><a href="https://dataviz-study.azurewebsites.net/demo/step1">https://dataviz-study.azurewebsites.net/demo/step1</a></p>
+<p><em>Test recall of numerical values from a newspaper article</em></p>
+<p><em>Interactive, static and text-only versions</em></p>
+</section>
+<section >
+<h1>Statistical analysis of results</h1>
+<img src="images/evaluation/usexp1.png" style="max-width:450px; margin-bottom:10px;margin-right:20px" class="nb" />
+<img src="images/evaluation/usexp2.png" style="max-width:450px; margin-bottom:10px;margin-right:20px" class="nb" />
+<p><em>"The article listed top 5 categories of products (...).<br />
+The two largest categories accounted for roughly<br />
+the same amount of total exports. Please select<br />
+the two top categories."</em></p>
+</section>
+<section >
+<h1>Statistical analysis of results</h1>
+<table>
+<thead>
+  <tr><th style="width:250px">Group</th>
+  <th style="width:130px">Both</th>
+  <th style="width:130px">Mach</th>
+  <th style="width:130px">Trans</th>
+  <th style="width:130px">None</th></tr>
+</thead><tbody>
+  <tr><td>Interactive</td><td>20</td><td>9</td><td>1</td><td>1</td></tr>
+  <tr><td>Static chart</td><td>17</td><td>14</td><td>1</td><td>0</td></tr>
+  <tr><td>Text only</td><td>11</td><td>19</td><td>4</td><td>0</td></tr>
+</tbody>
+</table>
+<br />
+<p><strong>Is the interactive version significantly better?</strong></p>
+</section>
+<section >
+<h1>Statistical analysis of results</h1>
+<p><em>The</em> <strong>p-value</strong> <em>is the probability of finding the observed, or more extreme, results when the null hypothesis of a study question is true.</em></p>
+<p><em>A small p-value (<span class="math">\(\leq\)</span> 0.05) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.</em></p>
+<div style="padding-top:10px">
+<p><em>See also: <a href="https://en.wikipedia.org/wiki/Analysis%20of%20variance">Analysis of variance (ANOVA)</a>, <a href="https://en.wikipedia.org/wiki/Chi-squared%20test">Chi-squared test</a></em></p>
+</p>
+</section>
+<section >
+<img src="images/evaluation/bmj.png" style="float:left;max-width:640px;margin-right:30px"/>
+<p>Taking evaluation seriously</p>
+<p><em>Medical registered randomized control trials</em></p>
+</section>
+<section >
+<h1>Medical studies</h1>
+<h3>How (not) to prove what you want to prove</h3>
+<p><em><i class="fa fa-user-friends"></i> Compare against control group with placebo</em></p>
+<p><em><i class="fa fa-dice"></i> Assign participants randomly to groups</em></p>
+<p><em><i class="fa fa-table"></i> Use consistent categorization of effects</em></p>
+<p><em><i class="fa fa-archive"></i> Register study protocol in advance</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Evaluation in natural setting</strong></h1>
+</section>
+<section >
+<h1>Evaluation in natural setting</h1>
+<img src="images/evaluation/excel.jpg" style="float:right;max-width:350px" />
+<p><strong>What is the purpose?</strong></p>
+<ul>
+<li>Identify new technology needs</li>
+<li>Understand requirements</li>
+<li>Inform development</li>
+</ul>
+<p><strong>Study methodology</strong></p>
+<ul>
+<li>Observation in the field</li>
+<li>Ethnography studies</li>
+<li>Participatory design</li>
+</ul>
+</section>
+<section >
+<h1>Frameworks for observation in the field</h1>
+<p><strong>Giving observation more structure</strong></p>
+<ol>
+<li>Space - <em>What is the physical space?</em></li>
+<li>Actors - <em>Who is involved?</em></li>
+<li>Activities - <em>What is who doing and why?</em></li>
+<li>Objects - <em>What things are present?</em></li>
+<li>Acts - <em>What are individual actions?</em></li>
+<li>Events - <em>Is it part of an event?</em></li>
+<li>Time - <em>What is the sequence of acts?</em></li>
+<li>Goals - <em>Why is this happening?</em></li>
+<li>Feelings - <em>What is the mood?</em></li>
+</ol>
+</section>
+<section >
+<img src="images/evaluation/excel.png" class="nb" style="max-width:500px;float:left;margin:20px 60px 0px 40px" />
+<p>How do people<br />
+learn advanced<br />
+Excel features?</p>
+<p><em>Observe users<br />
+during their work</em></p>
+<p><em>Ask follow-up interview questions to clarify</em></p>
+</section>
+<section >
+<h1>Evaluation in natural settings</h1>
+<h3>Studying usage in the wild</h3>
+<p><em><i class="fa fa-camera"></i> Real-world use of an early prototype</em></p>
+<p><em><i class="fa fa-edit"></i> Collect quantitative and qualitative data</em></p>
+<p><em><i class="fa fa-folder"></i> Theoretical frameworks to guide the study</em></p>
+<p><em><i class="fa fa-volume-up"></i> Think-aloud, diaries, logs and analytics</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Evaluation with indirect user involvement</strong></h1>
+</section>
+<section >
+<h1>Evaluation with indirect user involvement</h1>
+<img src="images/evaluation/radar.jpg" style="float:right;max-width:350px" />
+<p><strong>Evaluation without participants</strong></p>
+<ul>
+<li>Easy and inexpensive setup</li>
+<li>Social media, web analytics</li>
+<li>Should you tell the users?</li>
+</ul>
+<p><strong>Experimental methods</strong></p>
+<ul>
+<li>Expert evaluation of the system</li>
+<li>Collecting actual usage data</li>
+<li>A/B testing to compare variants</li>
+</ul>
+</section>
+<section >
+<h1>Expert evaluation without users</h1>
+<h3>Heuristic evaluation and walkthroughs</h3>
+<p><em><i class="fa fa-cut"></i> Can be used with early prototypes</em></p>
+<p><em><i class="fa fa-list-ol"></i> Heuristic evaluation using 10 rules</em></p>
+<p><em><i class="fa fa-walking"></i> Simulating user's problem solving process</em></p>
+<p><em><i class="fa fa-chart-pie"></i> Five evaluators find 75% of problems</em></p>
+<p><em><i class="fa fa-file-image"></i> Different rules for different products</em></p>
+</section>
+<section >
+<img src="images/evaluation/ga.png" class="nb" style="max-width:650px;float:left;margin:20px 40px 0px 40px" />
+<p><strong>Web page analytics</strong></p>
+<p><em>Statistics on visitors and page views</em></p>
+<p><em>Where they come from, how they behave?</em></p>
+</section>
+<section >
+<h1>Web page analytics</h1>
+<h3>What can you find on Google Analytics?</h3>
+<p><em><i class="fa fa-chart-bar"></i> Pages with the largest number of views</em></p>
+<p><em><i class="fa fa-mobile-alt"></i> Language, country and device used</em></p>
+<p><em><i class="fa fa-book-open"></i> Number of visitors, visits and views</em></p>
+<p><em><i class="fa fa-search"></i> Traffic sources and search keywords</em></p>
+</section>
+<section >
+<img src="images/evaluation/abtest.png" class="nba" style="max-width:650px;float:left;margin:20px 40px 0px 0px" />
+<p><strong>A/B testing</strong></p>
+<p><em>What version is more effective?</em></p>
+</section>
+<section >
+<h1>A/B testing</h1>
+<h3>Evaluating variations of a product in use</h3>
+<p><em><i class="fa fa-search"></i> Google in 2001: How many results to show? </em></p>
+<p><em><i class="fa fa-mouse-pointer"></i> Measure clicks, purchases or likes</em></p>
+<p><em><i class="fa fa-users"></i> Needs a product you can change and users</em></p>
+<p><em><i class="fa fa-pencil-alt"></i> Statistical analysis of significance</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>When to evaluate</strong></h1>
+</section>
+<section >
+<h1>What, where and when of evaluation</h1>
+<p><strong>What to evaluate</strong><br />
+Lo-fi prototype - <em>limited, but easy to do early</em><br />
+Running software - <em>need to write it first, but realistic</em></p>
+<div class="fragment">
+<p><strong>Where to evaluate</strong><br />
+In a lab - <em>controlled, but may not be relevant</em><br />
+In the wild - <em>less precise, but may say useful things</em></p>
+</div><div class="fragment">
+<p><strong>When to evaluate</strong><br />
+Early in the process - <em>get feedback for development</em><br />
+Finished product - <em>assess the quality of the work</em></p>
+</div>
+</section>
+<section >
+<h1>When not to use evaluation?</h1>
+<br />
+<img src="images/evaluation/horse.jpg" style="float:right;max-width:330px;margin:0px 0px 0px 70px" class="nb" />
+<p style="font-weight:300;font-style:italic;margin-top:0px">If I had asked people what they wanted, they would have said faster horses.</p>
+<p style="font-weight:300;font-style:italic;text-align:right;margin-top:50px">(Incorrectly attributed<br/> to Henry Ford)</p>
+</section>
+<section >
+<h1>When not to use evaluation?</h1>
+<h3>Limitations of evaluation methods</h3>
+<p><em><i class="fa fa-image"></i> You can test only what you can imagine</em></p>
+<p><em><i class="fa fa-book"></i> Users are talking in well understood terms</em></p>
+<p><em><i class="fa fa-balance-scale"></i> Quantitative can only help you choose</em></p>
+<p><em><i class="fa fa-lightbulb"></i> Can make it hard to see new ideas</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Different kinds of evaluation</h1>
+<p><strong>Evaluation in controlled setting</strong><br />
+Precise answers to narrow questions<br />
+Test usability, compare methods</p>
+<p><strong>Evaluation in natural setting</strong><br />
+Broad answers to interesting questions<br />
+How people really use your product</p>
+<p><strong>Evaluation without direct participants</strong><br />
+Less expensive, but limited questions<br />
+Expert analysis or data collection</p>
+</section>
+<section >
+<h1>CO582: Evaluation</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Accessibility, ethics and operation</li>
+<li>Kinds of evaluation and their limits</li>
+<li>Design lab experiment or an A/B test</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Books</strong></p>
+<ul>
+<li>
+<a href="https://www.elsevier.com/books/hci-models-theories-and-frameworks/carroll/978-1-55860-808-5">HCI Models, Theories and Frameworks</a>, ed. J. Carroll <br />
+<em>Chapter 7,8 (Data analysis), Chapter 13-15 (Evaluation)</em>
+</li>
+</ul>
+<p><strong>Papers and links</strong></p>
+<ul>
+<li><p><a href="http://jakehofman.com/inprint/best_perspective_chi2018.pdf">To Put That in Perspective: Generating Analogies That Make Numbers Easier to Understand</a></p></li>
+<li><p><a href="https://www.bmj.com/content/351/bmj.h4320">Restoring Study 329: efficacy and harms of paroxetine and imipramine in treatment of major depression in adolescence</a></p></li>
+<li>
+<p><a href="https://accessibility.blog.gov.uk/2016/05/16/consider-the-range-of-people-that-will-use-your-product-or-service/">Consider the range of people that<br />
+will use your product or service</a></p>
+</li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
