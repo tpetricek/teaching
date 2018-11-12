@@ -23,5 +23,6 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 1. [History and research paradigms](paradigms.html)
 2. [Data visualization](dataviz.html)
-2. [Evaluation](evaluation.html)
-2. [Models and theories](models.html)
+3. [Evaluation](evaluation.html)
+4. [Metaphors](metaphors.html)
+5. [Models and theories](models.html)
