@@ -1,0 +1,499 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Evaluation</title>
+    <meta name="description" content="Human Computer Interaction: Evaluation">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Errors</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Human and computer errors</strong></h1>
+</section>
+<section >
+<h1><strong>Human error</strong> (Reason, 1990)</h1>
+<h4>Error-free performance</h4>
+<p><em>The odds against error-free performance are high.<br />
+There is one way of performing a task correctly, but<br />
+each step provides a multitude of inappropriate pathways.</em></p>
+<div class="fragment">
+<h4>Forms of errors</h4>
+<p><em>The reality is different. Not only are errors rarer than correct actions,
+they also take a limited number of forms.</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Computer error</strong> (Ensmenger, 2010)</h1>
+<img src="images/errors/y2k.jpg" class="nb" style="float:right;max-width:280px;margin-left:20px" />
+<p><em>By the end of 1960s managers, academics and governments were talking of a crisis.
+In the next several decades, they released warnings about the desperate state of the software industry with ritualistic regularity.</em></p>
+<div class="fragment" style="padding-top:20px">
+<p>How can we explain the perpetual crisis
+in one of the most successful and
+profitable industries of all time?</p>
+</div>
+</section>
+<section >
+<img src="images/errors/noproof.png" class="nb" style="margin-top:50px" />
+</section>
+<section >
+<h1>How often do computers kill people?</h1>
+<h3>Mechanizing Proof (MacKenzie, 2001)</h3>
+<p><em><i class="fa fa-skull"></i> Collected around 1,100 deaths</em></p>
+<p><em><i class="fa fa-keyboard"></i> 90% caused by faulty human-computer interaction </em></p>
+<p><em><i class="fa fa-magnet"></i> 4% caused by physical faults (interference)</em></p>
+<p><em><i class="fa fa-bug"></i> 3% caused by software bugs (mostly Patriot missile)</em></p>
+<p><em><i class="fa fa-desktop"></i> Poor interfaces and organizational failings</em></p>
+</section>
+<section >
+<h1>Faulty human-computer interaction</h1>
+<blockquote>
+<p>Human error usually is a result of poor design.
+Human err continually; it is an intrinsic part<br />
+of our nature. System design should take this<br />
+into account.</p>
+<p style="text-align:right;width:95%;margin-top:-10px;">(Norman, 1988)</p>
+</blockquote>
+</section>
+<section >
+<h1>How and why of error research</h1>
+<img src="images/errors/airplane.jpg" class="nb" style="float:right;max-width:280px;margin-left:20px" />
+<p><strong>Why we need to understand errors</strong></p>
+<ul>
+<li>Design resilient systems</li>
+<li>Criminal responsibility implications</li>
+<li>Teach us how cognition works</li>
+</ul>
+<div class="fragment">
+<p><strong>How to learn from errors</strong></p>
+<ul>
+<li>"Human error" does not tell us much</li>
+<li>Detailed analysis of root causes</li>
+<li>Computing can learn from aviation!</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Classifying human errors</strong></h1>
+</section>
+<section >
+<img src="images/errors/process.png" style="max-width:650px;float:left;margin-right:60px" class="nb" />
+<p>Each step provides a multitude of inappropriate pathways</p>
+</section>
+<section >
+<h1>Many kinds of errors</h1>
+<img src="images/errors/overload.jpg" class="nb" style="float:right;max-width:400px" />
+<p><strong>When error occurs</strong></p>
+<ul>
+<li>Perceptual errors</li>
+<li>Cognitive errors</li>
+<li>Motor errors</li>
+</ul>
+<p><strong>How error occurs</strong></p>
+<ul>
+<li>Was the action planned?</li>
+<li>What caused the error?</li>
+<li>Mistakes, failures, slips and lapses</li>
+</ul>
+</section>
+<section >
+<h1>Perceptual, cognitive and motor errors</h1>
+<p><strong>Perceptual error</strong><br />
+Misleading clues or sensory overload<br />
+<em>Did not notice the batter indicator</em></p>
+<div class="fragment">
+<p><strong>Cognitive error</strong><br />
+High level memory or cognitive processes<br />
+<em>I remembered my password incorrectly</em></p>
+</div><div class="fragment">
+<p><strong>Motor error</strong><br />
+Unnatural, special or too similar motor movement<br />
+<em>I cannot touch the right virtual key on my phone</em></p>
+</div>
+</section>
+<section >
+<img src="images/errors/kinds.png" style="max-width:780px;float:left;" class="nb" />
+<p>James Reason (1990)</p>
+<p><em>Human Error</em></p>
+</section>
+<section >
+<h1>Four basic kinds of errors</h1>
+<p><strong><i class="fa fa-map"></i> Mistake</strong> - <em>Following a wrong plan</em><br />
+<em>Application of a bad rule or poor remembering</em></p>
+<p><strong><i class="fa fa-hand-spock"></i> Failure</strong> - <em>Good plan, but too hard</em><br />
+<em>Shooting all the monsters in a game</em></p>
+<p><strong><i class="fa fa-calculator"></i> Lapse</strong> - <em>Working memory failure</em><br />
+<em>I forgot what I was just doing</em></p>
+<p><strong><i class="fa fa-coffee"></i> Slip</strong> - <em>Failed execution</em><br />
+<em>Automatically getting off at your usual station</em></p>
+</section>
+<section >
+<img src="images/errors/rail.png" style="max-width:700px;margin-right:30px;float:left;" class="nb" />
+<p>What kind of error is this?</p>
+<p><em>Mistake, failure, lapse or slip?</em></p>
+</section>
+<section >
+<h1>Buying a wrong train ticket</h1>
+<img src="images/errors/cbw.jpg" style="max-width:300px;float:right;" class="nb" />
+<p><strong>Wrong ticket by mistake</strong></p>
+<ul>
+<li><em>Cannot figure out what to buy</em></li>
+<li><em>Have a rail card?</em></li>
+<li><em>When is super off peak?</em></li>
+</ul>
+<p><strong>Wrong ticket as a slip</strong></p>
+<ul>
+<li><em>I always buy one particular ticket</em></li>
+<li><em>Doing the same over weekend</em></li>
+<li><em>The bloody machine resets your options!</em></li>
+</ul>
+</section>
+<section >
+<h1>Buying a wrong train ticket</h1>
+<h3>Why are we classifying kinds of errors?</h3>
+<p><em><i class="fa fa-user-secret"></i></em> Novices make mistakes</p>
+<p><em><i class="fa fa-ticket-alt"></i> Do not understand how rail tickets work</em></p>
+<p><em><i class="fa fa-user-graduate"></i></em> Experts make slips</p>
+<p><em><i class="fa fa-mouse-pointer"></i> Accidentally click on a wrong button</em></p>
+</section>
+<section >
+<h1>Many kinds of slips and lapses</h1>
+<h3>Empirical clustering of common errors</h3>
+<ol>
+<li>Capture errors</li>
+<li>Description errors</li>
+<li>Data driven errors</li>
+<li>Associate activation</li>
+<li>Loss of activation</li>
+<li>Mode errors</li>
+</ol>
+</section>
+<section >
+<h1>Capture errors</h1>
+<img src="images/errors/jack.jpg" style="max-width:200px;margin-left:20px;float:right;" class="nb" />
+<p><strong>Capture error example</strong><br />
+<em>I was using a copying machine, and I was counting the pages. I found
+myself counting, "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King."<br />
+I had been playing cards recently.</em></p>
+<p><strong>How capture errors happen?</strong><br />
+<em>A more familiar sequence of action captures a less familiar sequence of actions</em></p>
+</section>
+<section >
+<h1>Description errors</h1>
+<img src="images/errors/cinnamon.jpg" style="max-width:400px;float:left;margin-right:50px" />
+<p><strong>Description error example</strong><br />
+<em>Correct action using a<br />
+similar but wrong object</em></p>
+<p><strong>How they happen?</strong><br />
+<em>Accidentally perform different action with similar description</em></p>
+</section>
+<section >
+<h1>Data-driven and associate errors</h1>
+<img src="images/errors/moodle.png" style="max-width:300px;margin-left:20px;float:right;" class="nb" />
+<p><strong>Data driven error</strong></p>
+<ul>
+<li>Sensory information intrudes</li>
+<li>Saying X because someone said it</li>
+</ul>
+<p><strong>Associate activation error</strong></p>
+<ul>
+<li>Internal thought intrudes</li>
+<li>Enter login for another system</li>
+<li>Dismiss an important message box</li>
+</ul>
+</section>
+<section >
+<h1>Loss of activation and mode errors</h1>
+<img src="images/errors/google.png" style="max-width:400px;margin-left:20px;float:right;" class="nb" />
+<p><strong>Loss of activation</strong></p>
+<ul>
+<li>Forgot the goal in the middle</li>
+<li>Go to Google but forget what you wanted to search for</li>
+</ul>
+<p><strong>Mode error</strong></p>
+<ul>
+<li>Do action in a wrong mode</li>
+<li>Typing WITH CAPS LOCK ON</li>
+<li>Crash an airplane...</li>
+</ul>
+</section>
+<section >
+<img src="images/errors/a320.jpg" class="nb" style="max-width:600px;float:left;margin:20px 30px 0px 0px" />
+<p><strong>Air Inter Flight 148</strong></p>
+<p><em>Crashed at 19:20:33 CET in the mountains at an altitude of 800 m</em></p>
+</section>
+<section >
+<img src="images/errors/a320fcu.png" class="nb" style="max-width:600px;float:left;margin:20px 40px 0px 0px" />
+<p>Controls with two descent modes</p>
+<p><em>1. Angle in degrees</em><br />
+<em>2. Feet per minute</em></p>
+<p><em>Not the only cause, but one factor..</em></p>
+</section>
+<section >
+<div style="float:left;width:600px;margin-right:40px">
+<img src="images/errors/fcudeg.png" class="nb" style="max-width:600px" />
+<img src="images/errors/fcufps.png" class="nb" style="max-width:600px" />
+</div>
+<p>Angle in degrees</p>
+<p><em>Descent by<br />
+3.2 degrees</em></p>
+<br />
+<br />
+<p>Feet per minute</p>
+<p><em>Descent by 3200 feet per minute</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Finding and responding to errors</strong></h1>
+</section>
+<section >
+<h1>Detecting errors</h1>
+<img src="images/errors/kimjong.jpg" style="float:right;max-width:350px" />
+<p><strong>How to detect errors</strong></p>
+<ul>
+<li>Self-monitoring</li>
+<li>Environment gives us hints</li>
+<li>Another person notices it</li>
+</ul>
+<p><strong>Why we miss errors</strong></p>
+<ul>
+<li>Accept simplistic partial explanation</li>
+<li>Minor mismatch of mental model</li>
+<li>Relevance bias prevents us from seeing big picture</li>
+</ul>
+</section>
+<section >
+<h1>Detecting errors</h1>
+<h3>Why is error detection getting harder</h3>
+<p><em><i class="fa fa-car"></i> Experienced mechanics notice errors by sound</em></p>
+<p><em><i class="fa fa-microchip"></i> In complex systems you cannot see errors directly</em></p>
+<p><em><i class="fa fa-clock"></i> Latent errors more common than active errors</em></p>
+<p><em><i class="fa fa-circle"></i> Swiss cheese model of complex errors</em></p>
+<p><em><i class="fa fa-bug"></i> Resident pathogen metaphor for system errors</em></p>
+</section>
+<section >
+<img src="images/errors/cheese.png" class="nb" style="max-width:700px;margin-right:30px;float:left;" />
+<p><strong>Cheese model</strong></p>
+<p><em>Many factors contribute to an error</em></p>
+<p><em>All have to be aligned for accident to happen</em></p>
+</section>
+<section >
+<h1>System response to errors</h1>
+<h3>How can system respond to a detected error</h3>
+<p><em><i class="fa fa-eye-slash"></i></em> Do nothing - <em>Leave everything to the user</em></p>
+<p><em><i class="fa fa-ban"></i></em> Gagging - <em>Prevent unrealistic intentions</em></p>
+<p><em><i class="fa fa-exclamation-triangle"></i></em> Warnings - <em>Warn about unrealistic intentions</em></p>
+<p><em><i class="fa fa-check-circle"></i></em> Self-correct - <em>Automatically do the right thing</em></p>
+<p><em><i class="fa fa-question-circle"></i></em> Dialogue - <em>Ask user to explain or clarify</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Designing for errors</strong></h1>
+</section>
+<section >
+<h1>Designing for avoiding errors</h1>
+<blockquote>
+<p>Human error usually is a result of poor design.
+Human err continually; it is a part
+of our nature. System design should take this
+into account.</p>
+</blockquote>
+</section>
+<section >
+<h1>Designing for avoiding errors</h1>
+<h3>Consider conversation between two people</h3>
+<p><em><i class="fa fa-magic"></i> Grammatical errors are not even noticed</em></p>
+<p><em><i class="fa fa-strikethrough"></i> Restarts and corrections are ignored</em></p>
+<p><em><i class="fa fa-filter"></i> Misstatements interpreted approximately</em></p>
+<p><em><i class="fa fa-user-check"></i> Statements checked for common sense</em></p>
+<p><em><i class="fa fa-surprise"></i> Confusion corrected via a dailogue</em></p>
+</section>
+<section >
+<h1>Designing for avoiding errors</h1>
+<h3>What can computer system do?</h3>
+<p><em><i class="fa fa-route"></i> Understand root causes behind errors</em></p>
+<p><em><i class="fa fa-wrench"></i> Implement common sense checks for inputs</em></p>
+<p><em><i class="fa fa-backward"></i> Allow undoing an action</em></p>
+<p><em><i class="fa fa-search"></i> Support error discovery &amp; allow corrections</em></p>
+<p><em><i class="fa fa-recycle"></i> Do not reject, but allow to correct</em></p>
+</section>
+<section >
+<img src="images/errors/se.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px" />
+<p>How to improve ticket machines?</p>
+<div class="fragment">
+<p><em>Expert slips vs. novice mistakes</em></p>
+<p><em>Common sense checks?</em></p>
+<p><em>Support error discovery?</em></p>
+</div>
+</section>
+<section >
+<h1>Errare humanum est</h1>
+<blockquote>
+<p>If it is impossible to guarantee the elimination of errors, then we must
+discover ways of mitigating their consequences in unforgiving
+situations.</p>
+</blockquote>
+</section>
+<section >
+<h1>What to do when errors happen</h1>
+<img src="images/errors/plant.jpg" class="nb" style="float:right;max-width:350px" />
+<p><strong>Learning to live with errors</strong></p>
+<ul>
+<li>Users learn to avoid errors</li>
+<li>Do not hide too many details</li>
+<li>Leave room for workarounds</li>
+</ul>
+<p><strong>Resilience engineering</strong></p>
+<ul>
+<li>Monitoring so that experts can notice</li>
+<li>Allow manual correction</li>
+<li>Analyze developments in advance</li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Different kinds of evaluation</h1>
+<p><strong>Different types of errors</strong><br />
+Mistakes, failures, lapses, slips<br />
+Experts make slips, novices mistakes</p>
+<p><strong>Two ways of grouping errors</strong><br />
+Was the action planned? What went wrong?<br />
+Analysis of common errors empirically</p>
+<p><strong>How to prevent and correct errors</strong><br />
+Design tips to prevent errors<br />
+Different ways of responding to errors</p>
+</section>
+<section >
+<h1>CO582: Errors</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Recognize mistakes, failures, slips and lapses</li>
+<li>Capture, description, data, association &amp; mode errors</li>
+<li>How can systems prevent &amp; respond to errors</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Books</strong></p>
+<ul>
+<li><a href="https://books.google.co.uk/books/about/Human_Error.html?id=WJL8NZc8lZ8C">Human Error</a>, James Reason</li>
+<li><a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">The Design of Everyday Things</a>, Don Norman</li>
+</ul>
+<p><strong>Papers and links</strong></p>
+<ul>
+<li>
+<a href="https://www.sciencedirect.com/science/article/pii/S1474667017452256">Experimental Study of Vertical Flight Path Mode Awareness</a>,
+Eric N. Johnson, Amy R. Pritchett
+</li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
