@@ -17,6 +17,7 @@ University of Kent
  * [Evaluation](https://tpetricek.github.io/Teaching/human-computer-interaction/evaluation.html)
  * [Metaphors](https://tpetricek.github.io/Teaching/human-computer-interaction/metaphors.html)
  * [Errors](https://tpetricek.github.io/Teaching/human-computer-interaction/errors.html)
+ * [Programmers and specialist users](https://tpetricek.github.io/Teaching/human-computer-interaction/specialist.html)
  * [Models and theories](https://tpetricek.github.io/Teaching/human-computer-interaction/models.html)
 
 Materials license
