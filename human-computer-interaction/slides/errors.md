@@ -453,7 +453,39 @@ _<i class="fa fa-recycle"></i> Do not reject, but allow to correct_
 
 ----------------------------------------------------------------------------------------------------
 
-<img src="images/errors/se.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px" />
+<img src="images/errors/se.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px;margin-top:30px" />
+ 
+Buying a London Canterbury ticket
+
+_Many ticket types_
+
+_Time and date sometimes matter_
+
+_Railcard discounts_
+
+----------------------------------------------------------------------------------------------------
+
+<img src="images/errors/se9am.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px;margin-top:30px" />
+ 
+Buying a London Canterbury ticket
+
+_Ticket options at 9:59am_
+
+_Changing time used to change options_
+
+----------------------------------------------------------------------------------------------------
+
+<img src="images/errors/se10am.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px;margin-top:30px" />
+ 
+How to improve ticket machines?
+
+_Ticket options at 10:00am_
+
+_Do not add railcard first, it would get removed_
+
+----------------------------------------------------------------------------------------------------
+
+<img src="images/errors/se.jpg" class="nb" style="max-width:600px;float:left;margin-right:40px;margin-top:30px" />
  
 How to improve ticket machines?
 
@@ -461,7 +493,7 @@ How to improve ticket machines?
 
 _Expert slips vs. novice mistakes_
 
-_Common sense checks?_
+_Add common sense checks?_
 
 _Support error discovery?_
 

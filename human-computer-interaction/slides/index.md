@@ -25,5 +25,6 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 2. [Data visualization](dataviz.html)
 3. [Evaluation](evaluation.html)
 4. [Metaphors](metaphors.html)
-4. [Errors](errors.html)
-5. [Models and theories](models.html)
+5. [Errors](errors.html)
+6. [Specialist users](specialist.html)
+7. [Models and theories](models.html)
