@@ -28,3 +28,4 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 5. [Errors](errors.html)
 6. [Specialist users](specialist.html)
 7. [Models and theories](models.html)
+8. [Interacting with AI systems](ai-systems.html)

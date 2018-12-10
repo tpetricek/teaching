@@ -19,7 +19,8 @@ University of Kent
  * [Errors](https://tpetricek.github.io/Teaching/human-computer-interaction/errors.html)
  * [Programmers and specialist users](https://tpetricek.github.io/Teaching/human-computer-interaction/specialist.html)
  * [Models and theories](https://tpetricek.github.io/Teaching/human-computer-interaction/models.html)
-
+ * [Interacting with AI systems](https://tpetricek.github.io/Teaching/human-computer-interaction/ai-systems.html)
+ 
 Materials license
 -----------------
 

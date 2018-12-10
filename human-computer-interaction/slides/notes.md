@@ -15,4 +15,7 @@ Evaluation
  
 Metaphors 
  - Wording of metonymy in the lecture is odd 
- 
+
+Speicalist users
+ - Somewhat unstructured - maybe go from low-level to higher level?
+ - Also, add "roles of variables" (roles in which variables appear) 

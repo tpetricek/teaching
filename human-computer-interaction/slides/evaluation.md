@@ -671,5 +671,5 @@ _[t.petricek@kent.ac.uk](mailto:t.petricek@kent.ac.uk) | [@tomaspetricek](http:/
 
  - [Restoring Study 329: efficacy and harms of paroxetine and imipramine in treatment of major depression in adolescence](https://www.bmj.com/content/351/bmj.h4320)
 
-- [Consider the range of people that  
-   will use your product or service](https://accessibility.blog.gov.uk/2016/05/16/consider-the-range-of-people-that-will-use-your-product-or-service/)
+ - [Consider the range of people that  
+    will use your product or service](https://accessibility.blog.gov.uk/2016/05/16/consider-the-range-of-people-that-will-use-your-product-or-service/)
