@@ -1,0 +1,448 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Specialist users</title>
+    <meta name="description" content="Human Computer Interaction: Specialist users">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Interacting with AI systems</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Interacting with AI systems</strong></h1>
+</section>
+<section >
+<img src="images/ai-systems/eliza.jpg" style="max-width:580px;float:left;margin-right:30px;margin-bottom:40px" />
+<p><strong>ELIZA (1964)</strong><br />
+Written by Joseph Weizenbaum at MIT</p>
+<div class="fragment" style="padding-top:20px">
+<p><em>To demonstrate that the communication between man and machine was superficial</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Eliza</strong>: The AI psychotherapist</h1>
+<p><strong>1. Looks for simple patterns in text</strong><br />
+<img src="images/ai-systems/youme.png" style="max-width:550px;margin-left:50px" class="nb" /></p>
+<p><strong>2. Replace words to form a question</strong><br />
+<img src="images/ai-systems/myyour.png" style="max-width:550px;margin-left:50px" class="nb" /></p>
+</section>
+<section >
+<h1><strong>Eliza</strong>: The AI psychotherapist</h1>
+<img src="images/ai-systems/paper.png" style="float:right;width:300px"/>
+<p><strong>Surprisingly effective</strong></p>
+<p><em>Weizenbaum's own secretary asked Weizenbaum to leave the room so that she and ELIZA
+could have a real conversation.</em></p>
+<div class="fragment">
+<p><strong>Weizenbaum's commentary</strong></p>
+<p><em>I had not realized (..) that short exposures to a simple
+computer program could induce powerful<br />
+delusional thinking in quite normal people."</em></p>
+</div>
+</section>
+<section >
+<img src="images/ai-systems/sadhorse.jpg" style="max-width:500px;float:left;margin:20px 60px 0px 30px" class="nb" />
+<p><strong>Unintended consequences of Artificial Intelligence</strong></p>
+<div style="padding-top:20px" class="fragment">
+<p><em>We know how it works technically...</em></p>
+<p><em>But no idea how it works in the world!</em></p>
+</div>
+</section>
+<section >
+<img src="images/ai-systems/deepblue.jpg" style="max-width:600px;float:left;margin:20px 40px 0px 0px" class="nb" />
+<p><strong>Deep Blue vs Gary Kasparov (1997)</strong></p>
+<p><em>First computer to beat a world champion.</em></p>
+</section>
+<section >
+<img src="images/ai-systems/advanced.jpg" style="width:400px;float:left;margin:30px 60px 0px 20px" class="nb" />
+<p><strong>Advanced Chess<br />
+(since 1998)</strong></p>
+<p><em>Can a computer program complement a human?</em></p>
+<p>Human thinking<br />
+State space search</p>
+</section>
+<section >
+<h1>Interacting with AI systems</h1>
+<img src="images/ai-systems/hal.jpg" style="float:right;width:200px"/>
+<p><strong>Automation or symbiosis?</strong></p>
+<ul>
+<li><em>Computers will replace humans!</em></li>
+<li><em>Can computers assist humans instead?</em></li>
+<li><em>What is more beneficial for whom?</em></li>
+</ul>
+<p><strong>How users think about AI systems</strong></p>
+<ul>
+<li><em>Anthropomorphic metaphor is misleading</em></li>
+<li><em>Can we understand how AI systems decide?</em></li>
+<li><em>Can AI systems be creative?</em></li>
+</ul>
+</section>
+<section >
+<img src="images/ai-systems/winter.png" style="max-width:800px;margin:0px 0px 30px 0px" class="nb" />
+<p><strong>Should we expect new wave of HCI soon?</strong><br />
+<em>Perhaps accidentally, AI winters are HCI summers!</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Human in the loop</strong></h1>
+</section>
+<section >
+<h1>Human in the loop data science</h1>
+<img src="images/ai-systems/hil.png" class="nb" style="float:right;width:300px"/>
+<p><strong>Data science tasks</strong></p>
+<ul>
+<li><em>Cleaning and processing data</em></li>
+<li><em>Classifying or identifying objects</em></li>
+<li><em>Whenever it's mission critical</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Human and computer</strong></p>
+<ul>
+<li><em>AI can generalize from samples</em></li>
+<li><em>AI can offer a range of suggestions</em></li>
+<li><em>Human corrects and gives good samples</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/ai-systems/wrangler.gif" style="max-width:600px;float:left;margin:20px 30px 40px 0px" />
+<p><strong>Trifacta Wrangler</strong></p>
+<p><em>Combining UX and AI techniques for generating data extraction scripts</em></p>
+</section>
+<section >
+<h1>Trifacta Wrangler</h1>
+<h3>Human in the loop data cleaning</h3>
+<p><em><i class="fa fa-yin-yang"></i> Human computer symbiosis</em></p>
+<p><em><i class="fa fa-shoe-prints"></i> User provides examples to refine answer</em></p>
+<p><em><i class="fa fa-magic"></i> AI attempts to fit model to samples</em></p>
+<p><em><i class="fa fa-code"></i> Model is readable source code</em></p>
+</section>
+<section >
+<img src="images/ai-systems/birds.jpg" style="max-width:600px;float:left;margin:0px 60px 0px 0px" class="nb" />
+<img src="images/ai-systems/easyhard.jpg" style="max-width:600px;float:left;margin:0px 50px 30px 10px" class="fragment nb" />
+<p><strong>Visipedia</strong></p>
+<p>Human in the loop for image recognition</p>
+<p><em>AI asks for help, using questions easy for human</em></p>
+</section>
+<section >
+<h1>Visipedia</h1>
+<h3>Human in the loop image recognition</h3>
+<p><em><i class="fa fa-yin-yang"></i> Human computer symbiosis</em></p>
+<p><em><i class="fa fa-user"></i> Humans are good at recognizing key features</em></p>
+<p><em><i class="fa fa-desktop"></i> Computers can efficiently search</em></p>
+<p><em><i class="fa fa-theater-masks"></i> Dialog metaphor for the interaction</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Explainable AI</strong></h1>
+</section>
+<section >
+<img src="images/ai-systems/gorilla.jpg" style="max-width:520px;float:left;margin:20px 50px 0px 0px" />
+<p><strong>Racist Google Photos</strong><br />
+Example of biased AI</p>
+<div class="fragment">
+<p><em>What is the reason why the app does this?</em></p>
+<p><em>What was the training data used by Google?</em></p>
+<p><em>How to avoid this?</em></p>
+</div>
+</section>
+<section >
+<h1>Why explainability matters</h1>
+<img src="images/ai-systems/gdpr.jpg" style="float:right;width:240px"/>
+<p><strong>Right to explanation</strong></p>
+<ul>
+<li><em>Right to obtain an explanation of a de-cision based on automated processing</em></li>
+<li><em>What does</em> explanation <em>mean?</em></li>
+</ul>
+<p><strong>Explainable AI and user interaction</strong></p>
+<ul>
+<li><em>Interacting with models inferred from big data</em></li>
+<li><em>Can user understand the system?</em></li>
+<li><em>Not easy for modern neural nets</em></li>
+</ul>
+</section>
+<section >
+<img src="images/ai-systems/times.png" style="max-width:520px;float:left;margin:20px 50px 0px 0px" />
+<p><strong>How Britain Voted</strong><br />
+The Times</p>
+<p><em>Using decision trees to map the structure of the Brexit referendum</em></p>
+</section>
+<section >
+<h1>Different kinds of AI models</h1>
+<img src="images/ai-systems/tree.png" style="float:right;width:240px"/>
+<p><strong>Statistical models</strong></p>
+<ul>
+<li>Work great in practice!</li>
+<li>All we know are the weights</li>
+<li>Not much we can do with them</li>
+</ul>
+<p><strong>Explicit logical model</strong></p>
+<ul>
+<li>Produce an interpretable structure</li>
+<li>Decision trees, if-then rules</li>
+<li>Can be further manipulated by user</li>
+</ul>
+</section>
+<section >
+<h1>Challenges posed by modern AI methods</h1>
+<h3>Design considerations when creating AI systems</h3>
+<p><em><i class="fa fa-car"></i> Agency and training data sets</em></p>
+<p><em><i class="fa fa-chalkboard-teacher"></i> Programming by example such as Wrangler</em></p>
+<p><em><i class="fa fa-robot"></i> The nature of human and AI reasoning styles</em></p>
+<p><em><i class="fa fa-gavel"></i> Legal status of non-symbolic intellectual property</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Can AI systems be creative?</strong></h1>
+</section>
+<section >
+<h1>Can AI systems be creative?</h1>
+<h3>User experience and artificial creativity</h3>
+<p><em><i class="fa fa-university"></i> What does it mean to be creative?</em></p>
+<p><em><i class="fa fa-image"></i> Does output look like a result of creative action?</em></p>
+<p><em><i class="fa fa-paint-brush"></i> Is computer following creative processes?</em></p>
+<p><em><i class="fa fa-sign-language"></i> How do users interact with the system?</em></p>
+</section>
+<section >
+<img src="images/ai-systems/style.jpg" style="max-width:580px;float:left;margin:20px 40px 40px 0px" class="nb"/>
+<p><strong>Deep style transfer</strong><br />
+Using machine learning to change image style</p>
+<div class="fragment" style="padding-top:20px">
+<p><em>Looks pretty, but is there any creativity behind the system?</em></p>
+</div>
+</section>
+<section >
+<img src="images/ai-systems/fool.jpg" style="max-width:460px;float:left;margin:20px 40px 40px 0px" class="nb"/>
+<p><strong>The Drawing Fool</strong><br />
+Software that explains<br />
+its artistic decisions</p>
+<div class="fragment" style="padding-top:20px">
+<p><em>Uses newspaper to decide mood, AI for drawing and<br />
+AI for reflection</em></p>
+<p><em>Rethink human-centric notion of creativity</em></p>
+</div>
+</section>
+<section >
+<h1>AI creativity as a human-computer interaction problem</h1>
+<img src="images/ai-systems/nake.jpg" style="max-width:300px;float:right;" class="nb"/>
+<p><strong>Computers and creativity</strong></p>
+<ul>
+<li>What comes from the programmer?</li>
+<li>What comes from the algorithm?</li>
+</ul>
+<p><strong>Why explanation matters</strong></p>
+<ul>
+<li>Creativity is user experience question</li>
+<li>Humans expect human reasoning</li>
+<li>How do we know program is creative?</li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>AI for user interfaces</strong></h1>
+</section>
+<section >
+<h1>Tensions between HCI and AI</h1>
+<img src="images/ai-systems/samsung.png" style="float:right;margin-left:10px;width:260px"/>
+<p><strong>The problem with AI</strong></p>
+<p><em>Shneiderman (1989) has argued that
+AI in interfaces reduces predictability,
+which is essential for usability.</em></p>
+<div class="fragment">
+<p><strong>AI in user interfaces</strong></p>
+<ul>
+<li><em>Handwriting recognition</em></li>
+<li><em>Predictive and swipe keyboards</em></li>
+<li><em>Speech recognition and chatbots</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>AI in user interfaces</h1>
+<h3>Format shapes the style of interaction</h3>
+<p><em><i class="fa fa-mobile-alt"></i> Phones changes what we can fit on the screen</em></p>
+<p><em><i class="fa fa-futbol"></i> Motion sensing introduced new kinds of games</em></p>
+<p><em><i class="fa fa-robot"></i> Chatbots (try to) make computers easier to use</em></p>
+<p><em><i class="fa fa-volume-up"></i> Voice recognition allows hands-free interactions</em></p>
+</section>
+<section >
+<div style="float:left;margin:20px 40px 0px 10px">
+<img src="images/ai-systems/graffiti.png" style="width:428px;margin:0px" /><br />
+<img src="images/ai-systems/t9.png" style="width:200px;height:160px;margin-right:14px" />
+<img src="images/ai-systems/samsung.png" style="width:200px;height:160px"/>
+</div>
+<p><strong>Mobile text-entry methods</strong></p>
+<p>T9 predictive text<br />
+<em>One key for three letters</em></p>
+<p>Graffiti for Palm OS<br />
+<em>Letter recognition</em></p>
+<p>Predictive keyboards<br />
+<em>Guess word from a stroke</em></p>
+</section>
+<section >
+<h1>Intelligent text entry methods</h1>
+<img src="images/ai-systems/t9.png" style="max-width:200px;float:right" />
+<p><strong>Principles of AI for text entry</strong></p>
+<ul>
+<li>
+<em>Minimize the amount of information that<br />
+user needs to provide</em>
+</li>
+<li><em>Exploit language redundancies</em></li>
+</ul>
+<div class="fragment">
+<p><strong>User experience questions</strong></p>
+<ul>
+<li><em>What is the most efficient method?</em></li>
+<li><em>What is the learning curve?</em></li>
+<li><em>Usability of error correction</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Different kinds of evaluation</h1>
+<p><strong>Human in the loop data science</strong><br />
+Ways of efficient collaboration<br />
+Dialog and programming by example</p>
+<p><strong>The problem of AI explainability</strong><br />
+Avoiding bias in AI systems<br />
+Statistical and logical models</p>
+<p><strong>The problem of AI creativity</strong><br />
+Creativity as a user-defined criteria<br />
+Human reasoning as an inspiration</p>
+</section>
+<section >
+<h1>CO582: Interacting with AI systems</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Problems posed by interaction with AI systems</li>
+<li>Explainability in law and creative uses</li>
+<li>Programming by example and decision trees</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Papers and links</strong></p>
+<ul>
+<li><a href="https://dl.acm.org/citation.cfm?id=365168">ELIZA—a computer program for the study of natural language communication between man and machine</a></li>
+<li><a href="http://doc.gold.ac.uk/aisb50/AISB50-S03/AISB50-S3-Colton2-paper.pdf">On Acid Drops and Teardrops: Observer Issues in Computational Creativity</a></li>
+<li><a href="https://www.repository.cam.ac.uk/handle/1810/248690">Interacting with an inferred world: the challenge of machine learning for humane computer interaction</a></li>
+<li><a href="https://arxiv.org/pdf/1710.08191.pdf">Human-in-the-loop Artificial Intelligence</a></li>
+<li><a href="http://edithlaw.ca/cs889/2014/reading/Visipedia20q.pdf">Visual Recognition with Humans in the Loop</a></li>
+<li><a href="https://pdfs.semanticscholar.org/e22b/e3642660d6a779e477124cae7cbfdfa5b0a5.pdf">AI and HCI: Two Fields Divided by a Common Focus</a></li>
+<li><a href="https://pdfs.semanticscholar.org/f59a/f9178ecf033fdb9c16574516397e25b2e4af.pdf">User Interface Goals, AI Opportunities</a></li>
+<li>
+<a href="http://www.ai.sri.com/~spauldin/usableAI/FinalSubmissions/Kristensson.pdf">Opportunities and Challenges in<br />
+Intelligent Mobile Text Entry</a>
+</li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
