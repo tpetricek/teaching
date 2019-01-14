@@ -1,14 +1,18 @@
 Tomas Petricek's teaching
 =========================
 
-This repository contains various teaching materials I created for the courses taught at 
+This repository contains various teaching materials I created for the courses taught at
 University of Kent and possibly elsewhere. The materials are generally
 created using [FsReveal](http://github.com/fsprojects/FsReveal). For my industry talks
-see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials 
+see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials
 (before 2015), check out [my old Documents repository](http://github.com/tpetricek/Documents/).
 
 University of Kent
 ------------------
+
+### Software Engineering (CO886)
+
+ * [Origins and history](https://tpetricek.github.io/Teaching/software-engineering/history.html)
 
 ### Computer Interaction and User Experience (CO582)
 
@@ -20,7 +24,7 @@ University of Kent
  * [Programmers and specialist users](https://tpetricek.github.io/Teaching/human-computer-interaction/specialist.html)
  * [Models and theories](https://tpetricek.github.io/Teaching/human-computer-interaction/models.html)
  * [Interacting with AI systems](https://tpetricek.github.io/Teaching/human-computer-interaction/ai-systems.html)
- 
+
 Materials license
 -----------------
 
