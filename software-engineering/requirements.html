@@ -1,0 +1,387 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Understanding requirements</title>
+    <meta name="description" content="Software Engineering: Understanding requirements">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Understanding requirements</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Specifying and learning</strong></h1>
+</section>
+<section >
+<h1>Specifying and learning</h1>
+<img src="images/requirements/grid.jpg" style="float:right;max-width:380px;margin-left:20px" />
+<p><strong>Typical clients</strong></p>
+<ul>
+<li><em>Experts in their domain</em></li>
+<li><em>Do not speak computer-speak</em></li>
+<li><em>Not sure what is possible</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Typical software provider</strong></p>
+<ul>
+<li><em>Hopefully knows how to build software systems</em></li>
+<li><em>No idea about trading of energy derivatives and commodity price risk management</em></li>
+<li><em>Rare exceptions sometimes happen!</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/requirements/derivatives.jpg" style="max-width:650px;float:left;margin-right:50px" />
+<p><strong>Learning unfamiliar domain</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Put knowledge on paper<br />
+<em>Specification that programmers can understand and follow</em></p>
+</div><div class="fragment" style="padding-top:10px">
+<p>Keep knowledge in brains<br />
+<em>Not scalable, but developers can use intuition and contribute ideas</em></p>
+</div>
+</section>
+<section >
+<h1>Modelling, understanding and specifying software</h1>
+<h3>Three aspects of software systems we can model</h3>
+<p>❶ Requirements - <em>What should it be doing</em></p>
+<p>❷ Structure - <em>What are individual components</em></p>
+<p>❸ Interactions - <em>How does it interact with other systems</em></p>
+</section>
+<section >
+<h1>The role of requirements</h1>
+<img src="images/requirements/negotiation.png" style="float:right;max-width:360px;margin-top:-5px;margin-left:20px" />
+<p><strong>Collecting requirements</strong></p>
+<ul>
+<li><em>A mix of two roles</em></li>
+<li><em>Formal up-front specification</em></li>
+<li><em>Means of communication</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Problems with requirements</strong></p>
+<ul>
+<li><em>Requirements inevitably evolve over time</em></li>
+<li><em>How to keep document in sync with reality?</em></li>
+<li><em>How to check we satisfied the requirements?</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Use case diagrams</strong></h1>
+</section>
+<section >
+<h1>Unified Modelling Language (UML)</h1>
+<img src="images/requirements/uml.png" class="nb" style="float:right;max-width:300px" />
+<p><strong>Culture and motivations</strong></p>
+<ul>
+<li><em>Seeking "proper" methods</em></li>
+<li>
+<em>Appeared in 1990s along</em><br />
+<em>with object-oriented paradigm</em>
+</li>
+</ul>
+<div class="fragment">
+<p><strong>UML diagram types</strong></p>
+<ul>
+<li>Use cases - <em>capture requirements</em></li>
+<li>Class diagrams - <em>object-oriented structure</em></li>
+<li>Sequence diagrams - <em>communication patterns</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/requirements/moodle.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px" />
+<p><strong>Guess the system!</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Specifying Moodle</p>
+<p><em>Various actors have various requirements</em></p>
+<p><em>Requirements<br />
+can be shared</em></p>
+</div>
+</section>
+<section >
+<h1>UML use case diagrams</h1>
+<img src="images/requirements/moodle.png" style="float:right;max-width:400px" class="nb" />
+<p><strong>System boundaries</strong></p>
+<ul>
+<li><em>Indicate what is in scope</em></li>
+<li><em>System or a sub-system</em></li>
+</ul>
+<p><strong>What is an actor</strong></p>
+<ul>
+<li><em>Any external entity</em></li>
+<li><em>Human users or other systems</em></li>
+<li><em>Anything we cannot control</em></li>
+</ul>
+</section>
+<section >
+<img src="images/requirements/arrows.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px" />
+<p><strong>Fancy arrows!</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Inheritance<br />
+<em>Special case with more requirements or more features</em></p>
+</div>
+<div class="fragment">
+<p>Dependency<br />
+<em>Use case requires another use case</em></p>
+</div>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Specifying Moodle requirements</h1>
+</section>
+<section >
+<h1>Use cases</h1>
+<h3>Using use case diagrams</h3>
+<p><em><i class="fa fa-shopping-cart"></i> Captures human requirements or code requirements</em></p>
+<p><em><i class="fa fa-list"></i> Can be written as a list or table too</em></p>
+<p><em><i class="fa fa-exchange-alt"></i> Does not talk about use case relationships</em></p>
+<p><em><i class="fa fa-check-square"></i> Does not specify how to test implementation</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Project management</strong></h1>
+</section>
+<section >
+<img src="images/requirements/sage.png" style="max-width:560px;float:left;margin-right:30px" />
+<p><strong>What matters<br />
+in what contexts?</strong></p>
+<div class="fragment" style="padding-top:5px">
+<p><em>Experimental non-critical business project?</em></p>
+<p><em>Critical military system supporting new weapons?</em></p>
+</div>
+</section>
+<section >
+<h1>Heavyweight project management</h1>
+<h3>Predictability over efficiency</h3>
+<p><em><i class="fa fa-money-bill-wave"></i> Estimates are often order-of-magnitude wrong</em></p>
+<p><em><i class="fa fa-clock"></i> Deliver systems on time and on budget</em></p>
+<p><em><i class="fa fa-hourglass-start"></i> Sometimes price and scope change does not matter</em></p>
+<p><em><i class="fa fa-flask"></i> Hopes for "science" of software engineering</em></p>
+</section>
+<section >
+<h1>Use cases and project management</h1>
+<img src="images/requirements/gantt.png" style="float:right;max-width:340px;margin-left:20px" />
+<p><strong>Planning with use cases</strong></p>
+<ul>
+<li><em>Time and cost estimates</em></li>
+<li><em>Planning and scheduling</em></li>
+</ul>
+<p><strong>Does this ever work?</strong></p>
+<ul>
+<li><em>Use cases with same difficulty</em></li>
+<li><em>Varies by team and often project</em></li>
+<li><em>Not flexible regarding changes</em></li>
+</ul>
+</section>
+<section >
+<h1>UML use case diagrams</h1>
+<h3>Use case diagrams in practice</h3>
+<p><em><i class="fa fa-users"></i> Useful for making customers think</em></p>
+<p><em><i class="fa fa-clock"></i> Not useful for planning and estimates</em></p>
+<p><em><i class="fa fa-sync"></i> Often gets out of sync with reality</em></p>
+<p><em><i class="fa fa-weight-hanging"></i> Heavyweight - a plain list might do</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>User stories and scenarios</strong></h1>
+</section>
+<section >
+<h1>Rethinking requirements</h1>
+<img src="images/requirements/agile.png" style="float:right;max-width:200px;margin-left:40px;margin-bottom:40px" class="nb" />
+<p><strong>Agile methodologies</strong></p>
+<ul>
+<li><em>Formal diagrams are too hard</em></li>
+<li><em>How do we get customers involved?</em></li>
+<li><em>What is a good way of talking to them?</em></li>
+</ul>
+<div class="fragment">
+<p><strong>User stories</strong></p>
+<ul>
+<li><em>Not requirements, but</em> stories</li>
+<li><em>Use paper or Word or whatever works</em></li>
+<li>As a <em>user</em> I want <em>something</em> so that <em>benefit</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/requirements/story.jpg" style="width:540px;float:left;margin:30px 50px 20px 0px" />
+<p><strong>Fixed story format</strong></p>
+<p>User <em>so that we know who needs this</em></p>
+<p>Benefit <em>so that<br />
+there is a reason</em></p>
+</section>
+<section >
+<h1>User stories</h1>
+<h3>User stories in agile practice</h3>
+<p><em><i class="fa fa-calendar-alt"></i> Stories still help with project plan</em></p>
+<p><em><i class="fa fa-sort-amount-down"></i></em> Priority - <em>to engage customers in planning</em></p>
+<p><em><i class="fa fa-map"></i></em> Estimate - <em>of difficulty for planning</em></p>
+<p><em><i class="fa fa-check-square"></i> How do we know we support a given story?</em></p>
+</section>
+<section >
+<img src="images/requirements/cucumber.png" style="max-width:610px;float:left;margin-right:50px" />
+<p><strong>From stories<br />
+to scenarios</strong></p>
+<div class="fragment">
+<p><em>Keep the simple textual format</em></p>
+<p><em>Integration with development process</em></p>
+</div>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Specifying scenarios and features</h1>
+</section>
+<section >
+<h1>Scenarios in practice</h1>
+<h3>Behaviour-driven development methodology</h3>
+<p><em><i class="fa fa-th-list"></i> Specify features in terms of scenarios</em></p>
+<p><em><i class="fa fa-wrench"></i> Cucumber is just one sample tool</em></p>
+<p><em><i class="fa fa-font"></i> Text keeps the ceremony minimal</em></p>
+<p><em><i class="fa fa-sync"></i> Ensures code is in sync with scenarios</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Understanding requirements</h1>
+<p><strong>System development methodologies</strong><br />
+<em>Ways of interacting with customers</em><br />
+<em>Upfront specification or conversation</em></p>
+<p><strong>UML and use case diagrams</strong><br />
+<em>Actors and system boundaries</em><br />
+<em>Inheritance and dependencies</em></p>
+<p><strong>User stories and scenarios</strong><br />
+<em>User stories and agile methods</em><br />
+<em>Behaviour driven development</em></p>
+</section>
+<section >
+<h1>Social side</h1>
+<h3>How do you make this work?</h3>
+<p><em><i class="fa fa-tint"></i> Choose a suitable methodology for a project</em></p>
+<p><em><i class="fa fa-briefcase"></i> Can it be a useful part of a workflow?</em></p>
+<p><em><i class="fa fa-pencil-alt"></i> Who is reading and writing requirements?</em></p>
+<p><em><i class="fa fa-user-tie"></i> What tools are people comfortable with</em></p>
+</section>
+<section >
+<h1>CO886: Understanding requirements</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Why people do it and how they fail</li>
+<li>Draw a basic UML use case diagram</li>
+<li>Write a story and feature with scenarios</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Tools, books and articles</strong></p>
+<ul>
+<li><a href="http://agilemodeling.com/artifacts/useCaseDiagram.htm">UML 2 Use Case Diagrams: An Agile Introduction</a></li>
+<li><a href="http://www.agilemodeling.com/artifacts/userStory.htm">User Stories: An Agile Introduction</a></li>
+<li><a href="https://docs.cucumber.io/">cucumber: Executable specifications</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
