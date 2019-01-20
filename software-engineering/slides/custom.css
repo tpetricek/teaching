@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 
 .reveal section[style] {
   top:0px !important;
 }
 .reveal section {
   text-align:left;
+}
+.reveal code {
+  font-family:'Source Code Pro', monospace;
+  font-size:24pt;
 }
 .reveal h1 {
   background:#09357B;
@@ -28,7 +32,7 @@
   font-style:inherit;
 }
 .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul, .reveal ol {
-  font-family:Roboto; 
+  font-family:Roboto;
   width:calc(100%-40px);
   padding:0px 20px 0px 20px;
   text-align:left;
