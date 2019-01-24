@@ -23,3 +23,14 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 1. [History and motivation](history.html)
 2. [Understanding requirements](requirements.html)
+
+----------------------------------------------------------------------------------------------------
+
+TODO Somewhere:
+  metaphors (writing, growing, building, etc. - code complete)
+  choosing langauges and libraries
+
+Collaborative practices
+  (code reviews, pair programming)
+
+  

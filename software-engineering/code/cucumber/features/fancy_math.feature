@@ -1,9 +1,9 @@
-Feature: Simple maths
-  In order to do maths
-  As a developer
+Feature: Fancy maths
+  In order to count things
+  As a user of a counting library
   I want to increment variables
 
-  Scenario Outline: much more complex stuff
+  Scenario Outline: incrementing variable by various numbers
     Given a variable set to <var>
     When I increment the variable by <increment>
     Then the variable should contain <result>
