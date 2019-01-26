@@ -22,7 +22,8 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 # **Table of contents**
 
 1. [History and motivation](history.html)
-2. [Understanding requirements](requirements.html)
+2. [Modelling requirements](requirements.html)
+2. [Modelling structure](structure.html)
 
 ----------------------------------------------------------------------------------------------------
 
@@ -32,5 +33,3 @@ TODO Somewhere:
 
 Collaborative practices
   (code reviews, pair programming)
-
-  

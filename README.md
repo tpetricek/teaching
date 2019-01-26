@@ -13,7 +13,8 @@ University of Kent
 ### Software Engineering (CO886)
 
  * [Origins and history](https://tpetricek.github.io/Teaching/software-engineering/history.html)
- * [Understanding requirements](https://tpetricek.github.io/Teaching/software-engineering/requirements.html)
+ * [Modelling requirements](https://tpetricek.github.io/Teaching/software-engineering/requirements.html)
+ * [Modelling structure](https://tpetricek.github.io/Teaching/software-engineering/structure.html)
 
 ### Computer Interaction and User Experience (CO582)
 

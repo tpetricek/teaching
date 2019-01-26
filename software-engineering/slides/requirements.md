@@ -1,12 +1,12 @@
-- title : Software Engineering: Understanding requirements
-- description : Software Engineering: Understanding requirements
+- title : Software Engineering: Modelling requirements
+- description : Software Engineering: Modelling requirements
 - author : Tomas Petricek
 - theme : simple
 - transition : none
 
 ****************************************************************************************************
 
-# **CO886: Software Engineering**<br/> Understanding requirements
+# **CO886: Software Engineering**<br/> Modelling requirements
 
 <br /><br />
 <br /><br /><br />
@@ -354,7 +354,7 @@ _<i class="fa fa-sync"></i> Ensures code is in sync with scenarios_
 
 ----------------------------------------------------------------------------------------------------
 
-# Understanding requirements
+# Modelling requirements
 
 **System development methodologies**  
 _Ways of interacting with customers_  
@@ -384,7 +384,7 @@ _<i class="fa fa-user-tie"></i> What tools are people comfortable with_
 
 ----------------------------------------------------------------------------------------------------
 
-# CO886: Understanding requirements
+# CO886: Modelling requirements
 
 **What you should remember from this lecture**
 
