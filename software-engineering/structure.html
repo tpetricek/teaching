@@ -1,0 +1,446 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Modelling structure</title>
+    <meta name="description" content="Software Engineering: Modelling structure">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">type Shape =<br />&#160;&#160;| Cube<br />&#160;&#160;| Move of Shape * float * float * float<br />&#160;&#160;| Combine of Shape list<br /><br />Full name: structure.Shape</div>
+<div class="tip" id="fs2">union case Shape.Cube: Shape</div>
+<div class="tip" id="fs3">union case Shape.Move: Shape * float * float * float -&gt; Shape</div>
+<div class="tip" id="fs4">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs5">union case Shape.Combine: Shape list -&gt; Shape</div>
+<div class="tip" id="fs6">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Modelling structure</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Decomposing systems into modules</strong></h1>
+</section>
+<section >
+<img src="images/structure/parnas.png" style="max-width:480px;float:left;margin:0px 60px 0px 20px" />
+<p><strong>David Parnas (1972)</strong></p>
+<div class="fragment">
+<p>Conventional<br />
+<em>Subroutines follow the order of execution</em></p>
+<p>Unconventional<br />
+<em>Modules abstract some aspects of implementation</em></p>
+</div>
+</section>
+<section >
+<h1>How to structure large programs</h1>
+<img src="images/structure/hamilton.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Procedural approach</strong></p>
+<ul>
+<li><em>Programs that run top-to-bottom</em></li>
+<li><em>Break program into smaller steps</em></li>
+<li>But <em>what data is passed between?</em></li>
+</ul>
+<p><strong>Logical abstraction</strong></p>
+<ul>
+<li><em>Identify logical components</em></li>
+<li><em>Hide implementation details</em></li>
+<li><em>How data is represented, stored, ...</em></li>
+</ul>
+</section>
+<section >
+<img src="images/structure/liskov.png" style="max-width:460px;float:left;margin:0px 40px 0px 0px" />
+<p><strong>Barbara Liskov (1974)</strong></p>
+<div class="fragment">
+<p>Abstract data types</p>
+<p><em>Programming language mechanism for abstraction</em></p>
+</div>
+</section>
+<section >
+<h1>Object oriented programming</h1>
+<img src="images/structure/simula.png" class="nb" style="float:right;max-width:300px;margin-left:20px" />
+<p><strong>Origins of objects</strong></p>
+<ul>
+<li><em>Simulating real-world systems</em></li>
+<li><em>World consists of objects</em></li>
+<li><em>Created according to a scheme</em></li>
+</ul>
+<p><strong>Object-oriented abstraction</strong></p>
+<ul>
+<li><em>Class defines a template for object</em></li>
+<li><em>Multiple instances of a class</em></li>
+<li><em>Objects hide implementation details</em></li>
+</ul>
+</section>
+<section >
+<img src="images/structure/smalltalk.jpg" style="max-width:480px;float:left;margin:0px 60px 0px 20px" />
+<div style="margin-top:-20px">
+<p><strong>Alan Kay et al. (1972)</strong></p>
+</div>
+<div class="fragment">
+<p>Smalltalk</p>
+<p><em>"Actually I made up the term "object-oriented", and I can tell you I did not have C++ in mind."</em></p>
+</div>
+<div class="fragment">
+<p>Galactic scale</p>
+<p><em>Computer made of small computers that exchange messages</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modelling object-oriented systems</strong></h1>
+</section>
+<section >
+<h1>UML class diagrams</h1>
+<img src="images/structure/uml.png" class="nb" style="float:right;max-width:300px" />
+<p><strong>Modelling structure</strong></p>
+<ul>
+<li><em>Relationships between entities</em></li>
+<li><em>Capture data and key operations</em></li>
+<li><em>Good fit with object-oriented style</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Class diagrams in practice</strong></p>
+<ul>
+<li>Heavyweight: <em>Upfront application architecture</em></li>
+<li>Lightweight: <em>Whiteboard architecture discussions</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>UML class diagrams</h1>
+<img src="images/structure/class1.png" class="nb" style="float:right;max-width:240px;margin:-20px 30px 0px 0px" />
+<p><strong>Representing a class</strong></p>
+<ul>
+<li><em>Attributes and methods as in Java</em></li>
+<li><em>Can be more abstract than code</em></li>
+<li><em>Often, name is all you need</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Topics not covered</strong></p>
+<ul>
+<li><em>Representing individual instances</em></li>
+<li><em>Marking attributes as private</em></li>
+<li><em>Interfaces and other types</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Fancy arrows</h1>
+<style>.tc td p { text-align:center; margin:0px; } .tc td { padding:0px }</style>
+<table style="margin-top:-20px; width:100%" class="tc"><tr>
+<td style="width:33%;text-align:center">
+<p><strong>Has-A</strong><br />
+<em>Contains another entity</em></p>
+<img src="images/structure/arrow1.png" style="max-height:300px" class="nb" />
+</td>
+<td style="width:33%;text-align:center" class="fragment">
+<p><strong>Is-A</strong><br />
+<em>Generalisation or inheritance</em></p>
+<img src="images/structure/arrow2.png" style="max-height:300px" class="nb" />
+</td>
+<td style="width:33%;text-align:center" class="fragment">
+<p><strong>Depends-on</strong>
+<em>Requires/uses another entity</em></p>
+<img src="images/structure/arrow3.png" style="max-height:300px" class="nb" />
+</td>
+</tr></table>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Modelling social networking app</h1>
+</section>
+<section >
+<h1>Using generalisation relation (1/2)</h1>
+<img src="images/structure/cache1.png" style="max-width:500px;float:right" class="nb" />
+<p><strong>Social network example</strong></p>
+<p><em>Cache can only cache posts with some multi-media content attached</em></p>
+<div class="fragment">
+<p><strong>Representations</strong></p>
+<ul>
+<li><em>Link to Post with a comment?</em></li>
+<li><em>Link from Cache to Image and Link?</em></li>
+<li><em>Are there better options?</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Using generalisation relation (1/2)</h1>
+<img src="images/structure/cache2.png" style="max-width:500px;float:right" class="nb" />
+<p><strong>Social network example</strong></p>
+<p><em>Cache can only cache posts with some multi-media content attached</em></p>
+<p><strong>Add a new entity!</strong></p>
+<ul>
+<li><em>Image and Link are MediaPosts, Plain is not</em></li>
+<li><em>Good explanation, maybe not needed in code</em></li>
+</ul>
+</section>
+<section >
+<h1>UML class diagrams</h1>
+<h3>Modelling using class diagrams in practice</h3>
+<p><em><i class="fa fa-church"></i> Fully describe application architecture</em></p>
+<p><em><i class="fa fa-coffee"></i> Generate Java from diagrams and add code</em></p>
+<p><em><i class="fa fa-chalkboard"></i> Whiteboard discussion and then erase</em></p>
+<p><em><i class="fa fa-search"></i> Generate diagram from code to understand it</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modelling beyond objects</strong></h1>
+</section>
+<section >
+<img src="images/structure/fun.png" class="nb" style="max-width:550px;float:left;margin:30px 40px 0px 0px" />
+<p><strong>DEMO: Fun 3D</strong><br />
+<a href="http://www.fun3d.net"><em>www.fun3d.net</em></a></p>
+<div class="fragment">
+<p><em>Functional programming abstractions</em></p>
+<p><em>Domain-specific languages</em></p>
+</div>
+</section>
+<section >
+<h1>Two ways of modelling 3D worlds</h1>
+<p><strong>Object-oriented class hierarchy</strong></p>
+<img src="images/structure/structure.png" class="nb" style="max-height:180px;margin:10px 0px 10px 100px" />
+<div class="fragment">
+<p><strong>Functional algebraic data type</strong></p>
+<div style="margin:0px 150px 0px 50px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">Shape</span> <span class="o">=</span>
+  | <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="p">Cube</span>
+  | <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="p">Move</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="t">Shape</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="t">float</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="t">float</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="t">float</span>
+  | <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="p">Combine</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs1', 9)" onmouseover="showTip(event, 'fs1', 9)" class="t">Shape</span> <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="t">list</span>
+</code></pre></td>
+</tr>
+</table>
+</div>
+</div>
+</section>
+<section >
+<h1>Two ways of modelling 3D worlds</h1>
+<img src="images/structure/castle.png" style="float:right;max-width:280px;margin-left:20px" />
+<p><strong>Object-oriented class hierarchy</strong></p>
+<ul>
+<li><em>Abstract method in the base class</em></li>
+<li><em>Implementation in each shape</em></li>
+<li><em>Easy to add new shapes</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Functional algebraic data type</strong></p>
+<ul>
+<li><em>Separate data from functions</em></li>
+<li><em>Render function handles all cases</em></li>
+<li><em>Easy to add new operations</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/structure/ep.png" style="max-width:480px;float:left;margin:20px 40px 0px 0px" />
+<p><strong>The Expression Problem</strong></p>
+<p>Object-oriented style<br />
+<em>Easy to add new types, hard to add operations</em></p>
+<p>Functional style<br />
+<em>Easy to add functions, hard to add new types</em></p>
+<p>Can we get both?</p>
+</section>
+<section >
+<h1>Domain-specific languages</h1>
+<img src="images/structure/story.png" class="nb" style="float:right;max-width:280px;margin-left:20px" />
+<div class="fragment">
+<p><strong>Motivation:</strong> When do we need this?</p>
+<ul>
+<li><em>Repeated problem, many variations</em></li>
+<li><em>User stories, game logic, contracts</em></li>
+<li><em>Accessible to non-programmers</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Solution:</strong> Build a language for a given domain!</p>
+<ul>
+<li>External – <em>New language with custom syntax</em></li>
+<li>Internal – <em>Library in an existing language</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/structure/dsls.png" style="max-width:520px;float:left;margin:20px 40px 0px 0px" />
+<p>Domain Specific Languages (DSLs)</p>
+<div class="fragment" style="padding-top:20px">
+<p><strong>Model</strong><br />
+What we work with? How does it compose?</p>
+</div>
+<div class="fragment" style="padding-top:20px">
+<p><strong>Syntax</strong><br />
+How can we write it in a human-friendly way?</p>
+</div>
+</section>
+<section >
+<h1>Functional and object-oriented DSLs</h1>
+<p><strong>Functional languages</strong><br />
+<em>Custom operators and function composition</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">(<span class="i">Fun</span><span class="o">.</span><span class="i">cone</span> <span class="o">|&gt;</span> <span class="i">Fun</span><span class="o">.</span><span class="i">color</span> <span class="i">Color</span><span class="o">.</span><span class="i">red</span>) <span class="o">$</span>
+(<span class="i">Fun</span><span class="o">.</span><span class="i">cylinder</span> <span class="o">|&gt;</span> <span class="i">Fun</span><span class="o">.</span><span class="i">move</span> (<span class="n">0</span>, <span class="o">-</span><span class="n">1</span>, <span class="n">0</span>))
+</code></pre></td>
+</tr>
+</table>
+<div class="fragment" style="margin-top:50px">
+<p><strong>Object-oriented languages</strong><br />
+<em>Fluent interfaces and the builder pattern</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp">fun.cone().withColor(color.red)<span class="o">.</span>
+  combineWith(fun.cylinder().moveBy(<span class="n">0</span>, <span class="n">-1</span>, <span class="n">0</span>))
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Modelling beyond objects</h1>
+<h3>Many ways to express problems in code</h3>
+<p><em><i class="fa fa-not-equal"></i></em> Functional - <em>separate data and functions</em></p>
+<p><em><i class="fa fa-language"></i></em> Domain specific languages - <em>for a specific problem</em></p>
+<p><em><i class="fa fa-bars"></i></em> Event sourcing - <em>state as a list of events</em></p>
+<p><em><i class="fa fa-cogs"></i></em> Microservices - <em>system as independent servers</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Modelling structure</h1>
+<p><strong>Decomposing systems into modules</strong><br />
+<em>From subroutines to abstract modules and objects</em><br />
+<em>Abstract data types, object-oriented programming</em></p>
+<p><strong>Object-oriented modelling</strong><br />
+<em>Heavyweight and lightweight methodologies</em><br />
+<em>Is-A, Has-A and dependency relations</em></p>
+<p><strong>Beyond object-oriented modelling</strong><br />
+<em>Functional programming and the expression problem</em><br />
+<em>Solving repetitive problems with DSLs</em></p>
+</section>
+<section >
+<h1>CO886: Modelling structure</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Abstraction and origins of objects</li>
+<li>Class diagrams and three kinds of arrows</li>
+<li>Be aware that there are other options!</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Academic papers</strong></p>
+<ul>
+<li>David Parnas (1972). <a href="https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf">On The Criteria To Be Used in Decomposing Systems into Modules</a></li>
+<li>Barbara Liskov, Stephen Zilles (1974). <a href="https://dl.acm.org/citation.cfm?id=807045">Programming with Abstract Data Types</a></li>
+<li>Alan Kay (1993). <a href="http://worrydream.com/EarlyHistoryOfSmalltalk/">The Early History of Smalltalk</a></li>
+</ul>
+<p><strong>Tools, books and articles</strong></p>
+<ul>
+<li><a href="https://vimeo.com/97315970">Domain Specific Languages: The Functional Way</a></li>
+<li><a href="http://homepages.inf.ed.ac.uk/wadler/papers/expression/expression.txt">The Expression Problem</a></li>
+<li><a href="http://agilemodeling.com/artifacts/classDiagram.htm">UML Class Diagrams</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+

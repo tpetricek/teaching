@@ -1,10 +1,111 @@
-@import url('https://fonts.googleapis.com/css?family=Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
+/*--------------------------------------------------------------------------
+  Formatting for code snippets
+/*--------------------------------------------------------------------------*/
+
+/* identifier */
+span.i { color:#000000; }
+/* string */
+span.s { color:#a31515; }
+/* keywords */
+span.k { color:#0000ff; }
+/* comment */
+span.c { color:#008000; }
+/* operators */
+span.o { color:#000000; }
+/* numbers */
+span.n { color:#000000; }
+/* line number */
+span.l { color:#96c2cd; }
+/* type or module */
+span.t { color:#2b91af; }
+/* function */
+span.f { color:#0000a0; }
+/* DU case or active pattern */
+span.p { color:#800080; }
+/* mutable var or ref cell */
+span.v { color:#000000; font-weight: bold; }
+/* printf formatters */
+span.pf { color:#2b91af; }
+/* escaped chars */
+span.e { color:#ff0080; }
+/* mutable var or ref cell */
+
+/* inactive code */
+span.inactive { color:#808080; }
+/* preprocessor */
+span.prep { color:#0000ff; }
+/* fsi output */
+span.fsi { color:#808080; }
+
+/* omitted */
+span.omitted {
+	background:#3c4e52;
+  border-radius:5px;
+	color:#808080;
+	padding:0px 0px 1px 0px;
+}
+/* tool tip */
+div.tip {
+	background:#e5e5e5;
+  border-radius:4px;
+  font:9pt 'Roboto', arial, sans-serif;
+	padding:6px 8px 6px 8px;
+	display:none;
+  color:#000000;
+  pointer-events:none;
+}
+table.pre pre {
+  padding:0px;
+  margin:0px;
+  border:none;
+}
+table.pre, pre.fssnip, pre {
+  line-height:13pt;
+  border:1px solid #d8d8d8;
+  border-collapse:separate;
+  white-space:pre;
+  font: 10pt consolas,monospace;
+  width:90%;
+  margin:10px 20px 20px 20px;
+  background-color:#fdfdfd;
+  padding:10px;
+  border-radius:5px;
+  color:#000000;
+  max-width: none;
+}
+pre.fssnip code {
+  font: 18pt 'Source Code Pro',consolas,monospace;
+}
+table.pre pre {
+  padding:0px;
+  margin:0px;
+  border-radius:0px;
+  width: 100%;
+}
+table.pre td {
+  padding:0px;
+  white-space:normal;
+  margin:0px;
+}
+table.pre td.lines {
+  display:none;
+}
+
+/*--------------------------------------------------------------------------
+  Formatting for normal things
+/*--------------------------------------------------------------------------*/
 
 .reveal section[style] {
   top:0px !important;
 }
 .reveal section {
   text-align:left;
+}
+.reveal code {
+  font-family:'Source Code Pro', monospace;
+  font-size:24pt;
 }
 .reveal h1 {
   background:#09357B;
@@ -28,7 +129,7 @@
   font-style:inherit;
 }
 .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul, .reveal ol {
-  font-family:Roboto; 
+  font-family:Roboto;
   width:calc(100%-40px);
   padding:0px 20px 0px 20px;
   text-align:left;
