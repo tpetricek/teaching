@@ -172,11 +172,15 @@ _Sent at the end of sync or async call_
 
 ----------------------------------------------------------------------------------------------------
 
-<img src="images/behaviour/web.png" style="max-width:560px;float:left;margin:60px 20px 60px 0px" class="nb" />
+<img src="images/behaviour/web-qqq.png" style="max-width:560px;float:left;margin:60px 20px 60px 0px" class="nb" />
 
-**Guess the system!**
+**Guess the components!**
 
-<div class="fragment">
+----------------------------------------------------------------------------------------------------
+
+<img src="images/behaviour/web.png" style="max-width:560px;float:left;margin:60px 20px 100px 0px" class="nb" />
+
+**Guess the components!**
 
 Checking your Gmail
 
@@ -184,8 +188,6 @@ _Web server fetches data from database_
 
 _Logger records  
 all events asynchronously_
-
-</div>
 
 ----------------------------------------------------------------------------------------------------
 
@@ -237,23 +239,208 @@ _to check the communication protocol today_
 
 ----------------------------------------------------------------------------------------------------
 
-state of an order
+# UML state machines
 
-user interfaces
-imperative implementation
-recursive implementation
+<img src="images/behaviour/uml.png" class="nb" style="float:right;max-width:300px" />
 
-biztalk scale
+**State change over time**
 
-****************************************************************************************************
-- class: part
+ - _State of objects or systems_
+ - _Standard computer science idea_
+ - _Not as easy to see in code_
 
-# **???**
+<div class="fragment">
+
+**Features beyond this lecture**
+
+ - _Hierarchical state machines_
+ - _Conditions and actions just briefly_
+ - _Orthogonal regions, parallel regions_
+
+</div>
+
+----------------------------------------------------------------------------------------------------
+
+# UML state machines
+
+<img src="images/behaviour/traffic.png" class="nb" style="float:right;max-width:240px;margin:-20px 10px 0px 30px" />
+
+**States**
+
+ - _Initial, regular and final states_
+ - _Some systems run infinitely_
+ - _Can have entry/exit actions_
+
+<div class="fragment">
+
+**Transitions**
+
+ - _Labels explain what caused them_
+ - _Typically correspond to some events_
+ - _Conditions can specify when enabled_
+
+</div>
 
 
 ----------------------------------------------------------------------------------------------------
 
+<img src="images/behaviour/order.png" style="max-width:560px;float:left;margin:100px 50px 100px 0px" class="nb" />
 
+**Guess the system!**
+
+<div class="fragment">
+
+Sainsbury's order processing
+
+_When can user  
+cancel an order?_
+
+_What can happen  
+after shipping?_
+
+</div>
+
+----------------------------------------------------------------------------------------------------
+
+- class: part
+
+# **Demo:** States of a PhD application
+
+----------------------------------------------------------------------------------------------------
+
+# Actions and conditions
+
+<img src="images/behaviour/fancy.png" style="max-width:420px;float:left;margin:50px 50px 100px 10px" class="nb" />
+
+**Actions**
+
+_What happens when system enters or exits a state_
+
+**Conditions**
+
+_When is the transition allowed to happen_
+
+----------------------------------------------------------------------------------------------------
+
+# State diagrams and programming
+
+### Communication device or a programming tool
+
+_<i class="fa fa-sync-alt"></i> Understand state of objects in OO model_
+
+_<i class="fa fa-mouse-pointer"></i> Model states of a user interface_
+
+_<i class="fa fa-code"></i> Imperative and functional patterns at small scale_
+
+_<i class="fa fa-industry"></i> Complex systems for large scale workflows_
+
+----------------------------------------------------------------------------------------------------
+
+<img src="images/behaviour/biztalk.gif" class="nb" style="max-width:480px;float:left;margin:100px 30px 100px 0px" />
+
+**Enterprise application integration**
+
+_Microsoft BizTalk Server is an Inter-Organizational Middleware System
+that enables companies to automate business processes [and connect]
+different software systems used in an enterprise._
+
+----------------------------------------------------------------------------------------------------
+
+# Implementing state machines
+
+<img src="images/behaviour/drawing.gif" class="nb" style="float:right;max-width:240px;margin:-20px 10px 0px 30px" />
+
+**State machines and programming**
+
+ - _State of objects or user interfaces _
+ - _Java has "classes" but no "states"!_
+ - _How can we best encode the idea?_
+
+**Functional and imperative patterns**
+
+ - _Variable to represent current state_
+ - _Function to represent current state_
+
+----------------------------------------------------------------------------------------------------
+
+<div style="float:left;width:500px">
+
+    [lang=csharp]
+    enum Light {
+      Red, Orange, Green
+    };
+    class TrafficLight {
+      Light state;
+      void updateState() {
+        switch(state) {
+          case Red:
+            state = Green;
+            break;
+          case Orange:
+            state = Red;
+            break;
+          case Green:
+            state = Orange;
+            break;
+        }
+      }
+    }
+
+</div>
+
+**Object with states**
+
+_State stored in a field_
+
+_Update checks state  
+and modifies it_
+
+All logic in one method
+
+Transitions are hidden  
+in a big _switch_ block
+
+----------------------------------------------------------------------------------------------------
+
+<div style="float:left;width:500px">
+
+    [lang=csharp]
+    void red() {
+      // (do some work)
+      green();
+    }
+
+    void orange() {
+      // (do some work)
+      red();
+    }
+
+    void green() {
+      // (do some work)
+      orange();
+    }
+
+
+</div>
+
+**Functions as states**
+
+Process going through  
+multiple states
+
+_State are functions_
+
+_Transitions encoded as
+calls to other functions_
+
+Requires good handling  
+of recursion and waiting
+
+----------------------------------------------------------------------------------------------------
+
+- class: part
+
+# **Demo:** User interface for drawing squares
 
 ****************************************************************************************************
 - class: part
@@ -262,29 +449,29 @@ biztalk scale
 
 ----------------------------------------------------------------------------------------------------
 
-# Modelling structure
+# Modelling behaviour
 
-**Decomposing systems into modules**  
-_From subroutines to abstract modules and objects_  
-_Abstract data types, object-oriented programming_
+**Two aspects of behaviour**  
+_Communication patterns and state change patterns_  
+_Also in analog computers (1930s) and EDSAC (1947)_
 
-**Object-oriented modelling**  
-_Heavyweight and lightweight methodologies_  
-_Is-A, Has-A and dependency relations_
+**Capturing communication patterns**  
+_Basics of UML sequence diagrams_  
+_Synchronous, asynchronous and responses_
 
-**Beyond object-oriented modelling**  
-_Functional programming and the expression problem_  
-_Solving repetitive problems with DSLs_
+**Capturing workflows with state diagrams**  
+_Basics of UML state machine diagrams_  
+_Implementing state machines at small and large scale_
 
 ----------------------------------------------------------------------------------------------------
 
-# CO886: Modelling structure
+# CO886: Modelling behaviour
 
 **What you should remember from this lecture**
 
- - Abstraction and origins of objects
- - Class diagrams and three kinds of arrows
- - Be aware that there are other options!
+ - Sequence diagrams with sync, async and responses
+ - State machines with states and transitions
+ - Understand examples and when to use them
 
 <br />
 <br />
@@ -299,24 +486,14 @@ _[t.petricek@kent.ac.uk](mailto:t.petricek@kent.ac.uk) | [@tomaspetricek](http:/
 
 ----------------------------------------------------------------------------------------------------
 
+**Academic references**
 
-references
+ - Mark Priestley (2018). [Routines of Substitution - John von Neumann’s Work on Software
+    Development, 1945–1948](https://www.springer.com/us/book/9783319916705)
 
-routines of substitution
-
-Marie-José Durand-Richard, Towards programming before flowcharts : diagrams from Babbage to Wilkes
-https://programme.hypotheses.org/794
-
-
-
-**Academic papers**
-
- - David Parnas (1972). [On The Criteria To Be Used in Decomposing Systems into Modules](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf)
- - Barbara Liskov, Stephen Zilles (1974). [Programming with Abstract Data Types](https://dl.acm.org/citation.cfm?id=807045)
- - Alan Kay (1993). [The Early History of Smalltalk](http://worrydream.com/EarlyHistoryOfSmalltalk/)
+ - Marie-José Durand-Richard (2018). [Towards programming before flowcharts: Diagrams from Babbage to Wilkes](https://programme.hypotheses.org/794)
 
 **Tools, books and articles**
 
- - [Domain Specific Languages: The Functional Way](https://vimeo.com/97315970)
- - [The Expression Problem](http://homepages.inf.ed.ac.uk/wadler/papers/expression/expression.txt)
- - [UML Class Diagrams](http://agilemodeling.com/artifacts/classDiagram.htm)
+ - [UML 2 State Machine Diagrams: An Agile Introduction](http://agilemodeling.com/artifacts/stateMachineDiagram.htm)
+ - [UML 2 Sequence Diagrams: An Agile Introduction](http://www.agilemodeling.com/artifacts/sequenceDiagram.htm)

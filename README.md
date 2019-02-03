@@ -15,6 +15,7 @@ University of Kent
  * [Origins and history](https://tpetricek.github.io/Teaching/software-engineering/history.html)
  * [Modelling requirements](https://tpetricek.github.io/Teaching/software-engineering/requirements.html)
  * [Modelling structure](https://tpetricek.github.io/Teaching/software-engineering/structure.html)
+ * [Modelling behaviour](https://tpetricek.github.io/Teaching/software-engineering/behaviour.html)
 
 ### Computer Interaction and User Experience (CO582)
 
