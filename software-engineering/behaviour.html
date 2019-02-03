@@ -1,0 +1,489 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Modelling behaviour</title>
+    <meta name="description" content="Software Engineering: Modelling behaviour">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Modelling behaviour</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Prehistory and behaviour modelling</strong></h1>
+</section>
+<section >
+<img src="images/behaviour/hartree.png" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>Hartree Differential Analyzer</strong>, circa 1935</p>
+<div class="fragment">
+<p><em>Analog computer solving differential equations</em></p>
+<p><em>Information flow between components</em></p>
+</div>
+</section>
+<section >
+<img src="images/behaviour/vonneumann.png" style="max-width:420px;float:left;margin:0px 60px 0px 20px" />
+<p><strong>Herman Goldstine &amp; John von Neumann</strong>, circa 1947</p>
+<div class="fragment">
+<p><em>Program described as a flow diagrams</em></p>
+<p><em>Sequence of individual steps with loops and branching</em></p>
+</div>
+</section>
+<section >
+<h1>Two aspects of behaviour</h1>
+<img src="images/behaviour/telegraph.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<div class="fragment">
+<p><strong>Communication patterns</strong></p>
+<ul>
+<li><em>Interactions of services</em></li>
+<li><em>Sending messages over network</em></li>
+<li><em>Communication in teams</em></li>
+</ul>
+</div><div class="fragment">
+<p><strong>State change patterns</strong></p>
+<ul>
+<li><em>Changing state of an object</em></li>
+<li><em>Workflow or a process to follow</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Modelling behaviour</h1>
+<h3>Tools and practices for state and communication</h3>
+<p><em><i class="fa fa-chalkboard-teacher"></i> Lightweight use in whiteboard discussions</em></p>
+<p><em><i class="fa fa-cogs"></i> Heavyweight software tools with code generation</em></p>
+<p><em><i class="fa fa-layer-group"></i> Range from function logic to business processes</em></p>
+<p><em><i class="fa fa-code"></i> Various directions of programming language support</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Capturing communication using sequence diagrams</strong></h1>
+</section>
+<section >
+<h1>UML sequence diagrams</h1>
+<img src="images/behaviour/uml.png" class="nb" style="float:right;max-width:300px" />
+<p><strong>Interactions between objects</strong></p>
+<ul>
+<li><em>Actions in sequential order</em></li>
+<li><em>What is passed between what parts</em></li>
+<li><em>Explain how business works</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Features beyond this lecture</strong></p>
+<ul>
+<li><em>Actors, objects, anonymous instances</em></li>
+<li><em>Deleting and creating entities</em></li>
+<li><em>Alternatives, parallelism, options, loops, etc.</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>UML sequence diagrams</h1>
+<img src="images/behaviour/sequence.png" class="nb" style="float:right;max-width:260px;margin:0px 30px 0px 0px" />
+<p><strong>Actors and objects</strong></p>
+<ul>
+<li><em>Stick figures or objects</em></li>
+<li><em>Lifeline with periods of activity</em></li>
+<li><em>Write</em> sys:Sytem <em>for an instance</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Communication via messages</strong></p>
+<ul>
+<li><em>Sequential top-to-bottom process</em></li>
+<li><em>Written as function calls</em></li>
+<li><em>Different kinds of arrows</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Fancy arrows</h1>
+<style>.tc td p { text-align:center; margin:0px; } .tc td { padding:0px }</style>
+<table style="width:100%" class="tc"><tr>
+<td style="width:33%;text-align:center">
+<p><strong>Synchronous</strong></p>
+<img src="images/behaviour/arrow1.png" style="max-height:300px" class="nb" />
+<p><em>Call another component and wait until it responds</em></p>
+</td>
+<td style="width:33%;text-align:center" class="fragment">
+<p><strong>Asynchronous</strong></p>
+<img src="images/behaviour/arrow2.png" style="max-height:300px" class="nb" />
+<p><em>Call another component but continue running</em></p>
+</td>
+<td style="width:33%;text-align:center" class="fragment">
+<p><strong>Response</strong></p>
+<img src="images/behaviour/arrow3.png" style="max-height:300px" class="nb" />
+<p><em>Sent at the end of sync or async call</em></p>
+</td>
+</tr></table>
+</section>
+<section >
+<img src="images/behaviour/web-qqq.png" style="max-width:560px;float:left;margin:60px 20px 60px 0px" class="nb" />
+<p><strong>Guess the components!</strong></p>
+</section>
+<section >
+<img src="images/behaviour/web.png" style="max-width:560px;float:left;margin:60px 20px 100px 0px" class="nb" />
+<p><strong>Guess the components!</strong></p>
+<p>Checking your Gmail</p>
+<p><em>Web server fetches data from database</em></p>
+<p><em>Logger records<br />
+all events asynchronously</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Modelling PhD application process</h1>
+</section>
+<section >
+<h1>Implementing sequence diagrams</h1>
+<img src="images/behaviour/kay.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Object-oriented programming</strong></p>
+<p><em>I thought of objects being like biological cells
+and/or individual computers on a network, only able to communicate with messages.</em></p>
+<div class="fragment" style="padding-top:10px">
+<p><strong>Network and workflows</strong></p>
+<ul>
+<li><em>HTTP calls between services</em></li>
+<li><em>Erlang language and Akka library for Java</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/behaviour/csp.png" style="max-height:400px;float:left;margin:40px 20px 60px 0px" />
+<img src="images/behaviour/session.png" style="max-height:400px;float:left;margin:40px 40px 60px 0px" />
+<p><strong>Programming Language Support</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Formal language<br />
+<em>model circa 1978</em></p>
+<p>Session types<br />
+<em>to check the communication protocol today</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Capturing workflows using state diagrams</strong></h1>
+</section>
+<section >
+<h1>UML state machines</h1>
+<img src="images/behaviour/uml.png" class="nb" style="float:right;max-width:300px" />
+<p><strong>State change over time</strong></p>
+<ul>
+<li><em>State of objects or systems</em></li>
+<li><em>Standard computer science idea</em></li>
+<li><em>Not as easy to see in code</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Features beyond this lecture</strong></p>
+<ul>
+<li><em>Hierarchical state machines</em></li>
+<li><em>Conditions and actions just briefly</em></li>
+<li><em>Orthogonal regions, parallel regions</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>UML state machines</h1>
+<img src="images/behaviour/traffic.png" class="nb" style="float:right;max-width:240px;margin:-20px 10px 0px 30px" />
+<p><strong>States</strong></p>
+<ul>
+<li><em>Initial, regular and final states</em></li>
+<li><em>Some systems run infinitely</em></li>
+<li><em>Can have entry/exit actions</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Transitions</strong></p>
+<ul>
+<li><em>Labels explain what caused them</em></li>
+<li><em>Typically correspond to some events</em></li>
+<li><em>Conditions can specify when enabled</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/behaviour/order.png" style="max-width:560px;float:left;margin:100px 50px 100px 0px" class="nb" />
+<p><strong>Guess the system!</strong></p>
+<div class="fragment">
+<p>Sainsbury's order processing</p>
+<p><em>When can user<br />
+cancel an order?</em></p>
+<p><em>What can happen<br />
+after shipping?</em></p>
+</div>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> States of a PhD application</h1>
+</section>
+<section >
+<h1>Actions and conditions</h1>
+<img src="images/behaviour/fancy.png" style="max-width:420px;float:left;margin:50px 50px 100px 10px" class="nb" />
+<p><strong>Actions</strong></p>
+<p><em>What happens when system enters or exits a state</em></p>
+<p><strong>Conditions</strong></p>
+<p><em>When is the transition allowed to happen</em></p>
+</section>
+<section >
+<h1>State diagrams and programming</h1>
+<h3>Communication device or a programming tool</h3>
+<p><em><i class="fa fa-sync-alt"></i> Understand state of objects in OO model</em></p>
+<p><em><i class="fa fa-mouse-pointer"></i> Model states of a user interface</em></p>
+<p><em><i class="fa fa-code"></i> Imperative and functional patterns at small scale</em></p>
+<p><em><i class="fa fa-industry"></i> Complex systems for large scale workflows</em></p>
+</section>
+<section >
+<img src="images/behaviour/biztalk.gif" class="nb" style="max-width:480px;float:left;margin:100px 30px 100px 0px" />
+<p><strong>Enterprise application integration</strong></p>
+<p><em>Microsoft BizTalk Server is an Inter-Organizational Middleware System
+that enables companies to automate business processes [and connect]
+different software systems used in an enterprise.</em></p>
+</section>
+<section >
+<h1>Implementing state machines</h1>
+<img src="images/behaviour/drawing.gif" class="nb" style="float:right;max-width:240px;margin:-20px 10px 0px 30px" />
+<p><strong>State machines and programming</strong></p>
+<ul>
+<li><em>State of objects or user interfaces </em></li>
+<li><em>Java has "classes" but no "states"!</em></li>
+<li><em>How can we best encode the idea?</em></li>
+</ul>
+<p><strong>Functional and imperative patterns</strong></p>
+<ul>
+<li><em>Variable to represent current state</em></li>
+<li><em>Function to represent current state</em></li>
+</ul>
+</section>
+<section >
+<div style="float:left;width:500px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">enum</span> Light {
+  Red, Orange, Green
+};
+<span class="k">class</span> TrafficLight {
+  Light state;
+  <span class="k">void</span> updateState() {
+    <span class="k">switch</span>(state) {
+      <span class="k">case</span> Red:
+        state <span class="o">=</span> Green;
+        <span class="k">break</span>;
+      <span class="k">case</span> Orange:
+        state <span class="o">=</span> Red;
+        <span class="k">break</span>;
+      <span class="k">case</span> Green:
+        state <span class="o">=</span> Orange;
+        <span class="k">break</span>;
+    }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+<p><strong>Object with states</strong></p>
+<p><em>State stored in a field</em></p>
+<p><em>Update checks state<br />
+and modifies it</em></p>
+<p>All logic in one method</p>
+<p>Transitions are hidden<br />
+in a big <em>switch</em> block</p>
+</section>
+<section >
+<div style="float:left;width:500px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">void</span> red() {
+  <span class="c">// (do some work)</span>
+  green();
+}
+
+<span class="k">void</span> orange() {
+  <span class="c">// (do some work)</span>
+  red();
+}
+
+<span class="k">void</span> green() {
+  <span class="c">// (do some work)</span>
+  orange();
+}
+</code></pre></td></tr></table>
+</div>
+<p><strong>Functions as states</strong></p>
+<p>Process going through<br />
+multiple states</p>
+<p><em>State are functions</em></p>
+<p><em>Transitions encoded as
+calls to other functions</em></p>
+<p>Requires good handling<br />
+of recursion and waiting</p>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> User interface for drawing squares</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Modelling behaviour</h1>
+<p><strong>Two aspects of behaviour</strong><br />
+<em>Communication patterns and state change patterns</em><br />
+<em>Also in analog computers (1930s) and EDSAC (1947)</em></p>
+<p><strong>Capturing communication patterns</strong><br />
+<em>Basics of UML sequence diagrams</em><br />
+<em>Synchronous, asynchronous and responses</em></p>
+<p><strong>Capturing workflows with state diagrams</strong><br />
+<em>Basics of UML state machine diagrams</em><br />
+<em>Implementing state machines at small and large scale</em></p>
+</section>
+<section >
+<h1>CO886: Modelling behaviour</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Sequence diagrams with sync, async and responses</li>
+<li>State machines with states and transitions</li>
+<li>Understand examples and when to use them</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Academic references</strong></p>
+<ul>
+<li>
+<p>Mark Priestley (2018). <a href="https://www.springer.com/us/book/9783319916705">Routines of Substitution - John von Neumann’s Work on Software
+Development, 1945–1948</a></p>
+</li>
+<li><p>Marie-José Durand-Richard (2018). <a href="https://programme.hypotheses.org/794">Towards programming before flowcharts: Diagrams from Babbage to Wilkes</a></p></li>
+</ul>
+<p><strong>Tools, books and articles</strong></p>
+<ul>
+<li><a href="http://agilemodeling.com/artifacts/stateMachineDiagram.htm">UML 2 State Machine Diagrams: An Agile Introduction</a></li>
+<li><a href="http://www.agilemodeling.com/artifacts/sequenceDiagram.htm">UML 2 Sequence Diagrams: An Agile Introduction</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
