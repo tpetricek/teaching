@@ -4,7 +4,7 @@
 
 First, download the sample application and create a Git repository for it.
 
-1.  Download the sample application. It consists of two files - `index.html` 
+1.  Download the sample application by [following this link (ZIP)][zip]. It consists of two files - `index.html` 
     containing user interface and `bot.js` implementing simple logic for it
     in JavaScript.
 
@@ -131,5 +131,4 @@ that can also talk about tea and biscuits!
     where `<branch-to-delete>` is the name of the branch you want to delete.        
         
 
-
-
+[zip]:  https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/git-introduction/sample.zip?raw=true
