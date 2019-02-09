@@ -25,6 +25,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 2. [Modelling requirements](requirements.html)
 3. [Modelling structure](structure.html)
 4. [Modelling behaviour](behaviour.html)
+5. [Tools for collaborative development](collaborative.html)
 
 ----------------------------------------------------------------------------------------------------
 
