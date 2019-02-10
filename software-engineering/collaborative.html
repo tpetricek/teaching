@@ -1,0 +1,546 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Tools for collaborative development</title>
+    <meta name="description" content="Software Engineering: Tools for collaborative development">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Tools for collaborative development</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Software engineering today</strong></h1>
+</section>
+<section >
+<img src="images/collaborative/noproof.png" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>Mathematician's answer to software engineering</strong></p>
+<p><em>Use mathematical methods to prove system correctness</em></p>
+<div class="fragment">
+<p>People don't do it, yet, software mostly works.</p>
+</div>
+</section>
+<section >
+<img src="images/collaborative/uml.jpg" style="max-width:490px;float:left;margin:30px 50px 100px 0px" />
+<p><strong>Detailed upfront models</strong></p>
+<div class="fragment">
+<p>We know where<br />
+we want to get</p>
+<p><em>Useful if predictability matters more than cost and delivery time</em></p>
+</div>
+</section>
+<section >
+<h1>Software engineering today</h1>
+<img src="images/collaborative/domino.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>In contrast to upfront model</strong></p>
+<p>We know that we continue<br />
+moving in the right direction</p>
+<div class="fragment">
+<p><strong>Tools and practices to ensure that</strong></p>
+<ul>
+<li><em>We can learn from past mistakes</em></li>
+<li><em>We're tracking known issues</em></li>
+<li><em>Software keeps working when we make changes</em></li>
+<li><em>It is easy to improve and contribute</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Software engineering today</h1>
+<h3>Some important aspects that we will cover</h3>
+<p><em><i class="fa fa-file"></i> Source control and collaborative development</em></p>
+<p><em><i class="fa fa-check-square"></i> Testing and build automation</em></p>
+<p><em><i class="fa fa-cog"></i> Continuous integration and reproducibility</em></p>
+<p><em><i class="fa fa-code"></i> How open-source software development works</em></p>
+</section>
+<section >
+<img src="images/collaborative/git.png" class="nb" style="max-width:480px;float:left;margin:0px 70px 0px 20px" />
+<p><strong>Git and source control</strong></p>
+<p>Version and history tracking systems</p>
+<div class="fragment">
+<p><em>Keep version history because you will need to look back</em></p>
+<p><em>Develop features independently and merge changes</em></p>
+</div>
+</section>
+<section >
+<img src="images/collaborative/github.png" class="nb" style="max-width:490px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>GitHub and collaboration</strong></p>
+<p>Help teams plan and collaborate and organize</p>
+<div class="fragment">
+<p><em>Manage issues, notes, plans, contributions</em></p>
+<p><em>Also a "social network"<br />
+for open source software</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Git and source control</strong></h1>
+</section>
+<section >
+<h1>Git repository</h1>
+<img src="images/collaborative/folder.png" style="float:right;max-width:250px;margin-left:20px" />
+<p><strong>Everything in one folder</strong></p>
+<ul>
+<li><em>Your regular files you can edit</em></li>
+<li><em><code>.git</code> folder with old versions etc.</em></li>
+<li><em><code>.gitignore</code> and other special files</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Versioning and collaboration</strong></p>
+<ul>
+<li><em>Stage changes from files to "index"</em></li>
+<li><em>Save or retrieve from version history</em></li>
+<li><em>Push to/pull from remote repositories</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/collaborative/areas.png" style="max-width:500px;float:left;margin:30px 40px 150px 0px" />
+<p><strong>Working directory</strong><br />
+<em>Files you directly edit</em></p>
+<p><strong>Staging area</strong><br />
+<em>Selection to be archived</em></p>
+<p><strong>Local repository</strong><br />
+<em>History and versions</em></p>
+<p><strong>Remote repositories</strong><br />
+<em>Versions on other computer(s)</em></p>
+</section>
+<section >
+<h1>Creating repository and adding files (1/2)</h1>
+<p><strong>Initialize empty repository in current folder</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git init
+Initialized empty Git repository in C:/Temp/test/.git/
+</code></pre></td></tr></table>
+<h3>Add new or modified file to the index</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git add hello.txt
+$ git status
+Changes to be committed:
+        new file:   hello.txt
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Creating repository and adding files (2/2)</h1>
+<p><strong>Create new version history record (commit)</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git commit
+[master (root-commit) d70e7d9] Adding hello file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.txt
+</code></pre></td></tr></table>
+<h3>List the most recent history records</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git log
+commit d70e7d97c8598b8c55f01da803447cf95d664504 (HEAD -&gt; master)
+Author: Tomas Petricek &lt;tomas@tomasp.net&gt;
+Date:   Sat Feb 9 01:36:40 2019 +0000
+    Adding hello file
+</code></pre></td></tr></table>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Creating repository, adding files</h1>
+</section>
+<section >
+<img src="images/collaborative/swearing.png" class="nb fragment" style="max-width:500px;float:left;margin:0px 40px 100px 0px" />
+<p><em>Warning: This slide contains profanities</em></p>
+<div class="fragment" style="padding-top:10px">
+<p>How to write a good commit message?</p>
+<p><em>Brief summary of the change (70 characters)</em></p>
+<p><em>Add more detailed comment after a newline</em></p>
+</div>
+</section>
+<section >
+<h1>Git history and branches</h1>
+<h3>Using git for versioning and features</h3>
+<p><em><i class="fa fa-code-branch"></i> Use branches for different versions and features</em></p>
+<p><em><i class="fa fa-leaf"></i> Branch is named pointer to a commit</em></p>
+<p><em><i class="fa fa-chess-king"></i> Master branch is typically the "main" once</em></p>
+<p><em><i class="fa fa-industry"></i> Branch for each version running in production</em></p>
+</section>
+<section >
+<h1>Git history and branches (1/3)</h1>
+<img src="images/collaborative/branching3.png" class="nb" style="float:left;max-width:280px;margin:-10px 50px 0px 0px" />
+<div>
+<p><strong>Directed acyclic graph</strong><br />
+<em>Commits identified by hash</em><br />
+<em>Arrow to a previous state</em></p>
+</div>
+</section>
+<section >
+<h1>Git history and branches (2/3)</h1>
+<img src="images/collaborative/branching2.png" class="nb" style="float:left;max-width:280px;margin:-10px 50px 0px 0px" />
+<div>
+<p><strong>Directed acyclic graph</strong><br />
+<em>Commits identified by hash</em><br />
+<em>Arrow to a previous state</em></p>
+<p><strong>Commits, branches, head</strong><br />
+<em>Branch is a pointer to commit</em><br />
+<em>Current branch identified as HEAD</em></p>
+</div>
+</section>
+<section >
+<h1>Git history and branches (3/3)</h1>
+<img src="images/collaborative/branching1.png" class="nb" style="float:left;max-width:280px;margin:-10px 50px 0px 0px" />
+<div>
+<p><strong>Directed acyclic graph</strong><br />
+<em>Commits identified by hash</em><br />
+<em>Arrow to a previous state</em></p>
+<p><strong>Commits, branches, head</strong><br />
+<em>Branch is a pointer to commit</em><br />
+<em>Current branch identified as HEAD</em></p>
+<p><strong>Merging changes from branches</strong><br />
+<em>Commit with multiple parents</em><br />
+<em>Potential for conflicts</em></p>
+</div>
+</section>
+<section >
+<h1>Working with branches (1/2)</h1>
+<p><strong>Create and switch head to a new branch</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git branch testing
+$ git checkout testing
+Switched to branch 'testing'
+</code></pre></td></tr></table>
+<h3>Make a change in a new branch</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git commit -am "Add experimental features"
+[testing 4aaea6a] Add experimental features
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Working with branches (2/2)</h1>
+<p><strong>List branches and switch to master</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git branch -v
+* master  d70e7d9 Yadda
+  testing 4aaea6a Adding testing
+</code></pre></td></tr></table>
+<h3>Merge changes from another branch</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git checkout master
+$ git merge testing
+Updating d70e7d9..4aaea6a
+Fast-forward
+ hello.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+</code></pre></td></tr></table>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Working with branches</h1>
+</section>
+<section >
+<h1>Git and its alternatives</h1>
+<h3>When is git a wrong tool and alternatives</h3>
+<p><em><i class="fa fa-wifi"></i> Uses distributed model with no central server</em></p>
+<p><em><i class="fa fa-window-restore"></i> There are user interface tools for using git</em></p>
+<p><em><i class="fa fa-magic"></i> Git is way more complex than it seems</em></p>
+<p><em><i class="fa fa-list"></i> Alternatives include Subversion, Mercurial, Perforce</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Collaboration and GitHub</strong></h1>
+</section>
+<section >
+<h1>GitHub collaboration platform</h1>
+<img src="images/collaborative/octojedi.png" class="nb" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Other things a project needs</strong></p>
+<ul>
+<li><em>Tracking issues and feature requests</em></li>
+<li><em>Hosting documentation and notes</em></li>
+<li><em>Integration with test runners, etc.</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Why open source uses GitHub</strong></p>
+<ul>
+<li><em>Convenient way of storing my projects</em></li>
+<li><em>Active developer community</em></li>
+<li><em>GitHub is (a bit) like your CV</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/collaborative/project.png" class="nb" style="max-width:520px;float:left;margin:20px 50px 0px 0px" />
+<p><strong>GitHub projects</strong></p>
+<p><em>Git repository with history, branches etc.</em></p>
+<p><em>README and a few other special files</em></p>
+<p><em>Additional features<br />
+not based on Git</em></p>
+</section>
+<section >
+<h1>Additional GitHub features</h1>
+<h3>What exists in GitHub, but not in git</h3>
+<p><em><i class="fa fa-code-branch"></i></em> Fork <em>a project to create your clone in your profile</em></p>
+<p><em><i class="fa fa-forward"></i> Send</em> pull requests <em>between multiple forks</em></p>
+<p><em><i class="fa fa-bug"></i> Track</em> issues <em>and organise</em> projects</p>
+<p><em><i class="fa fa-font"></i> Use</em> wiki <em>for keeping notes and documentation</em></p>
+</section>
+<section >
+<img src="images/collaborative/remote.png" style="max-width:520px;float:left;margin:30px 40px 150px 0px" />
+<p><strong>Working with remote repositories</strong><br />
+<em>Same thing as your<br />
+local repository!</em></p>
+<div class="fragment" style="padding-top:10px">
+<p>Clone <em>to copy data</em><br />
+Pull <em>to fetch changes</em><br />
+Push <em>to update remote</em></p>
+</div>
+</section>
+<section >
+<h1>Working with remote repositories (1/3)</h1>
+<p><strong>Clone a remote repository from GitHub</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git clone https://github.com/tpetricek/test.git
+Cloning into 'test'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+</code></pre></td></tr></table>
+<h3>Go to the new folder and edit the code</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ cd test/
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Working with remote repositories (2/3)</h1>
+<p><strong>Modify repository locally offline</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git commit -am "Modifying readme for test project"
+[master 59bb116] Modifying readme for test project
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></td></tr></table>
+<p><strong>Push local changes to remote repository</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git push origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 271 bytes | 271.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/tpetricek/test.git
+   59ea774..59bb116  master -&gt; master
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Working with remote repositories (3/3)</h1>
+<p><strong>Retrieve changes done by others</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git pull origin master
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/tpetricek/test
+ * branch            master     -&gt; FETCH_HEAD
+   59bb116..1fd8ceb  master     -&gt; origin/master
+Updating 59bb116..1fd8ceb
+Fast-forward
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></td></tr></table>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> GitHub projects, git push an pull</h1>
+</section>
+<section >
+<img src="images/collaborative/pr.png" class="nb" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>GitHub pull requests</strong>
+<em>Sending contributions<br />
+back to project owner</em></p>
+<div class="fragment" style="padding-top:10px">
+<p><em>Owner has write rights,</em><br />
+<em>way to discuss changes</em></p>
+<p><em>Linux uses patches and emails, not PRs!</em></p>
+</div>
+</section>
+<section >
+<h1>Contributing to a project</h1>
+<h3>Typical workflow when contributing on GitHub</h3>
+<p>❶ Fork project (GitHub) <em>- Online copy in your profile</em></p>
+<p>❷ Clone repository (git) <em>- From GitHub to your computer</em></p>
+<p>❸ Commit changes (git) <em>- All in your local repository</em></p>
+<p>❹ Push changes (git) <em>- From your computer to GitHub</em></p>
+<p>❺ Send a pull request (GitHub) <em>- Online to the owner</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Tools for collaborative development</h1>
+<p><strong>Software engineering today</strong><br />
+From <em>"we know where we want to get"</em><br />
+To <em>"know we continue moving in the right direction"</em></p>
+<p><strong>Using git for version and history tracking</strong><br />
+<em>Working dir, staging area, local and remote repositories</em><br />
+<em>Creating, commits, working with branches, merging</em></p>
+<p><strong>Collaborative development using GitHub</strong><br />
+<em>Forks, pull requests, issues, etc.</em><br />
+<em>Typical open source contribution workflow</em></p>
+</section>
+<section >
+<h1>CO886: Tools for collaborative development</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>How git stores versions and branches</li>
+<li>Git commit, branch, checkout, pull, push</li>
+<li>GitHub forks, pull requests, etc.</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
