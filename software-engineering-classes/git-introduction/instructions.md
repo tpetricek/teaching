@@ -1,5 +1,11 @@
 # Introducing source control with Git
 
+## Using notepad as your editor
+
+First, run the following command to use `notepad` as your git editor (so that you can use it to write your commit messages)
+
+    git config --global core.editor notepad
+
 ## Creating the repository
 
 First, download the sample application and create a Git repository for it.
