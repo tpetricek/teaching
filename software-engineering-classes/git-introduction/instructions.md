@@ -66,7 +66,7 @@ Now, we will make the code nicer by extracting the logic into a separate
 function, but we are going to do this in a new branch based on `master`. 
 This is something that typically happens when more people work on the same project.
 
-1.  Create a new branch using `git branch -c <branch-name>` where 
+1.  Create a new branch using `git branch <branch-name>` where 
     `<branch-name>` is the name of the branch you want to create.
 
 2.  Switch to the new branch using `git checkout <branch-name>`
