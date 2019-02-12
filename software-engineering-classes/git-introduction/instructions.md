@@ -38,7 +38,7 @@ First, download the sample application and create a Git repository for it.
 Next, we will extend the chat bot to be able to talk about tea and biscuits.
 We will do this in a branch separate from `master`.
 
-1.  Create a new branch that is a copy of `master` using `git branch -c tea`
+1.  Create a new branch that is a copy of `master` using `git branch tea`
     (`tea` is the name of the new branch, you can pick anything you want).
 
 2.  Switch to the new branch using `git checkout tea` and then review the 
