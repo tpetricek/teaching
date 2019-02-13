@@ -1,5 +1,11 @@
 # Introducing source control with Git
 
+## Using notepad as your editor
+
+First, run the following command to use `notepad` as your git editor (so that you can use it to write your commit messages)
+
+    git config --global core.editor notepad
+
 ## Creating the repository
 
 First, download the sample application and create a Git repository for it.
@@ -32,7 +38,7 @@ First, download the sample application and create a Git repository for it.
 Next, we will extend the chat bot to be able to talk about tea and biscuits.
 We will do this in a branch separate from `master`.
 
-1.  Create a new branch that is a copy of `master` using `git branch -c tea`
+1.  Create a new branch that is a copy of `master` using `git branch tea`
     (`tea` is the name of the new branch, you can pick anything you want).
 
 2.  Switch to the new branch using `git checkout tea` and then review the 
@@ -60,7 +66,7 @@ Now, we will make the code nicer by extracting the logic into a separate
 function, but we are going to do this in a new branch based on `master`. 
 This is something that typically happens when more people work on the same project.
 
-1.  Create a new branch using `git branch -c <branch-name>` where 
+1.  Create a new branch using `git branch <branch-name>` where 
     `<branch-name>` is the name of the branch you want to create.
 
 2.  Switch to the new branch using `git checkout <branch-name>`
