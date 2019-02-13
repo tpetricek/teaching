@@ -18,6 +18,16 @@ twitter: [@tomaspetricek](http://twitter.com/tomaspetricek)<br />
 office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ****************************************************************************************************
+
+FEEDBACK
+
+ - At times the pace was a bit too high (when teaching diff and merge).
+ - The motivation — how to facilitate the workflow of a contemporary programmer — was woven in with the demo. It might be good to show that up front.
+ - At times the text was too small for my poor old eyes!
+ - The explanation of Push and Pull came near the end, but I would have expected them to come earlier.
+ - Interaction opportunity: What do you think will happen if I run 'git log' now (after doing some stuff)
+
+****************************************************************************************************
 - class: part
 
 # **Software engineering today**

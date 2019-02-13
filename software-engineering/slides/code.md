@@ -40,6 +40,17 @@ avoid too much nesting
 
 proper indentation
 
+REFACTORING
+semantics preserving transformation improving quality
+when to do refactoring in TDD!
+
+ENSURING QUALITY
+
+code reviews
+pair programming
+style checking tools / linters
+
+
 ****************************************************************************************************
 
 Fig 1
