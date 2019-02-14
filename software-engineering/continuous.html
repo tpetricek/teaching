@@ -1,0 +1,463 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Continuous development process</title>
+    <meta name="description" content="Software Engineering: Continuous development process">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Continuous development process</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modern software development challenges</strong></h1>
+</section>
+<section >
+<h1>Modern software development challenges</h1>
+<h3>Context of modern software development</h3>
+<p><em><i class="fa fa-stopwatch"></i> You can update web application instantly</em></p>
+<p><em><i class="fa fa-archive"></i> You rarely have full control of all code you use</em></p>
+<p><em><i class="fa fa-flag-checkered"></i> Development of a system is never done</em></p>
+<p><em><i class="fa fa-layer-group"></i> Modern tools have complex multi-layer structure</em></p>
+</section>
+<section >
+<img src="images/continuous/win95.jpg" class="fragment" style="max-width:500px;float:left;margin-right:50px" />
+<p>Can you fix mistakes after product "release"?</p>
+<div class="fragment" style="padding-top:10px">
+<p><strong>Windows 95</strong></p>
+<p><em>Discard all your floppies if you notice early</em></p>
+<p><em>Tell customers to return to the shop for a fix</em>
+</div></p>
+</section>
+<section >
+<img src="images/continuous/break.jpg" style="max-width:550px;float:left;margin-right:50px" />
+<p><strong>Facebook, modern start-ups and others</strong></p>
+<p><em>Do multiple "releases" per day</em></p>
+<p><em>Monitoring to avoid big failures</em></p>
+<p><em>Small issues can be corrected in minutes</em></p>
+</section>
+<section >
+<img src="images/continuous/leftpad.png" style="max-width:500px;float:left;margin:0px 70px 0px 30px" />
+<p>Do you control all the code your system runs?</p>
+<div class="fragment" style="padding-top:10px">
+<p><strong>Leftpad fiasco</strong></p>
+<p><em>11 line helper removed from NPM, breaking thousands of packages the whole world uses</em></p>
+</div>
+</section>
+<section >
+<img src="images/continuous/unix.jpg" style="max-width:520px;margin-top:40px;float:left;margin-right:50px" />
+<p>How complex is your infrastructure?</p>
+<div class="fragment" style="padding-top:10px">
+<p><strong>UNIX on PDP-11 (circa 1970)</strong></p>
+<p><em>You can read all code the system runs</em></p>
+<p><em>Tool is just a C file that you compile &amp; run</em></p>
+</div>
+</section>
+<section >
+<img src="images/continuous/babel.jpg" style="max-width:500px;float:left;margin-right:30px" />
+<p><strong>Modern JavaScript<br />
+web development</strong></p>
+<div class="fragment">
+<p>Babel <em>to compile new JavaScript to JavaScript</em></p>
+<p>NPM <em>to find packages<br />
+for everything you need</em></p>
+<p>WebPack <em>to combine source files and optimize</em></p>
+</div>
+</section>
+<section >
+<h1>eXtreme Programming (2000s)</h1>
+<img src="images/continuous/xp.jpg" style="float:right;max-width:360px;margin-top:-10px;margin-left:20px" />
+<div class="fragment">
+<p><strong>What is extreme programming</strong></p>
+<ul>
+<li><em>Reaction to the new situation</em></li>
+<li><em>Collection of ideas, some old</em></li>
+<li><em>Nobody uses the name anymore</em></li>
+</ul>
+</div><div class="fragment">
+<p><strong>Tools and practices of XP</strong></p>
+<ul>
+<li>Feedback - <em>tests, pair programming, code reviews</em></li>
+<li>Continuous process - <em>frequent small releases</em></li>
+<li>Agreement - <em>coding styles, reasonable pace</em></li>
+</ul>
+<div>
+</section>
+<section >
+<h1>The Joel Test: 12 Steps to Better Code (2000)</h1>
+<p>"If you get these 12 things right, you’ll have a disciplined team that can consistently deliver"
+(selection)</p>
+<div style="padding-left:30px">
+<ol>
+<li><em>Do you use source control?</em></li>
+<li><em>Can you make a build in one step?</em></li>
+<li><em>Do you make daily builds?</em></li>
+<li><em>Do you have a bug database?</em></li>
+<li><em>Do you have an up-to-date schedule?</em></li>
+<li><em>Do you have a spec?</em></li>
+<li><em>Do you do hallway usability testing?</em></li>
+</ol>
+</div>
+</section>
+<section >
+<h1>Continuous integration</h1>
+<h3>Ensuring your project is always in a good state</h3>
+<p><em><i class="fa fa-code-branch"></i> Your <code>master</code> branch builds reproducibly</em></p>
+<p><em><i class="fa fa-desktop"></i> Everything also builds on a clean machine</em></p>
+<p><em><i class="fa fa-check"></i> All your tests run automatically and pass</em></p>
+<p><em><i class="fa fa-wrench"></i> Continuous integration tools help with this!</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modern project infrastructure</strong></h1>
+</section>
+<section >
+<h1>Anatomy of a modern JavaScript project</h1>
+<img src="images/continuous/project.png" style="float:right;max-width:320px;margin-top:-10px;margin-left:0px" />
+<div class="fragment">
+<p>Code and tests - <em>your actual code such as
+<code>test</code>, <code>bot.js</code> and <code>index.html</code></em></p>
+<p>Dependency management - <em>NPM package info <code>package.json</code>
+and version lock file <code>yarn.lock</code></em></p>
+<p>Build configuration - <em>build scripts in <code>package.json</code> and
+Webpack server and build config <code>webpack.config.js</code></em></p>
+<p>Continuous integration - <em>tool configuration <code>.travis.yml</code> and
+related commands in <code>package.json</code></em></p>
+</div>
+</section>
+<section >
+<h1>Anatomy of a modern JavaScript project</h1>
+<h3>What really matters from the previous slide</h3>
+<p><em><i class="fa fa-vial"></i></em> Code and tests <em>- writing and running tests</em></p>
+<p><em><i class="fa fa-tree"></i></em> Dependency management <em>- getting versions right</em></p>
+<p><em><i class="fa fa-cog"></i></em> Build configuration <em>- build and run with one command</em></p>
+<p><em><i class="fa fa-cloud"></i></em> Continuous integration <em>- ensure reproducibility</em></p>
+</section>
+<section >
+<h1>Dependency management</h1>
+<img src="images/continuous/npm.png" class="nb" style="float:right;max-width:320px;margin-left:0px" />
+<p><strong>Package dependencies</strong></p>
+<ul>
+<li><em>Public repository such as NPM</em></li>
+<li><em>Version <code>1.0.0</code> major, minor, revision</em></li>
+<li><em>Want exact version? Latest revision?</em></li>
+</ul>
+<p><strong>Why is choosing versions hard</strong></p>
+<ul>
+<li><em>Packages depend on other packages</em></li>
+<li><em>Transitive dependencies can change</em></li>
+<li><em>Packages can have conflicting requirements</em></li>
+</ul>
+</section>
+<section >
+<img src="images/continuous/packages.png" class="nb fragment" style="max-width:500px;float:left;margin-right:50px" />
+<p><strong>Solving version hell with lock files</strong>
+<em>and the Yarn for JavaScript</em></p>
+<div class="fragment" style="padding-top:10px">
+<p>Give your dependencies<br />
+<em>Things you directly need</em></p>
+</div>
+</section>
+<section >
+<img src="images/continuous/lock.png" class="nb" style="max-width:500px;float:left;margin-right:50px" />
+<p><strong>Solving version hell with lock files</strong>
+<em>and the Yarn for JavaScript</em></p>
+<div style="padding-top:10px">
+<p>Give your dependencies<br />
+<em>Things you directly need</em></p>
+</div>
+<div style="padding-top:10px">
+<p>Auto-generate lock file<br />
+<em>Exact versions including transitive dependencies</em></p>
+</div>
+</section>
+<section >
+<h1>Build configuration</h1>
+<img src="images/continuous/build.png" style="float:right;max-width:420px;margin-left:0px" />
+<p><strong>Build with one command</strong></p>
+<ul>
+<li><em>Typically pre-processing, compilation, post-processing</em></li>
+<li><em>Also dev and testing</em></li>
+<li><em><code>Makefile</code> in UNIX world</em></li>
+</ul>
+<p><strong>Building in JavaScript world</strong></p>
+<ul>
+<li>Specified in the <code>scripts</code> section in <code>package.json</code></li>
+<li>Invoked using <code>yarn build</code>, <code>yarn test</code> etc.</li>
+</ul>
+</section>
+<section >
+<h1>Rapid feedback during development</h1>
+<img src="images/continuous/feedback.png" style="float:right;max-width:240px;margin-left:0px" />
+<p><strong>Forms of feedback when coding</strong></p>
+<ul>
+<li><em>Syntax and type errors (milliseconds)</em></li>
+<li><em>Reload when code changes (seconds)</em></li>
+<li><em>Run tests when code changes (minutes)</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Webpack and Webpack dev server</strong></p>
+<ul>
+<li><em>Orchestrates various tools of build process</em></li>
+<li><em>Automatically reload modified parts of code in browser</em></li>
+</ul>
+</div>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Building and running sample project</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Testing</strong></h1>
+</section>
+<section >
+<h1>How and why of unit testing</h1>
+<img src="images/continuous/vstest.png" style="float:right;max-width:260px;margin-top:-10px;margin-left:20px" />
+<p><strong>Tests for ensuring quality</strong></p>
+<ul>
+<li><em>Unit tests to prevent regressions</em></li>
+<li><em>Write tests after you write code</em></li>
+<li><em>Continuous integration to run tests</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Tests as a feedback mechanism</strong></p>
+<ul>
+<li><em>Write tests before you write code</em></li>
+<li><em>Tests are a lightweight specification</em></li>
+<li><em>Command line or automatic background runners</em></li>
+</ul>
+</div>
+</section>
+<section >
+<div style="float:left;min-width:630px;margin-top:20px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">var</span> assert <span class="o">=</span> require(<span class="s">'assert'</span>);
+
+describe(<span class="s">'Arithmetic'</span>, <span class="k">function</span> () {
+  it('should add', <span class="k">function</span> () {
+    <span class="k">var</span> actual <span class="o">=</span> <span class="n">40</span> <span class="o">+</span> <span class="n">2</span>
+    <span class="k">var</span> expected <span class="o">=</span> <span class="n">42</span>
+    assert.equal(actual, expected)
+  });
+
+  it('should multiply', <span class="k">function</span> () {
+    <span class="k">var</span> actual <span class="o">=</span> <span class="n">7</span> <span class="o">*</span> <span class="n">6</span>
+    <span class="k">var</span> expected <span class="o">=</span> <span class="n">42</span>
+    assert.equal(actual, expected)
+  });
+});
+</code></pre></td></tr></table>
+</div>
+<p><strong>Writing JavaScript tests with Mocha</strong></p>
+<p><em>You <code>describe</code> logic with tests written using <code>it</code> notation</em></p>
+<p><em>Run tests from terminal using<br />
+the <code>mocha</code> tool</em></p>
+</section>
+<section >
+<h1>Beyond simple tests</h1>
+<h3>Unit testing and general testing concerns</h3>
+<p><em><i class="fa fa-bolt"></i> Unit tests are just one, easy to automate kind</em></p>
+<p><em><i class="fa fa-code"></i> How to structure code to make testing easy?</em></p>
+<p><em><i class="fa fa-mouse-pointer"></i> How to test not just functions, but user interfaces</em></p>
+<p><em><i class="fa fa-divide"></i> Property testing to specify more than one case</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Continuous integration</strong></h1>
+</section>
+<section >
+<h1>Continuous integration</h1>
+<img src="images/continuous/ci.png" style="float:right;max-width:360px;margin-top:-10px;margin-left:20px" />
+<p><strong>What you need to use CI</strong></p>
+<ul>
+<li><em>Automatic reproducible build</em></li>
+<li><em>Package management, tests</em></li>
+<li><em>Service to run your builds!</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Continuous integration servers</strong></p>
+<ul>
+<li><em>Build in a hosted cloud or your own servers</em></li>
+<li><em>Many options: Travis, Jenkins, TeamCity, AppVeyor</em></li>
+<li><em>Travis CI is free with nice GitHub support</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/continuous/githubci.png" class="nb" style="max-width:500px;float:left;margin-right:50px" />
+<p><strong>Continuous integration support on GitHub</strong></p>
+<p><em>Runs build and tests every time you <code>git push</code></em></p>
+<p><em>Runs build and tests for every pull request</em></p>
+<p><em>Shows warning when<br />
+PR build fails</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Testing locally and using CI</h1>
+</section>
+<section >
+<img src="images/continuous/lab.jpg" style="max-width:460px;float:left;margin:20px 50px 0px 30px" />
+<p><strong>Beyond simple CI</strong></p>
+<div style="padding-top:10px">
+<p>Device testing<br />
+<em>for mobile applications</em></p>
+<p>Continuous deployment <em>to directly release new version of the product</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Continuous development process</h1>
+<p><strong>Changing context of software development</strong><br />
+<em>Release frequency and system complexity</em><br />
+<em>Extreme programming: feedback and continuous process</em></p>
+<p><strong>Modern (JavaScript) project infrastructure</strong><br />
+<em>One command build to run, test and build</em><br />
+<em>Dependency management, versioning and lock files</em></p>
+<p><strong>Testing and continuous integration tools</strong><br />
+<em>Tests for ensuring quality and tests for feedback</em><br />
+<em>Running build automatically with CI systems</em></p>
+</section>
+<section >
+<h1>CO886: Continuous development process</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>What challenges is continuous process solving</li>
+<li>Reproducible builds and dependency management</li>
+<li>Why use tests and continuous integration tools</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li>Joel Spolsky (2000). <a href="https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/">The Joel Test: 12 Steps to Better Code</a></li>
+<li>
+Chris Williams (2016). <a href="https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/">How one developer just broke Node, Babel and thousands of projects in 11 lines of
+JavaScript</a>
+</li>
+</ul>
+<p><strong>Libraries and tools</strong></p>
+<ul>
+<li>JavaScript tools: <a href="https://webpack.js.org/">Webpack</a>, <a href="https://mochajs.org/">Mocha</a>, <a href="https://yarnpkg.com">yarn</a>.</li>
+<li>Continuous integration: <a href="https://travis-ci.com/">Travis</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Domine:400,700|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 
 /*--------------------------------------------------------------------------
   Formatting for code snippets
@@ -76,7 +76,7 @@ table.pre, pre.fssnip, pre {
   max-width: none;
 }
 pre.fssnip code {
-  font: 18pt 'Source Code Pro',consolas,monospace;
+  font: 18pt 'Roboto Mono',consolas,monospace;
 }
 table.pre pre {
   padding:0px;
@@ -104,8 +104,9 @@ table.pre td.lines {
   text-align:left;
 }
 .reveal code {
-  font-family:'Source Code Pro', monospace;
-  font-size:24pt;
+  font-family:'Roboto Mono', monospace;
+  font-size:22pt;
+	background:transparent;
 }
 .reveal h1 {
   background:#09357B;
