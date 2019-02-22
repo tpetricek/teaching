@@ -11,11 +11,7 @@ will contribute fixes to the project.
     enter your details and click "Create an account". Choose the "Free" option and
     skip the extra questions on the next page. You will also need to verify your
     email.
-
-**TODO**: There might be some extra steps here to enable students connect to GitHub
-when doing `git push` from command line. I'll need to test this to see what works
-on the lab machines!    
-
+    
 ## Create a project and push changes (owner)
 
 The following steps should be done by the whole group together, using just the
@@ -58,9 +54,6 @@ contribute to it.
     your GitHub project and you won't see any of the new files there yet. Now
     push the changes from your local repository to your remote repository using
     `git push origin master` and see that the new files are now visible on GitHub!    
-
-**TODO** Need to check whether this works. It will hopefully ask for GitHub
-user name and password
 
 ## Use GitHub issues to track work (group)
 
