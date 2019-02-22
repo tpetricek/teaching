@@ -18,13 +18,14 @@ University of Kent
  * [Modelling behaviour](https://tpetricek.github.io/Teaching/software-engineering/behaviour.html)
  * [Tools for collaborative development](https://tpetricek.github.io/Teaching/software-engineering/collaborative.html)
  * [Continuous development process](https://tpetricek.github.io/Teaching/software-engineering/continuous.html)
+ * [Code quality](https://tpetricek.github.io/Teaching/software-engineering/code.html)
 
 ### Software Engineering - hands-on exercises (CO886)
 
  * [Introducing source control with Git](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/git-introduction/instructions.md)
  * [Collaborative development using GitHub](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/instructions.md)
  * [Continuous integration and testing](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/continuous-integration/instructions.md)
- 
+
 ### Computer Interaction and User Experience (CO582)
 
  * [History and research paradigms](https://tpetricek.github.io/Teaching/human-computer-interaction/paradigms.html)

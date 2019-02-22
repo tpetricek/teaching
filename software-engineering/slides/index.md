@@ -27,6 +27,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 4. [Modelling behaviour](behaviour.html)
 5. [Tools for collaborative development](collaborative.html)
 6. [Continuous development process](continuous.html)
+7. [Code quality](code.html)
 
 ----------------------------------------------------------------------------------------------------
 

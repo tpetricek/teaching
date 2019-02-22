@@ -21,6 +21,8 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ERRORS LECTURE
 
+different kinds of errors (giuseppe / hci)
+
 defensive programming
 (guard against bad inputs)
 
