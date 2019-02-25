@@ -621,6 +621,33 @@ you avoid typos</em></p>
 </section>
 <section >
 <h1>Example of refactoring (1/2)</h1>
+<p>The name of the function and input argument are poor</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> conv(x) {
+  <span class="k">return</span> x <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment">
+<p><em>Improve quality using</em> <strong>rename refactoring</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> celsiusToFahrenheit(temperature) {
+  <span class="k">return</span> temperature <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<p><em>Note that we use new name in all calls to <code>conv</code></em></p>
+</div>
+</section>
+<section >
+<h1>Example of refactoring (2/2)</h1>
+<p>What is wrong with this function?</p>
+<p><em>Comment indicates it does two separate things</em><br />
+<em>In reality it would be very long</em></p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -639,9 +666,6 @@ you avoid typos</em></p>
   print(<span class="s">"amount: $"</span> <span class="o">+</span> outstanding);
 }
 </code></pre></td></tr></table>
-<p>What is wrong with this function?</p>
-<p><em>Comment indicates it does two separate things</em><br />
-<em>In reality it would be very long</em></p>
 </section>
 <section >
 <h1>Example of refactoring (2/2)</h1>
@@ -676,7 +700,7 @@ you avoid typos</em></p>
 <h1><strong>Summary</strong></h1>
 </section>
 <section >
-<h1>Continuous development process</h1>
+<h1>Code quality</h1>
 <p><strong>What is code quality and why it matters</strong><br />
 <em>More time is spent reading code than writing it</em><br />
 <em>Extreme programming - simplicity &amp; shared understanding</em></p>
