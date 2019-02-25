@@ -603,6 +603,37 @@ _(ii) Improves quality of code_
 
 # Example of refactoring (1/2)
 
+The name of the function and input argument are poor
+
+```javascript
+function conv(x) {
+  return x * 9 / 5 + 32;
+}
+```
+
+<div class="fragment">
+
+_Improve quality using_ **rename refactoring**
+
+```javascript
+function celsiusToFahrenheit(temperature) {
+  return temperature * 9 / 5 + 32;
+}
+```
+
+_Note that we use new name in all calls to `conv`_  
+
+</div>
+
+----------------------------------------------------------------------------------------------------
+
+# Example of refactoring (2/2)
+
+What is wrong with this function?
+
+_Comment indicates it does two separate things_  
+_In reality it would be very long_  
+
 ```javascript
 function printOwing(invoice) {
   printBanner();
@@ -614,10 +645,6 @@ function printOwing(invoice) {
 }
 ```
 
-What is wrong with this function?
-
-_Comment indicates it does two separate things_  
-_In reality it would be very long_  
 
 ----------------------------------------------------------------------------------------------------
 
@@ -647,7 +674,7 @@ _Note that comment becomes a function name!_
 
 ----------------------------------------------------------------------------------------------------
 
-# Continuous development process
+# Code quality
 
 **What is code quality and why it matters**  
 _More time is spent reading code than writing it_  
