@@ -20,6 +20,7 @@ University of Kent
  * [Continuous development process](https://tpetricek.github.io/Teaching/software-engineering/continuous.html)
  * [Code quality](https://tpetricek.github.io/Teaching/software-engineering/code.html)
  * [Living with errors](https://tpetricek.github.io/Teaching/software-engineering/errors.html)
+ * [Open source software](https://tpetricek.github.io/Teaching/software-engineering/oss.html)
 
 ### Software Engineering - hands-on exercises (CO886)
 

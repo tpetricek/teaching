@@ -29,12 +29,10 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 6. [Continuous development process](continuous.html)
 7. [Code quality](code.html)
 8. [Living with errors](errors.html)
+9. [Open source software](oss.html)
 
 ----------------------------------------------------------------------------------------------------
 
 TODO Somewhere:
   metaphors (writing, growing, building, etc. - code complete)
   choosing langauges and libraries
-
-Collaborative practices
-  (code reviews, pair programming)
