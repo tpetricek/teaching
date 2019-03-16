@@ -21,12 +21,14 @@ University of Kent
  * [Code quality](https://tpetricek.github.io/Teaching/software-engineering/code.html)
  * [Living with errors](https://tpetricek.github.io/Teaching/software-engineering/errors.html)
  * [Open source software](https://tpetricek.github.io/Teaching/software-engineering/oss.html)
+ * [Software engineering principles](https://tpetricek.github.io/Teaching/software-engineering/principles.html)
 
 ### Software Engineering - hands-on exercises (CO886)
 
  * [Introducing source control with Git](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/git-introduction/instructions.md)
  * [Collaborative development using GitHub](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/instructions.md)
  * [Continuous integration and testing](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/continuous-integration/instructions.md)
+ * [Improving code quality](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/code-quality/instructions.md)
 
 ### Computer Interaction and User Experience (CO582)
 
