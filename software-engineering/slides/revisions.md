@@ -332,3 +332,13 @@ Second, you should know about three ways of handling bad inputs (ignore, recover
 and which might be better when._
 
 ----------------------------------------------------------------------------------------------------
+
+# **Resources** - Modern practices
+
+For theoretical aspects, the lectures cover all you need to know. For practical aspects, the best
+way to learn those is to complete the tasks covered in classes, namely:
+
+ - [Introducing source control with Git](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/git-introduction/instructions.md)
+ - [Collaborative development using GitHub](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/instructions.md)
+ - [Improving code quality](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/code-quality/instructions.md)
+ - [Continuous integration and testing](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/continuous-integration/instructions.md)
