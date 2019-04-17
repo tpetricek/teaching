@@ -31,5 +31,6 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
  8. [Living with errors](errors.html)
  9. [Open source software](oss.html)
 10. [Software engineering principles](principles.html)
+11. [Revising & learning guide](revisions.html)
 
 ----------------------------------------------------------------------------------------------------

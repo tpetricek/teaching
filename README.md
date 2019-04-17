@@ -22,6 +22,7 @@ University of Kent
  * [Living with errors](https://tpetricek.github.io/Teaching/software-engineering/errors.html)
  * [Open source software](https://tpetricek.github.io/Teaching/software-engineering/oss.html)
  * [Software engineering principles](https://tpetricek.github.io/Teaching/software-engineering/principles.html)
+ * [Revising & learning guide](https://tpetricek.github.io/Teaching/software-engineering/revising.html)
 
 ### Software Engineering - hands-on exercises (CO886)
 
