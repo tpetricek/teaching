@@ -1,0 +1,338 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Revising &amp; learning guide</title>
+    <meta name="description" content="Software Engineering: Revising &amp; learning guide">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Revising &amp; learning guide</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Module structure</strong></h1>
+</section>
+<section >
+<h1>Disclaimer</h1>
+<p>This slide deck tries to give a brief summary of the most important topics covered in my part
+of the course. However, keep in mind that it's not possible to condense all lecture material
+into one slide deck, so some things may be missing!</p>
+<p>There are more theoretical and more practical lectures. For the theoretical ones, you should have
+understanding of the key concepts, but you don't need huge amount of detail. For practical ones,
+you should be able to apply them to sample problem or code.</p>
+</section>
+<section >
+<h1>Module structure (1/3)</h1>
+<p><strong>History and principles</strong> (<a href="history.html">history</a>, <a href="oss.html">open-source</a>, <a href="principles.html">principles</a>)</p>
+<p><em>These lectures cover theoretical material (with the exception of "contributing to open-source"
+section). You should understand the key principles from the lectures.</em></p>
+<p><em>These lectures do not follow a textbook, so your best resources are the lectures. Those are based on various books
+and papers, but often pick only a couple of ideas from a long book.</em></p>
+</section>
+<section >
+<h1>Module structure (2/3)</h1>
+<p><strong>Modelling</strong> (<a href="requirements.html">requirements</a>, <a href="structure.html">structure</a>, <a href="behaviour.html">behaviour</a>)</p>
+<p><em>These lectures cover basics of UML and related methods. You should be able to use those methods
+on small practical examples such as those discussed in lectures and classes.</em></p>
+<p><em>There is a variety of other good resources on UML online. We only covered a small subset
+of UML in the lectures, so online materials may cover more than you need.</em></p>
+</section>
+<section >
+<h1>Module structure (3/3)</h1>
+<p><strong>Modern practices</strong> (<a href="collaborative.html">git</a>, <a href="continuous.html">continuous</a>, <a href="code.html">quality</a>, <a href="errors.html">errors</a>)</p>
+<p><em>These lectures cover a range of practical tools (like git and GitHub) and coding practices
+(indentation, naming, error handling) that you should be familiar with. You should be able
+to write code that follows those practices or find issues in code that does not follow them.</em></p>
+<p><em>There are good online resources for some of the topics, but the lectures do not directly follow
+one resource, so it's best to follow lectures and occasionally look elsewhere.</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>History and principles</strong></h1>
+</section>
+<section >
+<h1><strong>Key things</strong> - Origins and history (1/2)</h1>
+<p><strong>Why is building software hard?</strong></p>
+<p><em>In what ways are "software systems" different than "algorithms"
+and why is this making them hard to build?</em></p>
+<p><em>You can have a quick look at the <a href="http://worrydream.com/refs/Brooks-NoSilverBullet.pdf">No Silver Bullet</a>
+essay, which was mentioned in the lecture, but the summary in the lecture is sufficient.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Origins and history (2/2)</h1>
+<p><strong>Software industry crises</strong></p>
+<p><em>The lecture discussed three "crises" that were caused by some developments in the industry
+(typically societal changes leading to the need to build different kinds of system). Those are
+1950s Labour crisis, 1970s Software engineering response and 1990s Application crisis.</em></p>
+<p><em>You should know what caused these crises and what tools or methods were response to those.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Open source software (1/3)</h1>
+<p><strong>History and issues</strong></p>
+<p><em>The lecture compared the culture of "commercial software" and "free software" and discussed
+some of the issues in open-source community such as sustainability and code of conducts.</em></p>
+<p><em>You should know that these issues exist and give one or two ways in which the principles behind
+commercial and free software differ.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Open source software (2/3)</h1>
+<p><strong>Different licensing models</strong></p>
+<p><em>We compared a number of licensing models, namely the free software model (free as in freedom),
+dual licensing model (pay with either money or code), consulting and corporate models (free as
+in free beer).</em></p>
+<p><em>You do not need to know any license details, but you should be able to say the differences
+between GPL and MIT/BSD/Apache. You should also know how different models are typically funded.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Open source software (3/3)</h1>
+<p><strong>Contributing to open source</strong></p>
+<p><em>This is a more practical part of the lecture. We talked about how to contribute to open-source
+software, looking at consistent coding style and minimal, complete, verifiable examples for
+reporting issue.</em></p>
+<p><em>You should be able to write code in consistent coding style and give minimal, complete, verifiable
+examples for a sample code issue.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Software engineering principles (1/2)</h1>
+<p><strong>Complexity of software systems</strong></p>
+<p><em>We looked at the key points made by Fred Brooks - you should know what the terms "accidental"
+and "essential" complexity mean.</em></p>
+<p><strong>Environment of software systems</strong></p>
+<p><em>We discussed why are some systems (such as anti-ballistic-missile defence systems) hard to build
+and discussed characteristics of the environment that make building software hard.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Software engineering principles (2/2)</h1>
+<p><strong>Two key principles of software engineering</strong></p>
+<p><em>You should remember the two key principles discussed in the lecture: First, why we cannot
+expect order of magnitude improvement in productivity and, second, what kind of systems (in
+what kinds of environments) can be "mastered".</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modelling</strong></h1>
+</section>
+<section >
+<h1><strong>Key things</strong> - Modelling (1/2)</h1>
+<p><strong>Up-front specification vs. communication</strong></p>
+<p><em>Modelling (all kinds that we discussed) can be used in two ways - as a tool for writing full
+up-front specification and as a tool for communication with customer. You should recognize the
+differences between these two uses and say how one might use a particular tool (UML or user stories)
+for one or the other method.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Modelling (2/2)</h1>
+<p><strong>User stories and UML diagrams</strong></p>
+<p><em>We covered user stories and a range of UML diagrams. You should be able to use those
+in practice and draw small diagrams or write brief user story. Our focus was more on
+"communication" than on full formal specification, but you should use correct format
+(of user stories) or arrow types (in UML).</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Modelling requirements</h1>
+<p><strong>Use case diagrams</strong></p>
+<p><em>Those visually represent what a system should do. You should be
+able to use inheritance (one use case or actor is a more specialized version of
+another) and dependency (one use case requires another in order to work).</em></p>
+<p><strong>User stories</strong></p>
+<p><em>User stories are textual and less formal ways of specifying requirements. You should be able
+to correctly use the "As a user I want something so that benefit" format.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Modelling structure</h1>
+<p><strong>Class diagrams</strong></p>
+<p><em>Class diagrams can model code structure (as implemented in Java) or a more general concepts
+that are mapped to more code. You should be able to draw classes with attributes and methods
+and also their relationships.</em></p>
+<p><em>For relationships, you should know (and be able to correctly draw arrows for)</em>
+Has-A <em>(one class contains one or more other classes, including multiplicity)</em>
+Is-A <em>(a class inherits from another) and</em>
+Depends-on <em>(a class<br />
+requires another one in implementation)</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Modelling interaction</h1>
+<p><strong>UML Sequence diagrams</strong>
+<em>Sequence diagrams let you model communications (say, how mobile app communicates with server).
+You should understand different kinds of messages (synchronous, asynchronous and responses).</em></p>
+<p><strong>UML State machines</strong>
+<em>State machines represent how an entity transitions between states (say, steps in PhD application,
+steps in traffic lights, registration process for a web site). You should be able to correctly
+draw states and transitions with initial and terminal state.</em></p>
+</section>
+<section >
+<h1><strong>Resources</strong> - Modelling</h1>
+<p>The following articles are good extra materials to read for the modelling lectures.
+They have roughly the same level of detail as the lectures:</p>
+<ul>
+<li><a href="http://www.agilemodeling.com/artifacts/userStory.htm">User Stories: An Agile Introduction</a></li>
+<li><a href="http://agilemodeling.com/artifacts/useCaseDiagram.htm">UML 2 Use Case Diagrams: An Agile Introduction</a></li>
+<li><a href="http://agilemodeling.com/artifacts/classDiagram.htm">UML 2 Class Diagrams: An Agile Introduction</a></li>
+<li><a href="http://agilemodeling.com/artifacts/stateMachineDiagram.htm">UML 2 State Machine Diagrams: An Agile Introduction</a></li>
+<li><a href="http://www.agilemodeling.com/artifacts/sequenceDiagram.htm">UML 2 Sequence Diagrams: An Agile Introduction</a></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Modern practices</strong></h1>
+</section>
+<section >
+<h1><strong>Key things</strong> - Git and GitHub (1/2)</h1>
+<p><strong>Key git concepts</strong></p>
+<p><em>You should know how git works - how it uses the key areas, namely the current folder,
+"staging area", "local repository" and "remote repository".</em></p>
+<p><em>The key commands that you should be aware of, which were discussed in lectures and
+classes are <code>init</code>, <code>add</code>, <code>commit</code>, <code>status</code>, <code>log</code>, <code>branch</code> and <code>checkout</code>.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Git and GitHub (1/2)</h1>
+<p><strong>Key GitHub concepts</strong></p>
+<p><em>What does GitHub add on top of what git provides? You should know how pull requests work
+and be aware of other GitHub features like issue tracking and wiki.</em></p>
+<p><strong>Contributing workflow</strong></p>
+<p><em>You should know what's the typical workflow for contributing to an open-source project
+that you don't own on GitHub (i.e. what you need to send a pull request).</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Continuous development</h1>
+<p><strong>Background</strong>
+<em>What motivated the idea of continuous development? How does development of modern web apps differ from
+applications sold in a "box"?</em></p>
+<p><strong>Dealing with complexity</strong>
+<em>A lot of work in continuous development goes into reproducibility. You should know what
+dependency management, build configuration and continuous integration configuration mean.</em></p>
+<p><em>For dependency management, you should also<br />
+know what a "lock file" does.</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Code quality (1/2)</h1>
+<p><strong>What is good quality code</strong>
+<em>We talked about naming, comments, whitespace and code structure (the idea of keeping
+the "happy path" simple). You should be able to point out quality issues in a code snippet.</em></p>
+<p><strong>Keeping good quality</strong>
+<em>How to keep good quality? There are social methods (pair programming, code reviews) and
+tools (linters).</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Code quality (1/2)</h1>
+<p><strong>Refactoring for quality</strong></p>
+<p><em>An important concept is refactoring - code modification that improves quality without changing
+what code does. You should know where refactoring fits in test-driven development.</em></p>
+<p><em>We talked about two concrete examples in lectures and classes and you should know about these:
+"rename" (changing the name of a variable or a function) and "extract function" (move code
+into a new function).</em></p>
+</section>
+<section >
+<h1><strong>Key things</strong> - Living with errors</h1>
+<p><strong>Different application domains</strong>
+<em>We talked about different application domains (business computing, telecommunications, computer art)
+and how their approaches to errors differ.</em></p>
+<p><strong>Food practices</strong>
+<em>We looked at two specific practices. First, you should know why exceptions are better than returning error codes.
+Second, you should know about three ways of handling bad inputs (ignore, recover, fail immediately)
+and which might be better when.</em></p>
+</section>
+<section >
+<h1><strong>Resources</strong> - Modern practices</h1>
+<p>For theoretical aspects, the lectures cover all you need to know. For practical aspects, the best
+way to learn those is to complete the tasks covered in classes, namely:</p>
+<ul>
+<li><a href="https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/git-introduction/instructions.md">Introducing source control with Git</a></li>
+<li><a href="https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/instructions.md">Collaborative development using GitHub</a></li>
+<li><a href="https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/code-quality/instructions.md">Improving code quality</a></li>
+<li><a href="https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/continuous-integration/instructions.md">Continuous integration and testing</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
