@@ -298,6 +298,89 @@ way to learn those is to complete the tasks covered in classes, namely:</p>
 </ul>
 </section>
 </section>
+<section >
+<section class="part">
+<h1><strong>Example problems</strong></h1>
+</section>
+<section >
+<h1><strong>Modelling</strong> - Ticket machine software</h1>
+<img src="images/revisions/tickets.jpg" style="max-width:620px;float:left;margin-right:30px" />
+<p><strong>Modelling ticket machine system</strong></p>
+<p><em>Requirements</em><br />
+<em>Structure</em><br />
+<em>Behaviour</em></p>
+</section>
+<section >
+<h1><strong>Requirements</strong> - Ticket machine software</h1>
+<p>The user of the machine should be able print previously purchased tickets or purchase tickets.
+When purchasing tickets, they should be able to choose origin and destination, select a date and
+time for travel, select a railcard and pay for the tickets, either using card or cash.</p>
+<p><em>1) Capture the requirements using UML use case diagram</em><br />
+<em>2) Write a user story for a student with railcard</em></p>
+</section>
+<section >
+<h1><strong>Structure</strong> - Ticket machine software</h1>
+<p>Every ticket has origin, destination and a date. It may also have one of several railcards
+(young person railcard, network railcard and senior railcard).</p>
+<p>In our implementation we will have a class representing the ticket machine and three services
+(classes) that provide information about (i) possible railcards and (ii) possible destinations
+and (iii) handle payments.</p>
+<p><em>Draw a UML class diagram that models the system</em></p>
+</section>
+<section >
+<h1><strong>Behaviour</strong> - Ticket machine software</h1>
+<p>When buying a ticket, the customer first has to select a destination. Then they can optionally
+change the departure time and date and they can add a railcard (but none of these is required).
+Once they're happy with their choice, they can choose how they want to pay and continue either
+by paying with card or cash. At any point, they can cancel the transaction.</p>
+<p><em>Draw a UML state machine diagram that models the state transitions of the machine user interface</em></p>
+</section>
+<section >
+<h1><strong>Behaviour</strong> - Ticket machine software</h1>
+<p>When the customer selects a railcard, the machine offers all available railcards .
+When the customer later selects a date for travel, the machine needs to check whether the
+selected railcard is still applicable (network railcard can only be used for off-peak trains).</p>
+<p><em>Draw a UML sequence diagram modelling the situation where the customer first adds a railcard
+and then, later, changes the departure date and time. Use "customer", "ticket machine" and
+"railcard service" as the actors.</em></p>
+</section>
+<section >
+<h1><strong>Code quality</strong> - Ticket machine software</h1>
+<p>The following snippet changes date and time of a ticket. If the ticket has a railcard,
+it checks whether the railcard can be used on the new date and, if no, removes it.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">void</span> setTicketDateTime(DateTime d)
+{
+  <span class="c">// If railcard is null, do more checks</span>
+  <span class="k">if</span> (<span class="k">this</span>.railcard <span class="o">!</span><span class="o">=</span> <span class="k">null</span>) {
+    RailcardService s <span class="o">=</span> getRailcardService();
+    <span class="c">// If railcard is not valid on date time, set it to null</span>
+    <span class="k">if</span> (!s.isValidOnDateTime(<span class="k">this</span>.railcard, d))
+    <span class="k">this</span>.railcard <span class="o">=</span> <span class="k">null</span>; }
+    <span class="k">this</span>.dateTime <span class="o">=</span> d;
+}
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1><strong>Code quality</strong> - Ticket machine software</h1>
+<p>Answer the following questions regarding the code snippet on the previous slide:</p>
+<ol>
+<li><em>Identify one naming issue in the code snippet and one other code quality issue in the code</em></li>
+<li><em>Describe one refactoring that can be used to fix one of the code issues in the code snippet</em></li>
+<li><em>Propose one way of improving the code using</em> defensive programming <em>techniques to handle invalid inputs</em></li>
+</ol>
+</section>
+</section>
 
 
             <img src="images/kent.png" class="klogo" />
