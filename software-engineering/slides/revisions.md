@@ -342,3 +342,97 @@ way to learn those is to complete the tasks covered in classes, namely:
  - [Collaborative development using GitHub](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/instructions.md)
  - [Improving code quality](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/code-quality/instructions.md)
  - [Continuous integration and testing](https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/continuous-integration/instructions.md)
+
+****************************************************************************************************
+- class: part
+
+# **Example problems**
+
+----------------------------------------------------------------------------------------------------
+
+# **Modelling** - Ticket machine software
+
+<img src="images/revisions/tickets.jpg" style="max-width:620px;float:left;margin-right:30px" />
+
+**Modelling ticket machine system**
+
+_Requirements_  
+_Structure_  
+_Behaviour_
+
+----------------------------------------------------------------------------------------------------
+
+# **Requirements** - Ticket machine software
+
+The user of the machine should be able print previously purchased tickets or purchase tickets.
+When purchasing tickets, they should be able to choose origin and destination, select a date and
+time for travel, select a railcard and pay for the tickets, either using card or cash.
+
+_1) Capture the requirements using UML use case diagram_  
+_2) Write a user story for a student with railcard_
+
+----------------------------------------------------------------------------------------------------
+
+# **Structure** - Ticket machine software
+
+Every ticket has origin, destination and a date. It may also have one of several railcards
+(young person railcard, network railcard and senior railcard).
+
+In our implementation we will have a class representing the ticket machine and three services
+(classes) that provide information about (i) possible railcards and (ii) possible destinations
+and (iii) handle payments.
+
+_Draw a UML class diagram that models the system_
+
+----------------------------------------------------------------------------------------------------
+
+# **Behaviour** - Ticket machine software
+
+When buying a ticket, the customer first has to select a destination. Then they can optionally
+change the departure time and date and they can add a railcard (but none of these is required).
+Once they're happy with their choice, they can choose how they want to pay and continue either
+by paying with card or cash. At any point, they can cancel the transaction.
+
+_Draw a UML state machine diagram that models the state transitions of the machine user interface_
+
+----------------------------------------------------------------------------------------------------
+
+# **Behaviour** - Ticket machine software
+
+When the customer selects a railcard, the machine offers all available railcards .
+When the customer later selects a date for travel, the machine needs to check whether the
+selected railcard is still applicable (network railcard can only be used for off-peak trains).
+
+_Draw a UML sequence diagram modelling the situation where the customer first adds a railcard
+and then, later, changes the departure date and time. Use "customer", "ticket machine" and
+"railcard service" as the actors._
+
+----------------------------------------------------------------------------------------------------
+
+# **Code quality** - Ticket machine software
+
+The following snippet changes date and time of a ticket. If the ticket has a railcard,
+it checks whether the railcard can be used on the new date and, if no, removes it.
+
+```csharp
+public void setTicketDateTime(DateTime d)
+{
+  // If railcard is null, do more checks
+  if (this.railcard != null) {
+    RailcardService s = getRailcardService();
+    // If railcard is not valid on date time, set it to null
+    if (!s.isValidOnDateTime(this.railcard, d))
+    this.railcard = null; }
+    this.dateTime = d;
+}
+```
+
+----------------------------------------------------------------------------------------------------
+
+# **Code quality** - Ticket machine software
+
+Answer the following questions regarding the code snippet on the previous slide:
+
+1. _Identify one naming issue in the code snippet and one other code quality issue in the code_
+2. _Describe one refactoring that can be used to fix one of the code issues in the code snippet_
+3. _Propose one way of improving the code using_ defensive programming _techniques to handle invalid inputs_
