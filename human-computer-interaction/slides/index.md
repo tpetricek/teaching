@@ -3,7 +3,7 @@
 - author : Tomas Petricek
 - theme : simple
 - transition : none
-  
+
 ****************************************************************************************************
 
 # **CO582: Computer Interaction and User Experience**
@@ -29,3 +29,4 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 6. [Specialist users](specialist.html)
 7. [Models and theories](models.html)
 8. [Interacting with AI systems](ai-systems.html)
+9. [Feedback on Assignment 2](assignment2.html)
