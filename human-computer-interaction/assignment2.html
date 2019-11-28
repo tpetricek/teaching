@@ -1,0 +1,299 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Human Computer Interaction: Feedback on assignment 2</title>
+    <meta name="description" content="Human Computer Interaction: Feedback on assignment 2">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO582: Computer Interaction and User Experience</strong><br/> Feedback on assignment 2</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>General notes</strong></h1>
+</section>
+<section >
+<h1>General notes</h1>
+<h3>Common issues</h3>
+<p><em><i class="fa fa-desktop"></i></em> Is the scope of the analysis reasonable?</p>
+<p><em><i class="fa fa-heart"></i></em> Found some interesting love/hate points?</p>
+<p><em><i class="fa fa-newspaper"></i></em> This is not a review for a magazine</p>
+<p><em><i class="fa fa-university"></i></em> Reference to user interaction principles</p>
+<p><em><i class="fa fa-file"></i></em> Readability, structure and formatting</p>
+</section>
+<section >
+<h1>General notes</h1>
+<h3>What theories to use?</h3>
+<p><em><i class="fa fa-list"></i></em> 10 Usability Heuristics by Jakob Nielsen</p>
+<p><em><i class="fa fa-book"></i></em> Design principles of Don Norman</p>
+<p><em><i class="fa fa-bug"></i></em> Different kinds of errors</p>
+<p><em><i class="fa fa-mouse-pointer"></i></em> Fitts' law for mouse navigation</p>
+<p><em><i class="fa fa-image"></i></em> Metaphors with fits and misfits</p>
+<p><em><i class="fa fa-toggle-on"></i></em> Multiple modes and mode errors</p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Work examples</strong></h1>
+</section>
+<section >
+<h1>PlayStation 3</h1>
+<img src="images/assignment2/ps3.png" style="max-width:700px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>Is there any interface criticism at all?</p>
+<p>What is confusing about the button design?</p>
+</div>
+</section>
+<section >
+<h1>KFC app</h1>
+<img src="images/assignment2/kfc.png" style="max-width:600px;float:left;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>Contrast to highlight the "Scan more get more" deal</p>
+<p>Proximity between the banner and the first action</p>
+</div>
+</section>
+<section >
+<h1>Smartphone interface</h1>
+<img src="images/assignment2/phone.png" style="max-width:800px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>What aspect of smartphone interface is this about?</p>
+<p>Notes on Android UI, phone usage, etc.</p>
+</div>
+</section>
+<section >
+<h1>Watch and clock</h1>
+<img src="images/assignment2/principles.png" style="max-width:650px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>Criticism with reference to specific principles</p>
+<p>Choice of a few: alignment and contrast</p>
+</div>
+</section>
+<section >
+<h1>Sports app</h1>
+<img src="images/assignment2/formatting.png" style="float:left; max-width:400px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>What is this about<br />
+and who wrote it?</p>
+<p>What are major<br />
+topics covered?</p>
+<p>What is the picture<br />
+in the corner about?</p>
+</div>
+</section>
+<section >
+<h1>NordVPN</h1>
+<img src="images/assignment2/vpn.png" style="max-width:800px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>Title, author, sections with headings</p>
+<p>Figures are clear and have numbers and labels</p>
+</div>
+</section>
+<section >
+<h1>Washing machine</h1>
+<img src="images/assignment2/diagram.png" style="max-width:800px;margin:20px 40px 0px 40px" />
+<div class="fragment">
+<p>Highlights important points about the interface (arrows)</p>
+<p>Adds labels for hard to read text</p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Interface examples</strong></h1>
+</section>
+<section >
+<h1>Surface Pro keyboard</h1>
+<img src="images/assignment2/surface.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Surface Pro keyboard</h1>
+<p><strong>Fn key for special keys</strong><br />
+<em>Behaves as F1, F2, etc. when turned off</em><br />
+<em>Behaves as volume, brightness when turned on"</em></p>
+<p><strong>Genuine usability issues</strong><br />
+<em>Closing application when turning sound off!</em><br />
+<em>Navigating in code editor jumps to another page</em></p>
+<p><strong>Mode errors</strong><br />
+<em>Mode is indicated, but indicator is hard to see</em><br />
+<em>Very easy to switch mode by accident</em></p>
+</section>
+<section >
+<h1>OneNote application</h1>
+<img src="images/assignment2/onenote.png" style="max-width:570px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>OnNote application</h1>
+<p><strong>Notebook metaphor</strong><br />
+<em>OneNote is like a physical notebook</em><br />
+<em>What are the fits and misfits of the metaphor?"</em></p>
+<p><strong>Notebook fits</strong><br />
+<em>Structure with notebooks and pages</em><br />
+<em>Drawing with a pen, eraser on the back</em></p>
+<p><strong>Notebook misfits</strong><br />
+<em>Advanced tools for moving text around</em><br />
+<em>It wouldn't occur to you that you can do this</em></p>
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set1.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set2.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set3.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set4.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set5.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<img src="images/assignment2/set6.jpg" style="max-width:750px;margin:20px 40px 0px 40px" />
+</section>
+<section >
+<h1>Southeastern tickets</h1>
+<p><strong>Flexibility and efficiency of use (Nielsen)</strong><br />
+<em>Provides easy default option</em><br />
+<em>A button for "Tickets for later travel"</em></p>
+<p><strong>Visibility (Norman)</strong><br />
+<em>Super off-peak ticket is out of sight</em><br />
+<em>Hidden behind "later travel" when you travel now!</em></p>
+<p><strong>Mode errors</strong><br />
+<em>Different ticket options shown in different modes</em><br />
+<em>You do not even know there are two modes!</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>CO582: Feedback on Assignment 2</h1>
+<p><strong>What are the most important lessons</strong></p>
+<ul>
+<li>Think about interactions and usability</li>
+<li>Support your argument with theories</li>
+<li>Format and structure documents well!</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<h3>Books</h3>
+<ul>
+<li>
+<a href="https://www.elsevier.com/books/hci-models-theories-and-frameworks/carroll/978-1-55860-808-5">HCI Models, Theories and Frameworks</a>, ed. J. Carroll <br />
+<em>Chapter 3 (Motor behavior), Chapter 5 (Cognitive dimensions), Chapter 8 (Distributed cognition)</em>
+</li>
+</ul>
+<h3>Papers</h3>
+<ul>
+<li><a href="http://www.dourish.com/classes/ics234bs03/14-RogersEllis-DistCog.pdf">Distributed Cognition: an alternative framework for analysing and explaining collaborative working</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" /> 
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
