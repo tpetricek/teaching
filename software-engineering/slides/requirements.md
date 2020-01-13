@@ -159,20 +159,21 @@ can be shared_
 
 ----------------------------------------------------------------------------------------------------
 
-<img src="images/requirements/arrows.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px" />
-
-**Fancy arrows!**
+<img src="images/requirements/arrows.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px;margin-bottom:100px" />
 
 <div class="fragment" style="padding-top:10px">
 
 Inheritance  
-_Special case with more requirements or more features_
+_A more specialized version of a case_
 
 </div>
 <div class="fragment">
 
-Dependency  
-_Use case requires another use case_
+Extends  
+_Adds extra optional features to a case_
+
+Include  
+_Include necessary partial use case_
 
 </div>
 
