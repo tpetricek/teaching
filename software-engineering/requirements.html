@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Software Engineering: Understanding requirements</title>
-    <meta name="description" content="Software Engineering: Understanding requirements">
+    <title>Software Engineering: Modelling requirements</title>
+    <meta name="description" content="Software Engineering: Modelling requirements">
     <meta name="author" content="Tomas Petricek">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -51,7 +51,7 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section >
-<h1><strong>CO886: Software Engineering</strong><br/> Understanding requirements</h1>
+<h1><strong>CO886: Software Engineering</strong><br/> Modelling requirements</h1>
 <br /><br />
 <br /><br /><br />
 <p><strong>Tomas Petricek</strong></p>
@@ -168,15 +168,16 @@ can be shared</em></p>
 </ul>
 </section>
 <section >
-<img src="images/requirements/arrows.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px" />
-<p><strong>Fancy arrows!</strong></p>
+<img src="images/requirements/arrows.png" class="nb" style="max-width:580px;margin-top:50px;float:left;margin-right:50px;margin-bottom:100px" />
 <div class="fragment" style="padding-top:10px">
 <p>Inheritance<br />
-<em>Special case with more requirements or more features</em></p>
+<em>A more specialized version of a case</em></p>
 </div>
 <div class="fragment">
-<p>Dependency<br />
-<em>Use case requires another use case</em></p>
+<p>Extends<br />
+<em>Adds extra optional features to a case</em></p>
+<p>Include<br />
+<em>Include necessary partial use case</em></p>
 </div>
 </section>
 <section class="part">
@@ -299,7 +300,7 @@ to scenarios</strong></p>
 <h1><strong>Summary</strong></h1>
 </section>
 <section >
-<h1>Understanding requirements</h1>
+<h1>Modelling requirements</h1>
 <p><strong>System development methodologies</strong><br />
 <em>Ways of interacting with customers</em><br />
 <em>Upfront specification or conversation</em></p>
@@ -319,7 +320,7 @@ to scenarios</strong></p>
 <p><em><i class="fa fa-user-tie"></i> What tools are people comfortable with</em></p>
 </section>
 <section >
-<h1>CO886: Understanding requirements</h1>
+<h1>CO886: Modelling requirements</h1>
 <p><strong>What you should remember from this lecture</strong></p>
 <ul>
 <li>Why people do it and how they fail</li>
@@ -347,7 +348,7 @@ to scenarios</strong></p>
 </section>
 
 
-            <img src="images/kent.png" class="klogo" /> 
+            <img src="images/kent.png" class="klogo" />
         </div>
     </div>
     <script src="lib/js/head.min.js"></script>
@@ -375,7 +376,6 @@ to scenarios</strong></p>
                 { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
                 { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
                 { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
-                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
                 { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
                 { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
             ]
@@ -384,4 +384,3 @@ to scenarios</strong></p>
     </script>
 </body>
 </html>
-
