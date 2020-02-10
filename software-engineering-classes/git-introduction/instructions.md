@@ -10,6 +10,15 @@ in an easier way. To do this, run the following command:
 
     git config --global core.editor notepad
 
+Each git commit also records the name and email of the author. When you run `git commit`
+for the first time on your machine, you will get an error message complaining about the
+fact that you have not yet configured your name and email. To set those, you can run 
+the following (using your name and your email details):
+
+    git config --global user.name "Your Name"
+    git config --global user.email "xyz@kent.ac.uk"
+
+
 ## Creating the repository
 
 First, download the sample application and create a Git repository for it.
