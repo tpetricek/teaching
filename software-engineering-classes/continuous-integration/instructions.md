@@ -4,6 +4,14 @@ This exercise assumes that you have a GitHub account and that you configured you
 your GitHub profile so that the two can work together. You will need to be able to create a new
 GitHub projects, clone the GitHub repository and push changes.
 
+If you are completing this work on your own machine, you will need to install Node.js from 
+[https://nodejs.org](https://nodejs.org). You will then also need to install the Yarn package manager.
+You can follow the instructions from [https://classic.yarnpkg.com/en/docs/install/](https://classic.yarnpkg.com/en/docs/install/).
+This can also be done after installing Node using the following command:
+
+    npm install -g yarn
+
+
 ## Setting up Travis and GitHub
 
 1.  Download the [sample repository (ZIP)][zip] and extract the files into a new folder
