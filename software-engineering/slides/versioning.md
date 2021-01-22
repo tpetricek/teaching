@@ -18,16 +18,6 @@ twitter: [@tomaspetricek](http://twitter.com/tomaspetricek)<br />
 office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ****************************************************************************************************
-
-FEEDBACK
-
- - At times the pace was a bit too high (when teaching diff and merge).
- - The motivation — how to facilitate the workflow of a contemporary programmer — was woven in with the demo. It might be good to show that up front.
- - At times the text was too small for my poor old eyes!
- - The explanation of Push and Pull came near the end, but I would have expected them to come earlier.
- - Interaction opportunity: What do you think will happen if I run 'git log' now (after doing some stuff)
-
-****************************************************************************************************
 - class: part
 
 # **Software engineering today**
@@ -110,6 +100,28 @@ Version and history tracking systems
 _Keep version history because you will need to look back_
 
 _Develop features independently and merge changes_
+
+</div>
+
+----------------------------------------------------------------------------------------------------
+
+# Two ways of working
+
+<img src="images/collaborative/smartgit.png" style="float:right;max-width:380px;margin-left:20px" />
+
+**Graphical user interface**
+
+ - _Eclipse, VS Code, Tortoise, etc._
+ - _Great when it works well_
+ - _Illusion of this is easy_
+
+<div class="fragment">
+
+**Command line tools**
+
+ - _Everything using the `git` command_
+ - _Teaches you more about how it works..._
+ - _Fortunately, easy to Google answers!_
 
 </div>
 
@@ -213,10 +225,14 @@ _Versions on other computer(s)_
         Adding hello file
 
 ----------------------------------------------------------------------------------------------------
-
 - class: part
 
 # **Demo:** Creating repository, adding files
+
+****************************************************************************************************
+- class: part
+
+# **Using git in practice**
 
 ----------------------------------------------------------------------------------------------------
 
@@ -344,6 +360,11 @@ _Potential for conflicts_
 
 # **Demo:** Working with branches
 
+****************************************************************************************************
+- class: part
+
+# **Summary**
+
 ----------------------------------------------------------------------------------------------------
 
 # Git and its alternatives
@@ -357,11 +378,6 @@ _<i class="fa fa-window-restore"></i> There are user interface tools for using g
 _<i class="fa fa-magic"></i> Git is way more complex than it seems_
 
 _<i class="fa fa-list"></i> Alternatives include Subversion, Mercurial, Perforce_
-
-****************************************************************************************************
-- class: part
-
-# **Summary**
 
 ----------------------------------------------------------------------------------------------------
 

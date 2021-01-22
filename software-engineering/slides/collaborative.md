@@ -28,7 +28,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ### Commercial infrastructures around git
 
-_<i class="fa fa-code-branch"></i> Git for source control with extra features
+_<i class="fa fa-code-branch"></i> Git for source control with extra features_
 
 _<i class="fa fa-chess-king"></i> Help teams plan and collaborate_
 
@@ -55,6 +55,7 @@ _<i class="fa fa-industry"></i> "Social network" for open source software_
  - _Convenient way of storing my projects_
  - _Active developer community_
  - _GitHub is (a bit) like your CV_
+ - _Why not? Not open-source itself..._
 
 </div>
 
@@ -185,10 +186,36 @@ Push _to update remote_
      1 file changed, 1 insertion(+), 1 deletion(-)
 
 ----------------------------------------------------------------------------------------------------
-
 - class: part
 
-# **Demo:** GitHub projects, git push an pull
+# **Demo:** GitHub projects, git push and pull
+
+****************************************************************************************************
+- class: part
+
+# **Branches, forks and pull requests**
+
+----------------------------------------------------------------------------------------------------
+
+# Collaborating on GitHub
+
+<img src="images/oss/octocat.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
+
+**Using branches in one project**
+
+ - _Single GitHub project_
+ - _Everyone in team has access_
+ - _Good for small teams you trust_
+
+<div class="fragment">
+
+**Using forks across projects**
+
+ - _Each contributor has a fork_
+ - _Main project has one or few owners_
+ - _Good for allowing strangers to contribute_
+
+</div>
 
 ----------------------------------------------------------------------------------------------------
 
@@ -203,15 +230,39 @@ back to project owner_
 _Owner has write rights,_  
 _way to discuss changes_
 
+_Works within projects too_
+
 _Linux uses patches and emails, not PRs!_
 
 </div>
 
 ----------------------------------------------------------------------------------------------------
 
+# Collaborating on a project
+
+### Typical workflow when using branches
+
+❶ Create project (GitHub) _- Add members as owners_
+
+❷ Clone repository (git) _- From GitHub to your computer_
+
+❸ Commit changes (git) _- All in your local repository_
+
+❹ Push changes (git) _- Use a new branch to allow review_
+
+❺ Send a pull request (GitHub) _- In a project to merge_
+
+----------------------------------------------------------------------------------------------------
+
+- class: part
+
+# **Demo:** Working with branches on GitHub
+
+----------------------------------------------------------------------------------------------------
+
 # Contributing to a project
 
-### Typical workflow when contributing on GitHub
+### Typical workflow when using forks
 
 ❶ Fork project (GitHub) _- Online copy in your profile_
 
@@ -227,7 +278,7 @@ _Linux uses patches and emails, not PRs!_
 
 - class: part
 
-# **Demo:** Working with branches on GitHub
+# **Demo:** Working with forks on GitHub
 
 ****************************************************************************************************
 - class: part
