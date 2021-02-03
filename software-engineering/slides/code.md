@@ -381,7 +381,7 @@ Reduce unnecessary nesting
 
     [lang=javascript]
     if (!isAvailable(product)) return null;
-    if (!isHidden(product)) return null;
+    if (isHidden(product)) return null;
     return getProductPage(product);
 
 </div>
@@ -661,7 +661,7 @@ function printDetails(invoice, outstanding) {
 function printOwing(invoice) {
   printBanner();
   let outstanding = calculateOutstanding();
-  printDetails(outstanding);
+  printDetails(invoice, outstanding);
 }
 ```
 
