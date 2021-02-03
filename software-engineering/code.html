@@ -383,7 +383,7 @@ you avoid typos</em></p>
 <span class="l">3: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (!isAvailable(product)) <span class="k">return</span> <span class="k">null</span>;
-<span class="k">if</span> (!isHidden(product)) <span class="k">return</span> <span class="k">null</span>;
+<span class="k">if</span> (isHidden(product)) <span class="k">return</span> <span class="k">null</span>;
 <span class="k">return</span> getProductPage(product);
 </code></pre></td></tr></table>
 </div>
@@ -689,7 +689,7 @@ you avoid typos</em></p>
 <span class="k">function</span> printOwing(invoice) {
   printBanner();
   let outstanding <span class="o">=</span> calculateOutstanding();
-  printDetails(outstanding);
+  printDetails(invoice, outstanding);
 }
 </code></pre></td></tr></table>
 <p><em>Note that comment becomes a function name!</em></p>
