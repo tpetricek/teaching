@@ -158,5 +158,4 @@ contribute to it.
     done on GitHub. You can retrieve those using `git pull`. Do that and open
     `index.html` to test the new features!
 
-[zip]:  https://github.com/tpetricek/Teaching/blob/
-/software-engineering-classes/github-introduction/sample.zip?raw=true
+[zip]:  https://github.com/tpetricek/Teaching/blob/master/software-engineering-classes/github-introduction/sample.zip?raw=true
