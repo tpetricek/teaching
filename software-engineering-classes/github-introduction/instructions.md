@@ -51,9 +51,13 @@ contribute to it.
     files in the directory) and commit your changes using `git commit`.
 
 7.  Your commit is stored only in your local repository on your machine. Look at
-    your GitHub project and you won't see any of the new files there yet. Now
-    push the changes from your local repository to your remote repository using
-    `git push origin master` and see that the new files are now visible on GitHub!    
+    your GitHub project and you won't see any of the new files there yet. 
+    
+8.  Now push the changes from your local repository to your remote repository. 
+    You will need to know the name of your primary branch. By default, this is
+    `main`, but you can check this by running `git status`, which also prints 
+    the branch name. To push your changes, use `git push origin main`. You should
+    then see the new files on GitHub!    
 
 ## Use GitHub issues to track work (group)
 
@@ -116,9 +120,11 @@ contribute to it.
 
 7.  Your commit is stored only in your local repository on your machine. Look at
     your fork of the GitHub project and you won't see the changes there yet. Now
-    push the changes from your local repository to your remote repository using
-    `git push origin master` and see that the new files are now visible in your
-    GitHub fork!
+    push the changes from your local repository to your remote repository.
+    You will need to know the name of your primary branch. By default, this is
+    `main`, but you can check this by running `git status`, which also prints 
+    the branch name. To push your changes, use `git push origin main`. You should
+    then see the new files in your GitHub fork!
 
 8.  Your changes are now on GitHub, but only in your private "fork" of the owner's
     repository. Go to your fork of the repository on GitHub and click the
