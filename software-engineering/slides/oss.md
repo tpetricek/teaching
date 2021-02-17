@@ -24,6 +24,22 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ----------------------------------------------------------------------------------------------------
 
+<img src="images/oss/tmrc.jpg" style="max-width:530px;float:left;margin:40px 40px 100px 0px" />
+
+**MIT Hacker Culture**  
+The Tech Model Railroad Club
+
+<div class="fragment" style="padding-top:20px">
+
+_Access to computers should be unlimited_
+
+_All information  
+should be free_
+
+</div>
+
+----------------------------------------------------------------------------------------------------
+
 <img src="images/oss/gpl.png" style="max-width:480px;float:left;margin:40px 70px 100px 20px" />
 
 **Free software**  
@@ -231,27 +247,6 @@ _Is this sustainable?_
 
 ----------------------------------------------------------------------------------------------------
 
-<img src="images/oss/revolution.png" style="max-width:640px;float:left;margin:40px 30px 100px 0px" class="nb" />
-
-_Life of an open-source project maintainer can be tough!_
-
-----------------------------------------------------------------------------------------------------
-
-# Contributing to open-source
-
-### What open-source projects need to live?
-
-_<i class="fa fa-lock-open"></i>_ **Maintainer** _- 1 hour a day, week or month_   
-_Someone to merge changes, build releases, explain issues_
-
-_<i class="fa fa-code"></i>_ **Core developers** _- irregular, but more time_   
-_To implement major new features in the software_
-
-_<i class="fa fa-cogs"></i>_ **Contributors** _- a couple of hours or days_  
-_Improvements, fixing bugs, better documentation_
-
-----------------------------------------------------------------------------------------------------
-
 # Contributing to open-source
 
 <img src="images/oss/octocat.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
@@ -301,28 +296,6 @@ _Code indentation, brackets, etc._
 
 Explain things well  
 _Good title and detailed description_
-
-</div>
-
-----------------------------------------------------------------------------------------------------
-
-# Coding style of contributions
-
-<img src="images/oss/metre.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
-
-**Consistent coding style**
-
- - _Indent using correct spacing_
- - _Use appropriate naming style_
- - _Add useful comments_
-
-<div class="fragment">
-
-**What style to use?**
-
- - _Read contributing guidelines_
- - _Follow what you see_
- - _Use accepted language practices_
 
 </div>
 
