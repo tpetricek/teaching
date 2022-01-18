@@ -1,0 +1,487 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Code quality</title>
+    <meta name="description" content="Software Engineering: Code quality">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Code quality</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Software engineering today</strong></h1>
+</section>
+<section >
+<img src="images/quality/noproof.png" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>Mathematician's answer to software engineering</strong></p>
+<p><em>Use mathematical methods to prove system correctness</em></p>
+<div class="fragment">
+<p>People don't do it, yet, software mostly works.</p>
+</div>
+</section>
+<section >
+<img src="images/quality/uml.jpg" style="max-width:490px;float:left;margin:30px 50px 100px 0px" />
+<p><strong>Detailed upfront models</strong></p>
+<div class="fragment">
+<p>We know where<br />
+we want to get</p>
+<p><em>Useful if predictability matters more than cost and delivery time</em></p>
+</div>
+</section>
+<section >
+<h1>Software engineering today</h1>
+<img src="images/quality/domino.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>In contrast to upfront model</strong></p>
+<p>We know that we continue<br />
+moving in the right direction</p>
+<div class="fragment">
+<p><strong>Tools and practices to ensure that</strong></p>
+<ul>
+<li><em>We can learn from past mistakes</em></li>
+<li><em>We're tracking known issues</em></li>
+<li><em>Software keeps working when we make changes</em></li>
+<li><em>It is easy to improve and contribute</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Software engineering today</h1>
+<h3>Some important aspects that we will cover</h3>
+<p><em><i class="fa fa-file"></i> Source control and collaborative development</em></p>
+<p><em><i class="fa fa-check-square"></i> Testing and build automation</em></p>
+<p><em><i class="fa fa-cog"></i> Continuous integration and reproducibility</em></p>
+<p><em><i class="fa fa-users"></i> How open-source software development works</em></p>
+<p><em><i class="fa fa-code"></i> Code quality, naming and "good code"</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Code quality</strong></h1>
+</section>
+<section >
+<img src="images/quality/maintenance.jpg" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>Software Maintenance</strong></p>
+<p><em>You spend more time reading and modifying code than writing it.</em></p>
+<p>Investing into readability when writing pays off</p>
+</section>
+<section >
+<h1>eXtreme Programming (2000s)</h1>
+<img src="images/quality/xp.jpg" style="float:right;max-width:360px;margin-top:-10px;margin-left:20px" />
+<p><strong>Keeping code simple</strong></p>
+<ul>
+<li><em>Write self-documenting code</em></li>
+<li><em>Reduce need for comments</em></li>
+<li><em>You Ain't Gonna Need It (YAGNI)</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Shared understanding in a team</strong></p>
+<ul>
+<li><em>Common coding standards</em></li>
+<li><em>Pair programming</em></li>
+<li><em>Use of code reviews</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/quality/psycho.jpg" style="max-width:490px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Code for readability</strong></p>
+<p><em>Always code as if the person maintaining
+your code will be a violent psychopath who knows where you live.</em></p>
+<div class="fragment">
+<p>The person maintaining it will likely be future you.</p>
+</div>
+</section>
+<section >
+<h1>What is good quality code?</h1>
+<img src="images/quality/neuromancer.jpg" style="float:right;max-width:240px;margin-top:-10px;margin-left:20px" />
+<p><strong>Hacker culture</strong></p>
+<ul>
+<li><em>Quality is learned by experience</em></li>
+<li><em>Apprenticeships if coding was craft</em></li>
+<li><em>Good examples, but no written rules</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Coding standards</strong></p>
+<ul>
+<li><em>Explicit rules that one can follow</em></li>
+<li><em>There are often exceptions</em></li>
+<li><em>Good starting point, but not ultimate answer</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/quality/study.png" style="max-width:460px;float:left;margin:0px 40px 100px 40px" />
+<p><strong>Do programming languages matter?</strong></p>
+<div class="fragment">
+<p><em>[It] appear[s] that strong typing is modestly better
+than weak typing, and among functional languages, static typing is also somewhat better than dynamic typing.</em></p>
+</div>
+</section>
+<section >
+<img src="images/quality/boffins.png" style="max-width:460px;float:left;margin:0px 40px 100px 40px" />
+<p><strong>Do programming languages matter?</strong></p>
+<p>Attempt to reproduce the study mostly failed</p>
+<p><em>"I believe they do in my heart of hearts, but it's kind of an impossible experiment to run."</em></p>
+</section>
+<section >
+<h1>Code quality</h1>
+<img src="images/quality/code.png" style="float:right;max-width:300px;margin-top:-10px;margin-left:20px" />
+<p><strong>Aspects of code quality</strong></p>
+<ul>
+<li><em>Variable and function names</em></li>
+<li><em>Structure of code logic</em></li>
+<li><em>Organization of functionality</em></li>
+</ul>
+<p><strong>Processes for keeping quality</strong></p>
+<ul>
+<li><em>Improving quality through refactoring</em></li>
+<li><em>Ensuring code quality using tools</em></li>
+<li><em>Ensuring code quality using social processes</em></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Naming</strong></h1>
+</section>
+<section >
+<img src="images/quality/fortran.png" style="max-width:440px;float:left;margin:20px 40px 100px 0px" />
+<p><strong>Good naming is easy today!</strong></p>
+<p><em>Computers supports<br />
+lower case letters!</em></p>
+<p><em>Long names fit in<br />
+computer memory</em></p>
+<p><em>Auto-complete helps<br />
+you avoid typos</em></p>
+</section>
+<section >
+<h1>Naming of variables (1/3)</h1>
+<p>What is the following function doing?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> conv(x) {
+  <span class="k">return</span> x <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Converting temperature from Celsius to Fahrenheit!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> celsiusToFahrenheit(temperature) {
+  <span class="k">return</span> temperature <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables (2/3)</h1>
+<p>Was that descriptive enough?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> convertTemperatureFromCelsiusToFahrenheit
+    (temperatureInCelsius) {
+  <span class="k">return</span> temperatureInCelsius <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Can we improve this by using abbreviations?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> convTempFromCelsToFahr(tempInCels) {
+  <span class="k">return</span> tempInCels <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables (3/3)</h1>
+<p>Are all variable names in this example descriptive?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">var</span> result <span class="o">=</span> <span class="n">0</span>;
+<span class="k">for</span>(<span class="k">var</span> i <span class="o">=</span> <span class="n">0</span>; i <span class="o">&lt;</span> data.length; i+<span class="o">+</span>) result <span class="o">+</span><span class="o">=</span> data[i];
+<span class="k">return</span> result;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>This is too much. Sensible exceptions allowed!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">var</span> resultNumber <span class="o">=</span> <span class="n">0</span>;
+<span class="k">for</span>(<span class="k">var</span> dataIndex <span class="o">=</span> <span class="n">0</span>; dataIndex <span class="o">&lt;</span> data.length; dataIndex+<span class="o">+</span>)
+  resultNumber <span class="o">+</span><span class="o">=</span> data[dataIndex];
+<span class="k">return</span> resultNumber;
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables</h1>
+<h3>Descriptive names of reasonable length</h3>
+<p><em><i class="fa fa-book"></i> Name should add semantic information</em></p>
+<p><em><i class="fa fa-font"></i> No need to say it's number, string, etc.</em></p>
+<p><em><i class="fa fa-ruler-horizontal"></i> Longer names are good, but don't overdo it!</em></p>
+<p><em><i class="fa fa-users"></i> Follow common conventions where applicable</em></p>
+<p><em><i class="fa fa-bars"></i> The more local, the less it matters</em></p>
+</section>
+<section >
+<h1>Naming of variables, functions and classes</h1>
+<img src="images/quality/camel.jpg" style="float:right;max-width:360px;margin:10px 0px 0px 20px 0px;margin-right:40px" />
+<p><strong>Combining words in names</strong></p>
+<ul>
+<li><code>PascalCase</code></li>
+<li><code>camelCase</code></li>
+<li><code>snake_case</code></li>
+</ul>
+<p><strong>Using spaces in a name</strong></p>
+<ul>
+<li><em>Would makes code nightmare to parse</em></li>
+<li><em>Some language allow escaping e.g.</em> ``funny name!``</li>
+</ul>
+</section>
+<section >
+<h1>Naming of classes and methods in Java</h1>
+<p>Is the following naming consistent or not?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> Program {
+   <span class="k">public</span> Program(Boolean adminMode) {
+     <span class="c">// Some actual logic here</span>
+   }
+   <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(String []args) {
+      Program prog <span class="o">=</span> <span class="k">new</span> Program(<span class="k">false</span>);
+   }
+}
+</code></pre></td></tr></table>
+<p>Pascal case <code>Program</code>, camelCase <code>adminMode</code>, <code>main</code></p>
+</section>
+<section >
+<h1>Naming classes and other issues</h1>
+<h3>Coding standards and exceptions</h3>
+<p><em><i class="fa fa-check-square"></i> Java standards use <code>PascalCase</code> for class names</em></p>
+<p><em><i class="fa fa-check-square"></i> <code>camelCase</code> is used for variables and method names</em></p>
+<p><em><i class="fa fa-thumbs-up"></i> You should generally follow coding standards</em></p>
+<p><em><i class="fa fa-pencil-alt"></i> Exceptions such as numerical code: <code>P</code> or <code>alpha</code></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Whitespace</strong></h1>
+</section>
+<section >
+<img src="images/quality/notpython.png" style="max-width:500px;float:left;margin:100px 60px 100px 0px" />
+<p><strong>How does compiler understand structure</strong></p>
+<p><em>Indentation or<br/> curly brackets?</em></p>
+<div class="fragment" style="padding-top:10px">
+<p>Compiler may ignore whitespace, but human brain does not!</p>
+</div>
+</section>
+<section >
+<h1>Consistent code indentation (1/2)</h1>
+<p>What is the right spacing and line breaks?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable( product ))
+  {
+    <span class="k">if</span> (!isHidden(product)) {
+    <span class="k">return</span> getProductPage(product);
+    } <span class="k">else</span>
+        <span class="k">return</span> <span class="k">null</span>;
+} <span class="k">else</span>
+<span class="k">return</span> <span class="k">null</span>;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Compiler ignores whitespace, but humans do not!</p>
+</div>
+</section>
+<section >
+<h1>Consistent code indentation (2/2)</h1>
+<p><em>Follow style of a project or a language;</em> be consistent!</p>
+<p><em>Indent nested code by the same number of spaces or tabs</em></p>
+<div style="padding-top:10px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable(product)) {
+    <span class="k">if</span> (!isHidden(product)) {
+        <span class="k">return</span> getProductPage(product);
+    } <span class="k">else</span> {
+        <span class="k">return</span> <span class="k">null</span>;
+    }
+} <span class="k">else</span> {
+    <span class="k">return</span> <span class="k">null</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Code quality</h1>
+<p><strong>Software engineering today</strong><br />
+<em>Process that ensures things keep improving</em><br />
+<em>Supported by tools and good practices</em></p>
+<p><strong>What is code quality and why it matters</strong><br />
+<em>More time is spent reading code than writing it</em><br />
+<em>Extreme programming - simplicity &amp; shared understanding</em></p>
+<p><strong>Specific rules for keeping high code quality</strong><br />
+<em>Naming variables, upper/lower case</em><br />
+<em>Follow consistent indentation rules</em></p>
+</section>
+<section >
+<h1>CO886: Code quality</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Role of code quality in modern SWE</li>
+<li>Rules for good naming and lower/upper case</li>
+<li>Practice making your code look nice!</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Selected chapters from books</strong></p>
+<ul>
+<li><a href="https://amzn.to/2BMkEgJ">Code Complete: A Practical Handbook of Software Construction</a></li>
+<li><a href="https://amzn.to/2SUm7we">Clean Code: A Handbook of Agile Software Craftsmanship</a></li>
+</ul>
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li><a href="http://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf">A Large Scale Study of Programming Languagesand Code Quality in Github</a></li>
+<li><a href="https://www.theregister.co.uk/2019/01/30/programming_bugs/">Boffins debunk study claiming certain languages lead to more buggy code than others</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
