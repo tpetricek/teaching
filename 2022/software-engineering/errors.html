@@ -1,0 +1,477 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Living with errors</title>
+    <meta name="description" content="Software Engineering: Living with errors">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Living with errors</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Trivial problem or a crisis</strong></h1>
+</section>
+<section >
+<h1>The birth of a crisis</h1>
+<img src="images/errors/babbage.png" style="float:right;max-width:250px"/>
+<p><strong>Programming is trivial</strong></p>
+<ul>
+<li><em>Charles Babbage (19th century)</em></li>
+<li><em>ENIAC designers (1940s)</em></li>
+</ul>
+<div class="fragment">
+<p><strong>The birth of a crisis</strong></p>
+<ul>
+<li><em>Labour crisis (1950s)</em></li>
+<li><em>NATO conference (1968)</em></li>
+<li><em>Application crisis (1990s)</em></li>
+</ul>
+</section>
+<section >
+<img src="images/errors/still.jpg" style="max-width:440px;margin-right:30px;float:left" />
+<p>Software industry paradox (Ensmenger, 2010)</p>
+<p><em>How can we explain the [seemingly perpetual] crisis<br />
+in what is considered one of the most successful and<br />
+profitable industries of all time?</em></p>
+</section>
+<section >
+<img src="images/quality/noproof.png" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>How did software<br />
+get reliable?</strong></p>
+<div class="fragment">
+<p>Combination of good engineering practices</p>
+<p><em>Management</em><br />
+<em>Testing</em><br />
+<em>Debugging</em><br />
+<em>Over-engineering</em></p>
+</div>
+</section>
+<section >
+<img src="images/errors/living.png" style="max-width:440px;margin-right:30px;float:left" />
+<p>Learning to live with errors</p>
+<p><em>Over time, software engineers developed a range of practical approaches for coping with errors.</em></p>
+</section>
+<section >
+<h1>Living with errors (1/2)</h1>
+<img src="images/errors/star.jpg" style="float:right;max-width:240px;margin-left:20px" />
+<p><strong>Depends on application domain</strong></p>
+<ul>
+<li><em>What happens if it goes wrong?</em></li>
+<li><em>Is human around to help?</em></li>
+<li><em>How quickly do we need the system?</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Business computing</strong></p>
+<ul>
+<li><em>Failure costs some money, but not lives</em></li>
+<li><em>Balance between correctness and delivery time</em></li>
+<li><em>Methods need to support teamwork</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Living with errors (2/2)</h1>
+<img src="images/errors/glitch.jpg" style="float:right;max-width:240px;margin-left:20px" />
+<p><strong>Telecommunications</strong></p>
+<ul>
+<li><em>Hardware errors will happen</em></li>
+<li><em>System should recover if possible</em></li>
+<li><em>Redundancy can be built-in</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Computer art</strong></p>
+<ul>
+<li><em>No lives or money is threatened</em></li>
+<li><em>Error as a source of creativity</em></li>
+<li><em>Human may find ways to incorporate errors</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Different kinds of errors</strong></h1>
+</section>
+<section >
+<h1>How did it happen</h1>
+<p><strong><i class="fa fa-map"></i> Mistake</strong> - following a wrong plan<br />
+<em>This logic is not actually going to sort a list</em></p>
+<p><strong><i class="fa fa-hand-spock"></i>Failure</strong> - error in translation from plan to reality<br />
+<em>My algorithm is correct, but I implemented it poorly</em></p>
+<p><strong><i class="fa fa-coffee"></i> Slip</strong> - mechanical error when implementing code<br />
+<em>Syntax error or off by one error in array access</em></p>
+<p><strong><i class="fa fa-calculator"></i> Malfunction</strong> - hardware failures<br />
+<em>Wrong data received in network communication</em></p>
+</section>
+<section >
+<img src="images/errors/bsod.png" style="max-width:500px;margin-right:20px;margin-bottom:100px;float:left" />
+<p><strong>When do we find out?</strong></p>
+<div class="fragment">
+<p>Static error <em>- when developing the software</em></p>
+</div><div class="fragment">
+<p>Immediate runtime error<br />
+<em>right when it occurs</em></p>
+</div><div class="fragment">
+<p>Latent runtime error<br />
+<em>sometime after it occurs</em></p>
+</div>
+</section>
+<section >
+<img src="images/errors/exceptions.png" style="max-width:400px;margin:10px 70px 0px 20px;float:left" />
+<p>What can go wrong when executing a sub-routine?</p>
+<div style="padding-top:10px" class="fragment">
+<p><strong>Output error</strong> - <em>no way of producing valid result<br />
+e.g. file does not exist</em></p>
+</div>
+<div class="fragment">
+<p><strong>Input error</strong> - <em>operation cannot be done because the inputs are wrong!</em></p>
+</div>
+</section>
+<section >
+<h1>Runtime errors technically</h1>
+<p><strong>Input error</strong> - <em>no character at index 99</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="s">"hello world"</span>.charAt(<span class="n">99</span>)
+</code></pre></td></tr></table>
+<p><strong>Input error</strong> - <em><code>null</code> always represents invalid value</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="s">"hello world"</span>.replace(<span class="s">"world"</span>, <span class="k">null</span>)
+</code></pre></td></tr></table>
+<p><strong>Output error</strong> - <em>there's no valid result if file doesn't exist</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript">fs.readFile(<span class="s">"c:/temp/non-existent.txt"</span>)
+</code></pre></td></tr></table>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Engineering approach</strong></h1>
+</section>
+<section >
+<h1>Engineering approach to errors</h1>
+<img src="images/errors/hero1.png" style="float:right;max-width:250px"/>
+<p><strong>Errors are inevitable</strong></p>
+<ul>
+<li><em>Programmers are just humans</em></li>
+<li><em>Cannot possibly check everything</em></li>
+<li><em>Time and budget are limited</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Good practices</strong></p>
+<ul>
+<li><em>Do not assume errors will not happen</em></li>
+<li><em>Make it easy to find out what's wrong</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Indicating erroneous situations</h1>
+<img src="images/errors/code.png" style="float:right;margin:20px 0px 0px 10px; max-width:250px"/>
+<p><strong>Two ways of indicating errors</strong></p>
+<ul>
+<li>Error code - <em>return <code>null</code> or <code>-1</code></em></li>
+<li>Exception - <em>throw Java exception etc.</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Why modern systems prefer exceptions?</strong></p>
+<ul>
+<li><em>Cannot be confused with valid result</em></li>
+<li><em>They propagate automatically</em></li>
+<li><em>Their name explains the reason for error</em></li>
+</ul>
+</section>
+<section >
+<h1>Three ways of handling bad inputs (1/3)</h1>
+<div class="fragment">
+<p><strong>Ignore bad inputs</strong> <em>- assume that input is valid</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> niceName(name) {
+  <span class="k">return</span> name[<span class="n">0</span>].toUpperCase() <span class="o">+</span> name.substr(<span class="n">1</span>);
+}
+</code></pre></td></tr></table>
+</div>
+<div class="fragment" style="padding-top:10px">
+<p>When will this function not work?</p>
+</div>
+<div class="fragment">
+<p><em>The function will fail if <code>name</code> is <code>null</code></em><br />
+<em>The function will fail if <code>name</code> is empty string</em></p>
+</div>
+</section>
+<section >
+<h1>Three ways of handling bad inputs (2/3)</h1>
+<p><strong>Recover from bad inputs</strong> <em>- try to do the best you can</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> niceName(name) {
+  <span class="k">if</span> (!name <span class="o">|</span><span class="o">|</span> name.length <span class="o">=</span><span class="o">=</span> <span class="n">0</span>) <span class="k">return</span> <span class="s">""</span>;
+  <span class="k">else</span> <span class="k">return</span> name[<span class="n">0</span>].toUpperCase() <span class="o">+</span> name.substr(<span class="n">1</span>);
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>What happens for bad inputs?</p>
+<p><em>You get an empty name as the result</em><br />
+<em>Is this what you want? It depends...</em></p>
+</div>
+</section>
+<section >
+<h1>Three ways of handling bad inputs (3/3)</h1>
+<p><strong>Fail when input is bad</strong> <em>- terminate execution immediately</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> niceName(name) {
+  <span class="k">if</span> (!name) <span class="k">throw</span> <span class="s">"Name cannot be null"</span>
+  <span class="k">if</span> (name.length <span class="o">=</span><span class="o">=</span> <span class="n">0</span>) <span class="k">throw</span> <span class="s">"Name cannot be empty"</span>
+  <span class="k">return</span> name[<span class="n">0</span>].toUpperCase() <span class="o">+</span> name.substr(<span class="n">1</span>);
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Terminating execution immediately</p>
+<p><em>Most languages support throwing exceptions</em><br />
+<em>Exception to indicate what was wrong with input</em></p>
+</div>
+</section>
+<section >
+<h1>Three ways of handling bad inputs</h1>
+<p><strong>Ignore bad inputs</strong><br />
+<em>Simple code, but unexpected things may happen</em><br />
+<em>Good enough for local helper functions</em></p>
+<p><strong>Recover from bad inputs</strong><br />
+<em>Default behaviour may cause serious error later</em><br />
+<em>Good if imperfect result is better than no result</em></p>
+<p><strong>Fail when input is bad</strong><br />
+<em>Stops execution, but tells you what to fix</em><br />
+<em>Good for public functions called by others</em></p>
+</section>
+<section >
+<h1>Defensive programming</h1>
+<h3>"Better safe than sorry" programming</h3>
+<p><em><i class="fa fa-user-secret"></i> Assume that your code might not be called correctly</em></p>
+<p><em><i class="fa fa-shield-alt"></i> Protect your code by throwing for bad inputs</em></p>
+<p><em><i class="fa fa-lock"></i> Use extra security measures in low-level code</em></p>
+<p><em><i class="fa fa-search"></i> Check for <code>null</code> values explicitly</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Four more approaches</strong></h1>
+</section>
+<section >
+<h1>Test-based engineering approach</h1>
+<img src="images/errors/hero3.png" style="float:right;max-height:240px"/>
+<p><strong>Prevent errors using tests</strong></p>
+<ul>
+<li><em>Tests as a method for checking correctness</em></li>
+<li><em>Tests as a light-weight specification</em></li>
+</ul>
+<div class="fragment">
+<h3>Testing in practice</h3>
+<ul>
+<li><em>Test that we get correct results for sample inputs</em></li>
+<li><em>Test expected behaviour for bad inputs</em></li>
+<li><em>Test-driven development and writing tests first</em></li>
+<li><em>Write tests for known past issues</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Mathematical approach</h1>
+<img src="images/errors/hero2.png" style="float:right;max-height:240px;margin-left:30px" />
+<p><strong>Prove programs correct</strong></p>
+<p><em>Testing can only prove presence of bugs, not their absence.
+Rather than testing, we should prove programs correct.</em></p>
+<div class="fragment">
+<h3>Mathematical approach in practice</h3>
+<ul>
+<li><em>Use</em> types <em>to specify correct behaviour</em></li>
+<li><em>More precise types to capture, e.g. non-nullability</em></li>
+<li><em>Verification tools for critical software</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Recovery-based engineering approach</h1>
+<img src="images/errors/hero4.png" style="float:right;max-height:240px;margin-left:80px"/>
+<p><strong>The kill-yourself strategy</strong></p>
+<p><em>When the process does not know how to react,
+it should kill itself and let someone else deal with it.</em></p>
+<div class="fragment">
+<h3>Error handling in Erlang</h3>
+<ul>
+<li><em>Program consists of many small processes</em></li>
+<li><em>Processes communicate via messages</em></li>
+<li><em>Supervisor processes handle failures</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Artistic approach</h1>
+<img src="images/errors/hero5.png" style="float:right;max-height:240px;margin-left:30px;"/>
+<p><em>In live coded music performance, there are no errors. Only more or less appropriate
+sounds. An error might be a source for creativity.</em></p>
+<div class="fragment">
+<h3>Is this just for artists?</h3>
+<ul>
+<li><em>Any system with live human involvement</em></li>
+<li><em>Exploratory data science process</em></li>
+<li><em>Writing live systems to process data</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Living with errors</h1>
+<p><strong>History, context and types of errors</strong><br />
+<em>Mistakes, failures, slips and malfunctions</em><br />
+<em>Input errors and output errors</em></p>
+<p><strong>Engineering approach to error handling</strong><br />
+<em>Representing using error codes and exceptions</em><br />
+<em>Three ways of handling bad inputs</em></p>
+<p><strong>Four more approaches to error handling</strong><br />
+<em>Mathematical proofs and engineering tests</em><br />
+<em>Recovery in telecom and acceptance in art</em></p>
+</section>
+<section >
+<h1>CO886: Living with errors</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Appropriate approaches in different contexts</li>
+<li>Different kinds of errors based on why, how and what</li>
+<li>Ways of handling errors and mechanisms</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Selected chapters from books</strong></p>
+<ul>
+<li>
+<a href="https://amzn.to/2BMkEgJ">Code Complete: A Practical Handbook <br />
+of Software Construction</a>
+</li>
+<li><a href="https://mitpress.mit.edu/books/computer-boys-take-over">Computer boys take over</a></li>
+</ul>
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li>
+<a href="http://programming-journal.org/2017/1/14/">Miscomputation in software:<br />
+Learning to live with errors</a>
+</li>
+<li><a href="https://web.eecs.umich.edu/~weimerw/2006-615/reading/goodenough-exceptions.pdf">Exception Handling: Issues and a Proposed Notation</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>

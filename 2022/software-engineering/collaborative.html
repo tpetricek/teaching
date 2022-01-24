@@ -1,0 +1,380 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Tools for collaborative development</title>
+    <meta name="description" content="Software Engineering: Tools for collaborative development">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Tools for collaborative development</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Collaborative development</strong></h1>
+</section>
+<section >
+<h1>GitHub, GitLab, etc.</h1>
+<h3>Commercial infrastructures around git</h3>
+<p><em><i class="fa fa-code-branch"></i> Git for source control with extra features</em></p>
+<p><em><i class="fa fa-chess-king"></i> Help teams plan and collaborate</em></p>
+<p><em><i class="fa fa-leaf"></i> Manage issues, notes, plans, contributions</em></p>
+<p><em><i class="fa fa-industry"></i> "Social network" for open source software</em></p>
+</section>
+<section >
+<h1>GitHub collaboration platform</h1>
+<img src="images/collaborative/octojedi.png" class="nb" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Other things a project needs</strong></p>
+<ul>
+<li><em>Tracking issues and feature requests</em></li>
+<li><em>Hosting documentation and notes</em></li>
+<li><em>Integration with test runners, etc.</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Why open source uses GitHub</strong></p>
+<ul>
+<li><em>Convenient way of storing my projects</em></li>
+<li><em>Active developer community</em></li>
+<li><em>GitHub is (a bit) like your CV</em></li>
+<li><em>Why not? Not open-source itself...</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Collaboration and GitHub</strong></h1>
+</section>
+<section >
+<img src="images/collaborative/project.png" class="nb" style="max-width:520px;float:left;margin:20px 50px 0px 0px" />
+<p><strong>GitHub projects</strong></p>
+<p><em>Git repository with history, branches etc.</em></p>
+<p><em>README and a few other special files</em></p>
+<p><em>Additional features<br />
+not based on Git</em></p>
+</section>
+<section >
+<h1>Additional GitHub features</h1>
+<h3>What exists in GitHub, but not in git</h3>
+<p><em><i class="fa fa-code-branch"></i></em> Fork <em>a project to create your clone in your profile</em></p>
+<p><em><i class="fa fa-forward"></i> Send</em> pull requests <em>between multiple forks</em></p>
+<p><em><i class="fa fa-bug"></i> Track</em> issues <em>and organise</em> projects</p>
+<p><em><i class="fa fa-font"></i> Use</em> wiki <em>for keeping notes and documentation</em></p>
+</section>
+<section >
+<img src="images/collaborative/remote.png" style="max-width:520px;float:left;margin:30px 40px 150px 0px" />
+<p><strong>Working with remote repositories</strong><br />
+<em>Same thing as your<br />
+local repository!</em></p>
+<div class="fragment" style="padding-top:10px">
+<p>Clone <em>to copy data</em><br />
+Pull <em>to fetch changes</em><br />
+Push <em>to update remote</em></p>
+</div>
+</section>
+<section >
+<h1>Working with remote repositories (1/3)</h1>
+<p><strong>Clone a remote repository from GitHub</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git clone https://github.com/tpetricek/test.git
+Cloning into 'test'...
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+</code></pre></td></tr></table>
+<h3>Go to the new folder and edit the code</h3>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ cd test/
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Working with remote repositories (2/3)</h1>
+<p><strong>Modify repository locally offline</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git commit -am "Modifying readme for test project"
+[master 59bb116] Modifying readme for test project
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></td></tr></table>
+<p><strong>Push local changes to remote repository</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git push origin master
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 271 bytes | 271.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/tpetricek/test.git
+   59ea774..59bb116  master -&gt; master
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Working with remote repositories (3/3)</h1>
+<p><strong>Retrieve changes done by others</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="text">$ git pull origin master
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/tpetricek/test
+ * branch            master     -&gt; FETCH_HEAD
+   59bb116..1fd8ceb  master     -&gt; origin/master
+Updating 59bb116..1fd8ceb
+Fast-forward
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre></td></tr></table>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> GitHub projects, git push and pull</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Branches, forks and pull requests</strong></h1>
+</section>
+<section >
+<h1>Collaborating on GitHub</h1>
+<img src="images/collaborative/octocat.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
+<p><strong>Using branches in one project</strong></p>
+<ul>
+<li><em>Single GitHub project</em></li>
+<li><em>Everyone in team has access</em></li>
+<li><em>Good for small teams you trust</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Using forks across projects</strong></p>
+<ul>
+<li><em>Each contributor has a fork</em></li>
+<li><em>Main project has one or few owners</em></li>
+<li><em>Good for allowing strangers to contribute</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/collaborative/pr.png" class="nb" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>GitHub pull requests</strong>
+<em>Sending contributions<br />
+back to project owner</em></p>
+<div class="fragment" style="padding-top:10px">
+<p><em>Owner has write rights,</em><br />
+<em>way to discuss changes</em></p>
+<p><em>Works within projects too</em></p>
+<p><em>Linux uses patches and emails, not PRs!</em></p>
+</div>
+</section>
+<section >
+<h1>Collaborating on a project</h1>
+<h3>Typical workflow when using branches</h3>
+<p>❶ Create project (GitHub) <em>- Add members as owners</em></p>
+<p>❷ Clone repository (git) <em>- From GitHub to your computer</em></p>
+<p>❸ Commit changes (git) <em>- All in your local repository</em></p>
+<p>❹ Push changes (git) <em>- Use a new branch to allow review</em></p>
+<p>❺ Send a pull request (GitHub) <em>- In a project to merge</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Working with branches on GitHub</h1>
+</section>
+<section >
+<h1>Contributing to a project</h1>
+<h3>Typical workflow when using forks</h3>
+<p>❶ Fork project (GitHub) <em>- Online copy in your profile</em></p>
+<p>❷ Clone repository (git) <em>- From GitHub to your computer</em></p>
+<p>❸ Commit changes (git) <em>- All in your local repository</em></p>
+<p>❹ Push changes (git) <em>- From your computer to GitHub</em></p>
+<p>❺ Send a pull request (GitHub) <em>- Online to the owner</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo:</strong> Working with forks on GitHub</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Contributing to open-source</strong></h1>
+</section>
+<section >
+<img src="images/collaborative/revolution.png" style="max-width:640px;float:left;margin:40px 30px 100px 0px" class="nb" />
+<p><em>Life of an open-source project maintainer can be tough!</em></p>
+</section>
+<section >
+<h1>Contributing to open-source</h1>
+<h3>What open-source projects need to live?</h3>
+<p><em><i class="fa fa-lock-open"></i></em> <strong>Maintainer</strong> <em>- 1 hour a day, week or month</em><br />
+<em>Someone to merge changes, build releases, explain issues</em></p>
+<p><em><i class="fa fa-code"></i></em> <strong>Core developers</strong> <em>- irregular, but more time</em><br />
+<em>To implement major new features in the software</em></p>
+<p><em><i class="fa fa-cogs"></i></em> <strong>Contributors</strong> <em>- a couple of hours or days</em><br />
+<em>Improvements, fixing bugs, better documentation</em></p>
+</section>
+<section >
+<h1>Contributing to open-source</h1>
+<img src="images/collaborative/octocat.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
+<p><strong>Even small things matter</strong></p>
+<ul>
+<li><em>Minor bug fixes and typos</em></li>
+<li><em>Documentation improvements</em></li>
+<li><em>Good bug reports</em></li>
+</ul>
+<div class="fragment">
+<p><strong>How to do it well</strong></p>
+<ul>
+<li><em>Follow style and contributing guidelines</em></li>
+<li><em>Report issues with minimal example</em></li>
+<li><em>Small to large builds trust &amp; communicate well</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/collaborative/contrib.png" style="max-width:580px;float:left;margin:10px 30px 100px 0px" class="nb"/>
+<p><strong>Good contributing</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Read the guidelines<br />
+<em>On Github typically in <code>CONTRIBUTING.md</code> file</em></p>
+<p>Follow guidelines<br />
+<em>Where to discuss, how to comment and explain</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Tools for collaborative development</h1>
+<p><strong>Collaborative development using GitHub</strong><br />
+<em>Forks, pull requests, issues, etc.</em><br />
+<em>Working with PRs, working with branches</em></p>
+<p><strong>GitHub and open source</strong><br />
+<em>Typical open source contribution workflow</em><br />
+<em>Contributing to open-source projects</em></p>
+</section>
+<section >
+<h1>CO886: Tools for collaborative development</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>GitHub forks, pull requests, etc.</li>
+<li>What is in git vs. what is in GitHub</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
