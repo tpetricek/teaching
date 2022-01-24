@@ -1,0 +1,353 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Origins and history</title>
+    <meta name="description" content="Software Engineering: Origins and history">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO559: Software Develoment</strong><br/> Origins and history</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Software crises</strong></h1>
+</section>
+<section >
+<h1><strong>Charles Babbage</strong> - Analytical Engine</h1>
+<img src="images/history/babbage.png" class="nb" style="float:right;max-width:380px;margin-left:20px" />
+<p>On the mathematical powers of the calculating engine (1837)</p>
+<p><em>If trials of three or four simple cases have been made, and are found to agree with the results given by the engine, it is scarcely possible that there can be any error.</em></p>
+</section>
+<section >
+<h1><strong>Nathan Ensmenger</strong> - The Computer Boys Take Over</h1>
+<img src="images/history/eniac.jpg" class="nb" style="float:right;max-width:440px;margin-left:20px" />
+<p><em>The ENIAC women would simply set up the machine to perform these predetermined plans; that this work would turn out to be difficult and require radically innovative thinking was completely unanticipated.</em></p>
+</section>
+<section >
+<img src="images/history/y2k.jpg" style="max-width:650px;float:left;margin-right:50px" />
+<p>By the end of [1960s] many were talking of a crisis (...).</p>
+<div class="fragment">
+<p><em>For the next several decades, [managers, academics and governments] would release warnings about the desperate state of the software industry with ritualistic regularity.</em></p>
+</div>
+</section>
+<section >
+<h1><strong>Nathan Ensmenger</strong> - The Computer Boys Take Over</h1>
+<img src="images/history/boys.jpg" class="nb" style="float:right;max-width:260px;margin-left:30px" />
+<p><strong>Software paradox</strong></p>
+<p><em>How can we explain the [seemingly perpetual] crisis
+in what is considered one of the most successful and
+profitable industries of all time?</em></p>
+<h3>Software mostly works</h3>
+<p><em>Surprisingly few people are killed as a result of a computer failure</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Why is building software hard</strong></h1>
+</section>
+<section >
+<h1>Software systems and algorithms</h1>
+<img src="images/history/turing.gif" class="nb" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Algorithms</strong></p>
+<ul>
+<li><em>Abstract mathematical concept</em></li>
+<li><em>Not affected by the real world</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Software systems</strong></p>
+<ul>
+<li><em>Different scale of complexity</em></li>
+<li><em>Socio-technological systems</em></li>
+<li><em>Continually evolving environment</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Inherent software complexity</h1>
+<h3>No Silver Bullet (Fred Brooks)</h3>
+<p><em><i class="fa fa-ellipsis-h"></i> Want 30 features? Have to program 30 features!</em></p>
+<p><em><i class="fa fa-microchip"></i> Digital systems are not continuous</em></p>
+<p><em><i class="fa fa-chart-line"></i> Small change can have unexpected consequences</em></p>
+<p><em><i class="fa fa-wrench"></i> We can only reduce accidental complexity</em></p>
+</section>
+<section >
+<h1>Software as a socio-technological entity</h1>
+<img src="images/history/sprawl.jpg" class="nb" style="float:right;max-width:280px;margin-left:20px" />
+<p><strong>Very large-scale systems</strong></p>
+<ul>
+<li><em>Information flow in a hospital</em></li>
+<li><em>Evolving social networks</em></li>
+<li><em>Defence systems of United States</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Wicked problems</strong></p>
+<p><em>A</em> wicked problem <em>is difficult or impossible to solve because of incomplete, contradictory, and changing requirements that are often difficult to recognize.</em></p>
+</div>
+</section>
+<section >
+<img src="images/history/starwars.jpg" style="max-width:580px;float:left;margin-right:30px" />
+<p><strong>Strategic Defence Initiative</strong></p>
+<p><em>"Since the missile defence environ-ment is hostile and
+destabilizing by intent, the [software] is logically impossible."</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>1950s labour crisis</strong></h1>
+</section>
+<section >
+<img src="images/history/labour.png" style="max-width:650px;float:left;margin-right:50px" />
+<p>From military and scientific applications to data processing.</p>
+<p><em>How to find and train good programmers?</em></p>
+</section>
+<section >
+<h1>Programming in 1950s</h1>
+<img src="images/history/sage.jpg" class="nbs" style="float:right;max-width:270px;margin-left:20px" />
+<p><strong>Hacker culture</strong></p>
+<p><em>Programming was frequently seen as a black art
+whose success or failure was dependent on the idiosyncratic abilities of
+individual programmers.</em></p>
+<div class="fragment">
+<p><strong>It is not clear how to</strong></p>
+<ul>
+<li><em>Identify good programmers</em></li>
+<li><em>Train someone to be good</em></li>
+<li><em>Produce software as a factory</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Software in 1950s and 1960s</h1>
+<h3>Semi-Automatic Ground Environment (SAGE)</h3>
+<p><em><i class="fa fa-id-card"></i> Hired 3/5 of all available programmers (700)</em><br />
+<em><i class="fa fa-chalkboard-teacher"></i> Trained 7000 more during the project</em></p>
+<h3>IBM OS/360 and Fred Brooks</h3>
+<p><em><i class="fa fa-clock"></i> Adding people to delayed project only makes it worse</em><br />
+<em><i class="fa fa-industry"></i> Programming is resistant to industrial production</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>1970s software engineering</strong></h1>
+</section>
+<section >
+<img src="images/history/nato.jpg" style="max-width:580px;float:left;margin-right:20px" />
+<p><strong>NATO Software Engineering Conference</strong> (1968)</p>
+<p><em>Black art of programming had to make way for the science of software engineering</em></p>
+<div class="fragment" style="margin-top:40px;margin-left:-20px">
+<p><strong>Follow-up 1969 Software Engineering Conference</strong><br />
+<em>Shows disagreements about what this actually means</em></p>
+</div>
+</section>
+<section >
+<h1>What might software engineering be?</h1>
+<img src="images/history/dijkstra.jpg" class="nb" style="float:right;max-width:380px;margin-left:20px" />
+<p><strong>Mathematical culture</strong></p>
+<ul>
+<li>Mathematical proofs</li>
+<li>Abstract data types</li>
+<li>Structured programming</li>
+</ul>
+<div class="fragment">
+<p><strong>Managerial culture</strong></p>
+<ul>
+<li>Control the workforce</li>
+<li>Structured management of teams</li>
+<li>Requirements and specifications</li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/history/parnas.png" style="max-width:440px;float:left;margin:20px 50px 0px 20px" />
+<p><strong>Software engineering disciplinary repertoire</strong></p>
+<div class="fragment">
+<p><em>Software to reliably shoot down Soviet nuclear missiles cannot be built for</em>
+software engineering <em>reasons</em>.</p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>1990s application crisis</strong></h1>
+</section>
+<section >
+<img src="images/history/1990.jpg" style="max-width:500px;float:left;margin:30px 30px 0px 0px" />
+<p><strong>Personal computing becomes ubiquitous</strong></p>
+<p><em>Business requirements change faster than software gets built</em></p>
+<div class="fragment" style="margin-top:20px">
+<p>Need methods that respond to change!</p>
+</div>
+</section>
+<section >
+<h1>Paradigm shift in Software Engineering (Christiane Floyd, 1987)</h1>
+<h3>From product-oriented approach...</h3>
+<p><em><i class="fa fa-file-alt"></i> Fixed context allows specification</em><br />
+<em><i class="fa fa-clipboard-check"></i> Everything else is outside the scope</em></p>
+<h3>...to process-oriented approach</h3>
+<p><em><i class="fa fa-paper-plane"></i> Development intertwined with learning</em><br />
+<em><i class="fa fa-comments"></i> Different people continuously involved</em></p>
+</section>
+<section >
+<h1>Modern Software Engineering</h1>
+<h3>Recent and current trends in Software Engineering</h3>
+<p><em><i class="fa fa-rocket"></i> Manifesto of Agile software development</em></p>
+<p><em><i class="fa fa-bars"></i> Move beyond object oriented design</em></p>
+<p><em><i class="fa fa-code"></i> Open source software development</em></p>
+<p><em><i class="fa fa-leaf"></i> Programming as crafts or gardening</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Origins and history</h1>
+<p><strong>Software crises</strong><br />
+<em>Continuous crisis in a profitable industry</em><br />
+<em>Labour ('50s), management ('70s), applications ('90s)</em></p>
+<p><strong>Why is building software hard</strong><br />
+<em>Software systems are not algorithms</em><br />
+<em>Complexity, human aspects, changing environment</em></p>
+<p><strong>Four cultures of programming</strong><br />
+<em>Hackers, managers, engineers, mathematicians</em><br />
+<em>Methods for building and trusting systems</em></p>
+</section>
+<section >
+<h1>Four cultures of programming (1/2)</h1>
+<h3>Hacker culture</h3>
+<p><em><i class="fa fa-terminal"></i> Trust programmers skilled in their craft</em><br />
+<em><i class="fa fa-eye"></i> Apprenticeship model of learning</em></p>
+<h3>Managerial culture</h3>
+<p><em><i class="fa fa-users"></i> Trust well managed and organised teams</em><br />
+<em><i class="fa fa-desktop"></i> Eliminates reliance on programmers</em></p>
+</section>
+<section >
+<h1>Four cultures of programming (2/2)</h1>
+<h3>Mathematical culture</h3>
+<p><em><i class="fa fa-graduation-cap"></i> Prove correctness mathematically</em><br />
+<em><i class="fa fa-pen"></i> Assisted by various formal methods</em></p>
+<h3>Engineering culture</h3>
+<p><em><i class="fa fa-cubes"></i> Use a mix of good practices</em><br />
+<em><i class="fa fa-wrench"></i> Testing, debugging, good structure</em></p>
+</section>
+<section >
+<h1>CO559: Origins and history</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Notable systems and reflections on them</li>
+<li>Reasons why building software is hard</li>
+<li>A range of approaches to addressing that</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Books</strong></p>
+<ul>
+<li>Rebecca Slayton (2013). <a href="https://mitpress.mit.edu/books/arguments-count">Arguments that count</a></li>
+<li>Nathan Ensmenger (2010). <a href="https://mitpress.mit.edu/books/computer-boys-take-over">Computer boys take over</a></li>
+<li>Fred Brooks (1975). <a href="https://www.amazon.co.uk/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The mythical man-month</a></li>
+</ul>
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li>Peter Varhol. <a href="https://techbeacon.com/agility-beyond-history%E2%80%94-legacy%E2%80%94-agile-development">To agility and beyond: The history—and legacy—of agile development</a></li>
+<li>David Parnas (1985). <a href="https://web.stanford.edu/class/cs99r/readings/parnas1.pdf">Software aspects of strategic defence systems</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
