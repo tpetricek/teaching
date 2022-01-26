@@ -3,15 +3,16 @@ open System.Windows.Forms
 
 // Create user interface & list of rectangles & setup drawing
 let form = new Form(Visible=true)
-let rects = ResizeArray<(int * int) * (int * int)>()
-let current : ref<option<(int * int) * (int * int)>>= ref None
+let rnd = System.Random()
+let rects = ResizeArray<(int * int) * (int * int) * Brush>()
+let current : ref<option<(int * int) * (int * int)>> = ref None
 
 form.Paint.Add(fun e ->
   let drawRectangle ((x1:int, y1), (x2, y2)) brush =
     let x, y = min x1 x2, min y1 y2
     let width, height = abs (x1 - x2), abs (y1 - y2)
     e.Graphics.FillRectangle(brush, x, y, width, height)
-  for rect in rects do drawRectangle rect Brushes.Green
+  for s,e,c in rects do drawRectangle (s, e) c
   !current |> Option.iter (fun rect -> drawRectangle rect Brushes.Gray) )
 
 // Use event combinators to create an event that is triggered
@@ -27,7 +28,8 @@ let rec drawing start = async {
   match info with 
   | Choice1Of2 up ->
       let finish = up.X, up.Y
-      rects.Add(start, finish)
+      let clr = new SolidBrush(Color.FromArgb(rnd.Next(256),rnd.Next(256),rnd.Next(256)))
+      rects.Add(start, finish, clr :> _)
       current := None
       form.Refresh()
       return! waiting() 
@@ -41,5 +43,5 @@ and waiting () = async {
   let! down = Async.AwaitEvent form.MouseDown
   return! drawing (down.X, down.Y) }
 
-// Start ini the waiting state
+// Start in the waiting state
 waiting () |> Async.StartImmediate
