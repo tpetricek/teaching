@@ -1,0 +1,782 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Code quality</title>
+    <meta name="description" content="Software Engineering: Code quality">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO559: Software Engineering</strong><br/> Code quality</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Code quality</strong></h1>
+</section>
+<section >
+<img src="images/quality/maintenance.jpg" style="max-width:500px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>Software Maintenance</strong></p>
+<p><em>You spend more time reading and modifying code than writing it.</em></p>
+<p>Investing into readability when writing pays off</p>
+</section>
+<section >
+<h1>eXtreme Programming (2000s)</h1>
+<img src="images/quality/xp.jpg" style="float:right;max-width:360px;margin-top:-10px;margin-left:20px" />
+<p><strong>Keeping code simple</strong></p>
+<ul>
+<li><em>Write self-documenting code</em></li>
+<li><em>Reduce need for comments</em></li>
+<li><em>You Ain't Gonna Need It (YAGNI)</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Shared understanding in a team</strong></p>
+<ul>
+<li><em>Common coding standards</em></li>
+<li><em>Pair programming</em></li>
+<li><em>Use of code reviews</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/quality/psycho.jpg" style="max-width:490px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Code for readability</strong></p>
+<p><em>Always code as if the person maintaining
+your code will be a violent psychopath who knows where you live.</em></p>
+<div class="fragment">
+<p>The person maintaining it will likely be future you.</p>
+</div>
+</section>
+<section >
+<h1>What is good quality code?</h1>
+<img src="images/quality/neuromancer.jpg" style="float:right;max-width:240px;margin-top:-10px;margin-left:20px" />
+<p><strong>Hacker culture</strong></p>
+<ul>
+<li><em>Quality is learned by experience</em></li>
+<li><em>Apprenticeships if coding was craft</em></li>
+<li><em>Good examples, but no written rules</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Coding standards</strong></p>
+<ul>
+<li><em>Explicit rules that one can follow</em></li>
+<li><em>There are often exceptions</em></li>
+<li><em>Good starting point, but not ultimate answer</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/quality/study.png" style="max-width:460px;float:left;margin:0px 40px 100px 40px" />
+<p><strong>Do programming languages matter?</strong></p>
+<div class="fragment">
+<p><em>[It] appear[s] that strong typing is modestly better
+than weak typing, and among functional languages, static typing is also somewhat better than dynamic typing.</em></p>
+</div>
+</section>
+<section >
+<img src="images/quality/boffins.png" style="max-width:460px;float:left;margin:0px 40px 100px 40px" />
+<p><strong>Do programming languages matter?</strong></p>
+<p>Attempt to reproduce the study mostly failed</p>
+<p><em>"I believe they do in my heart of hearts, but it's kind of an impossible experiment to run."</em></p>
+</section>
+<section >
+<h1>Code quality</h1>
+<img src="images/quality/code.png" style="float:right;max-width:300px;margin-top:-10px;margin-left:20px" />
+<p><strong>Aspects of code quality</strong></p>
+<ul>
+<li><em>Variable and function names</em></li>
+<li><em>Structure of code logic</em></li>
+<li><em>Organization of functionality</em></li>
+</ul>
+<p><strong>Processes for keeping quality</strong></p>
+<ul>
+<li><em>Improving quality through refactoring</em></li>
+<li><em>Ensuring code quality using tools</em></li>
+<li><em>Ensuring code quality using social processes</em></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Naming</strong></h1>
+</section>
+<section >
+<img src="images/quality/fortran.png" style="max-width:440px;float:left;margin:20px 40px 100px 0px" />
+<p><strong>Good naming is easy today!</strong></p>
+<p><em>Computers supports<br />
+lower case letters!</em></p>
+<p><em>Long names fit in<br />
+computer memory</em></p>
+<p><em>Auto-complete helps<br />
+you avoid typos</em></p>
+</section>
+<section >
+<h1>Naming of variables (1/3)</h1>
+<p>What is the following function doing?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> conv(x) {
+  <span class="k">return</span> x <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Converting temperature from Celsius to Fahrenheit!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> celsiusToFahrenheit(temperature) {
+  <span class="k">return</span> temperature <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables (2/3)</h1>
+<p>Was that descriptive enough?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> convertTemperatureFromCelsiusToFahrenheit
+    (temperatureInCelsius) {
+  <span class="k">return</span> temperatureInCelsius <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Can we improve this by using abbreviations?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> convTempFromCelsToFahr(tempInCels) {
+  <span class="k">return</span> tempInCels <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables (3/3)</h1>
+<p>Are all variable names in this example descriptive?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">var</span> result <span class="o">=</span> <span class="n">0</span>;
+<span class="k">for</span>(<span class="k">var</span> i <span class="o">=</span> <span class="n">0</span>; i <span class="o">&lt;</span> data.length; i+<span class="o">+</span>) result <span class="o">+</span><span class="o">=</span> data[i];
+<span class="k">return</span> result;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>This is too much. Sensible exceptions allowed!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">var</span> resultNumber <span class="o">=</span> <span class="n">0</span>;
+<span class="k">for</span>(<span class="k">var</span> dataIndex <span class="o">=</span> <span class="n">0</span>; dataIndex <span class="o">&lt;</span> data.length; dataIndex+<span class="o">+</span>)
+  resultNumber <span class="o">+</span><span class="o">=</span> data[dataIndex];
+<span class="k">return</span> resultNumber;
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Naming of variables</h1>
+<h3>Descriptive names of reasonable length</h3>
+<p><em><i class="fa fa-book"></i> Name should add semantic information</em></p>
+<p><em><i class="fa fa-font"></i> No need to say it's number, string, etc.</em></p>
+<p><em><i class="fa fa-ruler-horizontal"></i> Longer names are good, but don't overdo it!</em></p>
+<p><em><i class="fa fa-users"></i> Follow common conventions where applicable</em></p>
+<p><em><i class="fa fa-bars"></i> The more local, the less it matters</em></p>
+</section>
+<section >
+<h1>Naming of variables, functions and classes</h1>
+<img src="images/quality/camel.jpg" style="float:right;max-width:360px;margin:10px 0px 0px 20px 0px;margin-right:40px" />
+<p><strong>Combining words in names</strong></p>
+<ul>
+<li><code>PascalCase</code></li>
+<li><code>camelCase</code></li>
+<li><code>snake_case</code></li>
+</ul>
+<p><strong>Using spaces in a name</strong></p>
+<ul>
+<li><em>Would makes code nightmare to parse</em></li>
+<li><em>Some language allow escaping e.g.</em> ``funny name!``</li>
+</ul>
+</section>
+<section >
+<h1>Naming of classes and methods in Java</h1>
+<p>Is the following naming consistent or not?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> Program {
+   <span class="k">public</span> Program(Boolean adminMode) {
+     <span class="c">// Some actual logic here</span>
+   }
+   <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> main(String []args) {
+      Program prog <span class="o">=</span> <span class="k">new</span> Program(<span class="k">false</span>);
+   }
+}
+</code></pre></td></tr></table>
+<p>Pascal case <code>Program</code>, camelCase <code>adminMode</code>, <code>main</code></p>
+</section>
+<section >
+<h1>Naming classes and other issues</h1>
+<h3>Coding standards and exceptions</h3>
+<p><em><i class="fa fa-check-square"></i> Java standards use <code>PascalCase</code> for class names</em></p>
+<p><em><i class="fa fa-check-square"></i> <code>camelCase</code> is used for variables and method names</em></p>
+<p><em><i class="fa fa-thumbs-up"></i> You should generally follow coding standards</em></p>
+<p><em><i class="fa fa-pencil-alt"></i> Exceptions such as numerical code: <code>P</code> or <code>alpha</code></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Structure and whitespace</strong></h1>
+</section>
+<section >
+<img src="images/quality/goto.png" style="max-width:450px;float:left;margin:30px 40px 100px 0px" />
+<p><strong>GOTO considered harmful</strong></p>
+<div class="fragment" style="padding:0px 0px 0px 480px">
+<p><em>Can you tell what this does?</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="n">10</span>: I = <span class="n">1</span>
+<span class="n">20</span>: PRINT <span class="s">"HI"</span>
+<span class="n">30</span>: I = I + <span class="n">1</span>
+<span class="n">40</span>: <span class="k">IF</span> I &lt;= <span class="n">10</span> <span class="k">THEN</span> <span class="k">GOTO</span> <span class="n">20</span>
+</code></pre></td></tr></table>
+</div>
+<div class="fragment" style="padding:20px 0px 0px 480px">
+<p><em>And what about this?</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="vb"><span class="k">FOR</span> I = <span class="n">1</span> <span class="k">TO</span> <span class="n">10</span> <span class="k">DO</span>
+  PRINT <span class="s">"HI"</span>
+<span class="k">NEXT</span>
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Keeping program logic simple</h1>
+<p>Is there an easier way to write this?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAdministrator(user) <span class="o">|</span><span class="o">|</span> isOwner(user)) <span class="k">return</span> <span class="k">true</span>;
+<span class="k">else</span> <span class="k">return</span> <span class="k">false</span>;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>You do not need conditional statement at all!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">return</span> isAdministrator(user) <span class="o">|</span><span class="o">|</span> isOwner(user);
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Keeping program logic ... logical (1/2)</h1>
+<p>When does the following return a product page?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable(product)) {
+  <span class="k">if</span> (isHidden(product))
+    <span class="k">return</span> <span class="k">null</span>;
+  <span class="k">return</span> getProductPage(product);
+} <span class="k">else</span> {
+  <span class="k">return</span> <span class="k">null</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p><em>When product is available and not hidden!</em></p>
+<p><em>Which branch is the "happy path" branch?</em></p>
+</div>
+</section>
+<section >
+<h1>Keeping program logic ... logical (2/2)</h1>
+<p>Keep the happy path branches consistent!</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable(product)) {
+  <span class="k">if</span> (!isHidden(product)) {
+    <span class="k">return</span> getProductPage(product);
+  } <span class="k">else</span> <span class="k">return</span> <span class="k">null</span>;
+} <span class="k">else</span> <span class="k">return</span> <span class="k">null</span>;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Reduce unnecessary nesting</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (!isAvailable(product)) <span class="k">return</span> <span class="k">null</span>;
+<span class="k">if</span> (isHidden(product)) <span class="k">return</span> <span class="k">null</span>;
+<span class="k">return</span> getProductPage(product);
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Program logic</h1>
+<h3>Encoding logic in a readable way</h3>
+<p><em><i class="fa fa-brush"></i> Use appropriate language constructs</em></p>
+<p><em><i class="fa fa-directions"></i> Make sure you're not complicating things</em></p>
+<p><em><i class="fa fa-long-arrow-alt-right "></i> Keep "happy path" through code clear</em></p>
+<p><em><i class="fa fa-boxes"></i> Do not use unnecessary nesting of logic</em></p>
+</section>
+<section >
+<h1>Consistent code indentation (1/2)</h1>
+<p>What is the right spacing and line breaks?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable( product ))
+  {
+    <span class="k">if</span> (!isHidden(product)) {
+    <span class="k">return</span> getProductPage(product);
+    } <span class="k">else</span>
+        <span class="k">return</span> <span class="k">null</span>;
+} <span class="k">else</span>
+<span class="k">return</span> <span class="k">null</span>;
+</code></pre></td></tr></table>
+<div class="fragment" style="padding-top:10px">
+<p>Compiler ignores whitespace, but humans do not!</p>
+</div>
+</section>
+<section >
+<h1>Consistent code indentation (2/2)</h1>
+<p><em>Follow style of a project or a language;</em> be consistent!</p>
+<p><em>Indent nested code by the same number of spaces or tabs</em></p>
+<div style="padding-top:10px">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">if</span> (isAvailable(product)) {
+    <span class="k">if</span> (!isHidden(product)) {
+        <span class="k">return</span> getProductPage(product);
+    } <span class="k">else</span> {
+        <span class="k">return</span> <span class="k">null</span>;
+    }
+} <span class="k">else</span> {
+    <span class="k">return</span> <span class="k">null</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Writing useful comments</h1>
+<div class="fragments">
+<p>Are you explaining something you cannot see from code?</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// Return product page if product is available</span>
+<span class="k">if</span> (isAvailable(product))
+  <span class="k">return</span> getProductPage(product);
+</code></pre></td></tr></table>
+</div>
+<div class="fragment" style="padding-top:10px">
+<p>Also applies to Java inline documentation for methods</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">/**</span>
+<span class="c"> * Returns the product price</span>
+<span class="c"> */</span>
+<span class="k">float</span> getProductPrice(Product product)  { <span class="c">/* ... */</span> }
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<h1>Comments and whitespace</h1>
+<h3>Making code easy to read and understand</h3>
+<p><em><i class="fa fa-ban"></i> Don't use comments if you have nothing to add</em></p>
+<p><em><i class="fa fa-landmark"></i> Comments should add history, motivation, context</em></p>
+<p><em><i class="fa fa-code"></i> Use consistent spacing and indentation</em></p>
+<p><em><i class="fa fa-align-center"></i> Keep nesting and length of functions sensible</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Improving quality of a poor code snippet</h1>
+</section>
+<section >
+<div class="smallercode">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// Answers a given query</span>
+<span class="k">function</span> answerQuery(query) {
+  <span class="k">var</span> query_lower <span class="o">=</span> v.lowerCase(query);
+  <span class="k">if</span> (v.includes(query_lower, <span class="s">"rain"</span>) <span class="o">|</span><span class="o">|</span> v.includes(query_lower, <span class="s">"sun"</span>))
+    { <span class="k">return</span> <span class="s">"I do not care too much about weather"</span>; }
+  <span class="k">if</span> (!v.includes(query_lower, <span class="s">"football"</span>))
+      { <span class="k">return</span> <span class="s">"Sorry Dave, I cannot do that."</span> }
+  <span class="k">return</span> <span class="s">"Football is the ballet of the masses."</span>
+}
+
+<span class="c">// Handles a say click</span>
+<span class="k">function</span> HandleSayClick()
+{
+  <span class="k">var</span> el <span class="o">=</span> document.getElementById(<span class="s">'message'</span>);
+  <span class="k">var</span> ml <span class="o">=</span> el.value.toLowerCase();
+  <span class="k">var</span> cv <span class="o">=</span> document.getElementById(<span class="s">'conversation'</span>);
+  <span class="k">var</span> an <span class="o">=</span> answerQuery(ml)
+           conversation.innerHTML <span class="o">+</span><span class="o">=</span> <span class="s">"&lt;p&gt;"</span> <span class="o">+</span> ml <span class="o">+</span> <span class="s">"&lt;/p&gt;"</span>;
+           conversation.innerHTML <span class="o">+</span><span class="o">=</span> <span class="s">"&lt;p&gt;"</span> <span class="o">+</span> an <span class="o">+</span> <span class="s">"&lt;/p&gt;"</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+<section >
+<div class="smallercode">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// Searches the query for known keywords (rain, sun</span>
+<span class="c">// and football) and returns bot's response</span>
+<span class="k">function</span> answerQuery(query) {
+  <span class="k">var</span> queryLower <span class="o">=</span> v.lowerCase(query);
+  <span class="k">if</span> (v.includes(queryLower, <span class="s">"rain"</span>) <span class="o">|</span><span class="o">|</span> v.includes(queryLower, <span class="s">"sun"</span>))
+    <span class="k">return</span> <span class="s">"I do not care too much about weather"</span>;
+  <span class="k">if</span> (v.includes(queryLower, <span class="s">"football"</span>))
+    <span class="k">return</span> <span class="s">"Football is the ballet of the masses."</span>;
+  <span class="k">return</span> <span class="s">"Sorry Dave, I cannot do that."</span>;
+}
+
+<span class="c">// Gets message from the user and appends</span>
+<span class="c">// it together with an answer to the conversation</span>
+<span class="k">function</span> HandleSayClick() {
+  <span class="k">var</span> messageEl <span class="o">=</span> document.getElementById(<span class="s">'message'</span>);
+  <span class="k">var</span> messageLower <span class="o">=</span> messageElement.value.toLowerCase();
+  <span class="k">var</span> conversationEl <span class="o">=</span> document.getElementById(<span class="s">'conversation'</span>);
+  <span class="k">var</span> answer <span class="o">=</span> answerQuery(messageLower)
+  conversation.innerHTML <span class="o">+</span><span class="o">=</span> <span class="s">"&lt;p&gt;"</span> <span class="o">+</span> messageLower <span class="o">+</span> <span class="s">"&lt;/p&gt;"</span>;
+  conversation.innerHTML <span class="o">+</span><span class="o">=</span> <span class="s">"&lt;p&gt;"</span> <span class="o">+</span> answer <span class="o">+</span> <span class="s">"&lt;/p&gt;"</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Maintaining and improving quality</strong></h1>
+</section>
+<section >
+<h1>Maintaining code quality</h1>
+<img src="images/quality/linter.png" style="float:right;max-width:400px;margin:60px 0px 0px 20px" />
+<div style="margin-top:-10px">
+<p><strong>Social approaches</strong></p>
+<ul>
+<li>Pair programming <em>- all code writing is done in pairs</em></li>
+<li>Code reviews <em>- colleague reads code before merging</em></li>
+</ul>
+<p><strong>Technological solutions</strong></p>
+<ul>
+<li>Compiler <em>- only checks if computer can understand</em></li>
+<li>Style checkers <em>or</em> linters <em>- check stylistic errors and suspicious constructs</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Improving code quality</h1>
+<img src="images/quality/rgr.png" style="float:right;max-width:300px;margin:10px 0px 0px 20px" />
+<p><strong>Refactoring</strong></p>
+<p><em>Is a code transformation that</em></p>
+<div style="margin:-15px 0px 20px 30px">
+<p><em>(i) Does not change meaning</em><br />
+<em>(ii) Improves quality of code</em></p>
+</div>
+<div class="fragment" style="padding-top:10px">
+<p><strong>Test-driven development</strong></p>
+<ul>
+<li>Red <em>- Add failing test for new unimplemented feature</em></li>
+<li>Green <em>- Make it pass using whatever hacks you need</em></li>
+<li>Refactor <em>- Improve quality without breaking it</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Example of refactoring (1/2)</h1>
+<p>The name of the function and input argument are poor</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> conv(x) {
+  <span class="k">return</span> x <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment">
+<p><em>Improve quality using</em> <strong>rename refactoring</strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> celsiusToFahrenheit(temperature) {
+  <span class="k">return</span> temperature <span class="o">*</span> <span class="n">9</span> <span class="o">/</span> <span class="n">5</span> <span class="o">+</span> <span class="n">32</span>;
+}
+</code></pre></td></tr></table>
+<p><em>Note that we use new name in all calls to <code>conv</code></em></p>
+</div>
+</section>
+<section >
+<h1>Example of refactoring (2/2)</h1>
+<p>What is wrong with this function?</p>
+<p><em>Comment indicates it does two separate things</em><br />
+<em>In reality it would be very long</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> printOwing(invoice) {
+  printBanner();
+  <span class="k">var</span> outstanding <span class="o">=</span> calculateOutstanding();
+
+  <span class="c">// Print details</span>
+  print(<span class="s">"name: $"</span> <span class="o">+</span> invoice.customer);
+  print(<span class="s">"amount: $"</span> <span class="o">+</span> outstanding);
+}
+</code></pre></td></tr></table>
+</section>
+<section >
+<h1>Example of refactoring (2/2)</h1>
+<p><em>Improve quality using</em> <strong>extract function</strong> <em>refactoring</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> printDetails(invoice, outstanding) {
+  print(<span class="s">"name: $"</span> <span class="o">+</span> invoice.customer);
+  print(<span class="s">"amount: $"</span> <span class="o">+</span> outstanding);
+}
+
+<span class="k">function</span> printOwing(invoice) {
+  printBanner();
+  let outstanding <span class="o">=</span> calculateOutstanding();
+  printDetails(invoice, outstanding);
+}
+</code></pre></td></tr></table>
+<p><em>Note that comment becomes a function name!</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Code quality</h1>
+<p><strong>What is code quality and why it matters</strong><br />
+<em>More time is spent reading code than writing it</em><br />
+<em>Extreme programming - simplicity &amp; shared understanding</em></p>
+<p><strong>Specific rules for keeping high code quality</strong><br />
+<em>Naming variables, upper/lower case, indentation</em><br />
+<em>Keeping logic simple and comments meaningful</em></p>
+<p><strong>Maintaining and improving code quality</strong><br />
+<em>Social and technological approaches to quality</em><br />
+<em>Refactoring and red-green-refactor methodology</em></p>
+</section>
+<section >
+<h1>CO559: Code quality</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Rules for good naming and lower/upper case</li>
+<li>Keeping logic simple, comments and indentation</li>
+<li>Refactoring and red-green-refactor</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Selected chapters from books</strong></p>
+<ul>
+<li><a href="https://amzn.to/2BMkEgJ">Code Complete: A Practical Handbook of Software Construction</a></li>
+<li><a href="https://amzn.to/2SUm7we">Clean Code: A Handbook of Agile Software Craftsmanship</a></li>
+</ul>
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li><a href="http://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf">A Large Scale Study of Programming Languagesand Code Quality in Github</a></li>
+<li><a href="https://www.theregister.co.uk/2019/01/30/programming_bugs/">Boffins debunk study claiming certain languages lead to more buggy code than others</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
