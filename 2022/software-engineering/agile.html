@@ -1,0 +1,405 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Agile Development</title>
+    <meta name="description" content="Software Engineering: Agile Development">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Agile Development</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Development methodologies</strong></h1>
+</section>
+<section >
+<h1>How to build software well?</h1>
+<img src="images/agile/certified.png" class="nb" style="float:right;max-width:250px;margin-left:20px" />
+<p><strong>Development methodologies</strong></p>
+<ul>
+<li><em>Is there a "scientific method" for SW?</em></li>
+<li><em>Follow some kind of structured process</em></li>
+<li><em>Starts with reasonable principles...</em></li>
+<li><em>May end with mindless rule following!</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Methodologies have context</strong></p>
+<ul>
+<li><em>Culture it originates from - engineer vs. manager?</em></li>
+<li><em>Product vs. process oriented</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/agile/grid.png" style="max-width:500px;float:left;margin-right:50px;margin-top:70px" class="nb"/>
+<p><strong>Process vs. product</strong></p>
+<p><em>Do we have a specification or adapt continually?</em></p>
+<p><strong>Manager vs engineer</strong></p>
+<p><em>Focus on process and team structure or tools and code?</em></p>
+</section>
+<section >
+<img src="images/agile/sage.jpg" style="max-width:500px;float:left;margin-right:30px;margin-top:20px" />
+<p><strong>Semi-Automatic Ground Environment (SAGE)</strong></p>
+<p><em>First attempt at a methodology</em></p>
+<p><em>Focused on product<br />
+and management</em></p>
+<p>Multi-stage process</p>
+</section>
+<section >
+<h1>Waterfall methodology</h1>
+<img src="images/agile/waterfall.png" class="nb" style="float:right;max-width:600px;margin-left:20px" />
+<p>Multi-stage process<br />
+<em>Royce (1987)</em></p>
+<ol>
+<li><em>Gather requirements</em></li>
+<li><em>Analyse and design</em></li>
+<li><em>Programming</em></li>
+<li><em>Testing</em></li>
+<li><em>Deployment</em></li>
+</ol>
+</section>
+<section >
+<img src="images/agile/c3.png" style="max-width:450px;float:left;margin-right:30px;margin-top:20px" />
+<p><strong>Chrysler Comprehensive Compensation System (C3)</strong></p>
+<p><em>Rapid software system development (in Smalltalk)</em></p>
+<p><em>Focused on process<br />
+and engineering</em></p>
+<p>First project using<br />
+Extreme Programming (XP)</p>
+</section>
+<section >
+<h1>Extreme Programming</h1>
+<h3>Engineering practices drive the process</h3>
+<p><em><i class="fa fa-book"></i></em> User stories <em>to capture requirements</em></p>
+<p><em><i class="fa fa-dice"></i></em> Planning game <em>to plan the next iteration</em></p>
+<p><em><i class="fa fa-user-friends"></i></em> Pair programming <em>to build shared understanding</em></p>
+<p><em><i class="fa fa-keyboard"></i></em> Continuous integration <em>to always have running system</em></p>
+<p><em><i class="fa fa-traffic-light"></i></em> Test-driven development <em>process</em></p>
+</section>
+<section >
+<h1><strong>The New New Product Development Game</strong></h1>
+<p><em>In today's fast-paced, fiercely competitive
+world (...) [c]ompanies are increasingly
+realizing that the old, sequential approach to developing
+new products simply won't get the job done.</em></p>
+<p><em>Instead, companies in Japan and the United States are using a holistic
+method - as in rugby, the ball gets passed within the team as it moves as a unit up the field.</em></p>
+<p style="text-align:right">Takeuchi, Nonaka (1986)</p>
+</section>
+<section >
+<img src="images/agile/fuji.png" style="max-width:650px;float:left;margin-right:50px" class="nb" />
+<p><strong>SCRUM methodology</strong></p>
+<p><em>Following the Rugby terminology</em></p>
+<p>Managerial, but process oriented</p>
+</section>
+<section >
+<h1>Manifesto for Agile Software Development (2001)</h1>
+<p>Popularized <em>process-oriented</em> or <em>agile</em> methodologies.</p>
+<div class="fragment" style="padding-top:20px">
+<p><strong>We have come to value:</strong></p>
+<ul>
+<li><em>Individuals and interactions over processes and tools</em></li>
+<li><em>Working software over comprehensive documentation</em></li>
+<li><em>Customer collaboration over contract negotiation</em></li>
+<li><em>Responding to change over following a plan</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Requirements and user stories</strong></h1>
+</section>
+<section >
+<img src="images/agile/projects.jpg" style="max-width:790px;float:left" />
+</section>
+<section >
+<h1>Specifying and learning</h1>
+<img src="images/agile/grid.jpg" style="float:right;max-width:380px;margin-left:20px" />
+<p><strong>Typical clients</strong></p>
+<ul>
+<li><em>Experts in their domain</em></li>
+<li><em>Do not speak computer-speak</em></li>
+<li><em>Not sure what is possible</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Typical software provider</strong></p>
+<ul>
+<li><em>Hopefully knows how to build software systems</em></li>
+<li><em>No idea about trading of energy derivatives and commodity price risk management</em></li>
+<li><em>Rare exceptions sometimes happen!</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/agile/derivatives.jpg" style="max-width:650px;float:left;margin-right:50px" />
+<p><strong>Learning unfamiliar domain</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Put knowledge on paper<br />
+<em>Specification that programmers can understand and follow</em></p>
+</div><div class="fragment" style="padding-top:10px">
+<p>Keep knowledge in brains<br />
+<em>Not scalable, but developers can use intuition and contribute ideas</em></p>
+</div>
+</section>
+<section >
+<h1>Lightweight requirement capture</h1>
+<img src="images/agile/agile.png" style="float:right;max-width:200px;margin-left:40px;margin-bottom:40px" class="nb" />
+<p><strong>Agile methodologies</strong></p>
+<ul>
+<li><em>Formal specifications are too hard</em></li>
+<li><em>How do we get customers involved?</em></li>
+<li><em>What is a good way of talking to them?</em></li>
+</ul>
+<div class="fragment">
+<p><strong>User stories</strong></p>
+<ul>
+<li><em>Not requirements, but</em> stories</li>
+<li><em>Use paper or Word or whatever works</em></li>
+<li>As a <em>user</em> I want <em>something</em> so that <em>benefit</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/agile/story.jpg" style="width:540px;float:left;margin:30px 50px 20px 0px" />
+<p><strong>Fixed story format</strong></p>
+<p>User <em>so that we know who needs this</em></p>
+<p>Benefit <em>so that<br />
+there is a reason</em></p>
+</section>
+<section >
+<h1>User stories</h1>
+<h3>Three critical aspects</h3>
+<p><em>❶</em> Card <em>- artefact representing requirement</em></p>
+<p><em>❷</em> Conversation <em>- exchange of ideas with customer</em></p>
+<p><em>❸</em> Confirmation <em>- customer-defined acceptance test</em></p>
+</section>
+<section >
+<h1><strong>As an</strong> online customer, <strong>I want to</strong> save my cart,<br /> <strong>so that</strong> I can complete the purchase later</h1>
+<div class="fragment">
+<p><em>Q: For how long should the cart be saved?</em><br />
+<strong>A: For 3 days from the last access.</strong></p>
+</div>
+<div class="fragment">
+<p><em>Q: What is an item in the cart becomes unavailable?</em><br />
+<strong>A: When item becomes unavailable,<br />
+remove it and warn the user.</strong></p>
+</div>
+<div class="fragment">
+<p><em>Q: Can the user modify the cart after saving?</em><br />
+<strong>A: Yes, the user can modify the cart after saving.</strong></p>
+</div>
+</section>
+<section >
+<h1>Where do requirements come from?</h1>
+<img src="images/agile/certified.png" class="nb" style="float:right;max-width:250px;margin-left:20px" />
+<p><strong>Who is the customer</strong></p>
+<ul>
+<li>Product Owner <em>in SCRUM</em></li>
+<li><em>Actual system customer in XP</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Being a customer is hard!</strong></p>
+<ul>
+<li>
+<em>Will Extreme Programming<br />
+kill your customer? (2001)</em>
+</li>
+<li>Marie DeArment <em>in the Chrysler project</em></li>
+</ul>
+<div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>SCRUM development process</strong></h1>
+</section>
+<section >
+<img src="images/agile/board.jpg" style="max-width:600px;float:left;margin-right:50px;margin-top:50px" class="nb"/>
+<p><strong>Management of:</strong></p>
+<p>Team structure<br />
+<em>Who does what</em></p>
+<p>Project planning<br />
+<em>How to progress</em></p>
+<p>Interactions<br />
+<em>What to do when</em></p>
+</section>
+<section >
+<h1>Scrum roles</h1>
+<h3>Who does what in the team?</h3>
+<p><em><i class="fa fa-cog"></i></em> Product owner - <em>customer representative</em><br />
+<em><i class="fa fa-empty"></i> Defines stories, prioritizes tasks, business-focus</em></p>
+<p><em><i class="fa fa-cog"></i></em> Scrum master - <em>process facilitator</em><br />
+<em><i class="fa fa-empty"></i> Mentors team, removes obstacles, controls process</em></p>
+<p><em><i class="fa fa-cog"></i></em> Development team - <em>cross-functional team</em><br />
+<em><i class="fa fa-empty"></i> Contribute to coding, testing, debugging, planning</em></p>
+</section>
+<section >
+<img src="images/agile/scrum.png" style="max-width:580px;float:left;margin-right:20px;margin-bottom:100px;margin-top:50px" class="nb"/>
+<p><strong>SCRUM process</strong></p>
+<div class="fragment" style="padding-top:20px">
+<p><strong>Backlog</strong> of user stories to implement</p>
+<p><strong>Planning</strong> based<br />
+on <em>value*effort</em></p>
+<p><strong>Sprints</strong> add functio-<br />
+nality in 1-2 weeks</p>
+</div>
+</section>
+<section >
+<h1>SCRUM ceremonies</h1>
+<img src="images/agile/zoomcat.jpg" style="float:right;max-width:350px;margin-left:40px;margin-bottom:40px" class="nb" />
+<p><strong>Daily scrum 15 minute meeting</strong></p>
+<ul>
+<li><em>What you did yesterday</em></li>
+<li><em>Pick the next task</em></li>
+<li><em>What is blocking you</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Sprint-related meetings</strong></p>
+<ul>
+<li>Planning <em>to choose tasks for iteration</em></li>
+<li>Review <em>to engage with stakeholders</em></li>
+<li>Retrospective <em>to continuously improve</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Agile development</h1>
+<p><strong>Development methodologies</strong><br />
+<em>Waterfall, extreme programming, SCRUM</em><br />
+<em>Managerial vs. engineering; process vs. product</em></p>
+<p><strong>Capturing requirements as stories</strong><br />
+As a <em>CO886 lecturer</em>, I want <em>you to remember this,</em><br />
+so that <em>you can use user stories in your projects!</em></p>
+<p><strong>SCRUM development methodology</strong><br />
+<em>Product owner, scrum master, development team</em><br />
+<em>Backlog, sprint meetings, daily scrum meeting</em></p>
+</section>
+<section >
+<h1>CO886: Agile Development</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>What context determines a methodology?</li>
+<li>Write user stories &amp; have conversations</li>
+<li>Roles and ceremonies in the SCRUM process</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Academic papers</strong></p>
+<ul>
+<li>Winston Royce (1987). <a href="http://www-scf.usc.edu/~csci201/lectures/Lecture11/royce1970.pdf">Managing the Development of Large Software Systems</a></li>
+<li>Hirotaka Takeuchi, Ikujiro Nonaka (1986). <a href="https://www.agilepractice.eu/wp-content/uploads/2016/09/Product-Development-Scrum-1986.pdf">The New New Product Development Game</a></li>
+</ul>
+<p><strong>Relevant books</strong></p>
+<ul>
+<li>Kent Back (1999). <a href="https://www.oreilly.com/library/view/extreme-programming-explained/0201616416/">Extreme Programming Explained</a></li>
+</ul>
+<p><strong>Online material</strong></p>
+<ul>
+<li>Ron Jeffries (2001). <a href="https://ronjeffries.com/xprog/articles/expcardconversationconfirmation/">Essential XP: Card, Conversation, Confirmation</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
