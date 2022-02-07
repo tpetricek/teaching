@@ -23,5 +23,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
  1. [History and motivation](history.html)
  1. [Agile development](agile.html)
- 
+ 1. [Code quality](quality.html)
+ 1. [Living with errors](errors.html)
+
 ----------------------------------------------------------------------------------------------------

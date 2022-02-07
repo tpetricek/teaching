@@ -27,5 +27,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
  1. [Living with errors](errors.html)
  1. [Source control systems](versioning.html)
  1. [Tools for collaborative development](collaborative.html)
+ 1. [Continuous development](continuous.html)
+ 1. [Agile development](agile.html)
 
 ----------------------------------------------------------------------------------------------------
