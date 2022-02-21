@@ -1,0 +1,384 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Testing tools</title>
+    <meta name="description" content="Software Engineering: Testing tools">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Testing tools</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>A brief history of testing</strong></h1>
+</section>
+<section >
+<img src="images/testing/edsac.jpg" style="max-width:440px;margin-right:30px;margin-top:30px;float:left" />
+<p><strong>Debugging-oriented period</strong> (circa 1940s-1956)</p>
+<p>Program checkout involves debugging or testing</p>
+<p><em>Interpretative checking routines and post-<br />
+mortem dumps</em></p>
+</section>
+<section >
+<img src="images/testing/huang.png" style="max-width:440px;margin-right:30px;margin-top:30px;float:left" />
+<p><strong>Demonstration-oriented period</strong> (1957-1978)</p>
+<p>Testing to show program correctness</p>
+<p><em>Last step in the Waterfall methodology</em></p>
+<p><em>Can we exhaustively<br />
+cover all cases?</em></p>
+</section>
+<section >
+<img src="images/testing/ewd.jpg" style="max-width:440px;margin-right:30px;margin-top:30px;float:left" />
+<p><strong>Destruction-oriented period</strong> (1979-1980s)</p>
+<p>Program testing can be used to show the
+presence of bugs, but never to show their absence <em>(Dijkstra, 1970)</em></p>
+<p><em>Professional testers focus on finding bugs through tests.</em></p>
+</section>
+<section >
+<img src="images/testing/testing.png" style="max-width:440px;margin-right:30px;margin-top:60px;margin-bottom:100px;float:left" />
+<p><strong>Evaluation-oriented period</strong> (1980s-now)</p>
+<p>Testing as measurable part of development process</p>
+<p><em>New theories and tools to support testing</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Unit testing</strong></h1>
+</section>
+<section >
+<h1>How and why of unit testing</h1>
+<img src="images/testing/junit.png" style="float:right;max-width:260px;margin-top:-10px;margin-left:20px" />
+<p><strong>Tests for ensuring quality</strong></p>
+<ul>
+<li><em>Unit tests to prevent regressions</em></li>
+<li><em>Write tests after you write code</em></li>
+<li><em>Continuous integration to run tests</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Tests as a feedback mechanism</strong></p>
+<ul>
+<li><em>Write tests before you write code</em></li>
+<li><em>Tests are a lightweight specification</em></li>
+<li><em>Command line or automatic runners</em></li>
+</ul>
+</div>
+</section>
+<section >
+<div style="float:left;min-width:630px;margin-top:40px;margin-bottom:100px;">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp">@Test
+<span class="k">public</span> <span class="k">void</span> testHello() {
+  String name <span class="o">=</span> <span class="s">"Tomas"</span>;
+  Greeter g <span class="o">=</span> <span class="k">new</span> Greeter(name);
+  String expected <span class="o">=</span> <span class="s">"Hi Tomas"</span>;
+  String actual <span class="o">=</span> g.greet();
+  assertEquals(expected, actual);
+}
+</code></pre></td></tr></table>
+</div>
+<p><strong>Writing Java tests with JUnit</strong></p>
+<p><em>Write <code>@Test</code> methods and <code>assertEqual</code> to check results.</em></p>
+<p><em>Run tests from Eclipse or terminal using Maven</em></p>
+</section>
+<section >
+<h1>Beyond simple tests</h1>
+<h3>Unit testing and general testing concerns</h3>
+<p><em><i class="fa fa-bolt"></i> Unit tests are just one, easy to automate kind</em></p>
+<p><em><i class="fa fa-code"></i> How to structure code to make testing easy?</em></p>
+<p><em><i class="fa fa-mouse-pointer"></i> How to test not just functions, but user interfaces</em></p>
+<p><em><i class="fa fa-divide"></i> Property testing to specify more than one case</em></p>
+</section>
+<section class="part">
+<h1><strong>Demo</strong>: Writing simple unit tests</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Test-driven development</strong></h1>
+</section>
+<section >
+<h1>Test-driven development (TDD)</h1>
+<img src="images/testing/xp.jpg" style="float:right;max-width:300px"/>
+<p><strong>Development methodology</strong></p>
+<ul>
+<li><em>eXtreme programming practice</em></li>
+<li><em>Appeal of a scientific method</em></li>
+</ul>
+<div class="fragment">
+<p><strong>TDD in practice</strong></p>
+<ul>
+<li><em>Write tests to capture requirements</em></li>
+<li><em>Implement code satisfying tests</em></li>
+<li><em>Run tests automatically and frequently</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Test-driven development</h1>
+<img src="images/quality/rgr.png" style="float:right;max-width:320px;margin:10px 0px 80px 20px" />
+<p><strong>Red-Green-Refactor</strong></p>
+<ul>
+<li>Red <em>- Add failing test for new unimplemented feature</em></li>
+<li>Green <em>- Make it pass using whatever hacks you need</em></li>
+<li>Refactor <em>- Improve quality<br /> without breaking it</em></li>
+</ul>
+</section>
+<section >
+<h1>Test-driven development</h1>
+<h3>Beyond the basic ideas</h3>
+<p><em><i class="fa fa-fire-extinguisher"></i> Originated in dynamic languages</em></p>
+<p><em><i class="fa fa-crosshairs"></i> Active tests vs. types debate!</em></p>
+<p><em><i class="fa fa-file-alt"></i> Tests as executable user stories (BDD)</em></p>
+<p><em><i class="fa fa-question-circle"></i> Do people really write tests first?</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Advanced testing concepts</strong></h1>
+</section>
+<section >
+<h1>Writing testable code</h1>
+<img src="images/testing/mock.png" style="float:right;max-width:260px;margin-top:-10px;margin-left:20px" />
+<p><strong>Structuring program logic</strong></p>
+<ul>
+<li><em>Check output for given input</em></li>
+<li><em>But what if it writes to a file?</em></li>
+<li><em>Indirection via interfaces!</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Mocking frameworks</strong></p>
+<ul>
+<li><em>Don't want to implement full interface</em></li>
+<li><em>Just check it is called correctly!</em></li>
+<li><em>Create and check using "mock" objects</em></li>
+</ul>
+</div>
+</section>
+<section >
+<div style="float:left;min-width:500px;margin-top:40px;margin-bottom:100px;">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp">@Test
+<span class="k">public</span> <span class="k">void</span> testQuery()  {
+  Database db <span class="o">=</span>
+    mock(Database.<span class="k">class</span>);
+  when(db.getUniqueId())
+    .thenReturn(<span class="n">42</span>);
+
+  Service s <span class="o">=</span> <span class="k">new</span> Service(db);
+  assertEquals(s.toString(),
+    <span class="s">"Using database ID 42"</span>);
+}
+</code></pre></td></tr></table>
+</div>
+<p><strong>Using the Java Mockito mocking framework</strong></p>
+<p><em>Create object using <code>mock</code></em></p>
+<p><em>Configure its returns using <code>when</code> and <code>thenReturn</code></em></p>
+<p>Use it as a normal object!</p>
+</section>
+<section >
+<h1>Random testing</h1>
+<img src="images/testing/airplane.png" style="float:right;max-width:300px;margin-top:-10px;margin-left:20px" />
+<p><strong>How to cover all cases</strong></p>
+<ul>
+<li><em>Testing is never exhaustive</em></li>
+<li><em>Use insights about code!</em></li>
+<li><em>Generate tests semi-randomly!</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Random testing</strong></p>
+<ul>
+<li><em>Specify property about code</em></li>
+<li><em>Should hold for any inputs</em></li>
+<li><em>Generate inputs randomly!</em></li>
+</ul>
+</div>
+</section>
+<section >
+<div style="float:left;min-width:500px;margin-top:40px;margin-bottom:100px;">
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp">@Property
+boolean stringContainsChar(
+  @ForAll String input,
+  ForAll @IntRange(min=<span class="n">0</span>, max=<span class="n">9</span>)
+    <span class="k">int</span> i
+) {          
+  <span class="k">return</span> (input.size() <span class="o">&lt;</span> i) <span class="o">|</span><span class="o">|</span>
+    input.contains
+      (input.substring(i, i<span class="n">+1</span>))
+}
+</code></pre></td></tr></table>
+</div>
+<p><strong>Using the jqwik tool</strong></p>
+<p><em>Mark method as a <code>@Property</code></em></p>
+<p><em>Annotate arguments to specify input ranges</em></p>
+<p><em>Return <code>true</code> if the<br />
+property holds!</em></p>
+</section>
+<section >
+<h1>Random testing</h1>
+<h3>How to come up with good properties</h3>
+<p><em><i class="fa fa-star"></i> Use simpler working implementation (oracle)</em></p>
+<p><em><i class="fa fa-equals"></i> Use mathematical property (e.g., average)</em></p>
+<p><em><i class="fa fa-book"></i> Check for more basic facts</em></p>
+<p><em><i class="fa fa-circle"></i> Algebraic properties like associativity</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Testing tools</h1>
+<p><strong>Brief history of testing</strong><br />
+<em>Debugging-oriented, demonstration-oriented</em><br />
+<em>destruction-oriented &amp; evaluation-oriented</em></p>
+<p><strong>Unit testing and tools</strong><br />
+<em>Unit testing library, test runners,</em><br />
+<em>tools for mocking and random testing</em></p>
+<p><strong>Test-driven development</strong><br />
+<em>"Scientific" XP development methodology</em><br />
+<em>Done through the red-green-refactor cycle</em></p>
+</section>
+<section >
+<h1>CO886: Testing tools</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Test-driven development</li>
+<li>What is a mock and how to create one</li>
+<li>Come up with properties for random testing</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Papers and articles</strong></p>
+<ul>
+<li><a href="https://dl.acm.org/doi/abs/10.1145/62959.62965">The growth of software testing (1988)</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
