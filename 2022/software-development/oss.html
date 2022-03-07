@@ -1,0 +1,419 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Development: Open source software</title>
+    <meta name="description" content="Software Development: Open source software">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO559: Software Development</strong><br/> Open source software</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Background</strong></h1>
+</section>
+<section >
+<img src="images/oss/tmrc.jpg" style="max-width:530px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>MIT Hacker Culture</strong><br />
+The Tech Model Railroad Club</p>
+<div class="fragment" style="padding-top:20px">
+<p><em>Access to computers should be unlimited</em></p>
+<p><em>All information<br />
+should be free</em></p>
+</div>
+</section>
+<section >
+<img src="images/oss/gpl.png" style="max-width:480px;float:left;margin:40px 70px 100px 20px" />
+<p><strong>Free software</strong><br />
+Free as in freedom, not as in free beer</p>
+<div class="fragment" style="padding-top:20px">
+<p><strong>GNU GPL (1989)</strong></p>
+<p>Restrictive - <em>you must release changes using the same license</em></p>
+<p>Hacker-centric - <em>user is also a programmer</em></p>
+</div>
+</section>
+<section >
+<h1>Commercial Windows vs. Free Linux (1990s-2000s)</h1>
+<img src="images/oss/ballmer.png" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Commercial software</strong></p>
+<ul>
+<li><em>Business approach to software</em></li>
+<li><em>Source owned by corporations</em></li>
+<li><em>Funded by selling software</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Free software</strong></p>
+<ul>
+<li><em>Hacker culture of software</em></li>
+<li><em>Code is free to modify and reuse</em></li>
+<li><em>Funded by additional services</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/oss/azure.png" class="nb" style="max-width:480px;float:left;margin:10px 50px 100px 10px" />
+<p><strong>Microsoft <i class="fa fa-heart" style="margin:0px -5px 0px 15px"></i> Linux</strong></p>
+<div class="fragment" style="padding-top:20px">
+<p>Commercial interests <em>not selling software but providing services</em></p>
+<p>New generation of OSS <em>open-source without the "cancer" license clause</em>
+</div></p>
+</section>
+<section >
+<h1>Open-source software</h1>
+<h3>It's much more than free vs. commercial license</h3>
+<p><em><i class="fa fa-book"></i> A lot of software is not a final end-user product</em></p>
+<p><em><i class="fa fa-dollar-sign"></i> Search for sustainable open-source funding</em></p>
+<p><em><i class="fa fa-chess-king"></i> Who is in control of open-source software?</em></p>
+<p><em><i class="fa fa-handshake"></i> Contributing and accepting contributions</em></p>
+</section>
+<section >
+<img src="images/oss/openssl.png" class="nb" style="max-width:480px;float:left;margin:10px 70px 100px 20px" />
+<p><strong>Sustainable open-source funding</strong></p>
+<div class="fragment" style="padding-top:20px">
+<p><em>Crucial safe internet infrastructure receives donations of $2000 per month to pay one developer.</em></p>
+</div>
+</section>
+<section >
+<img src="images/oss/torvalds.png" class="nb" style="max-width:480px;float:left;margin:0px 50px 0px 0px" />
+<p><strong>Welcoming community</strong></p>
+<p><em>Please just kill yourself now. The world will be a better place.</em></p>
+<div class="fragment" style="padding-top:20px">
+<p>Becoming contributor<br />
+<em>is hard without guidance</em></p>
+<p>Attracting contributors<br />
+<em>takes a lot of energy</em>
+</div></p>
+</section>
+<section >
+<img src="images/oss/coc.png" class="nb" style="max-width:520px;float:left;margin:10px 40px 0px 0px" />
+<p><strong>Code of conduct</strong><br />
+<em>"Be nice" is not enough</em></p>
+<div class="fragment" style="padding-top:20px">
+<p>Clear set of rules
+<em>to be followed, even by "key" contributors</em></p>
+<p>Process <em>for resolving and reporting issues that arise</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Open-source models</strong></h1>
+</section>
+<section >
+<h1>Free software model</h1>
+<img src="images/oss/gplv3.png" style="max-width:300px;float:right;margin-top:50px" class="nb"/>
+<p><strong>Philosophy and ideals</strong></p>
+<ul>
+<li><em>Built by hackers for hackers</em></li>
+<li><em>Pay not with money, but with code</em></li>
+<li><em>Open decisions (rarely the case)</em></li>
+</ul>
+<p><strong>Licenses and tools</strong></p>
+<ul>
+<li><em>GPL license requires publishing changes</em></li>
+<li><em>LGPL allows linking in proprietary software</em></li>
+<li><em>Distributed version control (git)</em></li>
+</ul>
+</section>
+<section >
+<h1>Dual licensing model</h1>
+<img src="images/oss/dual.jpg" style="max-width:300px;float:right" class="nb"/>
+<p><strong>Philosophy and ideals</strong></p>
+<ul>
+<li><em>Free for hackers, paid otherwise</em></li>
+<li><em>Pay with either money or code</em></li>
+<li><em>Commercial, but open ownership</em></li>
+</ul>
+<p><strong>Licenses and tools</strong></p>
+<ul>
+<li><em>AGPL closes service provider loophole</em></li>
+<li><em>Using database forces you to share your code</em></li>
+<li><em>Commercial license if you don't want to</em></li>
+</ul>
+</section>
+<section >
+<h1>Consulting model</h1>
+<img src="images/oss/erlang.png" style="max-width:240px;margin-top:40px;float:right" class="nb"/>
+<p><strong>Philosophy and ideals</strong></p>
+<ul>
+<li><em>Share code and allow all uses</em></li>
+<li><em>Find alternative funding source</em></li>
+<li><em>Commercial services, trainings</em></li>
+</ul>
+<p><strong>Licenses and tools</strong></p>
+<ul>
+<li><em>MIT, BSD and Apache licenses</em></li>
+<li><em>Allow unrestricted use without requirements</em></li>
+</ul>
+</section>
+<section >
+<h1>Corporate open-source model</h1>
+<img src="images/oss/msft.png" style="max-width:300px;margin-top:40px;float:right" />
+<p><strong>Philosophy and ideals</strong></p>
+<ul>
+<li><em>Developer tools should be open</em></li>
+<li><em>Even those from companies</em></li>
+<li><em>Supports other profitable business</em></li>
+<li><em>Project ownerships remains corporate</em></li>
+</ul>
+<p><strong>Licenses and tools</strong></p>
+<ul>
+<li><em>MIT, BSD and Apache licenses (again)</em></li>
+<li><em>Share code on GitHub for community reasons</em></li>
+</ul>
+</section>
+<section >
+<img src="images/oss/collective.png" style="max-width:540px;float:left;margin:40px 40px 100px 0px" class="nb" />
+<p><strong>Community open source model</strong></p>
+<p>Alternative for community projects</p>
+<p><em>Free as in free beer<br />
+(with donations)</em></p>
+<p><em>Like corporate model without corporations</em></p>
+<p><em>Is this sustainable?</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Contributing to open-source</strong></h1>
+</section>
+<section >
+<img src="images/oss/revolution.png" style="max-width:640px;float:left;margin:40px 30px 100px 0px" class="nb" />
+<p><em>Life of an open-source project maintainer can be tough!</em></p>
+</section>
+<section >
+<h1>Contributing to open-source</h1>
+<h3>What open-source projects need to live?</h3>
+<p><em><i class="fa fa-lock-open"></i></em> <strong>Maintainer</strong> <em>- 1 hour a day, week or month</em><br />
+<em>Someone to merge changes, build releases, explain issues</em></p>
+<p><em><i class="fa fa-code"></i></em> <strong>Core developers</strong> <em>- irregular, but more time</em><br />
+<em>To implement major new features in the software</em></p>
+<p><em><i class="fa fa-cogs"></i></em> <strong>Contributors</strong> <em>- a couple of hours or days</em><br />
+<em>Improvements, fixing bugs, better documentation</em></p>
+</section>
+<section >
+<h1>Contributing to open-source</h1>
+<img src="images/oss/octocat.jpg" style="max-width:300px;float:right;margin:20px 0px 0px 20px" class="nb" />
+<p><strong>Even small things matter</strong></p>
+<ul>
+<li><em>Minor bug fixes and typos</em></li>
+<li><em>Documentation improvements</em></li>
+<li><em>Good bug reports</em></li>
+</ul>
+<div class="fragment">
+<p><strong>How to do it well</strong></p>
+<ul>
+<li><em>Follow style and contributing guidelines</em></li>
+<li><em>Report issues with minimal example</em></li>
+<li><em>Small to large builds trust &amp; communicate well</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/oss/contrib.png" style="max-width:580px;float:left;margin:10px 30px 100px 0px" class="nb"/>
+<p><strong>Good contributing</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Read the guidelines<br />
+<em>On Github typically in <code>CONTRIBUTING.md</code> file</em></p>
+<p>Follow guidelines<br />
+<em>Where to discuss, how to comment and explain</em></p>
+</div>
+</section>
+<section >
+<img src="images/oss/pr.png" style="max-width:580px;float:left;margin:50px 30px 100px 0px" />
+<p><strong>Good contributing</strong></p>
+<div class="fragment" style="padding-top:10px">
+<p>Follow coding style<br />
+<em>Code indentation, brackets, etc.</em></p>
+<p>Explain things well<br />
+<em>Good title and detailed description</em></p>
+</div>
+</section>
+<section >
+<h1>Reporting issues is also contribution!</h1>
+<h3>Writing a good issue is a valuable skill</h3>
+<p><em><i class="fa fa-book"></i></em> Minimal - <em>As little code and data as possible</em></p>
+<p><em><i class="fa fa-book"></i></em> Complete - <em>Provide all relevant parts of code</em></p>
+<p><em><i class="fa fa-book"></i></em> Verifiable - <em>Describe and test the behaviour</em></p>
+</section>
+<section >
+<h1>Minimal, complete, verifiable example</h1>
+<p><em>Broken function to check palindromes</em></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="k">function</span> palindrome(s) {
+  <span class="k">for</span>(<span class="k">var</span> i <span class="o">=</span> <span class="n">0</span>; i <span class="o">&lt;</span> s.length <span class="o">/</span> <span class="n">2</span> <span class="o">-</span> <span class="n">1</span>; i+<span class="o">+</span>)
+    <span class="k">if</span> (s[i] <span class="o">!</span><span class="o">=</span> s[s.length<span class="n">-1</span>-i]) <span class="k">return</span> <span class="k">false</span>;
+  <span class="k">return</span> <span class="k">true</span>;
+}
+</code></pre></td></tr></table>
+<div class="fragment">
+<p><em>Mostly works, but not always!</em></p>
+<p><em><i class="fa fa-check"></i></em> <code>palindrome("step on no pets") == true</code><br />
+<em><i class="fa fa-check"></i></em> <code>palindrome("hello world") == false</code><br />
+<em><i class="fa fa-times"></i></em> <code>palindrome("step onto pets") == true</code></p>
+</div>
+</section>
+<section >
+<h1>Minimal, complete, verifiable example (1/2)</h1>
+<p><em>I tried calling <code>palindrome(text)</code> and it does not work!</em></p>
+<div class="fragment">
+<p><em><i class="fa fa-times"></i></em> Complete - <em>what is the message used as input?</em><br />
+<em><i class="fa fa-times"></i></em> Verifiable - <em>in what way does it not work?</em></p>
+</div>
+<div class="fragment" style="padding-top:10px">
+<p><em>I tried <code>palindrome("step onto pets")</code>, it does not work!</em></p>
+</div>
+<div class="fragment">
+<p><em><i class="fa fa-check"></i></em> Complete - <em>sample input is now included</em><br />
+<em><i class="fa fa-times"></i></em> Verifiable - <em>in what way does it not work?</em></p>
+</div>
+</section>
+<section >
+<h1>Minimal, complete, verifiable example (2/2)</h1>
+<p><em>When I call <code>palindrome("step onto pets")</code>,<br />
+I get <code>true</code> but the input string it not a palindrome!</em></p>
+<div class="fragment">
+<p><em><i class="fa fa-check"></i></em> Complete - <em>sample input is included</em><br />
+<em><i class="fa fa-check"></i></em> Verifiable - <em>gives expected and actual result</em><br />
+<em><i class="fa fa-times"></i></em> Minimal - <em>input is longer than necessary</em></p>
+</div>
+<div class="fragment" style="padding-top:10px">
+<p><em>When I call <code>palindrome("x12x")</code>, I get <code>true</code><br />
+but the string <code>"x12x"</code> it's not a palindrome!</em></p>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Open source software</h1>
+<p><strong>Recent history of open source software</strong><br />
+<em>How Microsoft adopted open source</em><br />
+<em>Sustainable funding and welcoming community</em></p>
+<p><strong>Open source philosophies and funding</strong><br />
+<em>Free software or dual licensing model</em><br />
+<em>Consulting, corporate and community model</em></p>
+<p><strong>Contributing to open source software</strong><br />
+<em>Following style, code and comment guidelines</em><br />
+<em>Reporting minimal, complete, verifiable examples</em></p>
+</section>
+<section >
+<h1>CO559: Open source software</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Free, dual, consulting, corporate OSS model</li>
+<li>Contributing, minimal complete verifiable example</li>
+<li>Freedom (GPL etc.) vs free beer (MIT, BSD, Apache)</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Online resources</strong></p>
+<ul>
+<li><a href="https://stackoverflow.com/help/mcve">How to create a Minimal, Complete, and Verifiable example</a> - StackOverflow.com</li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Development: Large software architectures</title>
+    <meta name="description" content="Software Development: Large software architectures">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO559: Software Development</strong><br/> Large software architectures</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Software Architecture</strong></h1>
+</section>
+<section >
+<img src="images/architecture/archi.jpg" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Software Architecture</strong></p>
+<p>Planning a system before it is built</p>
+<p>High-level overview of components</p>
+</section>
+<section >
+<img src="images/architecture/house.jpg" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Christopher Alexander</strong></p>
+<p>A Quality<br />
+Without a Name</p>
+<p><em>Feeling of satisfaction and contentment engendered by good building</em></p>
+</section>
+<section >
+<h1>Design patterns</h1>
+<img src="images/architecture/gof.jpg" style="max-width:260px;float:right" class="nb"/>
+<p><strong>Gang of Four Patterns</strong></p>
+<ul>
+<li><em>Solutions to common problems</em></li>
+<li><em>Specific small-scale scenarios</em></li>
+<li><em>Workarounds for Java limitations</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Beyond Gang of Four</strong></p>
+<ul>
+<li><em>Balancing of design forces</em></li>
+<li><em>Quality without a name</em></li>
+<li><em>Architectural patterns/styles</em></li>
+</ul>
+</div>
+</section>
+<section >
+<img src="images/architecture/isokon.jpg" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Architectural style</strong></p>
+<p>How you approach the problem?</p>
+<p><em>Form follows function ideal of modernism</em></p>
+</section>
+<section >
+<h1>Architectural patterns</h1>
+<h3>Thinking about large software systems</h3>
+<p><em><i class="fa fa-cubes"></i> How is system divided into components?</em></p>
+<p><em><i class="fa fa-users"></i> How is development divided into teams?</em></p>
+<p><em><i class="fa fa-comment"></i> How components communicate with each other?</em></p>
+<p><em><i class="fa fa-code"></i> Styles do not prescribe specific implementation!</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Component architectures</strong></h1>
+</section>
+<section >
+<h1>Component architectures</h1>
+<h3>What are the components &amp; how they communicate</h3>
+<p><em><i class="fa fa-cubes"></i> How is the problem divided into component?</em></p>
+<p><em><i class="fa fa-project-diagram"></i> What components talk to what other components?</em></p>
+<p><em><i class="fa fa-magic"></i> How is the communication set-up?</em></p>
+<p><em><i class="fa fa-keyboard"></i> What teams work on what parts of the system?</em></p>
+</section>
+<section >
+<img src="images/architecture/layer.png" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Layered architecture</strong></p>
+<p>Components in several layers</p>
+<p><em>Can only call components from one layer below!</em></p>
+</section>
+<section >
+<h1>Layered architectures</h1>
+<h3>Typical use cases for the pattern</h3>
+<p><em><i class="fa fa-cogs"></i></em> Operating system <em>with kernel, system, user processes</em></p>
+<p><em><i class="fa fa-layer-group"></i></em> Enterprise <em>with presentation, business &amp; persistence</em></p>
+<p><em><i class="fa fa-file"></i></em> Web apps <em>with web page, server and database</em></p>
+<p><em><i class="fa fa-project-diagram"></i></em> Network stack <em>TCP/IP protocol and such</em></p>
+</section>
+<section >
+<h1>Layered architecture</h1>
+<img src="images/architecture/servers.jpg" style="max-width:300px;float:right" class="nb"/>
+<p><strong>Potential advantages</strong></p>
+<ul>
+<li><em>Can replace individual layers</em></li>
+<li><em>Layers need only limited info</em></li>
+<li><em>Can be built independently</em></li>
+</ul>
+<p><strong>Potential problems</strong></p>
+<ul>
+<li><em>May lead to inefficient systems</em></li>
+<li><em>Changes may be hard to make</em></li>
+</ul>
+</section>
+<section >
+<img src="images/architecture/plf.png" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Three-tier architecture</strong></p>
+<p><em>Client-side code</em><br />
+<em>Server-side code</em><br />
+<em>Database</em></p>
+<p>Communication over network</p>
+<p>Different langua- ges in each layer</p>
+</section>
+<section >
+<img src="images/architecture/service.png" style="max-width:580px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Service-oriented architecture</strong></p>
+<p>Services that call each other</p>
+<p><em>Different services implement different functionality</em></p>
+</section>
+<section >
+<h1>Service-oriented architectures</h1>
+<h3>Services in a sample retail system</h3>
+<p><em><i class="fa fa-box"></i> Order management service to take orders</em></p>
+<p><em><i class="fa fa-industry"></i> Warehouse management service to manage stock</em></p>
+<p><em><i class="fa fa-car"></i> Shipping service to handle delivery</em></p>
+<p><em><i class="fa fa-user"></i> Customer relationship service for communication</em></p>
+</section>
+<section >
+<h1>Service-oriented architectures</h1>
+<img src="images/architecture/ibm.png" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Implementing SOA</strong></p>
+<ul>
+<li><em>Service description</em></li>
+<li><em>Service discovery</em></li>
+<li><em>Service deployment</em></li>
+</ul>
+<p><strong>Pros and cons</strong></p>
+<ul>
+<li><em>Separation of logic and teams</em></li>
+<li><em>Can get heavy-weight and complex</em></li>
+</ul>
+</section>
+<section >
+<h1>Microservices</h1>
+<h3>A more modern take on service-orientation</h3>
+<p><em><i class="fa fa-puzzle-piece"></i> Simpler communication via REST</em></p>
+<p><em><i class="fa fa-font"></i> Each service can use different language</em></p>
+<p><em><i class="fa fa-database"></i> Still need discovery and message queues</em></p>
+<p><em><i class="fa fa-cloud"></i> Can use auto-scaling in cloud (Kubernetes etc.)</em></p>
+</section>
+<section >
+<h1>Publish subscribe pattern</h1>
+<img src="images/architecture/stock.jpg" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Information exchange</strong></p>
+<ul>
+<li><em>Who needs to be called?</em></li>
+<li>Publish <em>events to anyone</em></li>
+<li>Subscribe <em>by category or type</em></li>
+</ul>
+<p><strong>Application areas</strong></p>
+<ul>
+<li><em>Information exchange in finance systems</em></li>
+<li><em>RSS feeds for blogs &amp; news</em></li>
+<li><em>Anything aiming for large extensibility</em></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Information management</strong></h1>
+</section>
+<section >
+<h1>Information management</h1>
+<h3>How can information be managed &amp; stored?</h3>
+<p><em><i class="fa fa-cogs"></i> How to pass information in complex processing?</em></p>
+<p><em><i class="fa fa-chalkboard"></i> How to facilitate efficient sharing?</em></p>
+<p><em><i class="fa fa-clock"></i> What component can access what information when?</em></p>
+<p><em><i class="fa fa-ban"></i> How to avoid losing information on error?</em></p>
+</section>
+<section >
+<img src="images/architecture/pipes.png" style="max-width:530px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Pipeline architecture</strong></p>
+<p>Data processed in a sequence of steps</p>
+<p><em>Think UNIX pipelines!</em></p>
+<p><em>Data science and scientific computing</em></p>
+</section>
+<section >
+<h1>Pipeline architecture</h1>
+<img src="images/architecture/term.jpg" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Potential benefits</strong></p>
+<ul>
+<li><em>Small composable blocks</em></li>
+<li><em>Different ways of connecting</em></li>
+<li><em>Easy to add more tools</em></li>
+</ul>
+<p><strong>Open questions</strong></p>
+<ul>
+<li><em>Format of data passed in between</em></li>
+<li><em>UNIX shell vs. Microsoft PowerShell</em></li>
+<li><em>Works if data is of a same kind</em></li>
+</ul>
+</section>
+<section >
+<img src="images/architecture/board.png" style="max-width:480px;float:left;margin:40px 40px 100px 0px" />
+<p><strong>Blackboard architecture</strong></p>
+<p>Data shared globally</p>
+<p><em>Many different processors can access and transform it</em></p>
+<p>For example, analysing natural language</p>
+</section>
+<section >
+<h1>Pipeline architecture</h1>
+<img src="images/architecture/blackboard.jpg" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Implementation</strong></p>
+<ul>
+<li><em>Choosing common data representation</em></li>
+<li><em>Resolving conflicting solutions</em></li>
+<li><em>Component implementation</em></li>
+</ul>
+<p><strong>Application areas</strong></p>
+<ul>
+<li><em>There is no complete solution</em></li>
+<li><em>Natural language processing</em></li>
+<li><em>Classic AI like expert systems</em></li>
+</ul>
+</section>
+<section >
+<img src="images/architecture/events.png" style="max-width:530px;float:left;margin:40px 40px 200px 0px" />
+<p><strong>Event sourcing architecture</strong></p>
+<p><em>Any action in the application is an event</em></p>
+<p>Store events,<br />
+not final state!</p>
+<p><em>Banking systems that cannot lose data</em></p>
+</section>
+<section >
+<h1>Event sourcing architecture</h1>
+<img src="images/architecture/payment.jpg" style="max-width:360px;float:right" class="nb"/>
+<p><strong>Implementation</strong></p>
+<ul>
+<li><em>Suitable event representation</em></li>
+<li><em>Event store to keep events</em></li>
+<li><em><code>State * Event -&gt; State</code> function</em></li>
+</ul>
+<p><strong>Application areas</strong></p>
+<ul>
+<li><em>Financial software systems</em></li>
+<li><em>Functional programming (fold)</em></li>
+<li><em>Reactive programming (Elm language)</em></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Large software architectures</h1>
+<p><strong>Software architecture and patterns</strong><br />
+<em>Seeking quality without a name</em><br />
+<em>Gang of Four patterns and beyond</em></p>
+<p><strong>Component-based architectures</strong><br />
+<em>Layers and three-tier web applications</em><br />
+<em>From services to microservices</em></p>
+<p><strong>Information-oriented architectures</strong><br />
+<em>Pipeline in UNIX and Blackboard in AI</em><br />
+<em>Event-sourcing architecture for reliability</em></p>
+</section>
+<section >
+<h1>CO559: Large software architectures</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Different architectural patterns discussed</li>
+<li>Microservice are widely used today!</li>
+<li>Event sourcing is great in certain areas!</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Books</strong></p>
+<ul>
+<li>Richard P. Gabriel (1996) <a href="https://www.dreamsongs.com/Files/PatternsOfSoftware.pdf">Patterns of Software</a></li>
+<li>Frank Buschmann et al. (1996) <a href="https://www.oreilly.com/library/view/pattern-oriented-software-architecture/9781118725269/">Patterns-Oriented Software Architecture, vol 1</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
