@@ -25,5 +25,9 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
  1. [Agile development](agile.html)
  1. [Code quality](quality.html)
  1. [Living with errors](errors.html)
+ 1. [Testing tools](testing.html)
+ 1. [Testing theory](theory.html)
+ 1. [Open-source software](oss.html)
+ 1. [Large software architectures](architectures.html)
 
 ----------------------------------------------------------------------------------------------------

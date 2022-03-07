@@ -19,7 +19,7 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
 
 ----------------------------------------------------------------------------------------------------
 
-# **Table of contents**
+# **Table of contents (1/2)**
 
  1. [History and motivation](history.html)
  1. [Readable code](quality.html)
@@ -28,6 +28,15 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
  1. [Source control systems](versioning.html)
  1. [Tools for collaborative development](collaborative.html)
  1. [Continuous development](continuous.html)
+
+----------------------------------------------------------------------------------------------------
+
+# **Table of contents (2/2)**
+
  1. [Agile development](agile.html)
+ 1. [Testing tools](testing.html)
+ 1. [Testing theory](theory.html)
+ 1. [Open-source software](oss.html)
+ 1. [Large software architectures](architecture.html)
 
 ----------------------------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
-- title : Software Engineering: Code quality
-- description : Software Engineering: Code quality
+- title : Software Development: Code quality
+- description : Software Development: Code quality
 - author : Tomas Petricek
 - theme : simple
 - transition : none
 
 ****************************************************************************************************
 
-# **CO559: Software Engineering**<br/> Code quality
+# **CO559: Software Development**<br/> Code quality
 
 <br /><br />
 <br /><br /><br />
