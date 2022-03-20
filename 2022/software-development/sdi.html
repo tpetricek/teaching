@@ -1,0 +1,301 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Software Engineering: Environment and defence software</title>
+    <meta name="description" content="Software Engineering: Environment and defence software">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO886: Software Engineering</strong><br/> Environment and defence software</h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Motivation</strong></h1>
+</section>
+<section >
+<img src="images/sdi/sage.jpg" style="max-width:540px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>SAGE (1950s)</strong></p>
+<p><em>Processing radar images of entire US airspace</em></p>
+<p><em>Coordinate response to nuclear attack</em></p>
+</section>
+<section >
+<img src="images/sdi/starwars.jpg" style="max-width:540px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Strategic Defence Initiative (1980s)</strong></p>
+<p><em>System intended to protect US against ballistic missiles</em></p>
+<p><em>Ground launched and space launched concepts</em></p>
+</section>
+<section >
+<img src="images/sdi/patriot.jpg" style="max-width:540px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Patriot Missile (1990s-)</strong></p>
+<p><em>Anti-ballistic missile in operation nowadays</em></p>
+<p><em>Software error in 1991 led to 28 deaths</em></p>
+</section>
+<section >
+<img src="images/sdi/wont.jpg" style="max-width:400px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Can such system ever work?</strong></p>
+<p>Union of Concerned Scientists opposition on political grounds</p>
+<p><em>But is there also a<br />
+technical reason?</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Nature</strong></h1>
+</section>
+<section >
+<h1>Why is software complex?</h1>
+<p><strong>Analog systems</strong><br />
+<em>Small change in input causes small change in output</em><br />
+<em>Analog computers of 1930s, audio synthesizers</em></p>
+<p><strong>Digital systems with repeated components</strong><br />
+<em>Non-linear, but we can test components in isolation</em><br />
+<em>CPU units and much of modern hardware</em></p>
+<p><strong>Digital systems without repetition</strong><br />
+<em>Non-linear and very hard to test</em><br />
+<em>Any modern software system!</em></p>
+</section>
+<section >
+<h1>Categories</h1>
+<h3>Three categories of software systems</h3>
+<p><em><i class="fa fa-book"></i></em> S-programs<br />
+<em><i class="fa fa-xxx"></i> Written according to exact specification</em></p>
+<p><em><i class="fa fa-chess"></i></em> P-programs<br />
+<em><i class="fa fa-xxx"></i> Completely determined what it can do</em></p>
+<p><em><i class="fa fa-rocket"></i></em> E-programs<br />
+<em><i class="fa fa-xxx"></i> Closely linked to changing environment</em></p>
+</section>
+<section >
+<h1>Laws of software evolution (Lehman, 1980)</h1>
+<img src="images/sdi/lehman.jpg" style="max-width:320px;float:right;margin:20px 0px 0px 20px" />
+<p><strong>Continuing change</strong><br />
+<em>E-type system must be continually adapted or it becomes progressively less satisfactory</em></p>
+<p><strong>Increasing complexity</strong><br />
+<em>As E-type system evolves, its complexity increases</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Environment</strong></h1>
+</section>
+<section >
+<h1>Environment expectations</h1>
+<h3>Typical software development approaches</h3>
+<p><em><i class="fa fa-bicycle"></i> Start with imperfect and make it gradually better</em></p>
+<p><em><i class="fa fa-flask"></i> Employ careful controlled user testing</em></p>
+<p><em><i class="fa fa-phone"></i> Check with customer to see if we're getting close</em></p>
+<p><em><i class="fa fa-bug"></i> Have "on call" duty to resolve any bugs</em></p>
+</section>
+<section >
+<img src="images/sdi/starwars.jpg" style="max-width:540px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Star Wars (1980s)</strong></p>
+<p><em>Fully automatic software system to track and shoot down Soviet nuclear missiles</em></p>
+<p>What development methods will fail?</p>
+</section>
+<section >
+<h1>Arguments that count (Slayton, 2013)</h1>
+<img src="images/sdi/arguments.png" style="max-width:260px;float:right;margin:20px 0px 0px 20px" />
+<p><strong>System would be unreliable</strong></p>
+<p><em>Since we have no spare planets on which to fight trial nuclear wars, testing of a global ABM system is impossible.</em></p>
+<div class="fragment">
+<p><strong>Enemy has it easier</strong></p>
+<p><em>Very expensive defenses could give the Soviet Union an incentive to invest in relatively
+cheap offensive countermeasures, creating arms race instabilities.</em></p>
+</div>
+</section>
+<section >
+<img src="images/sdi/parnas.png" style="max-width:400px;float:left;margin:10px 40px 100px 0px" />
+<p><strong>Principle</strong></p>
+<p><em>Complex software can only be mastered if it is developed progressively, with the aid of
+extensive testing, and then operated more or less continually in a somewhat lenient and forgiving environment.</em></p>
+</section>
+<section >
+<img src="images/sdi/evoting.jpg" style="max-width:540px;float:left;margin:30px 30px 100px 0px" />
+<p><strong>Electronic Voting Systems</strong></p>
+<p><em>What properties of the environment make those hard to build?</em></p>
+</section>
+<section >
+<h1>Environment expectations</h1>
+<h3>When can complex software be mastered</h3>
+<p><em><i class="fa fa-signal"></i> It is developed progressively</em></p>
+<p><em><i class="fa fa-plug"></i> Using extensive testing</em></p>
+<p><em><i class="fa fa-stopwatch"></i> Operated more or less continually</em></p>
+<p><em><i class="fa fa-globe"></i> In a somewhat forgiving environment</em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Metaphors</strong></h1>
+</section>
+<section >
+<img src="images/sdi/nato.jpg" style="max-width:460px;float:left;margin:60px 30px 100px 0px" />
+<p><strong>1968 NATO Conference</strong></p>
+<p><em>Programming started to make the transition from being a craft for a long-haired
+programming priest-hood to becoming a real engineering discipline.</em></p>
+<p>Why software <strong>engineering</strong>?</p>
+</section>
+<section >
+<h1>Cultures of programming</h1>
+<p><strong><i class="fa fa-user-secret"></i> Individualistic hacker culture</strong><br />
+<em>Programming as elusive black magic</em></p>
+<p><strong><i class="fa fa-user-tie"></i> Business and military engineering culture</strong><br />
+<em>Programmers are replaceable and can be trained</em></p>
+<p><strong><i class="fa fa-tree"></i> Organic and human-centric cultures</strong><br />
+<em>Programming as a craft to be done well</em></p>
+</section>
+<section >
+<h1>Why metaphors for programming matter?</h1>
+<img src="images/sdi/garden.jpg" style="max-width:320px;float:right;margin:20px 0px 0px 20px" />
+<p>Metaphor <em>may offer a different way of thinking about problems and shift emphasis to different aspects</em></p>
+<div class="fragment">
+<p><strong>Example software metaphors</strong></p>
+<ul>
+<li>
+Building software systems<br />
+<em>Focus on careful planning</em>
+</li>
+<li>
+Programming is writing code<br />
+<em>Focus on communication, expression</em>
+</li>
+<li>
+Programming is growing system<br />
+<em>Focus on long-term maintainability</em>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Summary</strong></h1>
+</section>
+<section >
+<h1>Environment and defence software</h1>
+<p><strong>What makes software systems complex</strong><br />
+<em>Digital system without repeated components</em>
+<em>E-type systems and their environment</em></p>
+<p><strong>Importance of system environment</strong><br />
+<em>Developed progressively using extensive testing</em><br />
+<em>Operated continuously, in forgiving environment</em></p>
+<p><strong>Metaphors for programming</strong><br />
+<em>Software engineering and NATO conference</em><br />
+<em>Programming as writing, growing, building</em></p>
+</section>
+<section >
+<h1>CO886: Environment and defence software</h1>
+<p><strong>What you should remember from this lecture</strong></p>
+<ul>
+<li>Three categories of software systems</li>
+<li>What software can be effectively mastered</li>
+<li>Hacker, business and human-centric cultures</li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>References</strong></h1>
+</section>
+<section >
+<p><strong>Books and papers</strong></p>
+<ul>
+<li>Rebecca Slayton (2013). <a href="https://mitpress.mit.edu/books/arguments-count">Arguments that count</a></li>
+<li>Nathan Ensmenger (2010). <a href="https://mitpress.mit.edu/books/computer-boys-take-over">Computer boys take over</a></li>
+<li>Fred Brooks (1975). <a href="https://www.amazon.co.uk/Mythical-Man-Month-Software-Engineering-Anniversary/dp/0201835959">The mythical man-month</a></li>
+<li>Steve McConnell (1993). <a href="https://amzn.to/2BMkEgJ">Code Complete: A Practical Handbook of Software Construction</a></li>
+<li>David Parnas (1985). <a href="https://web.stanford.edu/class/cs99r/readings/parnas1.pdf">Software aspects of strategic defence systems</a></li>
+</ul>
+</section>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
