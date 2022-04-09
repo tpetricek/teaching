@@ -40,5 +40,6 @@ office: [S129A](https://www.cs.kent.ac.uk/rooms/S129A.gif)<br />
  1. [Large software architectures](architecture.html)
  1. [Software engineering principles](principles.html)
  1. [Environment and defence software](sdi.html)
+ 1. [Revising & learning guide](revisions.html)
 
 ----------------------------------------------------------------------------------------------------
