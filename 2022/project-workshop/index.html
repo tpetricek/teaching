@@ -1,0 +1,390 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Project scope &amp; evaluation</title>
+    <meta name="description" content="Project scope &amp; evaluation">
+    <meta name="author" content="Tomas Petricek">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+<h1><strong>CO880: Project scope &amp; evaluation</strong></h1>
+<br /><br />
+<br /><br /><br />
+<p><strong>Tomas Petricek</strong></p>
+<p>email: <a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a><br />
+twitter: <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+office: <a href="https://www.cs.kent.ac.uk/rooms/S129A.gif">S129A</a><br /></p>
+</section>
+<section >
+<section class="part">
+<h1><strong>Science and computer science</strong></h1>
+</section>
+<section >
+<img src="images/newton.jpg" style="max-width:440px;margin-right:60px;float:left" />
+<p><strong>Scientific method</strong></p>
+<p>1) Observation<br />
+2) Hypothesis<br />
+3) Experiment</p>
+</section>
+<section >
+<img src="images/eniac.jpg" style="max-width:420px;margin-right:60px;float:left" />
+<p><strong>Origins of computer science</strong></p>
+<p><em>Mathematics, science, engineering, psychology, cybernetics, military, business, linguistics, ...</em></p>
+</section>
+<section >
+<h1>Computer science</h1>
+<h3>What is computer science?</h3>
+<div class="fragment">
+<p><em><i class="fa fa-flask"></i></em> Science <em>- Theory building and hypothesis testing</em></p>
+<p><em><i class="fa fa-cogs"></i></em> Engineering <em>- Building programs and systems</em></p>
+<p><em><i class="fa fa-hotel"></i></em> Design <em>- Imagining ways of using computers</em></p>
+<p><em><i class="fa fa-money-check-alt"></i></em> Business <em>- Developing viable commercial scenarios</em></p>
+</div>
+</section>
+<section >
+<h1>Your project</h1>
+<p><strong>What is your project?</strong></p>
+<ul>
+<li><em>Small contribution to the state-of-the-art</em></li>
+<li><em>Well planned, executed and evaluated</em></li>
+</ul>
+<p><strong>What is this workshop about?</strong></p>
+<ul>
+<li>Definition: <em>What is your project?</em></li>
+<li>Scoping: <em>How to plan what to do?</em></li>
+<li>Evaluation: <em>How to know it is good?</em></li>
+<li>Argumentation: <em>How to convince us it is good?</em></li>
+</ul>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Definition</strong></h1>
+</section>
+<section >
+<img src="images/construction.jpg" style="max-width:500px;margin:60px 30px 300px 0px;float:left" />
+<p><strong>What kind of project<br />
+are you doing?</strong></p>
+<p><em>Science, business, design, engineering</em></p>
+<p>Likely a combination<br />
+of the above</p>
+<p><em>Determines how to scope, evaluate and argue!</em></p>
+</section>
+<section >
+<h1>Kinds of projects (1/2)</h1>
+<img src="images/cpu.jpg" style="float:right;max-width:240px;margin-left:20px" />
+<p><strong>Science</strong></p>
+<ul>
+<li><em>Involves models, hypotheses, statistics</em></li>
+<li><em>Better machine learning algorithm</em></li>
+<li><em>Model of how a program behaves</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Business</strong></p>
+<ul>
+<li><em>Real or hypothetical product idea</em></li>
+<li><em>Involves market analysis</em></li>
+<li><em>Focus on process and execution</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Kinds of projects (2/2)</h1>
+<img src="images/spacewar.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Design</strong></p>
+<ul>
+<li><em>Creative use of computers</em></li>
+<li><em>Critique of role of computers</em></li>
+<li><em>Game, novel design, exploration</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Engineering</strong></p>
+<ul>
+<li><em>Solving hard programming problem</em></li>
+<li><em>Can be either big or complex</em></li>
+<li><em>Algorithm, scale or other difficulty</em></li>
+</ul>
+</div>
+</section>
+<section class="part">
+<h1><strong>Workshop</strong>: Recognizing types of projects</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Scoping</strong></h1>
+</section>
+<section >
+<img src="images/requirements.jpg" style="max-width:550px;margin:60px 30px 300px 0px;float:left" />
+<p><strong>How to decide<br />
+what to do?</strong></p>
+<p><em>Different for each project kind</em></p>
+<p>Likely a combination!</p>
+<p><em>Background research, Hypothesis, requi-<br />
+rements gathering...</em></p>
+</section>
+<section >
+<h1>Project scoping (1/2)</h1>
+<img src="images/4ct.png" style="float:right;max-width:240px;margin-left:20px" />
+<p><strong>Science</strong></p>
+<ul>
+<li><em>New and important science problem</em></li>
+<li><em>Trust your advisor's expertise!</em></li>
+<li><em>Research relevant related work</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Business</strong></p>
+<ul>
+<li><em>Requirements from customer</em></li>
+<li><em>The customer may be you!</em></li>
+<li><em>Captured rigorously as user stories</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Project scoping (2/2)</h1>
+<img src="images/library.jpg" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Design</strong></p>
+<ul>
+<li><em>Creative new idea!</em></li>
+<li><em>Well-motivated source of the idea</em></li>
+<li><em>Where it fits in design space</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Engineering</strong></p>
+<ul>
+<li><em>Research or requirements gathering</em></li>
+<li><em>In what sense is it hard?</em></li>
+<li><em>How can we solve it in a new way?</em></li>
+</ul>
+</div>
+</section>
+<section class="part">
+<h1><strong>Workshop</strong>: How to define project scope</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Evaluation</strong></h1>
+</section>
+<section >
+<img src="images/chart.png" style="max-width:460px;margin:30px 20px 300px 0px;float:left" />
+<p><strong>How do we know it is good?</strong></p>
+<p>Certain academic quality...</p>
+<p><em>Do not just do it, think<br />
+what matters about it!</em></p>
+<p><em>What is the claim?</em></p>
+</section>
+<section >
+<h1>Project evaluation (1/2)</h1>
+<img src="images/cern.jpg" style="float:right;max-width:300px;margin-left:20px" />
+<p><strong>Science</strong></p>
+<ul>
+<li><em>Report experimental results</em></li>
+<li><em>Can this be compared somehow?</em></li>
+<li><em>Baseline, others, multiple methods</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Business</strong></p>
+<ul>
+<li><em>Final system is convincing</em></li>
+<li><em>Developed through rigorous process</em></li>
+<li><em>Satisfies user requirements</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Project evaluation (2/2)</h1>
+<img src="images/map.png" style="float:right;max-width:320px;margin-left:20px" />
+<p><strong>Design</strong></p>
+<ul>
+<li><em>Your argument for the idea works</em></li>
+<li><em>Prototype shows it is feasible</em></li>
+<li><em>It explores new design space</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Engineering</strong></p>
+<ul>
+<li><em>You solved the hard problem</em></li>
+<li><em>Your solution is complete &amp; correct</em></li>
+<li><em>You can explain how it works</em></li>
+</ul>
+</div>
+</section>
+<section class="part">
+<h1><strong>Workshop</strong>: How to evaluate a project</h1>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Argumentation</strong></h1>
+</section>
+<section >
+<img src="images/jobs.jpg" style="max-width:460px;margin:30px 20px 300px 0px;float:left" />
+<p><strong>How to show you did something good</strong></p>
+<p><em>Markers will read your dissertation, watch video, skim your code, try to run it..</em></p>
+<p>Your dissertation defines the evaluation criteria!</p>
+</section>
+<section >
+<h1>Making an argument  (1/2)</h1>
+<img src="images/sainsburys.jpg"  class="nb" style="float:right;max-width:240px;margin-left:20px" />
+<p><strong>Science</strong></p>
+<ul>
+<li><em>Reporting is detailed &amp; rigorous</em></li>
+<li><em>Good results are a plus</em></li>
+<li><em>Code is not too messy!</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Business</strong></p>
+<ul>
+<li><em>Your product could work</em></li>
+<li><em>Show you built something realistic</em></li>
+<li><em>Show you built it systematically</em></li>
+</ul>
+</div>
+</section>
+<section >
+<h1>Making an argument (2/2)</h1>
+<img src="images/brainfuck.png" style="float:right;max-width:280px;margin-left:20px" />
+<p><strong>Design</strong></p>
+<ul>
+<li><em>Having a good idea matters!</em></li>
+<li><em>What is interesting about your demo?</em></li>
+<li><em>Ideas change! Show the progression</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Engineering</strong></p>
+<ul>
+<li><em>Interesting sub-problems solved</em></li>
+<li><em>Interesting architecture or algorithms?</em></li>
+<li><em>Followed solid development practices!</em></li>
+</ul>
+</div>
+</section>
+</section>
+<section >
+<section class="part">
+<h1><strong>Conclusions</strong></h1>
+</section>
+<section >
+<h1>Conclusions</h1>
+<h3>Different kinds of computer science</h3>
+<p><em><i class="fa fa-flask"></i></em> Science <em>- Define hypothesis, evaluate results</em></p>
+<p><em><i class="fa fa-cogs"></i></em> Engineering <em>- Solve hard problem &amp; show you did it</em></p>
+<p><em><i class="fa fa-hotel"></i></em> Design <em>- Creative new idea, explained in context</em></p>
+<p><em><i class="fa fa-money-check-alt"></i></em> Business <em>- Well executed viable (hypothetical) product</em></p>
+</section>
+<section >
+<h1>CO880: Project scope &amp; evaluation</h1>
+<p><strong>Workshop takeaways</strong></p>
+<ul>
+<li><em>Science, engineering, design, business</em></li>
+<li><em>Your project will likely be a combination!</em></li>
+<li><em>Good project does something rigorously</em></li>
+<li><em>Discuss ideas with your advisor!</em></li>
+</ul>
+<br />
+<br />
+<p>Tomas Petricek<br />
+<em><a href="mailto:t.petricek@kent.ac.uk">t.petricek@kent.ac.uk</a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></em></p>
+</section>
+</section>
+<section >
+<h1>1 put and X in right type in google doc (TP: add some ambiguous!)</h1>
+<h1>2 GAME: pick a project, write ~50 words on how you would define its scope</h1>
+<h1>3 GAME: pick a project, write ~50 words on how you would evaluate it</h1>
+<h1>4 GAME: pick a project, write 3 section headings of "results"</h1>
+<p>SAMPLE PROJECTS
+- pothole detector (science)
+- program equivalence checker (science)
+- check your data assumption (design)
+- hexagonal chess (design)
+- tfl route planning (engineering)
+- kent web scraper (engineering)
+- fashion retail (business)
+- student flat sharing app (business)
+- chatbot of some kind
+- educational game / 10-finger typing</p>
+</section>
+
+
+            <img src="images/kent.png" class="klogo" />
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
