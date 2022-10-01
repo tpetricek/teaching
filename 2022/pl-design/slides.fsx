@@ -45,18 +45,22 @@ let parseOptions pars =
         failwithf "Option is not a simple literal")
   |> Map.ofSeq
 
+let (|LongHorizontalRule|_|) = function
+  | HorizontalRule(c, Some r) when r.EndColumn > 40 -> Some(c)
+  | _ -> None
+
 let extractSlides pars = 
   let rec loop opts slide group acc pars = 
     match pars with
-    | HorizontalRule('*', _) :: 
+    | LongHorizontalRule('*') :: 
       ListBlock(_, items, _) :: pars 
-    | HorizontalRule('*', _) :: As [] (items, pars) ->
+    | LongHorizontalRule('*') :: As [] (items, pars) ->
         let group = if slide <> [] then (parseOptions opts, List.rev slide)::group else group
         let acc = if group <> [] then List.rev group::acc else acc
         loop items [] [] acc pars 
-    | HorizontalRule _ :: 
+    | LongHorizontalRule _ :: 
       ListBlock(_, items, _) :: pars 
-    | HorizontalRule _ :: As [] (items, pars) ->
+    | LongHorizontalRule _ :: As [] (items, pars) ->
         let group = if slide <> [] then (parseOptions opts, List.rev slide)::group else group
         loop items [] group acc pars
     | par :: pars ->
@@ -108,9 +112,18 @@ let listsTemplate = function
         for i, group in Seq.indexed groups do
           if i <> 0 then yield InlineHtmlBlock("<div class=\"fragment\">", None, None)
           yield! group
-          if i <> 0 then yield InlineHtmlBlock("</div>", None, None)
-        yield! pars ]
+          if i <> 0 then yield InlineHtmlBlock("</div>", None, None) ]
   | _ -> failwith "Lists template did not start with an image"
+
+let contentTemplate pars =
+  [ let groups = 
+      pars 
+        |> splitAt (function HorizontalRule _ -> true | _ -> false)
+        |> List.map (List.filter (function HorizontalRule _ -> false | _ -> true))
+    for i, group in Seq.indexed groups do
+      if i <> 0 then yield InlineHtmlBlock("<div class=\"fragment\">", None, None)
+      yield! group
+      if i <> 0 then yield InlineHtmlBlock("</div>", None, None) ]
 
 let subtitleTemplate pars = 
   [ InlineHtmlBlock("<div class=\"body\">", None, None)
@@ -118,11 +131,13 @@ let subtitleTemplate pars =
     InlineHtmlBlock("</div>", None, None) ]
 
 let titleTemplate pars = 
-  let hs, ps = pars |> List.partition (function Heading _ -> true | _ -> false)
-  [ yield! hs 
-    InlineHtmlBlock("<div class=\"body\">", None, None)
-    yield! ps
-    InlineHtmlBlock("</div>", None, None) ]
+  match pars |> splitAt (function HorizontalRule _ -> true | _ -> false) with
+  | [top; _::bot] -> 
+      [ yield! top
+        InlineHtmlBlock("<div class=\"body\">", None, None)
+        yield! bot
+        InlineHtmlBlock("</div>", None, None) ]
+  | _ -> failwith "Failed to split title slide into two parts using HR"
 
 let templates = 
   [ "title", titleTemplate >> Some
@@ -131,6 +146,7 @@ let templates =
     "largeicons", iconsTemplate >> Some
     "lists", listsTemplate >> Some
     "image", imageTemplate >> Some
+    "content", contentTemplate >> Some
     "default", Some
     "notes", fun _ -> None ]
   |> dict
@@ -151,7 +167,8 @@ let processFile fn out =
       match transformSlide (opts, slide) with 
       | Some nslide -> 
           let html = Markdown.ToHtml(MarkdownDocument(nslide, doc.DefinedLinks))
-          Some($"""<section class="{opts.["template"]}">{html}</section>""")
+          let cls = opts.TryFind("class") |> Option.defaultValue ""
+          Some($"""<section class="{opts.["template"]} {cls}">{html}</section>""")
       | _ -> None))
     |> List.filter (List.isEmpty >> not)
     |> List.map (fun slides -> $"""<section>{String.concat "" slides}</section>""")

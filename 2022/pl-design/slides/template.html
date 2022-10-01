@@ -8,7 +8,7 @@
 			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<style type="text/css">
 
- 			@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&family=Titillium+Web:wght@200;300;600&display=swap');
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@100;300;400&family=Titillium+Web:wght@200;300;600&display=swap');
 			.reveal .slides {
 				text-align:left;
 				_background:red;
@@ -50,9 +50,27 @@
 				color:#66A0FF;
 			}
 
+			code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
 			.lists p, .lists li { font-size:26pt; }
-			.lists h1 { margin-bottom:50px; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists h1 { margin-bottom:40px; }
 			.lists img { float:right; margin-top:20px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists img { float:right; max-width:350px; max-height:400px; }
+			.lists.smaller img { max-width:280px; max-height:350px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
 
 			.largeicons p, .largeicons li { font-size:26pt; }
 			.largeicons h2, .icons h2 { margin-bottom:0px; }
@@ -61,6 +79,8 @@
 			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
 			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
 
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
 			.title .body { position:absolute; bottom:40px; width:900px; }
 			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
 			.title i { color:#303030; font-size:80%; margin:0px 2px 0px 0px; }
@@ -70,6 +90,9 @@
 			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
 			.image h1 { font-size:32pt; margin-bottom:30px; }
 			.image p { margin-top:20px; font-size:26pt; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
 
 			section.subtitle {
 				height:auto;
@@ -99,14 +122,19 @@
 		</div>
 
 		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
 		<script language="javascript" type="text/javascript">
 			Reveal.initialize({
+				plugins: [ RevealHighlight ],
 				hash:true,
 				transition:"none",
 				controls:false
 			});
 			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
-			websocket.onmessage = function (evt) { window.location.reload(); };
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
 		</script>
 
 	</body>
