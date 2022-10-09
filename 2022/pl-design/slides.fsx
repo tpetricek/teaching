@@ -4,6 +4,7 @@
 open System
 open System.IO
 open FSharp.Formatting.Markdown
+open System.Diagnostics
 Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
 
 let cprint clr fmt = 
@@ -75,10 +76,10 @@ let extractSlides pars =
 // Templates
 // --------------------------------------------------------------------------------------
 
-let (|Headings|_|) = function
-  | (Heading _ as h1) :: (Heading _ as h2) :: body -> Some([h1;h2], body)
-  | (Heading _ as h1) :: body -> Some([h1], body)
-  | _ -> None
+let (|Headings|) = function
+  | (Heading(1, _, _) as h1) :: (Heading(2, _, _) as h2) :: body -> ([h1;h2], body)
+  | (Heading(1, _, _) as h1) :: body -> ([h1], body)
+  | ps -> ([], ps)
 
 let iconsTemplate = function
   | Headings(hs, [ListBlock(Unordered, items, _)]) ->
@@ -110,20 +111,36 @@ let listsTemplate = function
         yield InlineHtmlBlock($"<img src=\"{img}\"/>", None, None)
         let groups = pars |> splitAt (function Heading _ -> true | _ -> false)
         for i, group in Seq.indexed groups do
-          if i <> 0 then yield InlineHtmlBlock("<div class=\"fragment\">", None, None)
+          let cls = if i <> 0 then " class=\"fragment\"" else ""
+          yield InlineHtmlBlock($"<div{cls}>", None, None)
           yield! group
-          if i <> 0 then yield InlineHtmlBlock("</div>", None, None) ]
+          yield InlineHtmlBlock("</div>", None, None) ]
   | _ -> failwith "Lists template did not start with an image"
 
+let rec replaceIcons = function
+  | MarkdownPatterns.ParagraphNested(p, ps) -> 
+      MarkdownPatterns.ParagraphNested(p, List.map (List.map replaceIcons) ps)
+  | MarkdownPatterns.ParagraphSpans(s, ss) -> 
+      let ss = ss |> List.map (function
+        | Emphasis([Literal(fa, _)], _) when fa.StartsWith "fa-"->
+            Literal($"<i class='fa {fa}'></i>", None)
+        | s -> s)
+      MarkdownPatterns.ParagraphSpans(s, ss)
+  | p -> p
+
 let contentTemplate pars =
-  [ let groups = 
-      pars 
-        |> splitAt (function HorizontalRule _ -> true | _ -> false)
-        |> List.map (List.filter (function HorizontalRule _ -> false | _ -> true))
+  let (Headings(hs, pars)) = pars |> List.map replaceIcons
+  let groups = 
+    pars |> splitAt (function HorizontalRule _ -> true | _ -> false)
+         |> List.map (List.filter (function HorizontalRule _ -> false | _ -> true))
+  [ yield! hs
+    yield InlineHtmlBlock("<div class=\"body\">", None, None)
     for i, group in Seq.indexed groups do
-      if i <> 0 then yield InlineHtmlBlock("<div class=\"fragment\">", None, None)
+      let cls = if i <> 0 then " class=\"fragment\"" else ""
+      yield InlineHtmlBlock($"<div{cls}>", None, None)
       yield! group
-      if i <> 0 then yield InlineHtmlBlock("</div>", None, None) ]
+      yield InlineHtmlBlock("</div>", None, None)
+    yield InlineHtmlBlock("</div>", None, None) ]
 
 let subtitleTemplate pars = 
   [ InlineHtmlBlock("<div class=\"body\">", None, None)
@@ -161,8 +178,13 @@ let processFile fn out =
   let transformSlide (opts, slide) = 
     templates.[Map.find "template" opts] slide
 
+  let options, pars = 
+    match doc.Paragraphs with 
+    | ListBlock(_, items, _)::pars -> parseOptions items, pars
+    | pars -> Map.empty, pars
+
   let slidesHtml = 
-    extractSlides doc.Paragraphs
+    extractSlides pars
     |> List.map (List.choose (fun (opts, slide) ->
       match transformSlide (opts, slide) with 
       | Some nslide -> 
@@ -175,8 +197,8 @@ let processFile fn out =
     |> String.concat ""
 
   let templ = File.ReadAllText("slides/template.html")
-  let out = templ.Replace("{{BODY}}", slidesHtml)
-  File.WriteAllText("output/index.html", out)
+  let page = templ.Replace("{{BODY}}", slidesHtml).Replace("{{TITLE}}", options.["title"])
+  File.WriteAllText(out, page)
 
 let copyStatic () =
   let rec loop root = 
@@ -254,4 +276,5 @@ let config =
 
 let _, start = startWebServerAsync config app
 //Async.Start(start)
+Process.Start(ProcessStartInfo("http://localhost:8080/", UseShellExecute=true))
 Async.RunSynchronously(start)

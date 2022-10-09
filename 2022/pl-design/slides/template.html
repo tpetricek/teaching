@@ -2,13 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>reveal.js - Barebones</title>
+		<title>{{TITLE}}</title>
 		<link rel="stylesheet" href="reveal/reveal.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<style type="text/css">
 
- 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@100;300;400&family=Titillium+Web:wght@200;300;600&display=swap');
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@100;300;400;700&family=Titillium+Web:wght@200;300;600&display=swap');
 			.reveal .slides {
 				text-align:left;
 				_background:red;
@@ -39,6 +39,11 @@
 				margin:0px;
 				padding:0px;
 			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
 			strong {
 				font-weight:300;
 			}
@@ -58,6 +63,9 @@
 				margin:25px 0px 25px 50px;
 			}
 
+			i { width:56px; text-align:left; }
+
+
 			.lists p, .lists li { font-size:26pt; }
 			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
 			.lists h1 { margin-bottom:40px; }
@@ -68,13 +76,17 @@
 
 			.content h1 { margin-bottom:40px; }
 			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:30px; }
 			.content p { margin-bottom:20px; }
 			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
 			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
 
 			.largeicons p, .largeicons li { font-size:26pt; }
 			.largeicons h2, .icons h2 { margin-bottom:0px; }
-			.largeicons i, .icons i { width:56px; text-align:left; }
 			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
 			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
 			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
@@ -94,9 +106,9 @@
 			.image.smaller .body1 img { max-width:440px; }
 			.image.noborder img { border-style:none; }
 
-			section.subtitle {
-				height:auto;
-			}
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
 
 			.mfflogo {
 				position:absolute;
