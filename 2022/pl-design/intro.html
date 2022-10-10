@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Introduction | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@100;300;400;700&family=Titillium+Web:wght@200;300;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists img { float:right; margin-top:20px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists img { float:right; max-width:350px; max-height:400px; }
+			.lists.smaller img { max-width:280px; max-height:350px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:30px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Programming language design</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Introduction</h1>
+<h2>What? Why? How?</h2>
+</div>
+</section><section class="subtitle motto"><div class="body">
+<h1>Making programming<br /><em>(languages | experience | systems)</em><br />better!</h1>
+</div>
+</section><section class="largeicons "><h1>My background</h1>
+<ul>
+<li>
+<i class='fa fa-landmark'></i> <strong>PhD, University of Cambridge</strong><br />
+<i class="placeholder"></i>Context-aware programming languages
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Microsoft Research Cambridge</strong><br />
+<i class="placeholder"></i>F# and applied functional programming
+</li>
+<li>
+<i class='fa fa-city'></i> <strong>The Alan Turing Institute, London</strong><br />
+<i class="placeholder"></i>Expert and non-expert tools for data science
+</li>
+<li>
+<i class='fa fa-church'></i> <strong>University of Kent, Canterbury</strong><br />
+<i class="placeholder"></i>History and programming systems
+</li>
+</ul>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/intro/coeffects.png" alt="" /></p>
+</div><div class="body2">
+<h1>Types for context-aware programming</h1>
+<p><strong>Program as expression in small formal language</strong></p>
+<p>Type system determines what programs are valid</p>
+<p>Safety proof shows no unauthorized accesses</p>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/jupyter.png" alt="" /></p>
+</div><div class="body2">
+<h1>Data science tools and languages</h1>
+<p><strong>Result is a document not a program</strong></p>
+<p><strong>Working with one concrete dataset</strong></p>
+<p>Different language and system requirements!</p>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/smalltalk.png" alt="" /></p>
+</div><div class="body2">
+<h1>Programming systems &amp; history</h1>
+<p><strong>Interacting with a stateful environment</strong></p>
+<p>Let programmers do more in new ways...</p>
+<p><strong>It's not just a language!</strong></p>
+</div>
+</section><section class="lists "><h1>Bringing everything together</h1>
+<img src="img/intro/excel.png"/>
+<div>
+<h2>Systems ⊃ languages</h2>
+<ul>
+<li>Programming process matters</li>
+<li>Tools shape languages</li>
+<li>Harder to formalize &amp; study!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Interdisciplinary research</h2>
+<ul>
+<li>Formal language models</li>
+<li>Systematic design</li>
+<li>Qualitative and quantitative studies</li>
+</ul>
+</div>
+</section><section class="content "><h1>Case study: LINQ</h1>
+<div class="body">
+<div>
+<p>LINQ queries in Visual Basic .NET and C#</p>
+<pre><code>Dim db As New northwindDataContext
+Dim ukCompanies =
+  From cust In db.Customers
+  Where cust.Country = "UK"
+  Select cust.CompanyName, cust.City
+</code></pre>
+</div>
+<div class="fragment">
+<p>Why confuse programmers familiar with SQL?</p>
+<pre><code class="language-sql">SELECT [CompanyName], [City]
+WHERE [Country] = 'UK'
+FROM dbo.[Northwind]
+</code></pre>
+</div>
+</div>
+</section><section class="content "><h1>What to expect?</h1>
+<h2>Content and materials</h2>
+<div class="body">
+<div>
+<p><strong>Many different programming systems</strong><br />
+TypeScript, Jupyter, ML/F#, Smalltalk, BASIC</p>
+<p><strong>Many different research methods</strong><br />
+Design, logic, proofs, user studies</p>
+<p><strong>This is a new work-in-progress course</strong><br />
+Slides on the web, but no textbook</p>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/report.png" alt="" /></p>
+</div><div class="body2">
+<h1>Credit / zápočet</h1>
+<p><strong>Small independent<br />
+or group project</strong></p>
+<p>Using any of the covered method</p>
+<p>Described in a brief report (5 pages)</p>
+<p><strong>Deadlines</strong><br />
+<strong>Topic by January 8</strong><br />
+<strong>Draft by February 28</strong></p>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Programming languages</h1>
+<h2>Conventional topics</h2>
+</div>
+</section><section class="lists "><h1>Paradigms and features</h1>
+<img src="img/intro/babel.png"/>
+<div>
+<h2>Language paradigms</h2>
+<ul>
+<li>Functional, OOP, Logic, etc.</li>
+<li>Their fundamental concepts</li>
+<li>Interesting "extreme" designs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Language features</h2>
+<ul>
+<li>Variable scoping, pointers</li>
+<li>Lambda abstraction, inheritance</li>
+<li>Design and implementation</li>
+</ul>
+</div>
+</section><section class="lists "><h1>Theory and implementation</h1>
+<img src="img/intro/turing.gif"/>
+<div>
+<h2>Parsing and automata</h2>
+<ul>
+<li>Theory of formal grammars</li>
+<li>Parser implementation</li>
+<li>Computability theory</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Compilers and interpreters</h2>
+<ul>
+<li>Implementation techniques</li>
+<li>Register allocation</li>
+<li>Meta-circular interpreters</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/dragon.jpg" alt="" /></p>
+</div><div class="body2">
+<h1>Why is this <br />not enough?</h1>
+<p><strong>Talks about "what"<br />
+but not about "how"</strong></p>
+<p>Treat design as a research problem!</p>
+<p>What can we study about programming systems?</p>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Design</h1>
+<h2>As a research discipline</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/intro/starck.jpg" alt="" /></p>
+</div><div class="body2">
+<h1>What is design?</h1>
+<p>Design is the intentional <strong>solution of a problem</strong>, by the creation of plans for a <strong>new sort of thing</strong>, where the plans would not be immediately seen, by a reasonable person, as an inadequate solution.</p>
+<p>Parsons (2015)</p>
+</div>
+</section><section class="lists smaller"><h1>Designerly ways</h1>
+<img src="img/intro/designerly.png"/>
+<div>
+<h2>Sciences study natural world</h2>
+<ul>
+<li>By experiment, aiming at truth</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Humanities study experience</h2>
+<ul>
+<li>By analogy, aiming at justice</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Design studies the artificial</h2>
+<ul>
+<li>By synthesis, aiming at appropriateness</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Cultures of programming</h1>
+<h2>Common ways of thinking</h2>
+</div>
+</section><section class="lists smaller"><h1>Case study: TypeScript</h1>
+<img src="img/intro/qr-ts.png"/>
+<div>
+<h2>Unsoundness by design</h2>
+<ul>
+<li>Type checking limitations!</li>
+<li>It's a feature, not a bug?</li>
+<li><a href="https://github.com/Microsoft/TypeScript/issues/9825#issuecomment-234115900">tinyurl.com/nprg075-ts</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Design questions</h2>
+<ul>
+<li>What research methods to use?</li>
+<li>Is partial soundness a thing?</li>
+<li>Is there a better design?</li>
+<li>What does "better" mean?</li>
+</ul>
+</div>
+</section><section class="lists smaller"><h1>Cultures of programming</h1>
+<img src="img/intro/completion.png"/>
+<div>
+<h2>Engineering culture</h2>
+<ul>
+<li>Programs are complex systems</li>
+<li>Tools can help us cope</li>
+<li>Careful balance of trade-offs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Mathematical culture</h2>
+<ul>
+<li>Programs as formal entities</li>
+<li>Like good mathematics...</li>
+<li>Safe, composable, elegant</li>
+</ul>
+</div>
+</section><section class="lists smaller"><h1>Cultures of programming</h1>
+<img src="img/intro/sonic.jpg"/>
+<div>
+<h2>Humanistic culture</h2>
+<ul>
+<li>Augmenting human intellect</li>
+<li>Programming helps us think</li>
+<li>Language close to human concepts</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Hacker culture</h2>
+<ul>
+<li>Programs are fundamentally bits</li>
+<li>Do not restrict the programmer</li>
+<li>Convenience, but full access</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Type safety</h1>
+<h2>Different perspectives</h2>
+<ul>
+<li><i class='fa fa-person-chalkboard'></i> Safety is the very essence of types!</li>
+<li><i class='fa fa-people-carry-box'></i> Useful as long as it makes programming easier</li>
+<li><i class='fa fa-person-falling-burst'></i> Sometimes, you need to break the rules</li>
+<li><i class='fa fa-person-dots-from-line'></i> Does it help programmers think better?</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Research methods</h1>
+<h2>Interdisciplinary research</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/intro/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<h1>Interdisciplinary programming language research</h1>
+<p><strong>Creating designs</strong><br />
+Interviews, prototyping, formalism, analysis, history</p>
+<p><strong>Evaluating designs</strong><br />
+Qualitative and quantitative studies, formal proofs</p>
+<p>(Coblenz et al., 2018)</p>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/tapl.png" alt="" /></p>
+</div><div class="body2">
+<h1>Programming language theory</h1>
+<p><strong>Prove properties about small formal models</strong></p>
+<p>"Well-typed programs do not go wrong"</p>
+<p><strong>Discover and avoid subtle mistakes!</strong></p>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/intro/cuscus.png" alt="" /></p>
+</div><div class="body2">
+<h1>Human-centric system design</h1>
+<p><strong>User studies, questionnaires, interviews, etc.</strong></p>
+<p>Qualitative analysis to design &amp; test ideas</p>
+<p>Quantitative analysis to compare designs</p>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/intro/hypercard.jpg" alt="" /></p>
+</div><div class="body2">
+<h1>History of programming</h1>
+<p><strong>What interesting past ideas were lost?</strong></p>
+<p>And the socio-political reasons for that?</p>
+<p><strong>Use history as source for new design ideas!</strong></p>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>What to expect</h2>
+</div>
+</section><section class="content "><h1>Course outline</h1>
+<h2>Preliminary structure</h2>
+<div class="body">
+<div>
+<p><strong>Design</strong> - Design and pattern languages<br />
+<strong>Usability</strong> - Human-centric language design<br />
+<strong>Semantics</strong> - Formal models of programming<br />
+<strong>Types</strong> - Types and type safety proofs<br />
+<strong>Beyond</strong> - Unexpected perspectives on types<br />
+<strong>Paradigms</strong> - History and programming systems<br />
+<strong>Complementary</strong> - Learning from past systems<br />
+<strong>Cognition</strong> - How humans think about programming</p>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/intro/qr-nb.png"/>
+<div>
+<h2>Jeremy Singer on Notebooks</h2>
+<ul>
+<li>Notes on Notebooks: Is Jupyter the Bringer of Jollity?</li>
+<li>Available at: <a href="http://www.dcs.gla.ac.uk/~jsinger/notebooks.pdf">http://www.dcs.gla.ac.uk/~jsinger/notebooks.pdf</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why should you read this?</h2>
+<ul>
+<li>You'll get more out of the lecture...</li>
+<li>Perfect for the morning tram ride :-)</li>
+<li>Notebooks are curious programming systems!</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>How to do research about<br /> programming language design?</strong></p>
+<ul>
+<li>Inherently interdisciplinary topic</li>
+<li>Logic, design, user studies, history &amp; more!</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References</h1>
+<div class="body">
+<div>
+<p><strong>Methodology</strong></p>
+<ul>
+<li>Coblenz, M., et al. (2018). <a href="https://dl.acm.org/doi/pdf/10.1145/3276954.3276965">Interdisciplinary<br /> programming language design</a>. ACM Onward!</li>
+<li>Parsons, G. (2015). <a href="https://www.wiley.com/en-us/The+Philosophy+of+Design-p-9780745663890">The philosophy of design</a>. John Wiley &amp; Sons</li>
+<li>Cross, N. (2007). <a href="https://www.bird-international-research-in-design.org/books">Designerly ways of knowing</a>. BIRD</li>
+</ul>
+<p><strong>Assorted examples</strong></p>
+<ul>
+<li>Marasoiu, M. et al. (2019). <a href="https://link.springer.com/chapter/10.1007/978-3-030-24781-2_8">Cuscus: An end user<br />programming tool for data visualisation</a>. Springer</li>
+<li>Pierce, B. C. (2002). <a href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and programming languages</a>. MIT Press</li>
+<li>Petricek, T., Jakubovic, J. (2021). <a href="http://tomasp.net/academic/drafts/complementary">Complementary science of interactive programming systems</a>. HaPoC</li>
+<li>Petricek, T. (2017). <a href="https://tomasp.net/coeffects/">Context-aware programming<br /> languages</a>. University of Cambridge</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight ],
+				hash:true,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
