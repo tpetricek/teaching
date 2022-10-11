@@ -137,57 +137,149 @@ Prefers cleverness, humour over fit!
 ## Learning from architecture
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: smaller
 
-x
+![](img/design/gof.jpg)
 
-* Existing inspiration
-  - GoF patterns
+# Design patterns
 
-* Design patterns, revisited
-  - achieving fit for complex problems
-  - seeking "quality without a name"
-  - pattern language = sequence of simple patterns to follow
-  - pattern - resolves forces; contributes a bit to the answer
-  - where do they come from?
+Based on Christopher Alexander's work on architecture
 
-*****************************************************************************************
-- template: subtitle
+**Useful but criticized**
 
-# Notebook systems
-## Design for a complex problem
+Missing the point of Alexander's work
+
+Workarounds for coding  
+in a poor language
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/design/paris.jpg)
+
+# Quality without name
+
+**A system has it when  
+it is true to its inner  
+forces, when it is free  
+from contradictions**
+
+Each "living" pattern resolves a system of forces. When all forces  
+are resolved, the quality appears.
 
 -----------------------------------------------------------------------------------------
 - template: lists
 - class: smaller
 
-# Case study: FT
+# Why is it hard?
+
+![](img/design/timeless.jpg)
+
+## Vernacular method
+
+- Shared language lost from community
+- Complexity of problems has grown
+- Community cannot build a skyscraper
+
+## Modernist method
+
+- Cannot perfectly analyze problem
+- Always misses some important detail
+- Keeps reinventing imperfect forms
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Quality
+## How is this about programming?
+
+- *fa-keyboard* Think about programmer thinking and coding
+- *fa-computer-mouse* Programming systems, not languages
+- *fa-arrows-to-circle* Need to resolve complex systems of forces
+- *fa-list-check* Patterns to capture approaches that work
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Achieving fit
+
+![](img/design/rooms.jpg)
+
+## Design pattern
+
+- Context, problem, forces, solution
+- Resolves interconnected forces
+- Works as a solution template
+
+## Pattern language
+
+- Ordered sequence of patterns
+- Can be followed step-by-step
+- Ideally shared and agreed on
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/design/publicness.jpg)
+
+# Degrees of publicness
+
+**Context:** Where people want to live is different
+
+**Forces:** Some want to live where the action is, some in more isolation
+
+**Problem:** How to organize a cluster of homes?
+
+**Solution:** Distinguish private homes, public homes and in-between
+
+*****************************************************************************************
+- template: subtitle
+
+# Notebook systems
+## Designing a complex system
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/design/jupyter.png)
+
+# Notebook systems
+
+**Literate programming environment - code, outputs, comments**
+
+Used for exploration, scientific tasks, data science, learning
+
+**How to design exploration environment?**
+
+-----------------------------------------------------------------------------------------
+- template: subtitle
+
+# Demo
+## Using F# in a notebook system
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Case study: Notebooks
 
 ![](img/design/qr-ft.png)
 
+## Notebooks for data science
 
-## x
-
-- xx
-- xx
+- Use by FT journalists for article
+- Start with "Eurostat exports data"
 - [tinyurl.com/nprg075-ft](https://github.com/ft-interactive/recycling-is-broken-notebooks)
 
-## xx
+## Design questions
 
-- xx
-- xx
-
-
------------------------------------------------------------------------------------------
-- template: content
-
-Notebooks
-  - DEMO: Doing something in F# in a notebook
-  - read jollity
-  - look at some of the examples
-  - Q: what are some forces (different in normal PLs)?
-  - Q: how are they reflected?
-  - Q: what are some badly addressed forces?
+- What are the specific forces?  
+- How are they reflected in the notebooks?
+- Which are poorly resolved?
 
 *****************************************************************************************
 - template: subtitle
@@ -195,65 +287,181 @@ Notebooks
 # Pattern languages
 ## Designing exploration tools
 
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder
+
+![](img/design/exploratory.png)
+
+# Exploratory programming workspaces
+
+Environment that lets you figure something out interactively..
+
+Data science, but also general programming
+
+**Are there common patterns of working?**
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: lists
+- class: smaller
 
-Exploratory workspace pattern language
-  - what is this about?
-  - what is the structure of the language/pattern (env + interaction ctx)
-  - Conversation in context
-    - forces
-    - diagram (how it resolves)
-  - More patterns
-  - one or two examples
+# Taeumel et al. (2022)
 
------------------------------------------------------------------------------------------
-- template: content
+![](img/design/patlan.png)
 
-where patterns come from???
+## A Pattern Language of an Explora-<br/>tory Programming Workspace
 
-Screenshots - command line, Smalltalk/Squeak, Jupyter
-exploratory programming -
-as conversation with the "workspace"
-difficult to find effective ways of working / patterns
-  (or port them from one environment to another)
-pattern language
-  key pattern "Conversation in Context"
+- Patterns in exploratory tools
+- Smalltalk, notebooks, UNIX
+- System design and ways of using
+
+## Conversation in context
+
+- Seven patterns covering three aspects
+- Questions, context, responses
+- Capture needs, forces, structure, trade-offs, etc.
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: noborder smaller
 
-> you working on a project in
-an environment while continually switching between di;erent interaction contexts
+![](img/design/env.png)
 
-context-problem-solution / forces
+# Programmer, environment, interaction context
 
-environment (ACTIVE) - many languages (some PLs)
-  with boundaries; can be nested
+> "It is all about you working on a project in
+> an environment while continually switching
+> between different interaction contexts"
 
-interaction context (PASSIVE)
-  contains objects, files, structured in contexts (may need to do work to find it)
+-----------------------------------------------------------------------------------------
+- template: icons
 
-SCREENSHOT - p8/9 Q&A format
+# Conversation in context
+## Forces resolved by the pattern
 
-Conversation in context
-FORCES
-- difficult to find the place where to ask
-- difficult to find the right words for asking the Q
-- difficult to understand technical or complex answer
-SOLUTION
-- engage with environment interactively, revise to clarify, unpack complexity, iterate wording
+- *fa-circle-question* Want to ask question about something
+- *fa-map* Finding the right place to ask
+- *fa-language* Finding the right words to use
+- *fa-atom* Understanding complex technical answer
 
-ELABORATE INQUIRY
-decompose conversation into parts to manage complexity (Linux pipes)
-COACH YOUR ENVIRONMENT
-extend the interaction context (define helpers, add things to variable scope)
-CONCEPT IN SHARDS
-PROXY TRANSPORT
-SIMPLE RESPONSE
-TANGIBLE RESPONSE
-PAUSE AND EXPLORE
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder
+
+![](img/design/qa.png)
+
+# Conversation<br />in context
+
+**Solution structure**
+
+Iterative question and answer interaction with persistent context
+
+Support for revising questions asking follow-up questions
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Further patterns
+
+![](img/design/elaborate.png)
+
+## Elaborate inquiry
+
+- Difficult to ask complex questions
+- Use stepwise composition
+- Refer to previous answers
+
+## Proxy transport
+
+- Need to access external information
+- May be big or use an odd format
+- Embed into local context with lazy loading
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Further patterns
+## Context, forces, solution
+
+- *fa-folder-open* **Coach your environment** by adding information
+- *fa-diagram-project* **Concepts in shards** need to be linked
+- *fa-bullseye* **Simple response** to be found iteratively
+- *fa-search* **Pause and explore** to better understand
+
+*****************************************************************************************
+- template: subtitle
+
+# Pattern languages
+## Designing pattern languages
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder
+
+![](img/design/meta.png)
+
+# Where patterns come from?
+
+----
+
+**Pattern languages  
+for creating  
+pattern languages**
+
+----
+
+No single systematic method that would always work
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Pattern writing
+## Where patterns come from
+
+- *fa-igloo* Shared and evolved in a community
+- *fa-computer* Repeated solutions in past software systems
+- *fa-user-ninja* Personal experience with a problem
+- *fa-cloud* Focused group collaboration (origins of wiki!)
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder
+
+![](img/design/writing.png)
+
+# A pattern language for pattern writing
+
+(Meszaros+Doble, '97)
+
+**How to structure, write and present patterns & pattern languages**
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder
+
+![](img/design/patterns.png)
+
+# A pattern language for creating pattern languages
+
+(Iba+Isaku, 2016)<br /><br />
+
+**Hints on<br /> pattern mining**
+
+Collect experiences
+Map and find overlaps
+Structure in clusters
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Practical tips
+## How to write a pattern language
+
+- *fa-arrows-to-circle* Patterns are about resolving forces
+- *fa-table* Patterns should have fixed format
+- *fa-file* Context, forces, structure, related patterns
+- *fa-user-gear* System structure or human interaction with it
+
 
 *****************************************************************************************
 - template: subtitle
@@ -261,16 +469,121 @@ PAUSE AND EXPLORE
 # Concepts and methods
 ## Learning from architecture
 
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/design/northend.jpg)
+
+# Learning from unaverage clues
+
+(Jacobs, 1961)
+<br /><br />
+
+Cannot reduce city  
+to a single statistic
+
+**Look for informative singleton clues!**
+
+-----------------------------------------------------------------------------------------
+- template: subtitle
+
+# Demo
+## Commodore 64 BASIC
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller tenprint
+
+# 10 PRINT CHR$(205.5+RND(1)); : GOTO 10
+
+![](img/design/10print.jpg)
+
+<style> .tenprint h1 { font-size:38pt; letter-spacing:-1px; } </style>
+
+## Technical aspects
+
+- Edit & run in one terminal
+- Line numbers for navigation
+- Simple with `POKE` for hackers
+
+## Social aspects
+
+- Path from a user to a programmer
+- Commodore 64 boots into BASIC!
+- Learn by copying from magazines
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/design/radieuse.jpg)
+
+# What works despite the theory
+
+(Jacobs, 1961)
+<br /><br />
+
+Elegant theories  
+that are convincing  
+but do not work
+
+**Document what actually works<br />in practice instead!**
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Information hiding
+
+![](img/design/ada.gif)
+
+## Good software engineering
+
+- Divide systems into modules
+- Hide implementation details
+- Expose only what is needed
+
+## Why should this work?
+
+- Basic principle of OOP!
+- Can freely change internals
+- Modules developed independently
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Information hiding
+
+![](img/design/ibm360.jpg)
+
+## Brief history
+
+- Decomposing systems (1972)
+- IBM OS/360 development (1975)
+- Brooks' reflections (1995)
+- Cathedral and the bazaar (1999)
+
+## Critique and alternatives
+
+- Design is hard to anticipate
+- Cumbersome & inefficient uses
+- MIDI SysEx and UNIX DWARF work!
 
 -----------------------------------------------------------------------------------------
 - template: content
 
-Other ideas
-  - *sources*
-  - what works despite theory (information hiding)
-  - learning from outliers (10 PRINT)
-  - conceptual coherence --> worst is better
-  - post-modernism --> Perl / Noble
+conceptual coherence --> worst is better
+post-modernism --> Perl / Noble
+
+*****************************************************************************************
+- template: subtitle
+
+# Concepts and methods
+## Unexplored inspirations
+
+-----------------------------------------------------------------------------------------
+- template: content
+
+a
 
 * What is left
   - navigation?
@@ -300,3 +613,12 @@ Other ideas
 
 - Parnas, D. L. (1985). Software aspects of strategic defense systems. Communications of the ACM, 28(12), 1326-1335.
 - Jacobs, J. (1961). The Death and Life of Great American Cities. Random House.
+- GoF
+- ALexander (Notes, Timeless, Pattern)
+- My blog on Alexander
+- Jollity
+- http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/TaeumelLinckeReinHirschfeld_2022_APatternLanguageOfAnExploratoryProgrammingWorkspace_AuthorsVersion.pdf
+- A Pattern Language for Pattern Writin
+- A Pattern Language for Creating Pattern Languages
+- Pattern Mining Patterns
+- Brooks, Parnas, Cathedral & Bazaar, MIDI & gpii nexus

@@ -73,13 +73,41 @@ let extractSlides pars =
   loop [] [] [] [] pars
 
 // --------------------------------------------------------------------------------------
-// Templates
+// Template helpers
 // --------------------------------------------------------------------------------------
 
 let (|Headings|) = function
   | (Heading(1, _, _) as h1) :: (Heading(2, _, _) as h2) :: body -> ([h1;h2], body)
   | (Heading(1, _, _) as h1) :: body -> ([h1], body)
   | ps -> ([], ps)
+
+  
+let rec replaceIcons = function
+  | MarkdownPatterns.ParagraphNested(p, ps) -> 
+      MarkdownPatterns.ParagraphNested(p, List.map (List.map replaceIcons) ps)
+  | MarkdownPatterns.ParagraphSpans(s, ss) -> 
+      let ss = ss |> List.map (function
+        | Emphasis([Literal(fa, _)], _) when fa.StartsWith "fa-"->
+            Literal($"<i class='fa {fa}'></i>", None)
+        | s -> s)
+      MarkdownPatterns.ParagraphSpans(s, ss)
+  | p -> p
+
+let fragmentByHr pars = 
+  let groups = 
+    pars |> splitAt (function HorizontalRule _ -> true | _ -> false)
+         |> List.map (List.filter (function HorizontalRule _ -> false | _ -> true))
+  [ yield InlineHtmlBlock("<div class=\"body\">", None, None)
+    for i, group in Seq.indexed groups do
+      let cls = if i <> 0 then " class=\"fragment\"" else ""
+      yield InlineHtmlBlock($"<div{cls}>", None, None)
+      yield! group
+      yield InlineHtmlBlock("</div>", None, None)
+    yield InlineHtmlBlock("</div>", None, None) ]
+
+// --------------------------------------------------------------------------------------
+// Templates
+// --------------------------------------------------------------------------------------
 
 let iconsTemplate = function
   | Headings(hs, [ListBlock(Unordered, items, _)]) ->
@@ -101,7 +129,7 @@ let imageTemplate = function
       [ InlineHtmlBlock("<div class=\"body1\">", None, None)
         Paragraph([img], None)
         InlineHtmlBlock("</div><div class=\"body2\">", None, None)
-        yield! pars
+        yield! fragmentByHr pars
         InlineHtmlBlock("</div>", None, None) ]      
   | _ -> failwith "Image template did not start with an image"
 
@@ -117,30 +145,9 @@ let listsTemplate = function
           yield InlineHtmlBlock("</div>", None, None) ]
   | _ -> failwith "Lists template did not start with an image"
 
-let rec replaceIcons = function
-  | MarkdownPatterns.ParagraphNested(p, ps) -> 
-      MarkdownPatterns.ParagraphNested(p, List.map (List.map replaceIcons) ps)
-  | MarkdownPatterns.ParagraphSpans(s, ss) -> 
-      let ss = ss |> List.map (function
-        | Emphasis([Literal(fa, _)], _) when fa.StartsWith "fa-"->
-            Literal($"<i class='fa {fa}'></i>", None)
-        | s -> s)
-      MarkdownPatterns.ParagraphSpans(s, ss)
-  | p -> p
-
 let contentTemplate pars =
   let (Headings(hs, pars)) = pars |> List.map replaceIcons
-  let groups = 
-    pars |> splitAt (function HorizontalRule _ -> true | _ -> false)
-         |> List.map (List.filter (function HorizontalRule _ -> false | _ -> true))
-  [ yield! hs
-    yield InlineHtmlBlock("<div class=\"body\">", None, None)
-    for i, group in Seq.indexed groups do
-      let cls = if i <> 0 then " class=\"fragment\"" else ""
-      yield InlineHtmlBlock($"<div{cls}>", None, None)
-      yield! group
-      yield InlineHtmlBlock("</div>", None, None)
-    yield InlineHtmlBlock("</div>", None, None) ]
+  hs @ fragmentByHr pars
 
 let subtitleTemplate pars = 
   [ InlineHtmlBlock("<div class=\"body\">", None, None)
