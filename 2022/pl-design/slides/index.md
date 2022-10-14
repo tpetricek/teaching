@@ -22,9 +22,9 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 
 # Course lectures
 
-[**Introduction**](intro.html) - Practicals and research methods  
-[**Design**](design.html) - Design and pattern languages  
-**Usability** - Human-centric language design  
+[**Introduction** - Practicals and research methods](intro.html)  
+[**Design** - Design and pattern languages](design.html)  
+[**Usability** - Human-centric language design](usability.html)  
 **Semantics** - Formal models of programming     
 **Types** - Types and type safety proofs    
 **Beyond** - Unexpected perspectives on types    

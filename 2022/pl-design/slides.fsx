@@ -105,6 +105,13 @@ let fragmentByHr pars =
       yield InlineHtmlBlock("</div>", None, None)
     yield InlineHtmlBlock("</div>", None, None) ]
 
+let wrapCitations = List.collect (function
+  | Paragraph([Literal(t, _)], _) as p when t.StartsWith("(") && t.EndsWith(")") ->
+      [ yield InlineHtmlBlock("<div class=\"citation\">", None, None)
+        yield p 
+        yield InlineHtmlBlock("</div>", None, None) ]
+  | p -> [p])
+
 // --------------------------------------------------------------------------------------
 // Templates
 // --------------------------------------------------------------------------------------
@@ -129,7 +136,7 @@ let imageTemplate = function
       [ InlineHtmlBlock("<div class=\"body1\">", None, None)
         Paragraph([img], None)
         InlineHtmlBlock("</div><div class=\"body2\">", None, None)
-        yield! fragmentByHr pars
+        yield! fragmentByHr pars |> wrapCitations
         InlineHtmlBlock("</div>", None, None) ]      
   | _ -> failwith "Image template did not start with an image"
 

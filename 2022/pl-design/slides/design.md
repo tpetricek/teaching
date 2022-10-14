@@ -443,7 +443,7 @@ No single systematic method that would always work
 
 # A pattern language for creating pattern languages
 
-(Iba+Isaku, 2016)<br /><br />
+(Iba+Isaku, 2016)
 
 **Hints on<br /> pattern mining**
 
@@ -477,7 +477,6 @@ Structure in clusters
 # Learning from unaverage clues
 
 (Jacobs, 1961)
-<br /><br />
 
 Cannot reduce city  
 to a single statistic
@@ -520,7 +519,6 @@ to a single statistic
 # What works despite the theory
 
 (Jacobs, 1961)
-<br /><br />
 
 Elegant theories  
 that are convincing  
@@ -569,10 +567,58 @@ but do not work
 - MIDI SysEx and UNIX DWARF work!
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: smaller
 
-conceptual coherence --> worst is better
-post-modernism --> Perl / Noble
+![](img/design/manmonth.jpg)
+
+# Conceptual coherence
+
+(Brooks, 1975)
+
+A clean, elegant programming product
+must present to each of its users a coherent mental model of the
+application.
+
+**Conceptual integrity  
+is the most important factor in ease of use.**
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Post-modern programming
+
+![](img/design/perl.png)
+
+## No grand narrative
+
+I set out to deconstruct all the computer languages and recombine them.
+I lovingly reused features from many languages.
+
+## Why this works
+
+- Worse is better
+- Postmodernists prefer AND, modernists OR
+- Possible to write messy & clean programs
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Worse is better
+
+![](img/design/lisp.png)
+
+## The right thing
+
+- Common LISP, ITS system
+- No incorrectness / inconsistency
+- Completeness, then simplicity
+
+## Worse is better
+
+- UNIX and C language
+- Simple is better than correct, consistent & complete
 
 *****************************************************************************************
 - template: subtitle
@@ -581,44 +627,145 @@ post-modernism --> Perl / Noble
 ## Unexplored inspirations
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: smaller
 
-a
+![](img/design/metro.png)
 
-* What is left
-  - navigation?
-  - materials that age well?
-  - vernacular architecture?
+# Image of a city
+
+**How do we navigate around cities?**
+
+**And codebases?**
+
+-----
+
+Districts, landmarks  
+and pathways
+
+Good design supports navigability and legibility
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/design/materials.jpg)
+
+# Materials
+
+**Building materials  
+that look bad before  
+they go bad**
+
+------
+
+Software tends to  
+break abruptly without  
+any warning...
+
+Is there an alternative?
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/design/statek.jpg)
+
+# Vernacular architecture
+
+**Achieves a good fit without the continuous reinvention of forms**
+
+------
+
+Can we build software without reinventing forms? Spreadsheets? Configuration?
 
 *****************************************************************************************
 - template: subtitle
 
 # Conclusions
-## Designing programming systems
-
+## Learning from architecture
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: smaller
 
-* Conclusions
-  - as idea generation
-  - as evaluation - tricky
-  - very conceptual  
+![](img/design/interdisciplinary.png)
+
+# Architecture and design in context  
+
+**Conceptual design rather than empirical science**
+
+Powerful methodologies  
+for idea generation
+
+Appropriateness is harder to evaluate - wait and see!
+
+-----------------------------------------------------------------------------------------
+- template: title
+
+# Conclusions
+
+**Learning from architecture and design**
+
+- Methods & concepts for complex systems
+- Architecture, urban planning and design
+- Design patterns & pattern languages
+
+---
+
+**Tomáš Petříček**, 309 (3rd floor)  
+_<i class="fa fa-envelope"></i>_ [petricek@d3s.mff.cuni.cz](mailto:petricek@d3s.mff.cuni.cz)  
+_<i class="fa-solid fa-circle-right"></i>_ [https://tomasp.net](https://tomasp.net) | [@tomaspetricek](http://twitter.com/tomaspetricek)  
+_<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg075
 
 -----------------------------------------------------------------------------------------
 - template: content
 - class: condensed
 
-# References
+# References (1/3)
 
-- Parnas, D. L. (1985). Software aspects of strategic defense systems. Communications of the ACM, 28(12), 1326-1335.
-- Jacobs, J. (1961). The Death and Life of Great American Cities. Random House.
-- GoF
-- ALexander (Notes, Timeless, Pattern)
-- My blog on Alexander
-- Jollity
-- http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/TaeumelLinckeReinHirschfeld_2022_APatternLanguageOfAnExploratoryProgrammingWorkspace_AuthorsVersion.pdf
-- A Pattern Language for Pattern Writin
-- A Pattern Language for Creating Pattern Languages
-- Pattern Mining Patterns
-- Brooks, Parnas, Cathedral & Bazaar, MIDI & gpii nexus
+**Recommended**
+
+- Parnas, D. L. (1985). [Software aspects of strategic defense systems](https://dl.acm.org/doi/10.1145/214956.214961). Communications of the ACM, 28(12), 1326-1335.
+- Singer, J. (2020). [Notes on notebooks: Is Jupyter the bringer of jollity?](http://www.dcs.gla.ac.uk/~jsinger/notebooks.pdf) In Onward!
+- Taeumel, M. et al. (2022). [A Pattern Language of an Exploratory Programming Workspace](http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/TaeumelLinckeReinHirschfeld_2022_APatternLanguageOfAnExploratoryProgrammingWorkspace_AuthorsVersion.pdf). Design Thinking Research
+- Gabriel, R. (1991). [Lisp: Good News, Bad News, How to Win Big](https://www.dreamsongs.com/WIB.html)
+
+**Just for fun...**
+
+- Symbolics inc. (1983). [Introducing the sophisticated professional workstation](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4037519). IEEE
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: condensed
+
+**Design patterns**
+
+- Meszaros, G., & Doble, J. (1998). [A pattern language for pattern writing](http://xunitpatterns.com/~gerard/plopd3-pattern-writing-patterns-paper.pdf). Pattern languages of program design, 3
+- Iba, T., & Isaku, T. (2016). [A pattern language for creating pattern languages: 364 patterns for pattern mining, writing, and symbolizing](https://dl.acm.org/doi/abs/10.5555/3158161.3158175). PLoP 2016
+- Sasabe, A. et al. (2016). [Pattern mining patterns: a search for the seeds of patterns](https://hillside.net/plop/2016/papers/proceedings/papers/sasabe.pdf). Conference on Pattern Languages of Programs
+
+
+**Software classics**
+
+- Brooks Jr, F. P. (1975). [The mythical man-month](https://www.oreilly.com/library/view/mythical-man-month-the/0201835959/). Addison-Wesley
+- Raymond, E. S. (1999). [The cathedral and the bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/). O'Reilly
+- Gamma, E. et al. (1994). [Design Patterns: Elements of Reusable Object-Oriented Software](https://www.oreilly.com/library/view/design-patterns-elements/0201633612/). Addison-Wesley.
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: condensed
+
+**Architecture books**
+
+- Jacobs, J. (1961). [The Death and Life of Great American Cities](http://www.randomhousebooks.com/books/86058/). Random House.
+- Alexander, C. (1964). [Notes on the Synthesis of Form](https://www.hup.harvard.edu/catalog.php?isbn=9780674627512). Harvard.
+- Alexander, C. et al. (1977). [A Pattern Language](https://global.oup.com/academic/product/a-pattern-language-9780195019193?cc=cz&lang=en&). Oxford.
+- Alexander, C. (1979). [The Timeless Way of Building](https://global.oup.com/academic/product/the-timeless-way-of-building-9780195024029?lang=en&cc=cz). Oxford.
+- Lynch, K. (1964). [The image of the city](http://mitpress.mit.edu/9780262620017/). MIT press.
+
+**Programming design**
+
+- Wall, L. (1999). [Perl, the first postmodern computer language](https://www.perl.com/pub/1999/03/pm.html/). Online
+- Noble, J., & Biddle, R. (2004). [Notes on notes on postmodern programming](https://homepages.ecs.vuw.ac.nz/~kjx/papers/nopp.pdf). ACM SIGPLAN Notices, 39(12)
+- Petricek, T. (2022). [The Timeless Way of Programming](http://tomasp.net/blog/2022/timeless-way/). Online.
+- Clark, C., & Basman, A. (2017). [Tracing a paradigm for externalization: Avatars and the GPII Nexus](https://refuses.github.io/preprints/avatars.pdf). Salon des Refusés
