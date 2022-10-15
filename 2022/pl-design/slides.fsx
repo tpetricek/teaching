@@ -197,8 +197,15 @@ let processFile fn out =
     | ListBlock(_, items, _)::pars -> parseOptions items, pars
     | pars -> Map.empty, pars
 
-  let slidesHtml = 
+  let slides = 
     extractSlides pars
+  let stats = 
+    slides 
+    |> Seq.concat |> Seq.countBy (fun (opts, _) -> opts.["template"])
+    |> Map.ofSeq
+
+  let slidesHtml = 
+    slides
     |> List.map (List.choose (fun (opts, slide) ->
       match transformSlide (opts, slide) with 
       | Some nslide -> 
@@ -213,6 +220,7 @@ let processFile fn out =
   let templ = File.ReadAllText("slides/template.html")
   let page = templ.Replace("{{BODY}}", slidesHtml).Replace("{{TITLE}}", options.["title"])
   File.WriteAllText(out, page)
+  stats
 
 let copyStatic () =
   let rec loop root = 
@@ -226,12 +234,22 @@ let copyStatic () =
     Directory.Delete(dir.Replace("slides","output"), true)
   loop "slides"
 
-let updateSlides () = 
+let updateSlides () =   
+  let mutable stats = []
   for fn in Directory.GetFiles("slides", "*.md") do
     cprint ConsoleColor.Gray "[INFO] Processing slide: %s" fn
     let out = $"output/{Path.GetFileNameWithoutExtension(fn)}.html"
-    processFile fn out
+    let res = processFile fn out
+    stats <- stats @ [Path.GetFileNameWithoutExtension(fn), res]
   copyStatic ()
+  for sn, info in stats do
+    let info = info |> Map.toList
+    let ttls, conts = 
+      info |> Seq.filter (fun (k, _) -> k.Contains "title") |> Seq.sumBy snd,
+      info |> Seq.filter (fun (k, _) -> not (k.Contains "title")) |> Seq.sumBy snd
+    cprint ConsoleColor.Cyan "[STATS] Slide: %s (%d / %d)" sn ttls conts
+    for k, v in info do
+      cprint ConsoleColor.DarkCyan "         - %s (%d)" k v
 
 // --------------------------------------------------------------------------------------
 // 

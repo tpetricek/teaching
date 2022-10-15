@@ -194,6 +194,31 @@ Perl users were not able to program significantly more accurately than Randomo u
 - *fa-users* Study participants with similar backgrounds
 - *fa-puzzle-piece* Does not help with fundamentally new designs
 
+*****************************************************************************************
+- template: subtitle
+
+# Empirical studies
+## Software repository analysis
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Software repository analysis
+
+![](img/usability/octo.png)
+
+## Study existing codebases
+
+- Lots of projects on GitHub
+- Commit history, bug reports, etc.
+
+## What can we study?
+
+- What leads to fewer bugs?
+- How OSS contributors behave
+- How code gets duplicated and reused?
+- Code quality and code structure
+
 -----------------------------------------------------------------------------------------
 - template: image
 - class: smaller
@@ -201,6 +226,10 @@ Perl users were not able to program significantly more accurately than Randomo u
 ![](img/usability/study.png)
 
 # Does strong<br />typing matter?
+
+**Large scale corpus study**
+
+-----
 
 "[It] appear[s] that "strong typing is modestly better
 than weak typing, and among functional languages, static
@@ -217,38 +246,160 @@ typing is also somewhat better than dynamic typing.""
 
 "I believe [it does] in my heart of hearts, but it's kind of an impossible experiment to run."
 
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Repository analysis
+## How to and limitations
+
+- *fa-dumpster* Lots of code on GitHub is useless
+- *fa-images* Focus on somewhat sensible projects!
+- *fa-user-secret* Many hidden factors to account for
+- *fa-scale-balanced* Avoid comparing apples and oranges
+- *fa-play* Studying semantics and runtime is hard
+
 *****************************************************************************************
 - template: subtitle
 
-# xx
-## against
+# Usability evaluation
+## Considered harmful
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/marconi.jpg)
+
+# Cultural adoption
+
+(Greenberg et al. 2008)
+
+"Usability evaluation is appropriate for settings with well-known
+tasks and outcomes. They fail to consider how novel systems will evolve
+and be adopted by a culture over time."
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Tricky to evaluate
+
+![](img/usability/console.jpg)
+
+## Early designs
+
+- Purely explorative sketches
+- Getting the right design vs.  
+  Getting the design right
+
+## Cultural adoption
+
+- Hard to imagine future uses
+- First radio and automobiles
+- Memex, Sketchpad and oNLine System
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/sketchpad.jpg)
+
+# Evaluating user interface research
+
+(Olsen, 2007)
+
+**Lively research field in the 1970s and 1980s**
+
+Ubiquitous computing challenges the classic desktop metaphor
+
+**Increasing number  
+of non-expert programmers!**
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# User interfaces
+## New system and languages
+
+- *fa-stopwatch* Reduce time to create new solutions
+- *fa-traffic-light* Least resistance to good solutions
+- *fa-spoon* Lowering skills barrier of users
+- *fa-plug* Power in common unified infrastructure
+
+*****************************************************************************************
+- template: subtitle
+
+# Simplifying programming
+## Data exploration tools
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/nyt.png)
+
+# Programming for data journalists
+
+----
+
+Data transformations using various online data sources
+
+Too hard for Excel, too complex in Python or R
+
+**Getting it right is very time-consuming!**
+
+-----------------------------------------------------------------------------------------
+- template: subtitle
+
+# Demo
+## Data exploration in The Gamma
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/gamma.png)
+
+# Evaluating<br/> The Gamma
+
+**Can non-experts actually use it?**
+
+Is it better than spreadsheets?
+
+**What desirable  
+design characteristics does it have?**
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Case study: The Gamma
+
+![](img/usability/qr-ui.png)
+
+## Evaluating programming systems
+
+- Programming tool for journalists
+- Olsen's framework for UI systems
+- [tinyurl.com/nprg075-ui](https://people.cs.uchicago.edu/~brianhempel/Evaluating%20User%20Interface%20Systems%20Research%20-%20Graphical%20Summary.pdf)
+
+## Design questions
+
+- What possible claims can we make?
+- What evaluation errors to avoid?
 
 -----------------------------------------------------------------------------------------
 - template: content
 
-AGAINST
-  Buxton's 3 points about past examples
-  Buxton's look at other disciplines
-  Olsen
+xx
 
-EXAMPLE
-  The Gamma
-  QR: https://people.cs.uchicago.edu/~brianhempel/Evaluating%20User%20Interface%20Systems%20Research%20-%20Graphical%20Summary.pdf
+  Demo or die
+  - Varv
 
----
-
+  Sketch-n-sketch - case studies, mustard watch
+  http://girard.perso.math.cnrs.fr/mustard/page2.html
 
   Evaluating toolkits
   - Demonstrations (c.f. mother of all demos)
   - Heuristics
   - Usage (a/b, etc.)
-  - Technical characteristics
+  - Technical characteristics (SIGPLAN checklist)
 
-  Sketch-n-sketch - case studies, mustard watch
-  http://girard.perso.math.cnrs.fr/mustard/page2.html
-  Varv
-
-  Demo or die
 
 -----------------------------------------------------------------------------------------
 - template: content
@@ -262,3 +413,4 @@ x
 - steffik https://www.vidarholen.net/~vidar/An_Empirical_Investigation_into_Programming_Language_Syntax.pdf
 - study https://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf
 - boffins https://arxiv.org/pdf/1901.10220.pdf
+- harmful https://www.billbuxton.com/usabilityHarmful.pdf
