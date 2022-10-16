@@ -383,29 +383,174 @@ design characteristics does it have?**
 - What possible claims can we make?
 - What evaluation errors to avoid?
 
+*****************************************************************************************
+- template: subtitle
+
+# Methods review
+## Evaluating programming systems
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/vb4.png)
+
+# Evaluating<br/> HCI toolkits
+
+(Ledo et al., 2018)
+
+Research claims made in publications about UI toolkits, etc.
+
+**The same works for languages, libraries, tools, frameworks, ...**
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Evaluation types
+## What claims can we make?
+
+- *fa-film* **Demonstrations** - show what is possible
+- *fa-keyboard* **Usage** - study actual system use
+- *fa-chart-simple* **Performance** - evaluate how well it runs
+- *fa-thumbs-up* **Heuristics** - expert rules of thumb
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: three-column
+
+# Demonstrations
+
+### *fa-city* Showing novel example
+
+![](img/usability/aspen.jpg)
+
+Can do some-thing previously unthinkable
+
+-----
+
+### *fa-city* Replicating past example
+
+![](img/usability/nyt.png)
+
+System makes previously very hard thing easy
+
+-----
+
+### *fa-city* Conducting case studies
+
+![](img/usability/case.png)
+
+Show usability of a system in a range of situations
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/usability/aspen-car.png)
+
+# Demo or Die!
+
+**MIT Media Lab paraphrasing of  
+"publish or perish".**
+
+Aspen Movie Map  
+The 1978 precursor of Google Street View
+
+**Demo shows radically  
+new technology**
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/varv.png)
+
+# Varv programming system evaluation
+
+(Borowski et al., 2022)
+
+Makes all information visible and modifiable
+
+Affects the whole developer workflow
+
+**Case studies to illustrate the effects**
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Varv evaluation
+
+![](img/usability/varv-tools.png)
+
+## Demonstrate workflow
+
+- Two concrete usage scenarios
+- Step by step description of work
+- Using personas for concreteness
+
+## Potential of the system
+
+- Implications of the design
+- Debugging, authoring, tools
+- Notebooks, blocks, VS Code, etc.
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/gamma-study.png)
+
+# Usage evaluation of The Gamma
+
+(Petricek, 2022)
+
+**Can non-programmers really use the system?**
+
+Get non-programmers, ask them to try and watch and note!
+
+-----------------------------------------------------------------------------------------
+- template: lists
+
+# Usage evaluation
+
+![](img/usability/likert.png)
+
+## Possible setup
+
+- Complete a given task
+- Observe, log & record
+- A/B comparison of variants
+- In the lab or in the wild
+
+## Collecting feedback
+
+- Complete a questionnaire
+- Ask to comment (Think aloud)
+- Semi-structured interview afterwards
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/vs.png)
+
+# Studying usage<br />in the wild
+
+**Widely used to understand use of commercial systems**
+
+What language or editor features are used, performance, project profiles
+
 -----------------------------------------------------------------------------------------
 - template: content
 
 xx
 
-  Demo or die
-  - Varv
+- Heuristics
+- Technical characteristics (SIGPLAN checklist)
 
-  Sketch-n-sketch - case studies, mustard watch
-  http://girard.perso.math.cnrs.fr/mustard/page2.html
-
-  Evaluating toolkits
-  - Demonstrations (c.f. mother of all demos)
-  - Heuristics
-  - Usage (a/b, etc.)
-  - Technical characteristics (SIGPLAN checklist)
-
+Sketch-n-sketch - case studies, mustard watch
+http://girard.perso.math.cnrs.fr/mustard/page2.html
 
 -----------------------------------------------------------------------------------------
 - template: content
 
 x
-
 
 - https://queue.acm.org/detail.cfm?id=1071731
 - norman https://www.basicbooks.com/titles/don-norman/the-design-of-everyday-things/9780465050659/
@@ -414,3 +559,7 @@ x
 - study https://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf
 - boffins https://arxiv.org/pdf/1901.10220.pdf
 - harmful https://www.billbuxton.com/usabilityHarmful.pdf
+- hci toolkits https://stevenhouben.be/pubs/EvaluationCHI2018.pdf
+- olsen  http://byu.danrolsenjr.org/paperPDFs/EvaluatingSystems.pdf
+- varv http://vis.csail.mit.edu/pubs/varv.pdf
+- vlhcc http://tomasp.net/academic/papers/iterative/iterative.pdf

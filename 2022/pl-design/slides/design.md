@@ -700,6 +700,27 @@ for idea generation
 Appropriateness is harder to evaluate - wait and see!
 
 -----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller smallerspacing
+
+# Reading
+
+![](img/design/qr-varv.png)
+
+## No information hiding?
+
+- Varv: Reprogrammable Interactive Sofware as a Declarative Data Structure
+- Available at: http://vis.csail.mit.edu/pubs/varv.pdf
+
+## What to read and how
+
+- Declarative, extensible programming!
+- Get a sense of how it works (Section 2)
+- Look at evaluation (Section 5)
+
+<style> .smallerspacing div:first-of-type li:first-of-type { letter-spacing:-1px; } </style>
+
+-----------------------------------------------------------------------------------------
 - template: title
 
 # Conclusions
