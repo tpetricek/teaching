@@ -8,7 +8,7 @@
 			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<style type="text/css">
 
- 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@100;300;400;700&family=Titillium+Web:wght@200;300;600&display=swap');
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
 			.reveal .slides {
 				text-align:left;
 				_background:red;
@@ -55,7 +55,14 @@
 				color:#66A0FF;
 			}
 
-			code {
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
 				font:400 17pt 'Roboto Mono', monospace;
 			}
 
@@ -68,6 +75,7 @@
 
 			.lists p, .lists li { font-size:26pt; }
 			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
 			.lists h1 { margin-bottom:40px; }
 			.lists img { float:right; margin-top:20px; }
 			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
@@ -84,6 +92,7 @@
 			.content.two-column .body div { width:450px; float:left; }
 			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
 			.content.three-column img { max-width:200px; text-align:center; }
+			.content img { max-width:100%; border:3px solid black; }
 
 			.largeicons p, .largeicons li { font-size:26pt; }
 			.largeicons h2, .icons h2 { margin-bottom:0px; }
@@ -95,13 +104,14 @@
 			.title h2 { margin-top:-40px; }
 			.title .body { position:absolute; bottom:40px; width:900px; }
 			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
-			.title i { color:#303030; font-size:80%; margin:0px 2px 0px 0px; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
 
 			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
 			.image .body1 p { margin:50px 0px 0px 0px; }
 			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
 			.image h1 { font-size:32pt; margin-bottom:30px; }
 			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
 			.image.smaller .body1 { width:460px; }
 			.image.smaller .body1 img { max-width:440px; }
 			.image.noborder img { border-style:none; }
@@ -167,26 +177,38 @@
 </section><section class="image smaller"><div class="body1">
 <p><img src="img/intro/coeffects.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Types for context-aware programming</h1>
 <p><strong>Program as expression in small formal language</strong></p>
 <p>Type system determines what programs are valid</p>
 <p>Safety proof shows no unauthorized accesses</p>
 </div>
+</div>
+</div>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/jupyter.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Data science tools and languages</h1>
 <p><strong>Result is a document not a program</strong></p>
 <p><strong>Working with one concrete dataset</strong></p>
 <p>Different language and system requirements!</p>
 </div>
+</div>
+</div>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/smalltalk.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Programming systems &amp; history</h1>
 <p><strong>Interacting with a stateful environment</strong></p>
 <p>Let programmers do more in new ways...</p>
 <p><strong>It's not just a language!</strong></p>
+</div>
+</div>
 </div>
 </section><section class="lists "><h1>Bringing everything together</h1>
 <img src="img/intro/excel.png"/>
@@ -240,6 +262,8 @@ Slides on the web, but no textbook</p>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/report.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Credit / zápočet</h1>
 <p><strong>Small independent<br />
 or group project</strong></p>
@@ -248,6 +272,8 @@ or group project</strong></p>
 <p><strong>Deadlines</strong><br />
 <strong>Topic by January 8</strong><br />
 <strong>Draft by February 28</strong></p>
+</div>
+</div>
 </div>
 </section></section><section><section class="subtitle "><div class="body">
 <h1>Programming languages</h1>
@@ -292,11 +318,15 @@ or group project</strong></p>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/dragon.jpg" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Why is this <br />not enough?</h1>
 <p><strong>Talks about "what"<br />
 but not about "how"</strong></p>
 <p>Treat design as a research problem!</p>
 <p>What can we study about programming systems?</p>
+</div>
+</div>
 </div>
 </section></section><section><section class="subtitle "><div class="body">
 <h1>Design</h1>
@@ -305,9 +335,13 @@ but not about "how"</strong></p>
 </section><section class="image smaller"><div class="body1">
 <p><img src="img/intro/starck.jpg" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>What is design?</h1>
 <p>Design is the intentional <strong>solution of a problem</strong>, by the creation of plans for a <strong>new sort of thing</strong>, where the plans would not be immediately seen, by a reasonable person, as an inadequate solution.</p>
 <p>Parsons (2015)</p>
+</div>
+</div>
 </div>
 </section><section class="lists smaller"><h1>Designerly ways</h1>
 <img src="img/intro/designerly.png"/>
@@ -403,36 +437,54 @@ but not about "how"</strong></p>
 </section><section class="image smaller"><div class="body1">
 <p><img src="img/intro/interdisciplinary.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Interdisciplinary programming language research</h1>
 <p><strong>Creating designs</strong><br />
 Interviews, prototyping, formalism, analysis, history</p>
 <p><strong>Evaluating designs</strong><br />
 Qualitative and quantitative studies, formal proofs</p>
+<div class="citation">
 <p>(Coblenz et al., 2018)</p>
+</div>
+</div>
+</div>
 </div>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/tapl.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Programming language theory</h1>
 <p><strong>Prove properties about small formal models</strong></p>
 <p>"Well-typed programs do not go wrong"</p>
 <p><strong>Discover and avoid subtle mistakes!</strong></p>
 </div>
+</div>
+</div>
 </section><section class="image noborder"><div class="body1">
 <p><img src="img/intro/cuscus.png" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>Human-centric system design</h1>
 <p><strong>User studies, questionnaires, interviews, etc.</strong></p>
 <p>Qualitative analysis to design &amp; test ideas</p>
 <p>Quantitative analysis to compare designs</p>
 </div>
+</div>
+</div>
 </section><section class="image "><div class="body1">
 <p><img src="img/intro/hypercard.jpg" alt="" /></p>
 </div><div class="body2">
+<div class="body">
+<div>
 <h1>History of programming</h1>
 <p><strong>What interesting past ideas were lost?</strong></p>
 <p>And the socio-political reasons for that?</p>
 <p><strong>Use history as source for new design ideas!</strong></p>
+</div>
+</div>
 </div>
 </section></section><section><section class="subtitle "><div class="body">
 <h1>Conclusions</h1>

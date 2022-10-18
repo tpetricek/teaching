@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Learning from architecture and design | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists img { float:right; margin-top:20px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists img { float:right; max-width:350px; max-height:400px; }
+			.lists.smaller img { max-width:280px; max-height:350px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:30px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content img { max-width:100%; border:3px solid black; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Learning from architecture and design</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Design and architecture</h1>
+<h2>Solving complex problems</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/design/london.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Architecture and urban planning</h1>
+<p>Understanding and solving complex problems</p>
+<p>Organizing large number of diverse entities</p>
+<p><strong>Useful concepts and methodologies?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/multics.gif" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Software architecture</h1>
+<p><strong>How to organize systems?</strong></p>
+<p>How can we study what organization makes sense?</p>
+<p>How languages and tools shape organization?</p>
+<p>How systems grow as requirements change?</p>
+</div>
+</div>
+</div>
+</section><section class="content two-column"><h1>Urban planning</h1>
+<div class="body">
+<div>
+<h3><i class='fa fa-tree-city'></i> Jacobs on cities</h3>
+<p><strong>Problems of simplicity</strong><br />
+Fully analyzable</p>
+<p><strong>Unorganized complexity</strong><br />
+Statistically analyzable</p>
+<p><strong>Organized complexity</strong><br />
+Non-reducible</p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-rocket'></i> Parnas on software</h3>
+<p><strong>Analogy systems</strong><br />
+Continuous models</p>
+<p><strong>Repetitive digital</strong><br />
+Reduce via abstraction</p>
+<p><strong>Non-repetitive digital</strong><br />
+Non-reducible</p>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Design problems</h1>
+<img src="img/design/designerly.png"/>
+<div>
+<h2>Design problems are ill-defined</h2>
+<ul>
+<li>Full information never available</li>
+<li>Cannot be exhaustively analyzed</li>
+<li>No correct solution may exist</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Solving design problems</h2>
+<ul>
+<li>Conjectured solution reframes the problem</li>
+<li>Designers impose "primary generator"</li>
+<li>Change problem-as-given in light of solution</li>
+</ul>
+</div>
+</section><section class="content three-column"><h1>Achieving fit</h1>
+<div class="body">
+<div>
+<h3>Vernacular</h3>
+<p>Adaptation over generations</p>
+<p><img src="img/design/mudhut.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Modernist</h3>
+<p>Problem analysis and fresh design</p>
+<p><img src="img/design/seagram.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Post-modern</h3>
+<p>Prefers cleverness, humour over fit!</p>
+<p><img src="img/design/dancing.jpg" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Design patterns</h1>
+<h2>Learning from architecture</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/gof.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Design patterns</h1>
+<p>Based on Christopher Alexander's work on architecture</p>
+<p><strong>Useful but criticized</strong></p>
+<p>Missing the point of Alexander's work</p>
+<p>Workarounds for coding<br />
+in a poor language</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/paris.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Quality without name</h1>
+<p><strong>A system has it when<br />
+it is true to its inner<br />
+forces, when it is free<br />
+from contradictions</strong></p>
+<p>Each "living" pattern resolves a system of forces. When all forces<br />
+are resolved, the quality appears.</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Why is it hard?</h1>
+<img src="img/design/timeless.jpg"/>
+<div>
+<h2>Vernacular method</h2>
+<ul>
+<li>Shared language lost from community</li>
+<li>Complexity of problems has grown</li>
+<li>Community cannot build a skyscraper</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Modernist method</h2>
+<ul>
+<li>Cannot perfectly analyze problem</li>
+<li>Always misses some important detail</li>
+<li>Keeps reinventing imperfect forms</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Quality</h1>
+<h2>How is this about programming?</h2>
+<ul>
+<li><i class='fa fa-keyboard'></i> Think about programmer thinking and coding</li>
+<li><i class='fa fa-computer-mouse'></i> Programming systems, not languages</li>
+<li><i class='fa fa-arrows-to-circle'></i> Need to resolve complex systems of forces</li>
+<li><i class='fa fa-list-check'></i> Patterns to capture approaches that work</li>
+</ul>
+</section><section class="lists smaller"><h1>Achieving fit</h1>
+<img src="img/design/rooms.jpg"/>
+<div>
+<h2>Design pattern</h2>
+<ul>
+<li>Context, problem, forces, solution</li>
+<li>Resolves interconnected forces</li>
+<li>Works as a solution template</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Pattern language</h2>
+<ul>
+<li>Ordered sequence of patterns</li>
+<li>Can be followed step-by-step</li>
+<li>Ideally shared and agreed on</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/publicness.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Degrees of publicness</h1>
+<p><strong>Context:</strong> Where people want to live is different</p>
+<p><strong>Forces:</strong> Some want to live where the action is, some in more isolation</p>
+<p><strong>Problem:</strong> How to organize a cluster of homes?</p>
+<p><strong>Solution:</strong> Distinguish private homes, public homes and in-between</p>
+</div>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Notebook systems</h1>
+<h2>Designing a complex system</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/design/jupyter.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Notebook systems</h1>
+<p><strong>Literate programming environment - code, outputs, comments</strong></p>
+<p>Used for exploration, scientific tasks, data science, learning</p>
+<p><strong>How to design exploration environment?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Using F# in a notebook system</h2>
+</div>
+</section><section class="lists smaller"><h1>Case study: Notebooks</h1>
+<img src="img/design/qr-ft.png"/>
+<div>
+<h2>Notebooks for data science</h2>
+<ul>
+<li>Use by FT journalists for article</li>
+<li>Start with "Eurostat exports data"</li>
+<li><a href="https://github.com/ft-interactive/recycling-is-broken-notebooks">tinyurl.com/nprg075-ft</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Design questions</h2>
+<ul>
+<li>What are the specific forces?</li>
+<li>How are they reflected in the notebooks?</li>
+<li>Which are poorly resolved?</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Pattern languages</h1>
+<h2>Designing exploration tools</h2>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/design/exploratory.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Exploratory programming workspaces</h1>
+<p>Environment that lets you figure something out interactively..</p>
+<p>Data science, but also general programming</p>
+<p><strong>Are there common patterns of working?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Taeumel et al. (2022)</h1>
+<img src="img/design/patlan.png"/>
+<div>
+<h2>A Pattern Language of an Explora-<br/>tory Programming Workspace</h2>
+<ul>
+<li>Patterns in exploratory tools</li>
+<li>Smalltalk, notebooks, UNIX</li>
+<li>System design and ways of using</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Conversation in context</h2>
+<ul>
+<li>Seven patterns covering three aspects</li>
+<li>Questions, context, responses</li>
+<li>Capture needs, forces, structure, trade-offs, etc.</li>
+</ul>
+</div>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/design/env.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Programmer, environment, interaction context</h1>
+<blockquote>
+<p>"It is all about you working on a project in
+an environment while continually switching
+between different interaction contexts"</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Conversation in context</h1>
+<h2>Forces resolved by the pattern</h2>
+<ul>
+<li><i class='fa fa-circle-question'></i> Want to ask question about something</li>
+<li><i class='fa fa-map'></i> Finding the right place to ask</li>
+<li><i class='fa fa-language'></i> Finding the right words to use</li>
+<li><i class='fa fa-atom'></i> Understanding complex technical answer</li>
+</ul>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/design/qa.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Conversation<br />in context</h1>
+<p><strong>Solution structure</strong></p>
+<p>Iterative question and answer interaction with persistent context</p>
+<p>Support for revising questions asking follow-up questions</p>
+</div>
+</div>
+</div>
+</section><section class="lists "><h1>Further patterns</h1>
+<img src="img/design/elaborate.png"/>
+<div>
+<h2>Elaborate inquiry</h2>
+<ul>
+<li>Difficult to ask complex questions</li>
+<li>Use stepwise composition</li>
+<li>Refer to previous answers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Proxy transport</h2>
+<ul>
+<li>Need to access external information</li>
+<li>May be big or use an odd format</li>
+<li>Embed into local context with lazy loading</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Further patterns</h1>
+<h2>Context, forces, solution</h2>
+<ul>
+<li><i class='fa fa-folder-open'></i> <strong>Coach your environment</strong> by adding information</li>
+<li><i class='fa fa-diagram-project'></i> <strong>Concepts in shards</strong> need to be linked</li>
+<li><i class='fa fa-bullseye'></i> <strong>Simple response</strong> to be found iteratively</li>
+<li><i class='fa fa-search'></i> <strong>Pause and explore</strong> to better understand</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Pattern languages</h1>
+<h2>Designing pattern languages</h2>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/design/meta.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Where patterns come from?</h1>
+</div>
+<div class="fragment">
+<p><strong>Pattern languages<br />
+for creating<br />
+pattern languages</strong></p>
+</div>
+<div class="fragment">
+<p>No single systematic method that would always work</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Pattern writing</h1>
+<h2>Where patterns come from</h2>
+<ul>
+<li><i class='fa fa-igloo'></i> Shared and evolved in a community</li>
+<li><i class='fa fa-computer'></i> Repeated solutions in past software systems</li>
+<li><i class='fa fa-user-ninja'></i> Personal experience with a problem</li>
+<li><i class='fa fa-cloud'></i> Focused group collaboration (origins of wiki!)</li>
+</ul>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/design/writing.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>A pattern language for pattern writing</h1>
+<div class="citation">
+<p>(Meszaros+Doble, '97)</p>
+</div>
+<p><strong>How to structure, write and present patterns &amp; pattern languages</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/design/patterns.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>A pattern language for creating pattern languages</h1>
+<div class="citation">
+<p>(Iba+Isaku, 2016)</p>
+</div>
+<p><strong>Hints on<br /> pattern mining</strong></p>
+<p>Collect experiences
+Map and find overlaps
+Structure in clusters</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Practical tips</h1>
+<h2>How to write a pattern language</h2>
+<ul>
+<li><i class='fa fa-arrows-to-circle'></i> Patterns are about resolving forces</li>
+<li><i class='fa fa-table'></i> Patterns should have fixed format</li>
+<li><i class='fa fa-file'></i> Context, forces, structure, related patterns</li>
+<li><i class='fa fa-user-gear'></i> System structure or human interaction with it</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Concepts and methods</h1>
+<h2>Learning from architecture</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/design/northend.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Learning from unaverage clues</h1>
+<div class="citation">
+<p>(Jacobs, 1961)</p>
+</div>
+<p>Cannot reduce city<br />
+to a single statistic</p>
+<p><strong>Look for informative singleton clues!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Commodore 64 BASIC</h2>
+</div>
+</section><section class="lists smaller tenprint"><h1>10 PRINT CHR$(205.5+RND(1)); : GOTO 10</h1>
+<img src="img/design/10print.jpg"/>
+<div>
+<style> .tenprint h1 { font-size:38pt; letter-spacing:-1px; } </style>
+</div>
+<div class="fragment">
+<h2>Technical aspects</h2>
+<ul>
+<li>Edit &amp; run in one terminal</li>
+<li>Line numbers for navigation</li>
+<li>Simple with <code>POKE</code> for hackers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Social aspects</h2>
+<ul>
+<li>Path from a user to a programmer</li>
+<li>Commodore 64 boots into BASIC!</li>
+<li>Learn by copying from magazines</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/design/radieuse.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What works despite the theory</h1>
+<div class="citation">
+<p>(Jacobs, 1961)</p>
+</div>
+<p>Elegant theories<br />
+that are convincing<br />
+but do not work</p>
+<p><strong>Document what actually works<br />in practice instead!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Information hiding</h1>
+<img src="img/design/ada.gif"/>
+<div>
+<h2>Good software engineering</h2>
+<ul>
+<li>Divide systems into modules</li>
+<li>Hide implementation details</li>
+<li>Expose only what is needed</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why should this work?</h2>
+<ul>
+<li>Basic principle of OOP!</li>
+<li>Can freely change internals</li>
+<li>Modules developed independently</li>
+</ul>
+</div>
+</section><section class="lists "><h1>Information hiding</h1>
+<img src="img/design/ibm360.jpg"/>
+<div>
+<h2>Brief history</h2>
+<ul>
+<li>Decomposing systems (1972)</li>
+<li>IBM OS/360 development (1975)</li>
+<li>Brooks' reflections (1995)</li>
+<li>Cathedral and the bazaar (1999)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Critique and alternatives</h2>
+<ul>
+<li>Design is hard to anticipate</li>
+<li>Cumbersome &amp; inefficient uses</li>
+<li>MIDI SysEx and UNIX DWARF work!</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/manmonth.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Conceptual coherence</h1>
+<div class="citation">
+<p>(Brooks, 1975)</p>
+</div>
+<p>A clean, elegant programming product
+must present to each of its users a coherent mental model of the
+application.</p>
+<p><strong>Conceptual integrity<br />
+is the most important factor in ease of use.</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Post-modern programming</h1>
+<img src="img/design/perl.png"/>
+<div>
+<h2>No grand narrative</h2>
+<p>I set out to deconstruct all the computer languages and recombine them.
+I lovingly reused features from many languages.</p>
+</div>
+<div class="fragment">
+<h2>Why this works</h2>
+<ul>
+<li>Worse is better</li>
+<li>Postmodernists prefer AND, modernists OR</li>
+<li>Possible to write messy &amp; clean programs</li>
+</ul>
+</div>
+</section><section class="lists "><h1>Worse is better</h1>
+<img src="img/design/lisp.png"/>
+<div>
+<h2>The right thing</h2>
+<ul>
+<li>Common LISP, ITS system</li>
+<li>No incorrectness / inconsistency</li>
+<li>Completeness, then simplicity</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Worse is better</h2>
+<ul>
+<li>UNIX and C language</li>
+<li>Simple is better than correct, consistent &amp; complete</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Concepts and methods</h1>
+<h2>Unexplored inspirations</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/metro.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Image of a city</h1>
+<p><strong>How do we navigate around cities?</strong></p>
+<p><strong>And codebases?</strong></p>
+</div>
+<div class="fragment">
+<p>Districts, landmarks<br />
+and pathways</p>
+<p>Good design supports navigability and legibility</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/materials.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Materials</h1>
+<p><strong>Building materials<br />
+that look bad before<br />
+they go bad</strong></p>
+</div>
+<div class="fragment">
+<p>Software tends to<br />
+break abruptly without<br />
+any warning...</p>
+<p>Is there an alternative?</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/design/statek.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Vernacular architecture</h1>
+<p><strong>Achieves a good fit without the continuous reinvention of forms</strong></p>
+</div>
+<div class="fragment">
+<p>Can we build software without reinventing forms? Spreadsheets? Configuration?</p>
+</div>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Learning from architecture</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Architecture and design in context</h1>
+<p><strong>Conceptual design rather than empirical science</strong></p>
+<p>Powerful methodologies<br />
+for idea generation</p>
+<p>Appropriateness is harder to evaluate - wait and see!</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller smallerspacing"><h1>Reading</h1>
+<img src="img/design/qr-varv.png"/>
+<div>
+<h2>No information hiding?</h2>
+<ul>
+<li>Varv: Reprogrammable Interactive Sofware as a Declarative Data Structure</li>
+<li>Available at: <a href="http://vis.csail.mit.edu/pubs/varv.pdf">http://vis.csail.mit.edu/pubs/varv.pdf</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What to read and how</h2>
+<ul>
+<li>Declarative, extensible programming!</li>
+<li>Get a sense of how it works (Section 2)</li>
+<li>Look at evaluation (Section 5)</li>
+</ul>
+<style> .smallerspacing div:first-of-type li:first-of-type { letter-spacing:-1px; } </style>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Learning from architecture and design</strong></p>
+<ul>
+<li>Methods &amp; concepts for complex systems</li>
+<li>Architecture, urban planning and design</li>
+<li>Design patterns &amp; pattern languages</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/3)</h1>
+<div class="body">
+<div>
+<p><strong>Recommended</strong></p>
+<ul>
+<li>Parnas, D. L. (1985). <a href="https://dl.acm.org/doi/10.1145/214956.214961">Software aspects of strategic defense systems</a>. Communications of the ACM, 28(12), 1326-1335.</li>
+<li>Singer, J. (2020). <a href="http://www.dcs.gla.ac.uk/~jsinger/notebooks.pdf">Notes on notebooks: Is Jupyter the bringer of jollity?</a> In Onward!</li>
+<li>Taeumel, M. et al. (2022). <a href="http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/TaeumelLinckeReinHirschfeld_2022_APatternLanguageOfAnExploratoryProgrammingWorkspace_AuthorsVersion.pdf">A Pattern Language of an Exploratory Programming Workspace</a>. Design Thinking Research</li>
+<li>Gabriel, R. (1991). <a href="https://www.dreamsongs.com/WIB.html">Lisp: Good News, Bad News, How to Win Big</a></li>
+</ul>
+<p><strong>Just for fun...</strong></p>
+<ul>
+<li>Symbolics inc. (1983). <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4037519">Introducing the sophisticated professional workstation</a>. IEEE</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><div class="body">
+<div>
+<p><strong>Design patterns</strong></p>
+<ul>
+<li>Meszaros, G., &amp; Doble, J. (1998). <a href="http://xunitpatterns.com/~gerard/plopd3-pattern-writing-patterns-paper.pdf">A pattern language for pattern writing</a>. Pattern languages of program design, 3</li>
+<li>Iba, T., &amp; Isaku, T. (2016). <a href="https://dl.acm.org/doi/abs/10.5555/3158161.3158175">A pattern language for creating pattern languages: 364 patterns for pattern mining, writing, and symbolizing</a>. PLoP 2016</li>
+<li>Sasabe, A. et al. (2016). <a href="https://hillside.net/plop/2016/papers/proceedings/papers/sasabe.pdf">Pattern mining patterns: a search for the seeds of patterns</a>. Conference on Pattern Languages of Programs</li>
+</ul>
+<p><strong>Software classics</strong></p>
+<ul>
+<li>Brooks Jr, F. P. (1975). <a href="https://www.oreilly.com/library/view/mythical-man-month-the/0201835959/">The mythical man-month</a>. Addison-Wesley</li>
+<li>Raymond, E. S. (1999). <a href="http://www.catb.org/~esr/writings/cathedral-bazaar/">The cathedral and the bazaar</a>. O'Reilly</li>
+<li>Gamma, E. et al. (1994). <a href="https://www.oreilly.com/library/view/design-patterns-elements/0201633612/">Design Patterns: Elements of Reusable Object-Oriented Software</a>. Addison-Wesley.</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><div class="body">
+<div>
+<p><strong>Architecture books</strong></p>
+<ul>
+<li>Jacobs, J. (1961). <a href="http://www.randomhousebooks.com/books/86058/">The Death and Life of Great American Cities</a>. Random House.</li>
+<li>Alexander, C. (1964). <a href="https://www.hup.harvard.edu/catalog.php?isbn=9780674627512">Notes on the Synthesis of Form</a>. Harvard.</li>
+<li>Alexander, C. et al. (1977). <a href="https://global.oup.com/academic/product/a-pattern-language-9780195019193?cc=cz&amp;lang=en&amp;">A Pattern Language</a>. Oxford.</li>
+<li>Alexander, C. (1979). <a href="https://global.oup.com/academic/product/the-timeless-way-of-building-9780195024029?lang=en&amp;cc=cz">The Timeless Way of Building</a>. Oxford.</li>
+<li>Lynch, K. (1964). <a href="http://mitpress.mit.edu/9780262620017/">The image of the city</a>. MIT press.</li>
+</ul>
+<p><strong>Programming design</strong></p>
+<ul>
+<li>Wall, L. (1999). <a href="https://www.perl.com/pub/1999/03/pm.html/">Perl, the first postmodern computer language</a>. Online</li>
+<li>Noble, J., &amp; Biddle, R. (2004). <a href="https://homepages.ecs.vuw.ac.nz/~kjx/papers/nopp.pdf">Notes on notes on postmodern programming</a>. ACM SIGPLAN Notices, 39(12)</li>
+<li>Petricek, T. (2022). <a href="http://tomasp.net/blog/2022/timeless-way/">The Timeless Way of Programming</a>. Online.</li>
+<li>Clark, C., &amp; Basman, A. (2017). <a href="https://refuses.github.io/preprints/avatars.pdf">Tracing a paradigm for externalization: Avatars and the GPII Nexus</a>. Salon des Refusés</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight ],
+				hash:true,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
