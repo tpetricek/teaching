@@ -1,4 +1,4 @@
-- title: Programming language design (NPRG075)
+- title: Human-centric language design | Programming language design (NPRG075)
 
 *****************************************************************************************
 - template: title
@@ -25,17 +25,20 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 
 -----------------------------------------------------------------------------------------
 - template: image
+- class: smaller
 
-![](img/usability/knobs.png)
+![](img/usability/norman.jpg)
 
-# Human factors
+# HCI perspective
 
-**Equipment interaction incidents by trained users in World War II**
+**Are programming languages user interfaces?**
 
-Design equipment  
-to minimize potential for problems
+--------
 
-Lab testing and experimental psychology
+The means by which the user and a computer system interact (...)
+
+**Shifts focus on users  
+and interaction**
 
 -----------------------------------------------------------------------------------------
 - template: image
@@ -54,20 +57,17 @@ Move from solving problems to building new interfaces
 
 -----------------------------------------------------------------------------------------
 - template: image
-- class: smaller
 
-![](img/usability/norman.jpg)
+![](img/usability/knobs.png)
 
-# HCI perspective
+# Human factors
 
-**Are programming languages user interfaces?**
+**Equipment interaction incidents by trained users in World War II**
 
---------
+Design equipment  
+to minimize potential for problems
 
-The means by which the user and a computer system interact (...)
-
-**Shifts focus on users  
-and interaction**
+Lab testing and experimental psychology
 
 -----------------------------------------------------------------------------------------
 - template: icons
@@ -142,7 +142,7 @@ as possible?**
 
 -----------------------------------------------------------------------------------------
 - template: content
-- class: randomo
+- class: randomo noborder
 
 # Case study: Perl vs. Randomo
 
@@ -352,6 +352,7 @@ Too hard for Excel, too complex in Python or R
 
 -----------------------------------------------------------------------------------------
 - template: image
+- class: noborder
 
 ![](img/usability/gamma.png)
 
@@ -506,6 +507,20 @@ Affects the whole developer workflow
 Get non-programmers, ask them to try and watch and note!
 
 -----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/gamma-results.png)
+
+# The Gamma evaluation
+
+**13 participants from business team of a research institute**
+
+Asked to complete  
+1 of 4 different tasks
+
+Evaluated using activity logging, observation and interview
+
+-----------------------------------------------------------------------------------------
 - template: lists
 
 # Usage evaluation
@@ -537,29 +552,158 @@ Get non-programmers, ask them to try and watch and note!
 What language or editor features are used, performance, project profiles
 
 -----------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: noborder smaller
 
-xx
+![](img/usability/stove.jpg)
 
-- Heuristics
-- Technical characteristics (SIGPLAN checklist)
+# Heuristics
 
-Sketch-n-sketch - case studies, mustard watch
-http://girard.perso.math.cnrs.fr/mustard/page2.html
+**Rules of thumb for evaluating designs  
+written by experts**
+
+Evaluation without direct human involvement!
+
+Example: Match between system and the real world
+
+**Olsen's criteria for user interface systems**
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Heuristics
+
+![](img/usability/scratch.png)
+
+## Nielsen's usability heuristics
+
+- Characteristics of a good interface
+- General usability guidelines
+- Consistency, visibility of state, ...
+
+## Cognitive dimensions of notation
+
+- Heuristics for assessing notations
+- Broad-brush understandable evaluation
+- Viscosity, visibility, abstraction, ...
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/drawing.png)
+
+# Technical performance
+
+**Baseline or improves over state of the art**
+
+Efficiency, lines of code
+
+Not about usability, but an easy thing to show
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/usability/checklist.png)
+
+# Technical performance
+
+**Getting it right**
+
+Claims, comparison, benchmarks, metrices, setup, presentation
+
+See SIGPLAN Empirical Evaluation Checklist
+
+*****************************************************************************************
+- template: subtitle
+
+# Conclusions
+## Usability and evaluation
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/usability/interdisciplinary.png)
+
+# Usability evaluation
+
+**Evaluating and comparing with existing systems**
+
+Evaluating usability can inspire new designs
+
+The danger is designing with focus just on  
+effective evaluability
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Reading
+
+![](img/usability/qr-rx.png)
+
+## Reactive programming
+
+- Introduction to RxJS concepts
+- Available at: https://www.learnrxjs.io/learn-rxjs/concepts/rxjs-primer
+
+## Why read this
+
+- Widely used practical library!
+- But what exactly is going on?
+- Does it always behave "intuitively"?
+
+-----------------------------------------------------------------------------------------
+- template: title
+
+# Conclusions
+
+**Human-centric language design**
+
+- Evaluation methods from the HCI field
+- Controlled experiments, empirical studies
+- Demos, usage, heuristics & performance
+
+---
+
+**Tomáš Petříček**, 309 (3rd floor)  
+_<i class="fa fa-envelope"></i>_ [petricek@d3s.mff.cuni.cz](mailto:petricek@d3s.mff.cuni.cz)  
+_<i class="fa-solid fa-circle-right"></i>_ [https://tomasp.net](https://tomasp.net) | [@tomaspetricek](http://twitter.com/tomaspetricek)  
+_<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg075
 
 -----------------------------------------------------------------------------------------
 - template: content
+- class: condensed
 
-x
+# References (1/2)
 
-- https://queue.acm.org/detail.cfm?id=1071731
-- norman https://www.basicbooks.com/titles/don-norman/the-design-of-everyday-things/9780465050659/
-- hacking https://www.cambridge.org/en/academic/subjects/philosophy/philosophy-science/representing-and-intervening-introductory-topics-philosophy-natural-science
-- steffik https://www.vidarholen.net/~vidar/An_Empirical_Investigation_into_Programming_Language_Syntax.pdf
-- study https://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf
-- boffins https://arxiv.org/pdf/1901.10220.pdf
-- harmful https://www.billbuxton.com/usabilityHarmful.pdf
-- hci toolkits https://stevenhouben.be/pubs/EvaluationCHI2018.pdf
-- olsen  http://byu.danrolsenjr.org/paperPDFs/EvaluatingSystems.pdf
-- varv http://vis.csail.mit.edu/pubs/varv.pdf
-- vlhcc http://tomasp.net/academic/papers/iterative/iterative.pdf
+**Methodology**
+
+- Greenberg, S. and Buxton, B. (2008) [Usability Evaluation Considered Harmful (Some of the Time)](https://www.billbuxton.com/usabilityHarmful.pdf), CHI
+- Ledo et al. (2018). [Evaluation Strategies for HCI Toolkit Research](https://stevenhouben.be/pubs/EvaluationCHI2018.pdf)
+- Olsen (2007). [Evaluating User Interface Systems Research](http://byu.danrolsenjr.org/paperPDFs/EvaluatingSystems.pdf). UIST
+- Arnold, K. (2005). [Programmers are People, Too](https://queue.acm.org/detail.cfm?id=1071731), ACM Queue
+
+**Heuristics**
+
+- Nielsen, J. (1994). [10 Usability Heuristics for User Interface Design](https://www.nngroup.com/articles/ten-usability-heuristics/). Norman-Nielsen Group
+- Blackwell, A., Green, T. (2002). [Notational Systems – the Cognitive Dimensions of Notations framework](https://www.cl.cam.ac.uk/~afb21/publications/CarrollChapter.pdf). (Chapter)
+- Berger, E. et al. (2022). [SIGPLAN Empirical Evaluation Checklist](https://raw.githubusercontent.com/SIGPLAN/empirical-evaluation/master/checklist/checklist.pdf). ACM SIGPLAN
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: condensed
+
+**Examples**
+
+- Steffik, A. et al. (2013). [An Empirical Investigation into Programming Language Syntax](https://www.vidarholen.net/~vidar/An_Empirical_Investigation_into_Programming_Language_Syntax.pdf). ACM
+- Ray, B. et al. (2014) [A Large Scale Study of Programming Languages and Code Quality in Github](https://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf), FSE
+- Berger, E. et al. (2019) [On the Impact of Programming Languages on Code Quality](https://arxiv.org/pdf/1901.10220.pdf), ACM
+- Borowski, M. et al. (2022). [Varv: Reprogrammable Interactive Sofware as a Declarative Data Structure](http://vis.csail.mit.edu/pubs/varv.pdf). CHI
+- Petricek, T. (2022). [The Gamma: Programmatic Data Exploration for Non-programmers](http://tomasp.net/academic/papers/iterative/iterative.pdf). VL/HCC
+
+**Books**
+
+- Norman, D. (1988). [The Design of Everyday Things](https://www.basicbooks.com/titles/don-norman/the-design-of-everyday-things/9780465050659/), Basic Books
+- Hacking, I. (1983). [Representing and Intervening](https://www.cambridge.org/en/academic/subjects/philosophy/philosophy-science/representing-and-intervening-introductory-topics-philosophy-natural-science), Cambridge

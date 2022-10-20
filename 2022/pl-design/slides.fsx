@@ -131,10 +131,11 @@ let iconsTemplate = function
       hs @ [ListBlock(Unordered, items, None)]
   | _ -> failwith "Unexpected slide structure in icons template"
 
-let imageTemplate = function
-  | Paragraph([DirectImage _ as img], _)::pars ->
+let imageOrCodeTemplate = function
+  | (CodeBlock _ as par)::pars 
+  | (Paragraph([DirectImage _], _) as par)::pars ->
       [ InlineHtmlBlock("<div class=\"body1\">", None, None)
-        Paragraph([img], None)
+        par
         InlineHtmlBlock("</div><div class=\"body2\">", None, None)
         yield! fragmentByHr pars |> wrapCitations
         InlineHtmlBlock("</div>", None, None) ]      
@@ -176,7 +177,8 @@ let templates =
     "icons", iconsTemplate >> Some
     "largeicons", iconsTemplate >> Some
     "lists", listsTemplate >> Some
-    "image", imageTemplate >> Some
+    "image", imageOrCodeTemplate >> Some
+    "code", imageOrCodeTemplate >> Some
     "content", contentTemplate >> Some
     "default", Some
     "notes", fun _ -> None ]
