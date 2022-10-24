@@ -420,7 +420,7 @@ Research claims made in publications about UI toolkits, etc.
 
 # Demonstrations
 
-### *fa-city* Showing novel example
+### *fa-city* Showing a novel example
 
 ![](img/usability/aspen.jpg)
 
@@ -428,7 +428,7 @@ Can do some-thing previously unthinkable
 
 -----
 
-### *fa-city* Replicating past example
+### *fa-city* Replicating past examples
 
 ![](img/usability/nyt.png)
 
@@ -436,7 +436,7 @@ System makes previously very hard thing easy
 
 -----
 
-### *fa-city* Conducting case studies
+### *fa-city* Presenting case studies
 
 ![](img/usability/case.png)
 
@@ -456,7 +456,7 @@ Show usability of a system in a range of situations
 Aspen Movie Map  
 The 1978 precursor of Google Street View
 
-**Demo shows radically  
+**Demo of a radically  
 new technology**
 
 -----------------------------------------------------------------------------------------
@@ -572,7 +572,7 @@ Example: Match between system and the real world
 - template: lists
 - class: smaller
 
-# Heuristics
+# Heuristic evaluation
 
 ![](img/usability/scratch.png)
 

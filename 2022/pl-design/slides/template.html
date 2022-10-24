@@ -78,10 +78,9 @@
 			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
 			.lists p { margin:10px 0px 40px 0px; }
 			.lists h1 { margin-bottom:40px; }
-			.lists img { float:right; margin-top:20px; }
 			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
-			.lists img { float:right; max-width:350px; max-height:400px; }
-			.lists.smaller img { max-width:280px; max-height:350px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
 			.lists.border img { border:3px solid black; }
 			.lists.smaller2x img { max-width:200px; max-height:200px; }
 
@@ -165,6 +164,7 @@
 			Reveal.initialize({
 				plugins: [ RevealHighlight, RevealMath.KaTeX ],
 				hash:true,
+				pdfSeparateFragments: false,
 				transition:"none",
 				controls:false
 			});
