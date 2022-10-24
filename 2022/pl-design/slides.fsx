@@ -249,7 +249,7 @@ let updateSlides () =
     let ttls, conts = 
       info |> Seq.filter (fun (k, _) -> k.Contains "title") |> Seq.sumBy snd,
       info |> Seq.filter (fun (k, _) -> not (k.Contains "title")) |> Seq.sumBy snd
-    cprint ConsoleColor.Cyan "[STATS] Slide: %s (%d / %d)" sn ttls conts
+    cprint ConsoleColor.Cyan "[STATS] Slide: %s (%d + %d)" sn ttls conts
     for k, v in info do
       cprint ConsoleColor.DarkCyan "         - %s (%d)" k v
 

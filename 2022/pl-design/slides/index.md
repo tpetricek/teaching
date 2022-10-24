@@ -26,7 +26,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Design** - Learning from architecture and design](design.html)  
 [**Usability** - Human-centric language design](usability.html)  
 [**Semantics** - Formal models of programming](semantics.html)     
-**Types** - Types and type safety proofs    
+[**Types** - Mathematics and engineering of types](types.html)   
 **Beyond** - Unexpected perspectives on types    
 **Paradigms** - History and programming systems    
 **Complementary** - Learning from past systems    
