@@ -72,15 +72,17 @@
 
 			i { width:56px; text-align:left; }
 
+			.math { font-size:20pt; }
 
 			.lists p, .lists li { font-size:26pt; }
 			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
 			.lists p { margin:10px 0px 40px 0px; }
 			.lists h1 { margin-bottom:40px; }
-			.lists img { float:right; margin-top:20px; }
 			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
-			.lists img { float:right; max-width:350px; max-height:400px; }
-			.lists.smaller img { max-width:280px; max-height:350px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
 
 			.content h1 { margin-bottom:40px; }
 			.content h2 { margin-top:-40px; }
@@ -92,7 +94,8 @@
 			.content.two-column .body div { width:450px; float:left; }
 			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
 			.content.three-column img { max-width:200px; text-align:center; }
-			.content img { max-width:100%; border:3px solid black; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
 
 			.largeicons p, .largeicons li { font-size:26pt; }
 			.largeicons h2, .icons h2 { margin-bottom:0px; }
@@ -116,6 +119,12 @@
 			.image.smaller .body1 img { max-width:440px; }
 			.image.noborder img { border-style:none; }
 
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
 			section.subtitle { height:auto; }
 			.subtitle.motto h1 { text-align:center; }
 			.subtitle.motto em { font-weight:200; font-style:normal; }
@@ -126,6 +135,10 @@
 				bottom:0px;
 				width:220px;
 			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
 
 			.overview .mfflogo { display:none; }
 
@@ -559,10 +572,12 @@ Qualitative and quantitative studies, formal proofs</p>
 		<script src="reveal/reveal.js"></script>
 		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
 		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
 		<script language="javascript" type="text/javascript">
 			Reveal.initialize({
-				plugins: [ RevealHighlight ],
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
 				hash:true,
+				pdfSeparateFragments: false,
 				transition:"none",
 				controls:false
 			});
