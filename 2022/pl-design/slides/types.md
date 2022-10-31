@@ -413,7 +413,7 @@ Mathematicians care for safety, engineering evaluation harder to do
 ## Type providers
 
 - Design of types for real-world data
-- See: http://tomasp.net/academic/papers/inforich/inforich-ddfp.pdf
+- See: [tomasp.net/academic/papers/ inforich/inforich-ddfp.pdf](http://tomasp.net/academic/papers/inforich/inforich-ddfp.pdf)
 
 ## Why read this
 
