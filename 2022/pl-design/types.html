@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mathematics and engineering of types | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:30px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Mathematics and engineering of types</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>History</h1>
+<h2>Where types come from?</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/types/russell.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Bertrand Russell</h1>
+<p><strong>Use types (1900s) to resolve logical paradoxes</strong></p>
+<p><span class="math">\(p(x)\)</span> true if and only if <span class="math">\(\neg x(x)\)</span>
+But <span class="math">\(p(p)\)</span> if and only if <span class="math">\(\neg p(p)\)</span></p>
+</div>
+<div class="fragment">
+<p>Predicate <span class="math">\(p\)</span> can be only applied to entities of
+lower type hence <span class="math">\(p(p)\)</span> is invalid</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/types/fortran.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>IBM 704 FORTRAN</h1>
+<p>"Two types of variable are also permissible: fixed point and<br />
+floating point."</p>
+</div>
+<div class="fragment">
+<p><strong>Called "modes" in more formal description!</strong></p>
+<p>Function arguments and results are in one of two modes.</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/types/comtran.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>COMTRAN, FLOW-MATIC and COBOL</h1>
+<p>Languages for business data processing</p>
+<p><strong>Built around working with data records</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists border"><h1>Algol language family</h1>
+<img src="img/types/algol.jpg"/>
+<div>
+<h2>IAL 58 and Algol 60</h2>
+<ul>
+<li>Adopts term "type" before publication</li>
+<li>Used just for primitive numeric types</li>
+<li>No explicit reference to Russell &amp; logic</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Algol 68, Pascal</h2>
+<ul>
+<li>Attempts to make business-friendly language</li>
+<li>Add support for records and more</li>
+<li>Mathematical model of "types as sets"</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/types/liskov.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Abstract data types</h1>
+<p>Clu and Ada in the 1970s</p>
+<p><strong>Type that can be used only through defined operations</strong></p>
+<p>Basis for abstraction, information hiding<br />
+and object-oriented programming</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>LCF / ML</h1>
+<h2>Unifying ideas on types</h2>
+<ul>
+<li><i class='fa fa-square-check'></i> Meta-language for a theorem prover</li>
+<li><i class='fa fa-puzzle-piece'></i> Abstract data types to represent theorems</li>
+<li><i class='fa fa-not-equal'></i> Type checking using methods of logic</li>
+<li><i class='fa fa-table-list'></i> Records and unions for convenience</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Types</h1>
+<h2>Viewed by different cultures</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/types/bruegel.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>History is messy!</h1>
+<p>Not just adopting<br />
+logic ideas into programming</p>
+<p>Are we even talking about the same thing?</p>
+<p><strong>Think cultures of programming!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="content two-column"><h1>Cultures and types</h1>
+<div class="body">
+<div>
+<h3><i class='fa fa-microchip'></i> Hacker</h3>
+<p><strong>Types used for checking<br />
+how memory is used</strong></p>
+<p>Fixed and floating point,<br />
+but also data structures</p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-divide'></i> Mathematical</h3>
+<p><strong>Types used for proving program properties</strong></p>
+<p>Simply typed lambda calculus and safety proofs</p>
+</div>
+</div>
+</section><section class="content two-column"><h1>Cultures and types</h1>
+<div class="body">
+<div>
+<h3><i class='fa fa-archway'></i> Engineering</h3>
+<p><strong>Types to support good engineering practices</strong></p>
+<p>Information hiding, editor tooling and documentation</p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-user-tie'></i> Management</h3>
+<p><strong>Types as a mechanism<br />
+for team structuring</strong></p>
+<p>Division of labor, control programmer access rights</p>
+</div>
+</div>
+</section><section class="largeicons "><h1>Cultural analysis</h1>
+<ul>
+<li>
+<i class='fa fa-shuttle-space'></i> <strong>Abstract data types in Ada and Clu</strong><br />
+<i class="placeholder"></i>Mix of engineering and managerial approaches
+</li>
+<li>
+<i class='fa fa-js fa-brands'></i> <strong>Adding types to JS in TypeScript</strong><br />
+<i class="placeholder"></i>Engineering approach, using mathematical ideas
+</li>
+<li>
+<i class='fa fa-magnet'></i> <strong>Type checking in ML, OCaml</strong><br />
+<i class="placeholder"></i>Mathematical approach, using engineering ideas
+</li>
+<li>
+<i class='fa fa-rust fa-brands'></i> <strong>Types and ownership in Rust</strong><br />
+<i class="placeholder"></i>Mix of hacker and mathematical approaches
+</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Type systems</h1>
+<h2>Mathematical look at types</h2>
+</div>
+</section><section class="icons "><h1>Type systems</h1>
+<h2>Mathematical look at types</h2>
+<ul>
+<li><i class='fa fa-square-check'></i> Types as a checking mechanism</li>
+<li><i class='fa fa-bolt-lightning'></i> Rule out invalid programs</li>
+<li><i class='fa fa-divide'></i> Defined using a formal system</li>
+<li><i class='fa fa-arrow-right-arrow-left'></i> Use induction to prove properties</li>
+</ul>
+</section><section class="content "><h1>Defining a type system</h1>
+<div class="body">
+<div>
+<p><img src="img/types/ty1.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Typed lambda calculus</h1>
+<div class="body">
+<div>
+<p><img src="img/types/ty2.png" alt="" /></p>
+</div>
+</div>
+</section><section class="icons "><h1>Type systems</h1>
+<h2>Properties we may want</h2>
+<ul>
+<li><i class='fa fa-shield-halved'></i> Does it actually prevent bad behaviour?</li>
+<li><i class='fa fa-spell-check'></i> Can we check if a program has a given type?</li>
+<li><i class='fa fa-hand-sparkles'></i> Can we automatically infer a type?</li>
+<li><i class='fa fa-trophy'></i> Does the system assign just one type?</li>
+</ul>
+</section><section class="content "><h1>Properties, more formally</h1>
+<div class="body">
+<div>
+<p><img src="img/types/pp1.png" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Proofs</h1>
+<h2>Type safety</h2>
+</div>
+</section><section class="lists smaller border"><h1>Type safety</h1>
+<img src="img/types/tapl.jpg"/>
+<div>
+<h2>What does it mean</h2>
+<ul>
+<li><span class="math">\(5 + (\lambda x.x)\)</span> cannot be reduced!</li>
+<li>Stuck when no evaluation rule applies</li>
+<li>Well-typed programs do not get stuck</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Progress + preservation</h2>
+<ul>
+<li>Safety = progress + preservation</li>
+<li>Reduction preserves the type</li>
+<li>Well-typed expression is value or can be reduced</li>
+</ul>
+</div>
+</section><section class="content "><h1>Type safety, formally</h1>
+<div class="body">
+<div>
+<p><img src="img/types/pp2.png" alt="" /></p>
+</div>
+</div>
+</section><section class="lists border"><h1>Proofs about types</h1>
+<img src="img/types/cases.png"/>
+<div>
+<h2>What to expect</h2>
+<ul>
+<li>Almost always by induction</li>
+<li>Easy with the right property</li>
+<li>Lots of uninspiring cases</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Proofs by induction</h2>
+<ul>
+<li>Over the (tree) syntax of the expression</li>
+<li>Over the (tree) typing derivation</li>
+<li>Over the (linear) sequence of reductions</li>
+</ul>
+</div>
+</section><section class="content "><h1>Progress proof sketch</h1>
+<div class="body">
+<div>
+<p><img src="img/types/pp3.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Preservation proof sketch</h1>
+<div class="body">
+<div>
+<p><img src="img/types/pp4.png" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Fancy types</h1>
+<h2>Interesting type systems</h2>
+</div>
+</section><section class="icons "><h1>Fancy types</h1>
+<h2>Interesting type systems</h2>
+<ul>
+<li><i class='fa fa-handshake-slash'></i> Non-null, ownership &amp; borrowing</li>
+<li><i class='fa fa-envelopes-bulk'></i> Effects, coeffects and communication</li>
+<li><i class='fa fa-table-cells'></i> Specific types for web, data, etc.</li>
+<li><i class='fa fa-gears'></i> Arbitrary computations in types!</li>
+</ul>
+</section><section class="lists smaller"><h1>Case study: TypeScript</h1>
+<img src="img/types/qr-lt.png"/>
+<div>
+<h2>Literal string types</h2>
+<ul>
+<li>Concrete values can be types too!</li>
+<li>Useful paired with union types</li>
+<li><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#literal-types">tinyurl.com/nprg075-lt</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Design questions</h2>
+<ul>
+<li>What was the motivation this?</li>
+<li>Is there another "better" approach?</li>
+<li>What are the benefits and drawbacks?</li>
+</ul>
+</div>
+</section><section class="lists border"><h1>Billion dollar mistake</h1>
+<img src="img/types/hoare.jpg"/>
+<div>
+<h2>Tony Hoare invents null</h2>
+<p>I call it my billion-dollar mistake. It was<br />
+the invention of the null reference in 1965.<br />
+I couldn't resist the temptation to put it in
+because it was so easy to implement.</p>
+</div>
+<div class="fragment">
+<h2>Fixing null with types?</h2>
+<ul>
+<li>Separate types that can be <code>null</code></li>
+<li>Allow <code>obj.foo()</code> on non-null types!</li>
+<li>Null checks need special logic</li>
+</ul>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Flow analysis in TypeScript</h2>
+</div>
+</section><section class="content "><h1>Sketch for non-null types</h1>
+<div class="body">
+<div>
+<p><img src="img/types/ft.png" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Mathematics &amp; engineering of types</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Designing types</h1>
+<p><strong>Good language design case study!</strong></p>
+<p>Design inspired by logic, engineering concerns, existing real-world code</p>
+<p>Mathematicians care for safety, engineering evaluation harder to do</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/usability/qr-rx.png"/>
+<div>
+<h2>Type providers</h2>
+<ul>
+<li>Design of types for real-world data</li>
+<li>See: <a href="http://tomasp.net/academic/papers/inforich/inforich-ddfp.pdf">tomasp.net/academic/papers/ inforich/inforich-ddfp.pdf</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why read this</h2>
+<ul>
+<li>Motivations beyond type safety</li>
+<li>Mechanism in F# and The Gamma</li>
+<li>Why don't all typed languages have this!?</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Mathematics &amp; engineering of types</strong></p>
+<ul>
+<li>History of types is interesting &amp; messy</li>
+<li>Different cultures think differently</li>
+<li>Type safety is basic formal PLT method!</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Theory and proofs</strong></p>
+<ul>
+<li>Krishnaswami, N. (2021). <a href="https://www.cl.cam.ac.uk/teaching/2021/Semantics/notes.pdf">Semantics of Programming Languages</a></li>
+<li>Pierce, B. (2002). <a href="https://mitpress.mit.edu/9780262162098/types-and-programming-languages/">Types and Programming Languages </a>. MIT</li>
+</ul>
+<p><strong>Fancy types</strong></p>
+<ul>
+<li>Pierce, B (ed.) (2004). <a href="https://www.cis.upenn.edu/~bcpierce/attapl/">Advanced Topics in Types and Programming Languages </a>. MIT</li>
+<li>Honda, K. (2008). <a href="https://dl.acm.org/doi/pdf/10.1145/1328438.1328472">Multiparty Asynchronous Session Types</a>. POPL</li>
+<li>TypeScript (2022). <a href="https://www.typescriptlang.org/docs/handbook/intro.html">The TypeScript Handbook</a>. Online</li>
+<li>Clarke, D. G. et al. (1998). <a href="https://www.cs.cornell.edu/courses/cs711/2005fa/papers/cpn-oopsla98.pdf">Ownership types for flexible alias protection</a>. OOPSLA</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/2)</h1>
+<div class="body">
+<div>
+<p><strong>History</strong></p>
+<ul>
+<li>Martini, S. (2016). <a href="https://arxiv.org/pdf/1510.03726.pdf">Several Types of Types in Programming Languages</a>. HaPoC</li>
+<li>Kell, S. (2014). <a href="https://www.humprog.org/~stephen/research/papers/kell14in-author-version.pdf">In Search of Types</a>. Onward!</li>
+<li>Russell, B. (1903). <a href="https://people.umass.edu/klement/pom/">The Principles of Mathematics</a>. Cambridge</li>
+<li>
+Hoare, C.A.R. (2009). <a href="https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/">Null References: The Billion Dollar<br />
+Mistake</a>. InfoQ
+</li>
+</ul>
+<p><strong>Just for fun...</strong></p>
+<ul>
+<li>
+Tresnormale. <a href="https://tresnormale.com/collections/philosophers/products/bertrand-russell">Bertrand Russell: You want to be a philosopher?<br />
+You do not even smoke!</a>
+</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>

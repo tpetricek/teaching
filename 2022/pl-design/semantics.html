@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Formal models of programming | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:30px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Formal models of programming</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>History</h1>
+<h2>Programming as mathematics</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/semantics/eniac.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Programming in the late 1940s</h1>
+<p><strong>ENIAC programmed by plugging wires and flipping switches</strong></p>
+<p>"The ENIAC was a son-of-a-bitch to program" - Jean (Jennings) Bartik</p>
+</div>
+</div>
+</div>
+</section><section class="lists mathscicomp smaller border"><h1>Mathematical science of computation</h1>
+<img src="img/semantics/mccarthy.jpg"/>
+<div>
+<h2>John McCarthy (1962)</h2>
+<p>In a mathematical science, it is possible to deduce from the
+basic assumptions, the important properties of the entities treated by the
+science.</p>
+</div>
+<div class="fragment">
+<h2>What we want to answer</h2>
+<ul>
+<li>Does transformation preserve meaning?</li>
+<li>Does translation procedure correctly translate?</li>
+<li>Do two programs compute the same function?</li>
+</ul>
+<style> .mathscicomp h1 { letter-spacing:-2px; } </style>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/semantics/micro.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Microalgol (1964)</h1>
+<p><strong>Syntax and semantics of trivial Algol subset</strong></p>
+<p><span class="math">\(micro(\pi,\xi)\)</span> gives the final state of a program <span class="math">\(\pi\)</span> run in a state <span class="math">\(\xi\)</span></p>
+<p>"Description of the state of an Algol computation
+will clarify (..) compiler design"</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Formal models</h1>
+<h2>What are they good for?</h2>
+<ul>
+<li><i class='fa fa-wave-square'></i> Make sense of tricky language features</li>
+<li><i class='fa fa-code'></i> Prove properties of specific programs</li>
+<li><i class='fa fa-arrow-down-a-z'></i> Prove properties of the language</li>
+<li><i class='fa fa-bugs'></i> Make sure type system actually prevents bugs!</li>
+</ul>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/semantics/definition.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>The definition of Standard ML (1990s)</h1>
+<p><strong>Operational semantics<br />
+and type system for a complete language</strong></p>
+<p>Even language this simple had murky parts!</p>
+</div>
+</div>
+</div>
+</section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">
+// Function: 'a -&gt; 'a list
+let callLogger =
+  // List: 'a list
+  let mutable log = []
+  fun x -&gt;
+    log &lt;- x :: log
+    log
+
+// Can we call this with:
+callLogger 10
+callLogger "hi"
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Generalization and value restriction</h1>
+<p>ML makes top-level definitions polymorphic</p>
+</div>
+<div class="fragment">
+<p><strong>Allowing that for values is unsound!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Soundness</h1>
+<img src="img/semantics/qr-java.png"/>
+<div>
+<h2>Surely, we know better?</h2>
+<ul>
+<li>Are such problems in programming languages used today?</li>
+<li><a href="https://io.livecode.ch/learn/namin/unsound">tinyurl.com/nprg075-unsound</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Unexpected interactions!</h2>
+<ul>
+<li>Many Java extensions formalized</li>
+<li>Formalizations with soundness proofs!</li>
+<li>This is interaction between multiple features...</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Semantics</h1>
+<h2>Formal language definitions</h2>
+</div>
+</section><section class="largeicons "><h1>Language semantics types</h1>
+<ul>
+<li>
+<i class='fa fa-list-check'></i> <strong>Axiomatic semantics</strong><br />
+<i class="placeholder"></i>Define rules satisfied by individual commands
+</li>
+<li>
+<i class='fa fa-shapes'></i> <strong>Denotational semantics</strong><br />
+<i class="placeholder"></i>Assign mathematical entity to each program
+</li>
+<li>
+<i class='fa fa-arrow-down'></i> <strong>Big-step operational semantics</strong><br />
+<i class="placeholder"></i>Describe how terms reduce to values
+</li>
+<li>
+<i class='fa fa-arrow-right'></i> <strong>Small-step operational semantics</strong><br />
+<i class="placeholder"></i>Evaluation as gradual rewriting of terms
+</li>
+</ul>
+</section><section class="content "><h1>Language semantics types</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/sem1.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Language semantics types</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/sem2.png" alt="" /></p>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/semantics/tapl.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Why small-step?</h1>
+<p><strong>Easier to write than axiomatic or denotational</strong></p>
+<p>But harder to use for program equivalence</p>
+<p><strong>Good textbook and popular in PL research community</strong></p>
+<p>Works for programs that do not terminate</p>
+</div>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Semantics</h1>
+<h2>Definition of an ML subset</h2>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Functions and numbers in F#</h2>
+</div>
+</section><section class="content "><h1>Expressions and evaluation</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml1.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Evaluation rules</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml2.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Functions and numbers</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml3.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Functions and currying</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml4.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Simplifying the rules</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml5.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Conditionals and stuck state</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml6.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Adding references</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ml7.png" alt="" /></p>
+</div>
+</div>
+</section><section class="lists smaller"><h1>What did we learn?</h1>
+<img src="img/semantics/lambda.png"/>
+<div>
+<h2>Interesting aspects</h2>
+<ul>
+<li>Evaluation order of sub-expressions</li>
+<li>Laziness of conditional expressions</li>
+<li>What needs to be in the state</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Interesting things left out</h2>
+<ul>
+<li>Data structures: records, unions, lists</li>
+<li>Language features: recursion, exceptions</li>
+<li>Hard things: Concurrency, input and output</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>ReactiveX</h1>
+<h2>Programming with observables</h2>
+</div>
+</section><section class="lists smaller2x"><h1>Functional reactive programming</h1>
+<img src="img/semantics/rxjs.png"/>
+<div>
+<h2>Classic functional style</h2>
+<ul>
+<li>Functional reactive animations (1990s)</li>
+<li>Composing <em>behaviours</em> and <em>events</em></li>
+<li>Revised in the Elm programming style</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Observables and events</h2>
+<ul>
+<li>Events that occur and produce values</li>
+<li>Mouse moves, server notifications, user inputs, ...</li>
+<li>Transformed using a range of <em>operators</em></li>
+</ul>
+</div>
+</section><section class="lists smaller2x"><h1>Functional reactive programming</h1>
+<img src="img/semantics/conal.gif"/>
+<div>
+<h2>Reactive animations (Elliott, 1997)</h2>
+<pre><code class="language-haskell">followMouseAndDelay u =
+ follow `over` later 1 follow
+  where
+   follow = move (mouseMotion u) jake
+</code></pre>
+</div>
+<div class="fragment">
+<h2>How does it work</h2>
+<ul>
+<li><code>mouseMotion</code> represents current mouse position</li>
+<li><code>later</code> delays time by X seconds</li>
+<li><code>over</code> overlays multiple animations</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/semantics/latest.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Reactive eXtensions</h1>
+<p>Events represented by <code>Observable&lt;T&gt;</code></p>
+<p>Produces values when something happen</p>
+<p>Operators turn one or more observables into a new one</p>
+</div>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Programming with RxJS</h2>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Semantics</h1>
+<h2>Formalizing observables</h2>
+</div>
+</section><section class="content "><h1>Minimal language with events</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev1.png" alt="" /></p>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Lists and sequencing in F#</h2>
+</div>
+</section><section class="content "><h1>Modelling concurrency</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev2.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Triggering events</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev3.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Lists, sequencing and steps</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev4.png" alt="" /></p>
+</div>
+</div>
+</section><section class="content "><h1>Rules for event handlers</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev5.png" alt="" /></p>
+</div>
+</div>
+</section><section class="lists smaller border"><h1>Events calculus</h1>
+<img src="img/semantics/pi.png"/>
+<div>
+<h2>Focus on what matters</h2>
+<ul>
+<li>Lists, numbers and events only</li>
+<li>No functions or recursion!</li>
+<li>Probably still Turing-complete</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What did we learn</h2>
+<ul>
+<li>Sequence of concurrent expressions</li>
+<li>Selection of expression to be run</li>
+<li>Scheduling when event is triggered</li>
+</ul>
+</div>
+</section><section class="content "><h1>Alternative rules</h1>
+<div class="body">
+<div>
+<p><img src="img/semantics/ev6.png" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Formal models</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/semantics/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Formal models</h1>
+<p><strong>Useful design guide and for making formal claims</strong></p>
+<p>Explains core ideas of a system in a succinct way</p>
+<p>The danger is producing languages that look<br />
+well on paper!</p>
+</div>
+</div>
+</div>
+</section><section class="largeicons "><h1>Language semantics types</h1>
+<ul>
+<li>
+<i class='fa fa-not-equal'></i> <strong>Lambda calculus</strong><br />
+<i class="placeholder"></i>Logic (1930s) but used for PL semantics (1960s+)
+</li>
+<li>
+<i class='fa fa-diagram-project'></i> <strong>Pi calculus, CCS and CSP</strong><br />
+<i class="placeholder"></i>Models of concurrent systems (1980s-90s)
+</li>
+<li>
+<i class='fa fa-network-wired'></i> <strong>Join calculus</strong><br />
+<i class="placeholder"></i>Distributed asynchronous programming (1990s)
+</li>
+<li>
+<i class='fa fa-lock-open'></i> <strong>Programming language theory</strong><br />
+<i class="placeholder"></i>Memory regions, effects and coeffects, locks, etc.
+</li>
+</ul>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/semantics/qr-null.png"/>
+<div>
+<h2>Null safety in Dart</h2>
+<ul>
+<li>Avoiding <code>null</code> dereferencing with types</li>
+<li>Available at: <a href="https://dart.dev/null-safety/understanding-null-safety">https://dart.dev/null-safety/understanding-null-safety</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why read this</h2>
+<ul>
+<li>Simple useful type system feature!</li>
+<li>Good discussion on soundness</li>
+<li>More languages have this: Swift, Rust, C#, TypeScript</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Formal models of programming</strong></p>
+<ul>
+<li>Programming language theory, Part I</li>
+<li>Evaluation over syntactic structures</li>
+<li>Better for small and stateless systems</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Semantics</strong></p>
+<ul>
+<li>Krishnaswami, N. (2021). <a href="https://www.cl.cam.ac.uk/teaching/2021/Semantics/notes.pdf">Semantics of Programming Languages</a></li>
+<li>Pierce, B. (2002). <a href="https://mitpress.mit.edu/9780262162098/types-and-programming-languages/">Types and Programming Languages </a>. MIT</li>
+<li>Pierce, B (ed.) (2004). <a href="https://www.cis.upenn.edu/~bcpierce/attapl/">Advanced Topics in Types and Programming Languages </a>. MIT</li>
+</ul>
+<p><strong>History</strong></p>
+<ul>
+<li>Chruch, A. (1941). <a href="https://archive.org/details/AnnalsOfMathematicalStudies6ChurchAlonzoTheCalculiOfLambdaConversionPrincetonUniversityPress1941">The Calculi Of Lambda Conversion</a>. Princeton</li>
+<li>McCarthy, J. (1964). <a href="https://apps.dtic.mil/sti/pdfs/AD0785050.pdf">A Formal Description of a Subset of ALGOL</a></li>
+<li>McCarthy, J. (1963). <a href="http://jmc.stanford.edu/articles/towards/towards.pdf">Towards a Mathematical Science of Computation</a></li>
+<li>Milner, R. et al. (1997). <a href="https://direct.mit.edu/books/book/2094/The-Definition-of-Standard-ML">The Definition of Standard ML</a>. MIT</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/2)</h1>
+<div class="body">
+<div>
+<p><strong>Reactive</strong></p>
+<ul>
+<li>Elliott, C. (1998). <a href="http://conal.net/fran/tutorial.htm">Composing Reactive Animations </a>. MSR</li>
+<li><a href="https://www.learnrxjs.io/learn-rxjs/concepts/rxjs-primer">RxJS Primer - Learn RxJS</a>. Online</li>
+<li>Wan, Z., Hudak, P. (2000). <a href="https://dl.acm.org/doi/pdf/10.1145/349299.349331">Functional reactive programming from first principles</a>, PLDI</li>
+</ul>
+<p><strong>Calculi</strong></p>
+<ul>
+<li>Landing, P. J. (1966). <a href="https://www.cs.cmu.edu/~crary/819-f09/Landin66.pdf">The Next 700 Programming Languages</a>. ACM</li>
+<li>Milner, R. (1986). <a href="http://www.lfcs.inf.ed.ac.uk/reports/86/ECS-LFCS-86-7/ECS-LFCS-86-7.pdf">A Calculus of Communicating Systems</a>. LFCS</li>
+<li>Hoare, C.A.R. (1978). <a href="https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf">Communicating Sequential Processes</a>. ACM</li>
+<li>Milner, R. (1999). <a href="https://archive.org/details/communicatingmob00robi">Communicating and mobile systems: The Pi calculus</a>. Cambridge</li>
+<li>Fournet, C., Gonthier, G. (1996). <a href="https://www.classes.cs.uchicago.edu/archive/2007/spring/32102-1/papers/p372-fournet.pdf">The reflexive CHAM and the join-calculus</a>. POPL</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
