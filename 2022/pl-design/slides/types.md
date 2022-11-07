@@ -408,7 +408,7 @@ Mathematicians care for safety, engineering evaluation harder to do
 
 # Reading
 
-![](img/usability/qr-rx.png)
+![](img/types/qr-tp.png)
 
 ## Type providers
 

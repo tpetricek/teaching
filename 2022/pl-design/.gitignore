@@ -4,3 +4,4 @@ paket-files/
 .paket/load
 .paket/*.targets
 demos/semantics/node_modules
+demos/flow/node_modules
