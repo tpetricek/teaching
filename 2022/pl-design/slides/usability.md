@@ -420,7 +420,7 @@ Research claims made in publications about UI toolkits, etc.
 
 # Demonstrations
 
-### *fa-city* Showing a novel example
+### *fa-street-view* Showing a novel example
 
 ![](img/usability/aspen.jpg)
 
@@ -428,7 +428,7 @@ Can do some-thing previously unthinkable
 
 -----
 
-### *fa-city* Replicating past examples
+### *fa-chart-area* Replicating past examples
 
 ![](img/usability/nyt.png)
 
@@ -436,7 +436,7 @@ System makes previously very hard thing easy
 
 -----
 
-### *fa-city* Presenting case studies
+### *fa-folder-tree* Presenting case studies
 
 ![](img/usability/case.png)
 

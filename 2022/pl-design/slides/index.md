@@ -28,6 +28,6 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Semantics** - Formal models of programming](semantics.html)     
 [**Types** - Mathematics and engineering of types](types.html)   
 **Beyond** - Unexpected perspectives on types    
-**Paradigms** - History and programming systems    
+[**Paradigms** - History and philosophy of programming](philosophy.html)    
 **Complementary** - Learning from past systems    
 **Cognition** - How humans think about programming  
