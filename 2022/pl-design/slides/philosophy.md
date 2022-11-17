@@ -405,19 +405,177 @@ Monad as a "sequencing" intuition
 ## What shapes programming?
 
 -----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/philosophy/mit.png)
+
+# Social history<br /> of computing
+
+**How commercial  
+interests or gender bias shape computing**
+
+Redefinition of programming as more masculine software engineering in the 1960s
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: noborder
+
+# Structured programming
+
+![](img/philosophy/goto.png)
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: border
+
+# Goto considered harmful (1968)
+
+![](img/philosophy/dijkstra.png)
+
+The quality of programmers is a decreasing function of the density  
+of go to statements in the programs they produce.
+
+## Problems with goto
+
+- Hard to reason about informally
+- Hard to reason about formally
+- Code structure does not match runtime behaviour
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: border
+
+# Structured programming
+
+![](img/philosophy/structured.png)
+
+## Not obvious at the time!
+
+- Everyone used to assembly!
+- Can the compiler optimize code?
+- Is it possible to avoid gotos?
+
+## Structured Programming Theorem (1966)
+
+Us converts waved this interesting bit of news under the noses of the
+unreconstructed assembly-language programmers who kept trotting forth
+twisty bits of logic and saying, 'I betcha can’t structure this.'
+
+-----------------------------------------------------------------------------------------
+- template: image
+
+![](img/philosophy/datamation.png)
+
+# Datamation (1973)
+
+**What is structured programming and how to do it in practice**
+
+From engineering concept to managerial concept
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Chief programmer teams
+## Top-down management technique
+
+- *fa-people-group* Structured programming for organizing people
+- *fa-person-chalkboard* Chief-programmer leading & dividing code
+- *fa-sitemap* Supported by programmers, secretary, backup
+- *fa-comments* Hostile exchanges between Dijkstra and Mills
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: noborder smaller
+
+![](img/philosophy/conway.jpg)
+
+# Conway's law
+
+Any organization that designs a system will produce a
+design whose structure is a copy of the organization's communication structure.
+
+-----------------------------------------------------------------------------------------
+- template: icons
+
+# Social forces
+## Programming language design
+
+- *fa-link* Language features linked to social structures
+- *fa-diagram-project* Organizational structure and escape hatches
+- *fa-server* Structured, microservices, information hiding
+- *fa-tape* Origins of languages - COBOL, Fortran, Algol
+
+*****************************************************************************************
+- template: subtitle
+
+# Conclusions
+## History and philosophy
+
+-----------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/philosophy/interdisciplinary.png)
+
+# History and philosophy
+
+**Learning from the past**
+
+Complex reasons why & how programming ideas work and do not work
+
+-----------------------------------------------------------------------------------------
+- template: lists
+- class: smaller
+
+# Reading
+
+![](img/philosophy/qr-10.png)
+
+## 10 PRINT CHR$(205.5+RND(1));<br />20 GOTO 10
+
+- 15: REM Variations in Basic
+- https://10print.org (look for the PDF)
+
+## Why should you read this?
+
+- Fun look at an unexpected bit of programming history
+- What can we learn from the past?
+
+-----------------------------------------------------------------------------------------
+- template: title
+
+# Conclusions
+
+**History and philosophy of programming**
+
+- Scientific paradigms and paradigm shifts
+- The history of programming concepts
+- How social forces shape programming
+
+---
+
+**Tomáš Petříček**, 309 (3rd floor)  
+_<i class="fa fa-envelope"></i>_ [petricek@d3s.mff.cuni.cz](mailto:petricek@d3s.mff.cuni.cz)  
+_<i class="fa-solid fa-circle-right"></i>_ [https://tomasp.net](https://tomasp.net) | [@tomaspetricek](http://twitter.com/tomaspetricek)  
+_<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg075
+
+-----------------------------------------------------------------------------------------
+- template: content
+- class: condensed
+
+# References
+
+-----------------------------------------------------------------------------------------
 - template: content
 
 Turing machine - liesbeth
 
 mathematization of CS, agenda -> Algol
 professionalization
-structured programming
 
 Nature of programming
 DeMillo & Fetzer
-
-*****************************************************************************************
-- template: content
 
 READ: Socio-PLT
 
@@ -425,3 +583,7 @@ https://www.ifis.uni-luebeck.de/~moeller/symbolics-info/index.html
 
 https://www.si.edu/media/NMAH/NMAH-AC1498_Transcript_StephenRussell.pdf
 ?
+
+
+
+https://archive.org/details/bitsavers_datamation_34111538
