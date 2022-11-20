@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Unexpected perspectives on types | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Unexpected perspectives on types</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Beyond types</h1>
+<h2>Recent developments</h2>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/beyond/diagram1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Convergences<br/>and divergences</h1>
+<p>ML brings together data types, abstract types and checking</p>
+<p><strong>End of the history?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/beyond/diagram2.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Convergences<br/>and divergences</h1>
+<p>ML brings together data types, abstract types and checking</p>
+<p><strong>End of the history?</strong></p>
+<p>Developments in new directions in engineering and mathematics!</p>
+</div>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Types</h1>
+<h2>Mathematical connections</h2>
+</div>
+</section><section class="icons "><h1>Types</h1>
+<h2>Mathematical connections</h2>
+<ul>
+<li><i class='fa fa-plus-minus'></i> Type constructors as algebraic operations</li>
+<li><i class='fa fa-arrow-right'></i> Proofs in propositional &amp; predicate logic</li>
+<li><i class='fa fa-diamond'></i> Linear logic and modal logics</li>
+<li><i class='fa fa-arrow-right-arrow-left'></i> Types and cartesian closed categories</li>
+</ul>
+</section><section class="content two-column"><h1>Example</h1>
+<div class="body">
+<div>
+<p>Are these two type<br />
+definitions equivalent?</p>
+<pre><code class="language-fsharp">type Contact =
+  | Email of string
+  | Phone of digits
+  | Both of string * digits
+
+type Customer =
+  { Name : string
+    Contact : Contact }
+</code></pre>
+</div>
+<div class="fragment">
+<p>Can one represent some<br />
+values the other cannot?</p>
+<pre><code class="language-fsharp">type Option&lt;'T&gt; =
+  | Some of 'T
+  | None
+
+type Customer =
+  { Name : string
+    Phone : Option&lt;digits&gt;
+    Email : Option&lt;string&gt; }
+</code></pre>
+</div>
+</div>
+</section><section class="lists "><h1>Calculating with types</h1>
+<img src="img/beyond/algebra.jpg"/>
+<div>
+<h2>Type constructor algebra</h2>
+<ul>
+<li>Record behaves as <span class="math">\(A * B\)</span> or <span class="math">\(A \times B\)</span></li>
+<li>Unions behave as <span class="math">\(A + B\)</span> or <span class="math">\(A \cup B\)</span></li>
+<li>Functions <code>A-&gt;B</code> behave as <span class="math">\(B^A\)</span></li>
+<li>Unit type is <span class="math">\(1\)</span> and void (never) is <span class="math">\(0\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Usual algebraic laws work!</h2>
+<ul>
+<li><span class="math">\(A*(B+C) = A*B + A*C\)</span></li>
+<li><span class="math">\(A * 1 = A\)</span> and <span class="math">\(A * 0 = 0\)</span></li>
+</ul>
+</div>
+</section><section class="content "><h1>Calculating with types</h1>
+<div class="body">
+<div>
+<p><span class="math">\(Contact = (Phone * Email) + Email + Phone\)</span><br />
+<span class="math">\(Customer1\)</span><br />
+<span class="math">\(\quad =Name * Contact\)</span><br />
+<span class="math">\(\quad {\color{green}=Name * ((Phone * Email) + Email + Phone)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math">\(Customer2\)</span><br />
+<span class="math">\(\quad = Name * (Phone+1) * (Email+1)\)</span><br />
+<span class="math">\(\quad = Name * ((Phone+1) * Email + (Phone+1) * 1)\)</span><br />
+<span class="math">\(\quad = {\color{blue}Name * ((Phone * Email) + Email + Phone }{\color{red}\;+\;1})\)</span></p>
+</div>
+</div>
+</section><section class="lists smaller"><h1>What else works?</h1>
+<img src="img/beyond/qr-diff.png"/>
+<div>
+<h2>Binary trees</h2>
+<ul>
+<li>Derivative of a binary tree?</li>
+<li><span class="math">\(btree = leaf + btree * btree\)</span></li>
+<li>Treat <span class="math">\(btree\)</span> as the variable</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Derivatives</h2>
+<ul>
+<li>Rules in case you forgot: <a href="http://tinyurl.com/nprg075-diff">tinyurl.com/nprg075-diff</a></li>
+</ul>
+</div>
+</section><section class="lists smaller border"><h1>Derivatives and inverses</h1>
+<img src="img/beyond/btree.png"/>
+<div>
+<h2>Derivative of a binary tree</h2>
+<ul>
+<li><span class="math">\(btree = leaf + (btree^2)\)</span></li>
+<li><span class="math">\(btree' = 2*btree\)</span></li>
+<li>Steps for iterating over containers</li>
+<li>Recursively <span class="math">\(2*(2*(2*\ldots))\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Can define the inverse!</h2>
+<ul>
+<li>Works only in linear logic</li>
+<li><span class="math">\(A^{-1} = A \multimap 1\)</span>, i.e. a function that consumes a value</li>
+<li><span class="math">\((A^{-1} \times A) \multimap 1\)</span>, i.e. one direction of equality</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Types</h1>
+<h2>Curry-Howard isomorphism</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/beyond/turk.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Miraculous link?</h1>
+<p>Types in programming are propositions in logic!</p>
+<p>Programs are proofs!</p>
+</div>
+<div class="fragment">
+<p><strong>Not that surprising..</strong></p>
+<p>Hard work to make it fit</p>
+<p>Same origins in foundations of mathematics</p>
+</div>
+</div>
+</div>
+</section><section class="content "><h1>Curry-Hoard isomorphism</h1>
+<div class="body">
+<div>
+<h3>Types as propositions</h3>
+<p>Function <span class="math">\(A\rightarrow B\)</span> corresponds to implication</p>
+<p>Product <span class="math">\(A\times B\)</span> corresponds to conjunction <span class="math">\(A \wedge B\)</span></p>
+<p>Union <span class="math">\(A + B\)</span> corresponds to disjunction <span class="math">\(A \vee B\)</span></p>
+</div>
+<div class="fragment">
+<h3>Proofs are programs</h3>
+<p>A well-typed program of type <span class="math">\(A\)</span> is a proof of <span class="math">\(A\)</span></p>
+<p>Write program to show that a property holds!</p>
+</div>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/beyond/alf.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Theorem provers</h1>
+<p><strong>Alf, Coq, Agda &amp; more</strong></p>
+<p>Construct proofs by interactively creating programs</p>
+<p>Show resulting program (Agda) or list of interactions (Coq)</p>
+<p><strong>Programs can run too</strong></p>
+</div>
+</div>
+</div>
+</section><section class="content "><h1>Programs as proofs</h1>
+<div class="body">
+<div>
+<h3>Function composition</h3>
+<p>Proposition: <span class="math">\(((A \rightarrow B) \wedge (B \rightarrow C)) \rightarrow (A \rightarrow C)\)</span></p>
+</div>
+<div class="fragment">
+<p>Program as proof: <span class="math">\(\lambda (f, g). \lambda a.g (f a)\)</span></p>
+</div>
+<div class="fragment">
+<h3>Distributivity</h3>
+<p>Proposition: <span class="math">\(A \wedge (B \vee C) \rightarrow (A \wedge B) \vee (A \wedge C)\)</span></p>
+</div>
+<div class="fragment">
+<p>Program as proof: <span class="math">\(\lambda (a, \textbf{inl}~b). \textbf{inl}~(a, b)\)</span><br />
+<span class="math">\(~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\; \lambda (a, \textbf{inr}~c). \textbf{inr}~(a, c)\)</span></p>
+</div>
+</div>
+</section><section class="content "><h1>Inference rules for types and logic</h1>
+<div class="body">
+<div>
+<p><img src="img/beyond/logic.png" alt="" /></p>
+</div>
+</div>
+</section><section class="icons "><h1>Language design</h1>
+<h2>Importing ideas via maths</h2>
+<ul>
+<li><i class='fa fa-rotate'></i> Simplifying types using algebraic laws</li>
+<li><i class='fa fa-star-half-stroke'></i> Making sense of units and empty types</li>
+<li><i class='fa fa-clock'></i> Types inspired by linear and modal logic?</li>
+<li><i class='fa fa-infinity'></i> Types for universal and existential quantifiers?</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/beyond/linear.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Linear types</h1>
+<p>Variable must be<br />
+used exactly once!</p>
+<p><strong>Resource usage in programming!</strong></p>
+<p>Avoid aliasing, efficient memory management</p>
+<p>Generalizations to control sharing</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Types for modal logics</h1>
+<img src="img/beyond/dist.png"/>
+<div>
+<h2>Necessity and possibility</h2>
+<ul>
+<li><span class="math">\(\diamond A\)</span> - possibility - in a possible world</li>
+<li><span class="math">\(\square A\)</span> - necessity - all possible worlds</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Distributed systems</h2>
+<ul>
+<li>Value <span class="math">\(A\)</span>, address <span class="math">\(\diamond A\)</span>, mobile code <span class="math">\(\square A\)</span></li>
+<li>Axiom <span class="math">\(\square A \rightarrow A\)</span> - run mobile code to get value</li>
+<li>Axiom <span class="math">\(A\rightarrow \diamond A\)</span> - take address of local value</li>
+<li>Axiom <span class="math">\(\diamond A\rightarrow \square\diamond A\)</span> - address is mobile</li>
+</ul>
+</div>
+</section><section class="lists smaller"><h1>Dependent types</h1>
+<img src="img/beyond/coq.png"/>
+<div>
+<h2>Quantifiers as type constructors</h2>
+<ul>
+<li>
+Universal quantification <span class="math">\(\Pi_{x:A}B(x)\)</span><br />
+Dependent function <code>(x:A) -&gt; B(x)</code>
+</li>
+<li>
+Existential quantification <span class="math">\(\Sigma_{x:A}B(x)\)</span><br />
+Dependent pair <code>(x:A) * B(x)</code>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Programming languages</h2>
+<ul>
+<li>Origins in theorem provers</li>
+<li>Dependently-typed languages like Coq, Idris and Agda</li>
+<li>Some aspects expressible in Haskell, Scala</li>
+</ul>
+</div>
+</section><section class="content "><h1>Using with dependent types</h1>
+<div class="body">
+<div>
+<h3>Capture precise information</h3>
+<p>Vector of a known length <code>Vec (n:int) A</code><br />
+Other properties, like sortedness of a list</p>
+<h3>Programming with fancy types</h3>
+<p>Dependent pair and function</p>
+<p><code>vectWithLength : (n:int) * Vec n string</code><br />
+<code>initVector : (x:int) -&gt; (v:A) -&gt; Vec x A</code></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Types</h1>
+<h2>Engineering perspectives</h2>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Checking weather in F#</h2>
+</div>
+</section><section class="lists "><h1>Type providers</h1>
+<img src="img/beyond/dropdown.png"/>
+<div>
+<h2>What is a type provider?</h2>
+<ul>
+<li>Extension run at compile-time</li>
+<li>Can run arbitrary code</li>
+<li>Generates classes with members</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What can they be used for?</h2>
+<ul>
+<li>Infer structure of JSON, XML, CSV</li>
+<li>Import explicit database schema</li>
+<li>Interface with a foreign API</li>
+</ul>
+</div>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/beyond/error.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Static type checking?</h1>
+<p><strong>Type error on a train!</strong></p>
+<p>More useful when external service changes format</p>
+</div>
+<div class="fragment">
+<p><strong>Well-typed programs<br />
+do not go wrong?</strong></p>
+<p>Except when the world breaks assumptions<br />
+about the schema</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Types</h1>
+<h2>Engineering perspective</h2>
+<ul>
+<li><i class='fa fa-shapes'></i> Types have to be useful, not always right</li>
+<li><i class='fa fa-bridge-circle-exclamation'></i> Even unsound types help software engineers</li>
+<li><i class='fa fa-toolbox'></i> Invaluable for tooling (completion, checking)</li>
+<li><i class='fa fa-file-contract'></i> Documentation and structuring mechanism</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/beyond/ts.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>TypeScript types</h1>
+<p><strong>Unsound because of 'any', covariance, unchecked imports</strong></p>
+<p>Checking works<br />
+well enough!</p>
+<p>More reliable editor auto-completion</p>
+</div>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Type providers in The Gamma</h2>
+</div>
+</section><section class="lists "><h1>The Gamma design</h1>
+<img src="img/beyond/vids.png"/>
+<div>
+<h2>Iterative prompting</h2>
+<ul>
+<li>Do everything via a type provider</li>
+<li>Construct SQL-like queries &amp; more</li>
+<li>What are the limits of this?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Type provider tricks</h2>
+<ul>
+<li>Lazy type generation for "big" types</li>
+<li>Parameterized (dependent) providers</li>
+<li>Fancy types for the masses</li>
+</ul>
+</div>
+</section><section class="content "><h1>Fancy types for the masses</h1>
+<div class="body">
+<div>
+<h3>Row types</h3>
+<p><span class="math">\[\frac
+  {\Gamma \vdash e : {\color{red}[f_1:\tau_1, \ldots, f_n:\tau_n]}}
+  {\Gamma \vdash e.\text{drop}~f_i : {\color{cc} [f_1:\tau_1, \ldots, f_{i-1}:\tau_{i-1}, f_{i+1}:\tau_{i+1}, \ldots, f_n:\tau_n]}}\]</span></p>
+</div>
+<div class="fragment">
+<h3>Embed as classes</h3>
+<p><span class="math">\[\frac
+  {\Gamma \vdash e : {\color{blue} C_1}}
+  {\Gamma \vdash e.\text{drop}~f_i : {\color{blue} C_2}}
+\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math">\[\begin{array}{l}
+{fields({\color{blue} C_1}) = {\color{blue} \{f_1:\tau_1, \ldots, f_n:\tau_n\}}}\\
+{fields({\color{blue} C_2}) = {\color{blue} \{f_1:\tau_1, \ldots, f_{i-1}:\tau_{i-1}, f_{i+1}:\tau_{i+1}, \ldots, f_n:\tau_n\}}}
+\end{array}\]</span></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Unexpected perspectives on types</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/design/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Engineering and mathematical views</h1>
+<p><strong>Complementary ways of designing &amp; evaluating</strong></p>
+<p>Import ideas using maths, prove them correct</p>
+<p>Adapt ideas for engineering purpose, show they work</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/beyond/qr-lisp.png"/>
+<div>
+<p><strong>When Technology Became Language:</strong> The Origins of the Linguistic Conception of Computer Programming<br />
+From <a href="https://www.davidnofre.com">davidnofre.com</a> or <a href="https://pure.uva.nl/ws/files/2419813/154677_Alberts_Nofre_Priestly_Technol_Culture_55_1_2014.pdf">direct link</a></p>
+</div>
+<div class="fragment">
+<h2>What to read and how</h2>
+<ul>
+<li>The birth of programming languages</li>
+<li>Dramatic change in thinking!</li>
+<li>Longer, so read what you like...</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Unexpected perspectives on types</strong></p>
+<ul>
+<li>Many ideas imported through mathematics!</li>
+<li>Dependent, linear and modal types</li>
+<li>Making it work in practice is a challenge</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Curry-Howard and dependent types</strong></p>
+<ul>
+<li>Wadler, P. (2015). <a href="https://homepages.inf.ed.ac.uk/wadler/papers/propositions-as-types/propositions-as-types.pdf">Propositions as Types</a>. ACM</li>
+<li>Magnusson, L., Nordström, B. (1994).. <a href="https://sci-hub.se/https://link.springer.com/chapter/10.1007/3-540-58085-9_78">The Alf proof editor and its proof engine. Types for Proofs and Programs</a>. TYPES</li>
+<li>Murphy VII, T (2008). <a href="http://tom7.org/papers/modal-types-for-mobile-code.pdf">Modal Types for Mobile Code</a>. PhD Thesis</li>
+<li>Walker, D. (2004). <a href="https://mitpress-request.mit.edu/sites/default/files/titles/content/9780262162289_sch_0001.pdf">Substructural type systems</a>. MIT</li>
+</ul>
+<p><strong>Type providers &amp; related</strong></p>
+<ul>
+<li>Petricek, T. et al. (2016). <a href="http://tomasp.net/academic/papers/fsharp-data/fsharp-data.pdf">Types from data: Making structured data first-class citizens in F#</a>. PLDI</li>
+<li>Petricek, T. (2017). <a href="http://tomasp.net/academic/papers/pivot/pivot-ecoop17.pdf">Data exploration through dot-driven development</a>. Proceedings of ECOOP</li>
+<li>Wand, M. (1991). <a href="https://www.sciencedirect.com/science/article/pii/089054019190050C">Type inference for record concatenation and multiple inheritance</a>. Information and Computation</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/2)</h1>
+<div class="body">
+<div>
+<p><strong>Algebraic types</strong></p>
+<ul>
+<li>McBride, C. (2001). <a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=4286bcc299ab34b0581cbd62d6241794fc9052de">The Derivative of a Regular Type is its Type of One-Hole Contexts</a>. Online (unpublished draft)</li>
+<li>Abbott, M., et al. (2005). <a href="http://www.strictlypositive.org/dfordata.pdf">d for Data: Differentiating Data Structures</a>. Fundamenta Informaticae</li>
+<li>Petricek, T. (2013). <a href="http://tomasp.net/blog/types-and-math.aspx/">Power of mathematics Reasoning about functional types</a>. Online (blog post)</li>
+<li>Marshall, D., Orchard, D. (2022). <a href="https://starsandspira.ls/docs/ecoop22-draft.pdf">How to Take the Inverse of a Type</a>. Proceedings of ECOOP</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
