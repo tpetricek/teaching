@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>History and philosophy of programming | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>History and philosophy of programming</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Philosophy of science</h1>
+<h2>Why does it matter?</h2>
+</div>
+</section><section class="icons "><h1>Philosophy of science</h1>
+<h2>What can we learn about programming?</h2>
+<ul>
+<li><i class='fa fa-fire'></i> What designers assume and never question</li>
+<li><i class='fa fa-tape'></i> How to understand odd designs of the past</li>
+<li><i class='fa fa-draw-polygon'></i> What is the nature of programming concepts</li>
+<li><i class='fa fa-person-dress'></i> What social forces shape programming</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/reflections.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What do philosophers do?</h1>
+<p><strong>Origins, languages, systems, correctness</strong></p>
+<p>How could it have<br />
+gone differently?</p>
+</div>
+<div class="fragment">
+<p><strong>Reflections on ethics, politics, development</strong></p>
+<p>What if we took one aspect as primary?</p>
+</div>
+</div>
+</div>
+</section><section class="content three-column smaller"><h1>Doing philosophy of programming</h1>
+<div class="body">
+<div>
+<h3><i class='fa fa-cog'></i> Methods</h3>
+<p>Try to explain<br />
+how scientists think and work</p>
+<p><img src="img/philosophy/kuhn.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-city'></i> Entities</h3>
+<p>How concepts evolve &amp; what<br />
+are they?</p>
+<p><img src="img/philosophy/lakatos.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-city'></i> Social forces</h3>
+<p>How social aspects shape technology</p>
+<p><img src="img/philosophy/gender.jpg" alt="" /></p>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Paradigm shifts</h1>
+<h2>Classic philosophy of science</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/kuhn.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Scientific revolutions</h1>
+<p><strong>Periods of normal science disrupted by revolutions</strong></p>
+<p>New era with new assumptions when the old ways stop working</p>
+<p><strong>New incommensurable with the old thinking</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller border"><h1>Philosophy of science</h1>
+<img src="img/philosophy/feyerabend.jpg"/>
+<div>
+<h2>Research programmes (Lakatos)</h2>
+<ul>
+<li>Groups of scientists share assumptions</li>
+<li>
+Explain failures by blaming<br />
+secondary auxiliary assumptions
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Against method (Feyerabend)</h2>
+<ul>
+<li>No single rule explains science</li>
+<li>Hard to say what is reasonable!</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/revolution.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Programming language revolution</h1>
+<div class="citation">
+<p>(Gabriel, 2012)</p>
+</div>
+<p><strong>From thinking about programming systems</strong></p>
+<p>Running, with evolving state, modified interactively</p>
+<p><strong>To thinking about programming languages</strong></p>
+<p>Relationships in static code</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/wiki.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Smalltalk language</h1>
+<p>"Smalltalk is an object-oriented, dynamically typed reflective programming language"</p>
+<p><strong>What makes it interesting?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/browser.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Smalltalk as a programming system</h1>
+<p>Think not about source code, but about evolving system state!</p>
+</div>
+</div>
+</div>
+</section><section class="subtitle stdemo"><div class="body">
+<p><img src="img/philosophy/st72.png" alt="" /></p>
+<h1>Demo</h1>
+<h2>Smalltalk <a href="https://smalltalkzoo.thechm.org/HOPL-St72.html">72</a> and <a href="https://smalltalkzoo.thechm.org/HOPL-St78.html">78</a></h2>
+<style>.stdemo img { float:right; border:3px solid black; max-width:360px; }</style>
+</div>
+</section><section class="icons "><h1>Smalltalk</h1>
+<h2>Programming system view</h2>
+<ul>
+<li><i class='fa fa-floppy-disk'></i> Image-based persistence rather than source</li>
+<li><i class='fa fa-square-pen'></i> Application ships with developer tools</li>
+<li><i class='fa fa-table-columns'></i> Class browser allows inspecting &amp; editing</li>
+<li><i class='fa fa-rotate'></i> Reflection lets the system change itself</li>
+</ul>
+</section><section class="content noborder"><h1>LISP language</h1>
+<div class="body">
+<div>
+<p>Functional programming language<br />
+derived from the lambda calculus?</p>
+<p><img src="img/philosophy/lispxkcd.png" alt="" /></p>
+</div>
+</div>
+</section><section class="lists border"><h1>LISP environment</h1>
+<img src="img/philosophy/tx0.jpg"/>
+<div>
+<h2>Time-sharing</h2>
+<ul>
+<li>Batch processing in the 1950s</li>
+<li>TX-0 ('58) allowed interactive use</li>
+<li>Multi-user machines via teletype</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>AI research requirements</h2>
+<ul>
+<li>Programming with symbolic data</li>
+<li>Interactive experimentation</li>
+<li>Programs that improve themselves</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/lispeditor.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>LISP editor</h1>
+<div class="citation">
+<p>(Deutsch, 1967)</p>
+</div>
+<p><strong>Interactive program editing on the terminal</strong></p>
+<p>Teletype, not a screen!</p>
+<p>Print using: <code>P</code><br />
+Delete child: <code>(3)</code><br />
+Replace child: <code>(2 ..)</code></p>
+</div>
+</div>
+</div>
+</section><section class="lists border smaller"><h1>Interlisp: Interactive Lisp</h1>
+<img src="img/philosophy/interlisp.png"/>
+<div>
+<h2>PILOT (1966)</h2>
+<ul>
+<li>Edit code via list transformations</li>
+<li>Advising to enhance procedures</li>
+<li>Modifying state of a running system</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>DWIM (1974)</h2>
+<ul>
+<li>Interactive program correction</li>
+<li>Suggests automatic fixes when error occurs</li>
+<li>Do What I Mean / Damn Warren's Infernal Machine</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/symbolics.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Symbolics Lips Machines (1980s)</h1>
+<p>Machines optimized for LISP with LISP-based environment</p>
+<p>Persistent memory with just cons-cells</p>
+<p><strong>Response to new hardware architecture</strong></p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Scientific revolutions</h1>
+<h2>Paradigm shifts in programming</h2>
+<ul>
+<li><i class='fa fa-brain'></i> Understand what people really thought!</li>
+<li><i class='fa fa-arrow-down-a-z'></i> The invention of a programming language</li>
+<li><i class='fa fa-laptop-code'></i> The shift from systems to languages</li>
+<li><i class='fa fa-people-group'></i> Functional programming "research programme"</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Entities</h1>
+<h2>Evolution of programming concepts</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/lakatos.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>How mathematical concepts evolve?</h1>
+<p><strong>Polyhedra, space, graph, function, convergence, measurable set</strong></p>
+</div>
+<div class="fragment">
+<p>How does the definition change and why?</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/poly1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Polyhedra</h1>
+<p><strong>Euler's formula</strong></p>
+<p><span class="math">\(V-E+F=2\)</span></p>
+<p>A polyhedron is a solid whose surface consists of polygonal faces?</p>
+</div>
+</div>
+</div>
+</section><section class="lists border"><h1>Counter example?</h1>
+<img src="img/philosophy/poly2.png"/>
+<div>
+<h2>Convex polygons!</h2>
+<p>Through any point in space there will be at least one plane whose
+cross-section with the polyhedron will consist of one single polygon.</p>
+</div>
+<div class="fragment">
+<h2>Monster-barring</h2>
+<p>I turn aside with a shudder of horror from this
+lamentable plague of functions which have no derivatives.<br />
+(Charles Hermite, 1893)</p>
+</div>
+</section><section class="icons "><h1>Concepts</h1>
+<h2>Proofs and refutations</h2>
+<ul>
+<li><i class='fa fa-dna'></i> Concept definitions are not constant but change</li>
+<li><i class='fa fa-square fa-regular'></i> Arising from proofs, counter-examples, lemmas</li>
+<li><i class='fa fa-dragon'></i> Monster-barring and exception-barring</li>
+<li><i class='fa fa-draw-polygon'></i> Concept stretching when understanding evolves</li>
+</ul>
+</section><section class="lists border smaller"><h1>Concepts in programming</h1>
+<img src="img/philosophy/byte.jpg"/>
+<div>
+<h2>Change over time!</h2>
+<ul>
+<li>Data types, logical types</li>
+<li>Monads and "railway" metaphor</li>
+<li>Processes become abstract</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Multiple forces for change</h2>
+<ul>
+<li>New implementation of the concept</li>
+<li>Different metaphor for thinking</li>
+<li>New formalization in a proof</li>
+</ul>
+</div>
+</section><section class="lists border smaller condensed"><h1>Evolution of types</h1>
+<img src="img/philosophy/tapl.jpg"/>
+<div>
+<h2>Implementation &amp; formal modality</h2>
+<p>Data types like records, modelled as sets</p>
+</div>
+<div class="fragment">
+<h2>Implementation modality evolves</h2>
+<p>Abstract data types for modularity<br />
+Type checking ala lambda calculus</p>
+</div>
+<div class="fragment">
+<h2>Intuitive modality evolves</h2>
+<p>Well-typed programs do not go wrong<br />
+New type systems based on this</p>
+</div>
+<div class="fragment">
+<h2>Implementation modality evolves</h2>
+<p>Types for documentation and editor tooling</p>
+</div>
+</section><section class="lists "><h1>Understanding Monads</h1>
+<img src="img/philosophy/qr-monads.png"/>
+<div>
+<h2>What are monads</h2>
+<ul>
+<li>Origins in category theory</li>
+<li>Abstraction in functional programming</li>
+<li>Used for stateful computations</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Writing about monads</h2>
+<ul>
+<li>Compare how mathematicians and programmers talk about monads!</li>
+<li><a href="https://ncatlab.org/nlab/show/monad">tinyurl.com/nprg075-mcat</a></li>
+<li><a href="https://blog.ploeh.dk/2022/04/19/the-list-monad/">tinyurl.com/nprg075-mprog</a></li>
+</ul>
+</div>
+</section><section class="lists border smaller condensed"><h1>Evolution of monads</h1>
+<img src="img/philosophy/railway.png"/>
+<div>
+<h2>Formal and intuitive modality</h2>
+<p>Standard construction in algebraic topology
+Monad as a "box" intuition</p>
+</div>
+<div class="fragment">
+<h2>Implementation modality appears</h2>
+<p>Used for sequencing effectful computations<br />
+Definition in terms of <em>bind</em> and <em>return</em></p>
+</div>
+<div class="fragment">
+<h2>Implementation &amp; intuition evolves</h2>
+<p>Monads in Haskell and the <code>do</code> notation<br />
+Monad as a "sequencing" intuition</p>
+</div>
+</section><section class="icons "><h1>Concepts</h1>
+<h2>Programming language design</h2>
+<ul>
+<li><i class='fa fa-tornado'></i> There is more to concepts than just a name</li>
+<li><i class='fa fa-virus'></i> Ideas come from logic, linguistics, biology!</li>
+<li><i class='fa fa-splotch'></i> Beware of concept stretching as with types?</li>
+<li><i class='fa fa-ruler-combined'></i> Capture a new intuition in the design?</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Social forces</h1>
+<h2>What shapes programming?</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/mit.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Social history<br /> of computing</h1>
+<p><strong>How commercial<br />
+interests or gender bias shape computing</strong></p>
+<p>Redefinition of programming as more masculine software engineering in the 1960s</p>
+</div>
+</div>
+</div>
+</section><section class="content noborder"><h1>Structured programming</h1>
+<div class="body">
+<div>
+<p><img src="img/philosophy/goto.png" alt="" /></p>
+</div>
+</div>
+</section><section class="lists border"><h1>Goto considered harmful (1968)</h1>
+<img src="img/philosophy/dijkstra.png"/>
+<div>
+<p>The quality of programmers is a decreasing function of the density<br />
+of go to statements in the programs they produce.</p>
+</div>
+<div class="fragment">
+<h2>Problems with goto</h2>
+<ul>
+<li>Hard to reason about informally</li>
+<li>Hard to reason about formally</li>
+<li>Code structure does not match runtime behaviour</li>
+</ul>
+</div>
+</section><section class="lists border"><h1>Structured programming</h1>
+<img src="img/philosophy/structured.png"/>
+<div>
+<h2>Not obvious at the time!</h2>
+<ul>
+<li>Everyone used to assembly!</li>
+<li>Can the compiler optimize code?</li>
+<li>Is it possible to avoid gotos?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Structured Programming Theorem (1966)</h2>
+<p>Us converts waved this interesting bit of news under the noses of the
+unreconstructed assembly-language programmers who kept trotting forth
+twisty bits of logic and saying, 'I betcha can’t structure this.'</p>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/philosophy/datamation.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Datamation (1973)</h1>
+<p><strong>What is structured programming and how to do it in practice</strong></p>
+<p>From engineering concept to managerial concept</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Chief programmer teams</h1>
+<h2>Top-down management technique</h2>
+<ul>
+<li><i class='fa fa-people-group'></i> Structured programming for organizing people</li>
+<li><i class='fa fa-person-chalkboard'></i> Chief-programmer leading &amp; dividing code</li>
+<li><i class='fa fa-sitemap'></i> Supported by programmers, secretary, backup</li>
+<li><i class='fa fa-comments'></i> Hostile exchanges between Dijkstra and Mills</li>
+</ul>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/philosophy/conway.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Conway's law</h1>
+<p>Any organization that designs a system will produce a
+design whose structure is a copy of the organization's communication structure.</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Social forces</h1>
+<h2>Programming language design</h2>
+<ul>
+<li><i class='fa fa-link'></i> Language features linked to social structures</li>
+<li><i class='fa fa-diagram-project'></i> Organizational structure and escape hatches</li>
+<li><i class='fa fa-server'></i> Structured, microservices, information hiding</li>
+<li><i class='fa fa-tape'></i> Origins of languages - COBOL, Fortran, Algol</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>History and philosophy</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/philosophy/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>History and philosophy</h1>
+<p><strong>Learning from the past</strong></p>
+<p>Complex reasons why &amp; how programming ideas work and do not work</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/philosophy/qr-10.png"/>
+<div>
+<h2>10 PRINT CHR$(205.5+RND(1));<br />20 GOTO 10</h2>
+<ul>
+<li>15: REM Variations in Basic</li>
+<li><a href="https://10print.org">https://10print.org</a> (look for the PDF)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why should you read this?</h2>
+<ul>
+<li>Fun look at an unexpected bit of programming history</li>
+<li>What can we learn from the past?</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>History and philosophy of programming</strong></p>
+<ul>
+<li>Scientific paradigms and paradigm shifts</li>
+<li>The history of programming concepts</li>
+<li>How social forces shape programming</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Philosophy of science</strong></p>
+<ul>
+<li>Kuhn, T. S., (2012). <a href="https://press.uchicago.edu/ucp/books/book/chicago/S/bo13179781.html">The Structure of Scientific Revolutions</a>. Chicago</li>
+<li>Feyerabend, P. (1975). <a href="https://www.versobooks.com/books/442-against-method">Against Method</a>. Verso</li>
+<li>Lakatos, I. (1976). <a href="https://www.cambridge.org/core/books/proofs-and-refutations/575FC8A6B4FAB79E649EDF5FBB9C6E10">Proofs and Refutations</a>. Cambridge</li>
+</ul>
+<p><strong>History &amp; reflections</strong></p>
+<ul>
+<li>De Mol, L., Primiero, G. eds. (2018). <a href="https://link.springer.com/book/10.1007/978-3-319-97226-8">Reflections on Programming Systems: Historical and Philosophical Aspects</a>. Springer</li>
+<li>Gabriel, R. (2012). <a href="https://dreamsongs.com/Files/Incommensurability.pdf">The Structure of a Programming Language Revolution</a>. Onward!</li>
+<li>Petricek, T. (2022). <a href="http://tomasp.net/academic/drafts/cultures/draft-2022.pdf">Cultures of Programming</a>. Draft</li>
+<li>Petricek, T. (2018). <a href="http://tomasp.net/academic/papers/monads/">What we talk about when we talk about monads</a></li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/2)</h1>
+<div class="body">
+<div>
+<p><strong>Historical materials</strong></p>
+<ul>
+<li>Teitelman, W. (1966). <a href="http://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-032.pdf">PILOT: A Step Toward Man-Computer Symbiosis</a>. MIT</li>
+<li>Teitelman, W. (1974). <a href="https://www.softwarepreservation.org/projects/LISP/interlisp/Interlisp-Oct_1974.pdf">Interlisp Reference Manual</a>. Xerox PARC</li>
+<li>Deutsch, P. (1967). <a href="https://www.softwarepreservation.org/projects/LISP/bbnlisp/W-21_LISP_Editor_Apr67.pdf">Preliminary Guide to the LISP Editor</a>. Berkeley</li>
+<li>Dijkstra, E. (1968). <a href="https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf">Go To Statement Considered Harmful</a>. ACM</li>
+<li>McCracken et al. (1973). <a href="https://archive.org/details/bitsavers_datamation_34111538">Revolution in Programming</a>. Datamation 12</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
