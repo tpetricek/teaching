@@ -29,5 +29,5 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Types** - Mathematics and engineering of types](types.html)   
 [**Beyond** - Unexpected perspectives on types](beyond.html)   
 [**Paradigms** - History and philosophy of programming](philosophy.html)    
-**Complementary** - Learning from past systems    
+[**Close** - Close look at past and today's programs](close.html)    
 **Cognition** - How humans think about programming  

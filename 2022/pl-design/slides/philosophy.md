@@ -41,7 +41,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 
 # What do philosophers do?
 
-**Origins languages, systems, correctness**
+**Origins, languages, systems, correctness**
 
 How could it have  
 gone differently?
@@ -158,6 +158,18 @@ Relationships in static code
 # Smalltalk as a programming system
 
 Think not about source code, but about evolving system state!
+
+-----------------------------------------------------------------------------------------
+- template: subtitle
+- class: stdemo
+
+![](img/philosophy/st72.png)
+
+# Demo
+## Smalltalk [72](https://smalltalkzoo.thechm.org/HOPL-St72.html) and [78](https://smalltalkzoo.thechm.org/HOPL-St78.html)
+
+
+<style>.stdemo img { float:right; border:3px solid black; max-width:360px; }</style>
 
 -----------------------------------------------------------------------------------------
 - template: icons
@@ -369,6 +381,25 @@ Types for documentation and editor tooling
 
 -----------------------------------------------------------------------------------------
 - template: lists
+
+# Understanding Monads
+
+![](img/philosophy/qr-monads.png)
+
+## What are monads
+
+- Origins in category theory
+- Abstraction in functional programming
+- Used for stateful computations
+
+## Writing about monads
+
+- Compare how mathematicians and programmers talk about monads!
+- [tinyurl.com/nprg075-mcat](https://ncatlab.org/nlab/show/monad)
+- [tinyurl.com/nprg075-mprog](https://blog.ploeh.dk/2022/04/19/the-list-monad/)
+
+-----------------------------------------------------------------------------------------
+- template: lists
 - class: border smaller condensed
 
 # Evolution of monads
@@ -564,26 +595,31 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 - template: content
 - class: condensed
 
-# References
+# References (1/2)
+
+**Philosophy of science**
+
+- Kuhn, T. S., (2012). [The Structure of Scientific Revolutions](https://press.uchicago.edu/ucp/books/book/chicago/S/bo13179781.html). Chicago
+- Feyerabend, P. (1975). [Against Method](https://www.versobooks.com/books/442-against-method). Verso
+- Lakatos, I. (1976). [Proofs and Refutations](https://www.cambridge.org/core/books/proofs-and-refutations/575FC8A6B4FAB79E649EDF5FBB9C6E10). Cambridge
+
+**History & reflections**
+
+- De Mol, L., Primiero, G. eds. (2018). [Reflections on Programming Systems: Historical and Philosophical Aspects](https://link.springer.com/book/10.1007/978-3-319-97226-8). Springer
+- Gabriel, R. (2012). [The Structure of a Programming Language Revolution](https://dreamsongs.com/Files/Incommensurability.pdf). Onward!
+- Petricek, T. (2022). [Cultures of Programming](http://tomasp.net/academic/drafts/cultures/draft-2022.pdf). Draft
+- Petricek, T. (2018). [What we talk about when we talk about monads](http://tomasp.net/academic/papers/monads/)
 
 -----------------------------------------------------------------------------------------
 - template: content
+- class: condensed
 
-Turing machine - liesbeth
+# References (2/2)
 
-mathematization of CS, agenda -> Algol
-professionalization
+**Historical materials**
 
-Nature of programming
-DeMillo & Fetzer
-
-READ: Socio-PLT
-
-https://www.ifis.uni-luebeck.de/~moeller/symbolics-info/index.html
-
-https://www.si.edu/media/NMAH/NMAH-AC1498_Transcript_StephenRussell.pdf
-?
-
-
-
-https://archive.org/details/bitsavers_datamation_34111538
+- Teitelman, W. (1966). [PILOT: A Step Toward Man-Computer Symbiosis](http://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-032.pdf). MIT
+- Teitelman, W. (1974). [Interlisp Reference Manual](https://www.softwarepreservation.org/projects/LISP/interlisp/Interlisp-Oct_1974.pdf). Xerox PARC
+- Deutsch, P. (1967). [Preliminary Guide to the LISP Editor](https://www.softwarepreservation.org/projects/LISP/bbnlisp/W-21_LISP_Editor_Apr67.pdf). Berkeley
+- Dijkstra, E. (1968). [Go To Statement Considered Harmful](https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf). ACM
+- McCracken et al. (1973). [Revolution in Programming](https://archive.org/details/bitsavers_datamation_34111538). Datamation 12

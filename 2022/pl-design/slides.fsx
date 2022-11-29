@@ -134,6 +134,7 @@ let iconsTemplate = function
 let imageOrCodeTemplate = function
   | (CodeBlock _ as par)::pars 
   | (Paragraph([DirectImage _], _) as par)::pars ->
+      let pars = pars |> List.map replaceIcons
       [ InlineHtmlBlock("<div class=\"body1\">", None, None)
         par
         InlineHtmlBlock("</div><div class=\"body2\">", None, None)
@@ -142,16 +143,24 @@ let imageOrCodeTemplate = function
   | _ -> failwith "Image template did not start with an image"
 
 let listsTemplate = function
-  | Headings(hs, Paragraph([DirectImage(_, img, _, _)], _)::pars) ->
+  | Headings(hs, (CodeBlock _ as par)::pars)
+  | Headings(hs, (Paragraph([DirectImage _], _) as par)::pars) ->
       [ yield! hs
-        yield InlineHtmlBlock($"<img src=\"{img}\"/>", None, None)
+        match par with 
+        | Paragraph([DirectImage(_, img, _, _)], _) -> 
+            yield InlineHtmlBlock($"<img src=\"{img}\"/>", None, None)
+        | CodeBlock _ ->
+            yield InlineHtmlBlock("<div class=\"decor\">", None, None)
+            yield par
+            yield InlineHtmlBlock("</div>", None, None)
+        | _ -> failwith "Lists template expected code block or image"
         let groups = pars |> splitAt (function Heading _ -> true | _ -> false)
         for i, group in Seq.indexed groups do
           let cls = if i <> 0 then " class=\"fragment\"" else ""
           yield InlineHtmlBlock($"<div{cls}>", None, None)
           yield! group
           yield InlineHtmlBlock("</div>", None, None) ]
-  | _ -> failwith "Lists template did not start with an image"
+  | _ -> failwith "Lists template did not start with code block or an image"
 
 let contentTemplate pars =
   let (Headings(hs, pars)) = pars |> List.map replaceIcons
