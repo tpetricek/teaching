@@ -30,4 +30,5 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Beyond** - Unexpected perspectives on types](beyond.html)   
 [**Paradigms** - History and philosophy of programming](philosophy.html)    
 [**Close** - Close look at past and today's programs](close.html)    
+[**Assignment** - & How to do programming language research](research.html)
 **Cognition** - How humans think about programming  
