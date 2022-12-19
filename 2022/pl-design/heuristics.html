@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Heuristic evaluation of programming systems | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Heuristic evaluation of<br/>programming systems</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Monday 12:20, S7<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Programming systems</h1>
+<h2>What really matters?</h2>
+</div>
+</section><section class="icons "><h1>Programming systems</h1>
+<h2>What can we study?</h2>
+<ul>
+<li><i class='fa fa-not-equal'></i> Formal semantics and type safety</li>
+<li><i class='fa fa-keyboard'></i> Learnability for novice programmers</li>
+<li><i class='fa fa-person-dots-from-line'></i> Socio-technical context of the system</li>
+<li><i class='fa fa-lines-leaning'></i> Principles behind the system design</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/tiobe.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What makes a language popular</h1>
+<p><strong>None of the things<br />
+we talked about?</strong></p>
+</div>
+<div class="fragment">
+<p>Popular <span class="math">\(\neq\)</span> Good</p>
+<p>The index has its flaws</p>
+<p>Still, a reason to think!</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/so.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Most loved or <br /> most dreaded?</h1>
+<p>Enthusiastic community?<br />
+Good tooling?<br />
+Clean idea?<br />
+Practicality?</p>
+</div>
+<div class="fragment">
+<p><strong>Need to talk about<br />
+less exact things!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Analysis of language perceptions</h1>
+<img src="img/heuristics/qr-socio.png"/>
+<div>
+<h2>Survey analysis</h2>
+<ul>
+<li>Survey of language characteristics</li>
+<li>Feature and language correlations</li>
+<li><a href="https://lmeyerov.github.io/projects/socioplt/viz/index.html">tinyurl.com/nprg075-socio</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Adoption of languages</h2>
+<ul>
+<li>Libraries matter</li>
+<li>Legacy and history matter</li>
+<li>Flexibility more important than correctness</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Programming systems</h1>
+<h2>Important but hard to study</h2>
+<ul>
+<li><i class='fa fa-signature'></i> Expressivity of the programming notation</li>
+<li><i class='fa fa-object-group'></i> Unifying conceptual model ("everything is ...")</li>
+<li><i class='fa fa-hand-point-up'></i> Style of interaction with the system</li>
+<li><i class='fa fa-gears'></i> Extensibility and flexibility of the language</li>
+</ul>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/nn10.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Heuristic analysis</h1>
+<p><strong>High-level rules, characteristics or principles</strong></p>
+<p>Developed by experts, based on reviews and experience</p>
+<p>Useful for evaluation, classifying, analysis,<br />
+new design</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Programming systems</h1>
+<h2>Heuristic frameworks</h2>
+<ul>
+<li><i class='fa fa-arrows-rotate'></i> Levels of liveness of programming systems</li>
+<li><i class='fa fa-microchip'></i> Memory models of programming languages</li>
+<li><i class='fa fa-brain'></i> Cognitive dimensions of notation</li>
+<li><i class='fa fa-pen-to-square'></i> Technical dimensions of programming systems</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Programming systems</h1>
+<h2>Liveness and memory models</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/punched.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>From batch processing ...</h1>
+<p><strong>Coding at the computer prohibitively expensive</strong></p>
+<p>Write program, punch on cards, submit &amp; wait</p>
+<p>A few day feedback cycle!</p>
+</div>
+</div>
+</div>
+</section><section class="content lcm"><h1>... to live coded music performance</h1>
+<div class="body">
+<div>
+<iframe width="840" height="472" src="https://www.youtube.com/embed/KGzqyGaYyqs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<style> .lcm h1 {font-size:34pt; margin-bottom:20px }</style>
+</div>
+</div>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/heuristics/planning.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Visual programming</h1>
+<p>Planning and coding of problems for an electronic computing instrument (Goldstine, von<br />
+Neumann, 1948)</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/liveness.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Liveness levels</h1>
+<div class="citation">
+<p>(Tanimoto, 1990)</p>
+</div>
+<p><strong>Level 1</strong><br />
+Flowchart that exists independently of a program</p>
+<p><strong>Level 4</strong><br />
+Continuous processing with immediate dynamic change of behaviour</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Liveness levels</h1>
+<h2>Programming system heuristic</h2>
+<ul>
+<li><i class='fa fa-ruler'></i> Single property of specific systems</li>
+<li><i class='fa fa-temperature-half'></i> Can be used for comparing systems</li>
+<li><i class='fa fa-rocket'></i> Imagines step beyond the state-of-the-art</li>
+<li><i class='fa fa-puzzle-piece'></i> Can be used for designing new systems</li>
+</ul>
+</section><section class="lists border smaller"><h1>Memory models of systems</h1>
+<img src="img/heuristics/layout.gif"/>
+<div>
+<h2>Primary representation</h2>
+<ul>
+<li>How things are represented</li>
+<li>Defines what can be done</li>
+<li>Defines how to think!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Six major conceptualizations</h2>
+<ul>
+<li>COBOL, LISP and FORTRAN</li>
+<li>SQL, UNIX and tape storage</li>
+<li>In reality, it's always a mix!</li>
+</ul>
+</div>
+</section><section class="largeicons "><h1>Language memory models</h1>
+<ul>
+<li>
+<i class='fa fa-clipboard'></i> <strong>COBOL - Memory is a nested record (tax form)</strong><br />
+<i class="placeholder"></i>No need for pointers, but no sharing allowed
+</li>
+<li>
+<i class='fa fa-diagram-project'></i> <strong>LISP - Memory is an object graph (symbol list)</strong> <br />
+<i class="placeholder"></i>Flexible, but serialization &amp; efficiency tricky
+</li>
+<li>
+<i class='fa fa-table-list'></i> <strong>FORTRAN - Memory is a bunch of arrays (vector)</strong><br />
+<i class="placeholder"></i>Close to the metal, but no semantic checking
+</li>
+</ul>
+</section><section class="largeicons "><h1>Storage memory models</h1>
+<ul>
+<li>
+<i class='fa fa-arrow-right-arrow-left'></i> <strong>PIPES - Magnetic tape model (I/O streams)</strong><br />
+<i class="placeholder"></i>Specific, but great for some problems (MapReduce)
+</li>
+<li>
+<i class='fa fa-folder-tree'></i> <strong>MULTICS - Tree with blob leaves (file system)</strong> <br />
+<i class="placeholder"></i>Legible, allows separation; rarely used in full
+</li>
+<li>
+<i class='fa fa-table'></i> <strong>SQL - Memory is a set of relations (tables)</strong><br />
+<i class="placeholder"></i>Expressive query language, c.f. Prolog and similar
+</li>
+</ul>
+</section><section class="icons "><h1>Memory models</h1>
+<h2>Programming system heuristic</h2>
+<ul>
+<li><i class='fa fa-keyboard'></i> Single property of any programming system</li>
+<li><i class='fa fa-layer-group'></i> Categorical rather than ordinal</li>
+<li><i class='fa fa-book'></i> Sheds light on what exists</li>
+<li><i class='fa fa-clipboard-question'></i> Open to questioning, e.g., is that all there is?</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Notations</h1>
+<h2>Cognitive dimensions</h2>
+</div>
+</section><section class="lists "><h1>Notations and humans</h1>
+<img src="img/heuristics/rosetta.jpg"/>
+<div>
+<h2>Notations in computing</h2>
+<ul>
+<li>Programming languages</li>
+<li>Markup and config files</li>
+<li>Rule and macro editors</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>User experience questions</h2>
+<ul>
+<li>Does the notation structure support activities of the user?</li>
+<li>Is one notation the best?</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Cognitive dimensions</h1>
+<h2>Programming system heuristic</h2>
+<ul>
+<li><i class='fa fa-paint-brush'></i> Comprehensible broad-brush evaluation</li>
+<li><i class='fa fa-user'></i> Understandable for non-specialists</li>
+<li><i class='fa fa-shoe-prints'></i> Distinguish different user needs</li>
+<li><i class='fa fa-eye'></i> Prompt designers to see more choices</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/cogdim.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dimensions × Activities</h1>
+<p>Variety of dimensions<br />
+For a given activity</p>
+</div>
+<div class="fragment">
+<p><strong>Activities</strong></p>
+<p>Generic activities<br />
+involving notations</p>
+<p>Each has different notational needs</p>
+</div>
+</div>
+</div>
+</section><section class="largeicons "><h1>Activities with different needs</h1>
+<ul>
+<li><i class='fa fa-plus-circle'></i> <strong>Incrementation</strong> - adding formulas to spreadsheet</li>
+<li><i class='fa fa-copy'></i> <strong>Transcription</strong> - copying data from paper</li>
+<li><i class='fa fa-edit'></i> <strong>Modification</strong> - changing formula in a spreadsheet</li>
+<li><i class='fa fa-certificate'></i> <strong>Exploratory design</strong> - designing software structure</li>
+<li><i class='fa fa-search'></i> <strong>Searching</strong> - finding uses of a function</li>
+<li><i class='fa fa-filter'></i> <strong>Exploratory understanding</strong> - understanding code</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/cogdim.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dimensions × Activities</h1>
+<p>Variety of dimensions<br />
+For a given activity</p>
+<p><strong>Dimensions</strong></p>
+<p>Characteristic<br />
+of the notation</p>
+<p>Human-computer interaction analysis perspective</p>
+</div>
+</div>
+</div>
+</section><section class="largeicons "><h1>Example cognitive dimensions (1/2)</h1>
+<ul>
+<li><i class='fa fa-ban'></i> <strong>Viscosity</strong> - Resistance to change</li>
+<li><i class='fa fa-eye'></i> <strong>Visibility</strong> - Ability to view components easily</li>
+<li><i class='fa fa-location-arrow'></i> <strong>Premature commitment</strong> - Need to decide too early</li>
+<li><i class='fa fa-archive'></i> <strong>Hidden dependencies</strong> - Important links not visible</li>
+<li><i class='fa fa-key'></i> <strong>Role-expressiveness</strong> - Purpose of an entity is clear</li>
+</ul>
+</section><section class="largeicons "><h1>Example cognitive dimensions (2/2)</h1>
+<ul>
+<li><i class='fa fa-atom'></i> <strong>Error-proneness</strong> - Notation invites mistakes</li>
+<li><i class='fa fa-calculator'></i> <strong>Abstraction</strong> - Types and availability of mechanisms</li>
+<li><i class='fa fa-align-center'></i> <strong>Consistency</strong> - Similar syntax has similar semantics</li>
+<li><i class='fa fa-font'></i> <strong>Diffuseness</strong> - Verbosity of language</li>
+<li><i class='fa fa-lightbulb'></i> <strong>Hard mental operations</strong> - High cognitive demand</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/proton.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Case study</h1>
+<p>Two ways of specifying email filters</p>
+<p><strong>Visual rule editor</strong> vs.<br />
+<strong>scripting language</strong></p>
+</div>
+</div>
+</div>
+</section><section class="content two-column prf2"><h1>Two ways of specifying email filters</h1>
+<div class="body">
+<div>
+<h3>Visual editor</h3>
+<p><img src="img/heuristics/filter1.png" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Scripting language</h3>
+<p><img src="img/heuristics/filter2.png" alt="" /></p>
+<style>.prf2 img {max-width:75%;}</style>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/filter1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Incrementation</h1>
+<p>Adding new condition<br /><br /></p>
+</div>
+<div class="fragment">
+<p><strong>Viscosity</strong><br />
+Not all additions possible</p>
+<p><strong>Abstraction</strong><br />
+Condition format is fixed</p>
+<p><strong>Hard mental operations</strong><br />
+Everything is simple &amp; clear</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/filter2.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Incrementation</h1>
+<p>Adding new condition<br /><br /></p>
+</div>
+<div class="fragment">
+<p><strong>Viscosity</strong><br />
+Edit text for any change</p>
+<p><strong>Abstraction</strong><br />
+Possible via a script</p>
+<p><strong>Hard mental operations</strong>
+Understanding code is hard</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller border"><h1>Two ways of specifying filters</h1>
+<img src="img/heuristics/cd.png"/>
+<div>
+<h2>Cognitive dimensions</h2>
+<ul>
+<li>Used for evaluation</li>
+<li>Consider activities &amp; dimensions</li>
+<li>Clear lists to use</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What is a better notation?</h2>
+<ul>
+<li>Wrong question: different trade-offs!</li>
+<li>UI is viscose, less abstract, but simpler</li>
+<li>Script has abstractions, less viscose, but harder</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/heuristics/scratch.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Block based<br /> visual languages</h1>
+<p><strong>Contrast with text for addition (writing code)</strong></p>
+<p>Premature commit
+Diffuseness / verbosity
+Abstraction<br />
+Error-proneness</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/heuristics/qr-blocks.png"/>
+<div>
+<h2>CDs in the real-world!</h2>
+<ul>
+<li>
+A Usability Analysis of Blocks-based Programming Editors using<br />
+Cognitive Dimensions
+</li>
+<li>
+<a href="https://ieeexplore.ieee.org/abstract/document/8506483">tinyurl.com/nprg075-blocks</a>
+(<a href="https://sci-hub.se/https://ieeexplore.ieee.org/abstract/document/8506483">SciHub</a>)
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why read this paper</h2>
+<ul>
+<li>Example of rigorous analysis</li>
+<li>Based on a user study</li>
+<li>Equally possible with expert assessment</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Programming systems</h1>
+<h2>Technical dimensions</h2>
+</div>
+</section><section class="lists smaller"><h1>From languages to systems</h1>
+<img src="img/heuristics/boxer.png"/>
+<div>
+<h2>Programming system is</h2>
+<p>Integrated and complete set of<br />
+tools sufficient for creating,<br />
+modifying, and executing programs</p>
+</div>
+<div class="fragment">
+<h2>These will include</h2>
+<p>Notations for structuring programs<br />
+and data, facilities for running and<br />
+debugging programs, and interfaces<br />
+for performing all of these tasks.</p>
+</div>
+</section><section class="lists border"><h1>Interesting programming systems</h1>
+<img src="img/heuristics/dark.png"/>
+<div>
+<h2>Research and industry</h2>
+<ul>
+<li>Low-code and no-code startups</li>
+<li>Live &amp; interactive systems</li>
+<li>Interesting code editors</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>How do we talk about these?</h2>
+<ul>
+<li>Difficult to say what is new</li>
+<li>Hard to look beyond the interface</li>
+<li>Programming systems deserve a theory too!</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/techdims.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Technical dimensions</h1>
+<p>Based on analysis of past and modern systems</p>
+<p><strong>Capture their key characteristics</strong></p>
+<p><strong>Describe a range of possible values</strong></p>
+<p>Descriptive, not prescriptive</p>
+</div>
+</div>
+</div>
+</section><section class="content two-column condensed"><h1>Technical dimensions catalogue</h1>
+<div class="body">
+<div>
+<p><strong>Interaction</strong><br />
+Feedback Loops<br />
+Modes of interaction<br />
+Abstraction Construction</p>
+<p><strong>Notation</strong><br />
+Notational Structure<br />
+Surface/Internal<br />
+Primary/Secondary<br />
+Expression Geography<br />
+Uniformity</p>
+<p><strong>Error Handling</strong><br />
+Error Detection<br />
+Error Response</p>
+</div>
+<div class="fragment">
+<p><strong>Conceptual Structure</strong><br />
+Integrity/Openness<br />
+Composability<br />
+Convenience<br />
+Commonality</p>
+<p><strong>Customizability</strong><br />
+Staging<br />
+Externalizability<br />
+Additive Authoring<br />
+Self-Sustainability</p>
+<p><strong>(Others)</strong><br />
+Degrees of Automation<br />
+Learnability &amp; Sociability</p>
+</div>
+</div>
+</section><section class="lists "><h1>Notational uniformity</h1>
+<img src="img/heuristics/lisp.png"/>
+<div>
+<h2>Post-modernist</h2>
+<ul>
+<li>Variety of different notations</li>
+<li>More to learn, but better problem fit</li>
+<li>Perl language, Web platform</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Modernist</h2>
+<ul>
+<li>Small set of uniform primitives</li>
+<li>Not everything fits the notation</li>
+<li>Lisp and (partly) Smalltalk</li>
+</ul>
+</div>
+</section><section class="lists border smaller"><h1>Self-sustainability</h1>
+<img src="img/heuristics/lmi.png"/>
+<div>
+<h2>Separate language level</h2>
+<ul>
+<li>Implementation vs. user level</li>
+<li>Limited changeability from within</li>
+<li>Java and other languages</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Integrated systems design</h2>
+<ul>
+<li>Implemented &amp; modifiable in itself</li>
+<li>Often changeable at runtime</li>
+<li>Smalltalk, Lisp Machines</li>
+</ul>
+</div>
+</section><section class="lists border"><h1>Abstraction construction</h1>
+<img src="img/heuristics/excel.png"/>
+<div>
+<h2>From Concrete</h2>
+<ul>
+<li>Generalize from examples</li>
+<li>Expanding range in Excel</li>
+<li>Pygmalion system</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>From Abstract</h2>
+<ul>
+<li>Define function first</li>
+<li>Most programming languages</li>
+<li>Coding done without values</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Technical dimensions</h1>
+<h2>Programming system heuristic</h2>
+<ul>
+<li><i class='fa fa-puzzle-piece'></i> Making sense of different systems</li>
+<li><i class='fa fa-brush'></i> Broad strokes and high-level</li>
+<li><i class='fa fa-scale-unbalanced'></i> Useful for making comparisons</li>
+<li><i class='fa fa-map-location-dot'></i> Useful for finding gaps in design space</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Heuristic analysis</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/heuristics/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Heuristic analysis of languages</h1>
+<p>Both idea generation<br />
+and evaluation</p>
+<p><strong>Depends on the<br />
+kind of heuristic</strong></p>
+<p>Categorical allows questioning</p>
+<p>Ordinal allows for<br />
+degree comparison</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Announcement</h1>
+<img src="img/heuristics/zoom.png"/>
+<div>
+<h2>Next lecture will be online!</h2>
+<ul>
+<li>12:20, January 2, 2023</li>
+<li><a href="https://matfyz.zoom.us/j/91945625974">matfyz.zoom.us/j/91945625974</a></li>
+<li>Meeting ID: 919 4562 5974</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Heuristic evaluation of programming systems</strong></p>
+<ul>
+<li>Memory (categorical) and liveness (ordinal)</li>
+<li>Cognitive and technical dimension frameworks</li>
+<li>Broad-brush map of the design space</li>
+<li>Useful for evaluation and novel design ideas</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Live visual programming</strong></p>
+<ul>
+<li>Tanimoto, S. L. (1990). <a href="https://sci-hub.se/https://www.sciencedirect.com/science/article/abs/pii/S1045926X05800126">VIVA: A visual language for image processing</a>, Journal on Visual Languages</li>
+<li>Tanimoto, S. L. (2013). <a href="http://projectsweb.cs.washington.edu/ole/Liveness2013.pdf">A Perspective on the Evolution of Live Programming</a>, LIVE</li>
+</ul>
+<p><strong>Language adoption &amp; Heuristics</strong></p>
+<ul>
+<li>Meyerovich, L. A., Rabkin, A. S. (2013). <a href="https://raw.githubusercontent.com/lmeyerov/lmeyerov.github.io/master/projects/socioplt/papers/oopsla2013.pdf">Empirical Analysis of Programming Language Adoption</a>, OOPSLA</li>
+<li>Meyerovich, L. A., Rabkin, A. S. (2012). <a href="https://raw.githubusercontent.com/lmeyerov/lmeyerov.github.io/master/projects/socioplt/papers/onward2012.pdf">Socio-PLT: Sociological Principles for Programming Language Adoption</a>, Onward!</li>
+<li>Nielsen, J. (1994). <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">10 Usability Heuristics for User Interface Design</a>. Norman-Nielsen Group</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/2)</h1>
+<div class="body">
+<div>
+<p><strong>Cognitive, technical &amp; memory models</strong></p>
+<ul>
+<li>Sitaker, K. J. (2016). <a href="http://canonical.org/~kragen/memory-models/">The memory models that underlie programming languages</a>, Online</li>
+<li>Jakubovic, J. et al. (2023). <a href="https://raw.githubusercontent.com/jdjakub/papers/master/prog-2022/prog22-master.pdf">Technical Dimensions of Programming Systems</a>, Programming</li>
+<li>Holwerda, R., Hermans, F. (2018). <a href="https://ieeexplore.ieee.org/document/8506483">A usability analysis of blocks-based programming editors using cognitive dimensions</a>, VL/HCC</li>
+<li>Blackwell, A., Green, T. (2002). <a href="https://www.cl.cam.ac.uk/~afb21/publications/CarrollChapter.pdf">Notational Systems – the Cognitive Dimensions of Notations framework</a>. (Chapter)</li>
+</ul>
+<p><strong>A bit of history</strong></p>
+<ul>
+<li>Goldstine, H., von Neumann, J. (1947). <a href="https://www.ias.edu/sites/default/files/library/pdfs/ecp/planningcodingof0103inst.pdf">Planning and coding of problems for an electronic computing</a>, Princeton</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
