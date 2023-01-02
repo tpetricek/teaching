@@ -2,17 +2,40 @@ Tomas Petricek's teaching
 =========================
 
 This repository contains various teaching materials I created for the courses taught at
-University of Kent and possibly elsewhere. The materials are generally
-created using [FsReveal](http://github.com/fsprojects/FsReveal). For my industry talks
-see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials
+Charles University and University of Kent. The materials use [reveal.js](https://revealjs.com/)
+and are generally generated from Markdown using [F# Formatting](https://fsprojects.github.io/FSharp.Formatting/).
+For my industry and research talks see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials
 (before 2015), check out [my old Documents repository](http://github.com/tpetricek/Documents/).
+
+Programming Language Design (2022)
+----------------------------------
+
+The goal of this course is to show students how to design better programming languages, developer tools,
+development frameworks and libraries. The course covers rigorous methods for programming language and
+library design, ranging from formal methods based on logic and programming language theory, to
+human-computer interaction methods based on qualitative and quantitative user studies.
+
+See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) and [NPRG075 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG075).
+
+ - [**Introduction** - Programming language design](https://tpetricek.github.io/Teaching/2022/pl-design/intro.html)
+ - [**Design** - Learning from architecture and design](https://tpetricek.github.io/Teaching/2022/pl-design/design.html)
+ - [**Usability** - Human-centric language design](https://tpetricek.github.io/Teaching/2022/pl-design/usability.html)
+ - [**Semantics** - Formal models of programming](https://tpetricek.github.io/Teaching/2022/pl-design/semantics.html)
+ - [**Types** - Mathematics and engineering of types](https://tpetricek.github.io/Teaching/2022/pl-design/types.html)
+ - [**Beyond** - Unexpected perspectives on types](https://tpetricek.github.io/Teaching/2022/pl-design/beyond.html)
+ - [**Paradigms** - History and philosophy of programming](https://tpetricek.github.io/Teaching/2022/pl-design/philosophy.html)
+ - [**Close** - Close look at past and today's programs](https://tpetricek.github.io/Teaching/2022/pl-design/close.html)
+ - [**Assignment** - &amp; How to do programming language research](https://tpetricek.github.io/Teaching/2022/pl-design/research.html)
+ - [**Heuristics** - Heuristic evaluation of programming systems](https://tpetricek.github.io/Teaching/2022/pl-design/heuristics.html)
+ - [**Cognition** - Making programming easier and learnable](https://tpetricek.github.io/Teaching/2022/pl-design/cognition.html)
+
 
 University of Kent
 ------------------
 - [CO886: Software Engineering](https://tpetricek.github.io/Teaching/2022/software-engineering/) (2022)
-- [CO886: Software Engineering - Class Materials](https://github.com/tpetricek/Teaching/tree/master/software-engineering-classes) (2022)
+- [CO886: Software Engineering - Class Materials](https://github.com/tpetricek/Teaching/tree/master/2022/software-engineering-classes) (2022)
 - [CO559: Software Development](https://tpetricek.github.io/Teaching/2022/software-development/) (2022)
-- [CO582: Computer Interaction and User Experience](https://tpetricek.github.io/Teaching/human-computer-interaction/) (2019)
+- [CO582: Computer Interaction and User Experience](https://tpetricek.github.io/Teaching/2019/human-computer-interaction/) (2019)
 - [CO880: Software Project and Dissertation](https://tpetricek.github.io/Teaching/2022/project-workshop/) (2022)
 
 Materials license
