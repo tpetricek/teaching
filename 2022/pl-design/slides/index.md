@@ -33,4 +33,4 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Close** - Close look at past and today's programs](close.html)    
 [**Assignment** - & How to do programming language research](research.html)  
 [**Heuristics** - Heuristic evaluation of programming systems](heuristics.html)  
-**Cognition** - How humans think about programming  
+[**Cognition** - Making programming easier and learnable](cognition.html)  
