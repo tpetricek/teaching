@@ -20,6 +20,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 - template: content
 - class: condensed
 
-# Course lectures
+# Lectures and labs
 
-[**Welcome** - Tiny programming systems](intro.html)  
+1. [**Lecture - Welcome**: Tiny programming systems](intro.html)  
+1. [**Lab - TinyML**: A tiny functional language interpreter](tinyml.html)  

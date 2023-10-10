@@ -17,7 +17,8 @@ spreadsheets. Examples will be given using the F# programming language, which wi
 
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) and [NPRG077 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG077).
 
- - [**Introduction** - Tiny programming system(s)](https://tpetricek.github.io/Teaching/2023/tiny-systems/intro.html)
+ - [**Lecture - Welcome**: Tiny programming system(s)](https://tpetricek.github.io/Teaching/2023/tiny-systems/intro.html)
+ - [**Lab - TinyML**: A tiny functional language interpreter](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyml.html)
  
 Programming language design (2022)
 ----------------------------------
