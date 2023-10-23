@@ -24,3 +24,4 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 
 1. [**Lecture - Welcome**: Tiny programming systems](intro.html)  
 1. [**Lab - TinyML**: A tiny functional language interpreter](tinyml.html)  
+1. [**Lab - TinyBASIC**: A tiny interactive imperative programming system](tinybasic.html)  

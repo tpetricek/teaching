@@ -19,6 +19,7 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) a
 
  - [**Lecture - Welcome**: Tiny programming system(s)](https://tpetricek.github.io/Teaching/2023/tiny-systems/intro.html)
  - [**Lab - TinyML**: A tiny functional language interpreter](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyml.html)
+ - [**Lab - TinyBASIC**: A tiny interactive imperative programming system](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinybasic.html)
  
 Programming language design (2022)
 ----------------------------------
