@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TinyBASIC interpreter | Write your own tiny programming system(s)! (NPRG077)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title h2 strong { font-weight:600; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title nologo"><h1>NPRG077</h1>
+<h2>TinyBASIC: A tiny interactive <br /> imperative programming system</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinybasic/dijkstra.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dijkstra on BASIC</h1>
+<p>It is practically impossible to teach good program&shy;ming to students that have
+had a prior exposure to BASIC: as potential prog&shy;rammers they are mentally
+mutilated beyond hope of regeneration.</p>
+</div>
+<div class="fragment">
+<p><strong>BASIC as a language?</strong> Meh.</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Why look at BASIC?</h1>
+<img src="img/tinybasic/byte.jpg"/>
+<div>
+<h2>BASIC as a programming system</h2>
+<ul>
+<li>Right at the birth of microcomputers</li>
+<li>Part of an early computing culture</li>
+<li>Interesting mode of interaction!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>BASIC as a programming problem</h2>
+<ul>
+<li>Interpreter with richer state</li>
+<li>Statements vs. expressions</li>
+<li>More interesting F# programming!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>BASIC</h1>
+<h2>Interaction and emulators</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinybasic/demo.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Demo</h1>
+<h2>Writing BASIC in C64 emulator</h2>
+<p>Realistic machine-level system emulator</p>
+<p>All the clever hacks with <code>POKE</code> work!</p>
+<p>See: <a href="https://virtualconsoles.com/online-emulators/c64/">C64 emulator</a></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>What is interesting about it?</h1>
+<img src="img/tinybasic/listing.jpg"/>
+<div>
+<h2>Learnability</h2>
+<ul>
+<li>Your computer boots into BASIC</li>
+<li>Copy games code from magazines</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>From novice to hacker</h2>
+<ul>
+<li>Simple, but you can do lots with <code>POKE</code></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Interaction mode</h2>
+<ul>
+<li>Code editor and REPL at the same time</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinybasic/essay.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Demo</h1>
+<h2>My C64 essay</h2>
+<p><strong>Explore the interaction</strong><br />
+How it helps write, test and debug code?</p>
+<p><strong>Not fully accurate</strong><br />
+Program does not live in memory, <code>POKE</code> offsets are wrong</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>The F# language</h1>
+<h2>What you need to know</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>TinyBASIC</h1>
+<h2>What F# do you need to know</h2>
+<ul>
+<li><i class='fa fa-dragon'></i> Project, console and tail recursion</li>
+<li><i class='fa fa-scroll'></i> F# language logic and data types</li>
+<li><i class='fa fa-shapes'></i> Records, functions, tuples, patterns</li>
+<li><i class='fa fa-list-check'></i> List processing using built-in functions</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Project, console, recursion</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code class="language-ocaml">let point = (1, 10)
+let (x, y) = point
+
+(* (int*int) -&gt; (int*int) *)
+let rotate (x, y) = (y, x)
+
+(* int -&gt; (int*int) -&gt; (int*int) *)
+let moveX by (x, y) = (x + by, y)
+
+(* (int*int) -&gt; int *)
+let area (x, y) =
+  match x, y with
+  | 0, _ | _, 0 -&gt; 0
+  | x, y -&gt; x * y
+
+(* (int*int) -&gt; int *)
+let area pt =
+  match pt with
+  | ((0, _) | (_, 0)) -&gt; 0
+  | x, y -&gt; x * y
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Tuples, patterns and functions</h1>
+<p><strong>Tuple type</strong> <code>int * int</code> is just another ordinary type of values</p>
+<p><strong>Pattern</strong> <code>(x,y)</code> can appear in multiple locations in code</p>
+<p><strong>Functions</strong> can mix arguments and tuples</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>SKETCH</h1>
+<h2>Tuples and patterns</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code class="language-ocaml">let l1 = [1; 2; 3; 4]
+let l2 = 1::2::3::4::[]
+let l3 = [1..4]
+
+(* Pattern matching lists *)
+match list with
+| [e1; e2] -&gt; (...)
+| el::els -&gt; (...)
+| [] -&gt; (...)
+
+(* Possible, but not very useful *)
+let (e::es) = list
+let foo [e1;e2] = (...)
+
+(* Higher-order list functions *)
+let twice x = x * x
+List.map twice [1..10]
+List.map (fun x -&gt; x * x) [1..10]
+List.sum [1..10]
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>List constructors and list patterns</h1>
+<p><strong>List type</strong> written as
+<code>list&lt;int&gt;</code> or <code>int list</code></p>
+<p>Constructed using <code>::</code> (rare) and
+<code>[..]</code> (often)</p>
+<p>Patterns <code>::</code> and <code>[..]</code> can appear anywhere, but are partial</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Real-world list processing</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinybasic/pipe.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>The pipe operator</h1>
+<p><strong>Fluent style for functional data processing</strong></p>
+<p><code>let (|&gt;) x f = f x</code></p>
+<p>In bash scripting (<code>|</code>), adopted by R (<code>%&gt;%</code>), maybe JavaScript</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Real-world list processing (2/2)</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TinyML</h1>
+<h2>Interpreter structure</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller smallcode"><div class="body1">
+<pre><code class="language-ocaml">type Value = (* .. *)
+type Expression = (* .. *)
+
+type Command =
+  (* Jumps and subroutines *)
+  | Goto of int
+  | GoSub of int
+  | Return
+  (* I/O operations *)
+  | Clear
+  | Print of Expression list
+  | Input of string
+  (* If, variables and control *)
+  | If of Expression * Command
+  | Assign of string * Expression
+  | Run
+  | Stop
+
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>BASIC interpreter structure (1/2)</h1>
+<p><strong>Expressions</strong> evaluate to <strong>Values</strong> and are simple</p>
+<p><strong>Commands</strong> contain all the operations that modify the program state</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller smallcode"><div class="body1">
+<pre><code class="language-ocaml">(* State of the interpreter stores
+   program lines as sorted list,
+   variables in a dictionary,
+   generator for the RND function
+   and stack for GOSUB/RETURN *)
+type State =
+  { Program : list&lt;int * Command&gt;
+    Variables : Map&lt;string, Value&gt;
+    Random : System.Random
+    ReturnStack : int list }
+
+(* Evaluate a command and then
+   run the next one (if any)
+   until the program ends.
+ : State -&gt; (int * Cmd) -&gt; State *)
+let rec runCommand state (line, cmd) =
+  (* ... *)
+
+(* Find the next line after 'line'
+   and run that or stop if none *)
+and runNextLine state line =
+  (* .. *)
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>BASIC interpreter structure (2/2)</h1>
+<p><strong>State</strong> is the program source code, variables<br />
+(and a few extras)</p>
+<p><strong>Current line</strong> is also<br />
+a part of the state<br />
+(function argument)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>BASIC Hello World</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TinyBASIC</h1>
+<h2>How the BASIC language works</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller"><div class="body1">
+<pre><code class="language-basic">REM You can write comments!
+REM Jumping and calls
+GOTO 10
+GOSUB 10
+RETURN
+
+REM Printing to the screen
+POKE 1024 CHR$(42)
+PRINT "HELLO ";X
+
+REM Variables and ifs
+X=10
+IF (X&gt;0) GOTO 10
+
+REM Control
+RUN
+STOP
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>BASIC basics</h1>
+<p><code>GOSUB</code> jumps, but keeps return location on stack<br />
+for <code>RETURN</code></p>
+<p><code>PRINT</code> takes a sequence of expressions (and we ignore cursor moving)</p>
+<p><code>POKE</code> writes a byte to memory (we will cheat)</p>
+<p>We ignore command chaining (<code>:</code>)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Elegant programs with GOSUB :-)</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TinyBASIC</h1>
+<h2>A bit of theory</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Meaning of programs</h1>
+<img src="img/tinybasic/hoare.jpg"/>
+<div>
+<h2>Functional languages</h2>
+<ul>
+<li>Compositional semantics</li>
+<li>
+Define meaning of <span class="math">\(e_1 + e_2\)</span> in<br />
+terms of the meaning of <span class="math">\(e_1\)</span> and <span class="math">\(e_2\)</span>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Imperative languages</h2>
+<ul>
+<li>What is the meaning of <code>PRINT "HI"</code>?</li>
+<li>What is the meaning of <code>GOTO 10</code>?</li>
+<li>Whatever the interpreter does..</li>
+<li>Not very good for program proofs!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller"><div class="body1">
+<pre><code class="language-basic"> 00 REM FACTORIAL IN BASIC
+ 10 Q=5                                  
+ 20 N=1                                  
+ 30 F=1                                  
+ 40 IF N=Q THEN GOTO 100                 
+ 50 N=N+1                                
+ 60 F=F*N                                
+ 70 GOTO 40                              
+100 PRINT F
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Reasoning about BASIC programs</h1>
+<p><strong>Hoare triples</strong> <span class="math">\(\{P\}c\{Q\}\)</span></p>
+<p><strong>Pre-condition <span class="math">\(P\)</span></strong> what is true before the command execution</p>
+<p><strong>Post-condition <span class="math">\(Q\)</span></strong> what is true after the command execution</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinybasic/proof.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Reasoning about BASIC programs</h1>
+<p><strong>Postconditions</strong> of a command before have to match
+<strong>preconditions</strong> of a command after</p>
+<p>Coming up with the right properties is tricky!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Lab overview</h1>
+<h2>TinyBASIC system step-by-step</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinyBASIC - Basic tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Add <code>GOTO</code> and better <code>PRINT</code> for infinite loop fun!</strong><br />
+Evaluation of expressions, finding of the next line</p>
+</li>
+<li>
+<p><strong>Implement interactive program editing</strong><br />
+Handle commands that edit the program code</p>
+</li>
+<li>
+<p><strong>Add variables and the conditional command</strong><br />
+Needs <code>Map&lt;string, Value&gt;</code> in the program state</p>
+</li>
+<li>
+<p><strong>Random function and (not quite correct) <code>POKE</code></strong><br />
+To be able to generate random stars!</p>
+</li>
+<li>
+<p><strong>A few more functions and operators</strong><br />
+As required by the Nim (subtraction) game</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinyBASIC - Bonus tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Add support for more elegant programs with GOSUB</strong><br />
+Needs <code>list&lt;int&gt;</code> (stack of return line numbers) in state</p>
+</li>
+<li>
+<p><strong>Refactor our Nim code sample to use it</strong><br />
+Dijkstra will still not be happy, but we avoid repetition</p>
+</li>
+<li>
+<p><strong>Implement an "AI" player for our Nim game</strong><br />
+Wikipedia says this is a solved problem :-)</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Closing</h1>
+<h2>A tiny imperative programming system</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="title "><h1>Conclusions</h1>
+<p><strong>A tiny interactive imperative programming system</strong></p>
+<ul>
+<li>Evaluation logic not that far from TinyML!</li>
+<li>Imperative interpreter needs much more state</li>
+<li>How exactly interactive editing worked?!</li>
+<li>Parsing &amp; interactive editing out of scope :-(</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
