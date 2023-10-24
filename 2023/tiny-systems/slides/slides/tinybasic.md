@@ -434,7 +434,7 @@ Evaluation of expressions, finding of the next line
 1. **Implement interactive program editing**  
 Handle commands that edit the program code
 
-3. **Add variables and the conditional command**  
+3. **Add variables, conditionals, integers and bools**  
 Needs `Map<string, Value>` in the program state
 
 3. **Random function and (not quite correct) `POKE`**  
