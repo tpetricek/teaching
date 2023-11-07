@@ -2,13 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>TinyBASIC interpreter | Write your own tiny programming system(s)! (NPRG077)</title>
+		<title>TinyBASIC: Tiny interactive imperative programming system | Write your own tiny programming system(s)! (NPRG077)</title>
 		<link rel="stylesheet" href="reveal/reveal.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
 			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<style type="text/css">
 
- 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
 			.reveal .slides {
 				text-align:left;
 				xbackground:yellow;
@@ -88,6 +88,7 @@
 			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
 			.lists .decor pre { margin:15px; padding:0px; }
 			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
 			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
 			.reveal .lists.noborder .body img { border-style:none; }
 			.lists.condensed p, .lists.condensed li { font-size:24pt }
@@ -117,8 +118,8 @@
 			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
 
 			.title h1 { margin-bottom:40px; }
-			.title h2 { margin-top:-40px; }
-			.title h2 strong { font-weight:600; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+			.title h2 strong { font-weight:400; }
 			.title .body { position:absolute; bottom:40px; width:900px; }
 			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
 			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
@@ -159,7 +160,7 @@
 		<div class="reveal">
 			<div class="slides">
 				<section><section class="title nologo"><h1>NPRG077</h1>
-<h2>TinyBASIC: A tiny interactive <br /> imperative programming system</h2>
+<h2><strong>TinyBASIC</strong>: Tiny interactive <br /> imperative programming system</h2>
 <div class="body">
 <p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
 <em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
@@ -362,7 +363,7 @@ List.sum [1..10]
 <h2>Real-world list processing (2/2)</h2>
 </div>
 <img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
-<h1>TinyML</h1>
+<h1>TinyBASIC</h1>
 <h2>Interpreter structure</h2>
 </div>
 <img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller smallcode"><div class="body1">
@@ -550,7 +551,7 @@ Evaluation of expressions, finding of the next line</p>
 Handle commands that edit the program code</p>
 </li>
 <li>
-<p><strong>Add variables and the conditional command</strong><br />
+<p><strong>Add variables, conditionals, integers and bools</strong><br />
 Needs <code>Map&lt;string, Value&gt;</code> in the program state</p>
 </li>
 <li>
