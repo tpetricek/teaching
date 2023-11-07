@@ -1,11 +1,11 @@
-- title: TinyML interpreter | Write your own tiny programming system(s)! (NPRG077)
+- title: TinyML: Tiny functional programming langauge interpreter | Write your own tiny programming system(s)! (NPRG077)
 
 *****************************************************************************************
 - template: title
 - class: nologo
 
 # NPRG077
-## TinyML: A tiny functional<br/> programming language interpreter
+## **TinyML**: Tiny functional programming<br/> language interpreter
 
 ---
 

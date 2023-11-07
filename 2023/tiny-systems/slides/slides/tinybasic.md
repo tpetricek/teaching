@@ -1,11 +1,11 @@
-- title: TinyBASIC interpreter | Write your own tiny programming system(s)! (NPRG077)
+- title: TinyBASIC: Tiny interactive imperative programming system | Write your own tiny programming system(s)! (NPRG077)
 
 *****************************************************************************************
 - template: title
 - class: nologo
 
 # NPRG077
-## TinyBASIC: A tiny interactive <br /> imperative programming system
+## **TinyBASIC**: Tiny interactive <br /> imperative programming system
 
 ---
 
@@ -231,7 +231,7 @@ In bash scripting (`|`), adopted by R (`%>%`), maybe JavaScript
 *****************************************************************************************
 - template: subtitle
 
-# TinyML
+# TinyBASIC
 ## Interpreter structure
 
 -----------------------------------------------------------------------------------------
