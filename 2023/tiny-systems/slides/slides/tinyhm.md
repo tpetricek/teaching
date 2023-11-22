@@ -442,3 +442,13 @@ _<i class="fa fa-envelope"></i>_ [petricek@d3s.mff.cuni.cz](mailto:petricek@d3s.
 _<i class="fa-solid fa-circle-right"></i>_ [https://tomasp.net](https://tomasp.net) | [@tomaspetricek](http://twitter.com/tomaspetricek)  
 _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg077
 
+
+-----------------------------------------------------------------------------------------
+
+- https://github.com/kseo/poly_constraints
+
+- https://researchportal.hw.ac.uk/en/publications/generalizing-hindley-milner-type-inference-algorithms
+
+- https://course.ccs.neu.edu/cs4410sp19/lec_type-inference_notes.html
+
+- https://www.lesswrong.com/posts/vTS8K4NBSi9iyCrPo/a-reckless-introduction-to-hindley-milner-type-inference
