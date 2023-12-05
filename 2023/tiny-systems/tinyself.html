@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TinySelf: Tiny prototype-based object-oriented language | Write your own tiny programming system(s)! (NPRG077)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title nologo"><h1>NPRG077</h1>
+<h2><strong>TinySelf</strong>: Tiny prototype-based<br /> object-oriented language</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinyself/cpl.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Object-orientation</h1>
+<p><strong>Dynamic lookup</strong> - object chooses how to respond</p>
+<p><strong>Abstraction</strong> - object state can be hidden from user</p>
+<p><strong>Subtyping</strong> - any compatible object can be used</p>
+<p><strong>Inheritance</strong> - reuse to implement a new object</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content three-column"><h1>Brief history</h1>
+<div class="body">
+<div>
+<h3>Origins of object orientation <em>(1960s-70s)</em></h3>
+<p>Algol-based and scientific Simula</p>
+<p>Tools for thought and messaging in Smalltalk</p>
+</div>
+<div class="fragment">
+<h3>Conceptual development <em>(1980s)</em></h3>
+<p>Rigorous Eiffel and "serious" C++</p>
+<p>Prototypes and materialized objects in Self</p>
+</div>
+<div class="fragment">
+<h3>Commercial refinement <em>(1990s-2000s)</em></h3>
+<p>Class-based safe Java and C#</p>
+<p>Prototypes in JavaScript and typed TypeScript</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Why TinySelf?</h1>
+<img src="img/tinyself/self.png"/>
+<div>
+<h2>"Pure" object-orientation</h2>
+<ul>
+<li>Simple, uniform system</li>
+<li>Everything is an object (for real)</li>
+<li>Simpler than class-based Smalltalk</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Shows the potential of objects</h2>
+<ul>
+<li>Not Java-style organization of code</li>
+<li>Objects and graphical interfaces!</li>
+<li>Objects with introspection and debugging!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinyself/morphic.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Self &amp; Morphic user interface framework</h1>
+<p><strong>Visual programming</strong></p>
+<p>Programming by graphically manipulating objects on screen</p>
+<p><strong>Direct programming</strong></p>
+<p>Objects on screen <em>are</em> objects in the system</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>(Not so) Tiny Smalltalk</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>TinySelf</h1>
+<h2>Scope of the implementation</h2>
+<ul>
+<li><i class='fa fa-diagram-project'></i> Prototype-based multiple inheritance</li>
+<li><i class='fa fa-play'></i> Methods with simple interpreted code</li>
+<li><i class='fa fa-table-list'></i> Explaining basic runtime structures</li>
+<li><i class='fa fa-gear'></i> Inaccurate interpreter in "Self style"</li>
+<li><i class='fa fa-square-check'></i> Sketch of what UI framework might look like</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TinySelf</h1>
+<h2>Self programming paradigm</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Everything is an object</h1>
+<img src="img/tinyself/objects.png"/>
+<div>
+<h2>Really everything</h2>
+<ul>
+<li>Objects, methods, lambdas, expressions, activation records</li>
+<li>
+Object has lists of slots and <br />
+optionally contains code
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Obect = slots* + code?</h2>
+<ul>
+<li>Data object has just slots</li>
+<li>Method object has code</li>
+<li>Closure has code and slots!</li>
+<li>Data object has methods as slots</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">
+// Object consists of zero or more
+// slots and optionally code
+type Objekt =
+  { mutable Code : Objekt option
+    mutable Slots : Slot list }
+
+// A slot has name and contents;
+// Some slots are parents
+and Slot =
+  { Name : string
+    Contents : Objekt
+    IsParent : bool }
+
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>TinySelf objects</h1>
+<p><strong>Object consists of zero or more slots and optional code!</strong></p>
+<p>In Self parent slot names end with *</p>
+<p>TinySelf objects can<br />
+also be special things</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content catsimg"><div class="body">
+<div>
+<p><img src="img/tinyself/cheshire.jpg" alt="" />
+<img src="img/tinyself/larry.jpg" alt="" />
+<img src="img/tinyself/mog.jpg" alt="" /></p>
+<style type="text/css">.catsimg img {
+  max-width:360px;
+  max-height:360px; float:left; margin:20px; }</style>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/tinyself/cats.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Prototypes and slots</h1>
+<p>Message send looks at target object first,
+then searches parents</p>
+<pre><code class="language-csharp">cheshire name  // OK
+cheshire book  // OK
+
+larry name  // OK
+larry book  // Fail
+</code></pre>
+<p>Message send fail if none or multiple slots found</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Representing cats in Self</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-js">"""Data object with name"""
+(| book = 'Alice in Wonderland' |)
+
+"""Method with  some code"""
+( self name printLine )
+
+"""Data object with parent
+ slot and a 'speak' method"""
+(| parent* = cat
+   name = 'Cheshire Cat'
+   speak = (
+     self sound printLine
+   )
+|)
+
+"""Data access or method call"""
+cheshire name
+cheshire speak
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Message sending</h1>
+<p>Lookup slot with a matching name, then:</p>
+<ul>
+<li>If it contains data object, it is returned</li>
+<li>If it contains method, the method is called</li>
+</ul>
+<p>Assignment slots and special calls differ...</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Hello world, traits and cloning</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>The power of simplicity...</h1>
+<img src="img/tinyself/simpl.png"/>
+<div>
+<h2>Simplicity and uniformity</h2>
+<ul>
+<li>All objects can be opened!</li>
+<li>Activation records for debugging</li>
+<li>Self-sustainable system</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Morphic framework</h2>
+<ul>
+<li>Things on screen are objects!</li>
+<li>Object with a morph prototype can draw itself</li>
+<li>User interface is just morphs - no special code!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Morphic and graphical objects</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>The F# language</h1>
+<h2>What we need for TinySelf</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller"><div class="body">
+<h1>Mutable records in F#</h1>
+<img src="img/tinyself/fsharp.png"/>
+<div>
+<h2>Defining mutable objects</h2>
+<ul>
+<li>Records with <code>mutable</code> fields</li>
+<li>We could use classes too</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Equality and records</h2>
+<ul>
+<li>Still use structural equality by default</li>
+<li>Not if records (can) contain functions!</li>
+<li><code>ReferenceEquality</code> attribute to override</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">type Person =
+  { mutable Name : string
+    mutable Book : string option }
+
+let setName n p =
+  p.Name &lt;- n
+let setBook b p =
+  p.Book &lt;- Some b
+
+let x = { Name = "Bill"; k = None }
+x |&gt; setName "William"
+x |&gt; setBook "Alice in Wonderland"
+
+match x with
+| { Book = Some book } -&gt;
+  printfn "%s likes %s" x.Name book
+| _ -&gt;
+  printfn "%s is sad :-(" x.Name
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Mutable records</h1>
+<p><strong>Helper functions</strong><br />
+Make code a bit nicer<br />
+Can support <code>|&gt;</code> pipe</p>
+<p><strong>Pattern matching</strong><br />
+Same as immutable<br />
+Nice data extraction!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Working with mutable records</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column smallcode"><h1>TinySelf programming style</h1>
+<div class="body">
+<div>
+<h3>Different than before!</h3>
+<p><strong>Everything is an <code>Objekt</code></strong><br />
+Type definition stays<br />
+We change what we put in!</p>
+<p><strong>Uniformity has drawbacks</strong>
+Everything type checks!</p>
+</div>
+<div class="fragment">
+<h3>Helper methods</h3>
+<p><strong>Simplify object construction</strong></p>
+<pre><code class="language-fsharp">let makeString s =
+  makeDataObject [
+    makeParentSlot "parent*"
+      stringPrototype
+    makeSlot "value"
+      (makeSpecial(String s))
+    makeAssignmentSlot "value"
+  ]
+</code></pre>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TinySelf</h1>
+<h2>Key implementation tricks</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>TinySelf</h1>
+<h2>Key implementation tricks</h2>
+<ul>
+<li><i class='fa fa-display'></i> How Self puts things on screen!</li>
+<li><i class='fa fa-diagram-project'></i> Slot lookup in parent objects</li>
+<li><i class='fa fa-envelope'></i> Message send to method/data slots</li>
+<li><i class='fa fa-table-list'></i> Activation records and calling</li>
+<li><i class='fa fa-code'></i> How TinySelf represents expressions</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinyself/etosy.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>How Self-like systems put things on screen?</h1>
+</div>
+<div class="fragment">
+<p><strong>Escape hatch is a must</strong><br />
+Smalltalk system calls<br />
+Self primitive calls<br />
+(primitives primitiveList)</p>
+<p><strong>TinySelf special objects</strong><br />
+Primitive string values<br />
+Native F# methods</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code class="language-fsharp">// Special TinySelf objects!
+type Special =
+  | String of string
+  | Native of (Objekt -&gt; Objekt)
+
+// Optionally special object
+and Objekt =
+  { mutable Code : Objekt option
+    mutable Special : Special option
+    mutable Slots : Slot list }
+
+// Code to clone an object
+let cloneCode =
+  { Slots = []; Code = None
+    Special = Some(Native(fun arcd -&gt;
+      lookupSlotValue "self*" arcd
+      |&gt; cloneObject )) }
+
+// Method with special code object
+let cloneMethod =     
+  { Slots = []; Special = None;
+    Code = Some cloneCode }
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Special objects</h1>
+<p><strong>String values</strong></p>
+<p>No other way to represent strings!</p>
+<p><strong>Native methods</strong></p>
+<p>F# function taking "activation record" and returning the result</p>
+<p>Used as method code</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>TinySelf</h1>
+<h2>Lookup and message sending</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinyself/lookup.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Slot lookup logic</h1>
+<p>1) Search target object</p>
+<p>2) Search parents and union the results</p>
+<p>3) Avoid infinite loops!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column"><h1>Message sending logic</h1>
+<div class="body">
+<div>
+<h3>Self handbook</h3>
+<blockquote>
+<p>A normal send does a look&shy;up to obtain the target slot;</p>
+<p>If the slot contains a data object, then the data object is simply returned.</p>
+<p>If the slot contains a method, an activation is created and run.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<h3>TinySelf translation</h3>
+<ol>
+<li>Find slot using lookup!</li>
+<li>Check it is exactly one</li>
+<li>If there is no code, return it</li>
+<li>
+If there is code, run it...
+<ul>
+<li>Create activation record</li>
+<li>Run (non-)native code</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinyself/activation.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Activation record</h1>
+<p>Lookup in activation record to get all our code needs!</p>
+<p><strong>Clone of method</strong><br />
+It could have data!</p>
+<p><strong>Self as parent</strong><br />
+Access target's slots!</p>
+<p><strong>Arguments as parent</strong><br />
+Access arguments!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Representing TinySelf code</h1>
+<img src="img/tinyself/code.png"/>
+<div>
+<h2>AST is a tree of objects</h2>
+<ul>
+<li>All nodes have <code>eval</code> method</li>
+<li>Called with <code>activation</code> as argument</li>
+<li>Objects store sub-expressions etc.</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Benefits and drawbacks</h2>
+<ul>
+<li>Differs from normal Self or Smalltalk!</li>
+<li>Much simpler than compiled methods</li>
+<li>Beware! Values and expressions are <code>Objekt</code>!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller2x"><div class="body1">
+<p><img src="img/tinyself/expr.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Simple expression</h1>
+<p><code>'Hello world' print</code></p>
+<br />
+<p><strong>Send expression</strong><br />
+Receiver, message, arguments to be used</p>
+<p><strong>String expression</strong><br />
+String value to be returned</p>
+</div>
+<div class="fragment">
+<p>To make this nicer, put eval code into prototypes...</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Lab overview</h1>
+<h2>TinySelf system step-by-step</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinySelf - Basic tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Implementing slot lookup</strong><br />
+Traversing the prototype hierarchy to find slots</p>
+</li>
+<li>
+<p><strong>Implementing (basic) message sending</strong><br />
+Handling of data objects and (native) methods</p>
+</li>
+<li>
+<p><strong>Cloning and mutating TinySelf objects</strong><br />
+Assignment slots and clonable trait</p>
+</li>
+<li>
+<p><strong>Representing &amp; interpreting TinySelf expressions</strong><br />
+Creating expression objects with <code>eval</code> method</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinySelf - Bonus and super tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Arguments and sequencing of expressions</strong><br />
+Adding more types of expressions to TinySelf</p>
+</li>
+<li>
+<p><strong>Booleans and 'if' as a message send!</strong><br />
+Booleans are just objects with an <code>if</code> method</p>
+</li>
+<li>
+<p><strong>Objects as lists and more expressions</strong><br />
+Adding more infrastructure before the next step...</p>
+</li>
+<li>
+<p><strong>Creating web-based visualizers</strong><br />
+A small step towards TinyMorphic framework</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Closing</h1>
+<h2>A tiny prototype-based OO language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/tinyself/cpl.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>TinySelf and OO</h1>
+<p><strong>Dynamic lookup</strong><br />
+Find method using lookup</p>
+<p><strong>Abstraction</strong><br />
+No private slots in TinySelf</p>
+<p><strong>Subtyping</strong><br />
+Object with required slots</p>
+<p><strong>Inheritance</strong><br />
+By setting a parent slot</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinyself/nanospeak.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What is missing</h1>
+<p><strong>Self-sustainable</strong><br />
+Complete basic library<br />
+Reflection capabilities</p>
+<p><strong>Reflection via mirrors</strong><br />
+Mirror objects<br />
+Inspect &amp; modify<br />
+Done in Nanospeak</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="title "><h1>Conclusions</h1>
+<p><strong>A tiny prototype-based object-oriented language</strong></p>
+<ul>
+<li>Basic logic of object-oriented languages</li>
+<li>Shows how to build self-sustainable system</li>
+<li>Different implementation - everything is object</li>
+<li>Hard to implement! Need debuggers, not types</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><div class="body">
+<div>
+<p><a href="https://bibliography.selflanguage.org/">https://bibliography.selflanguage.org/</a></p>
+<p><a href="https://bibliography.selflanguage.org/_static/self-power.pdf">https://bibliography.selflanguage.org/_static/self-power.pdf</a></p>
+<p><a href="https://handbook.selflanguage.org/SelfHandbook2017.1.pdf">https://handbook.selflanguage.org/SelfHandbook2017.1.pdf</a></p>
+<p><a href="https://sin-ack.github.io/posts/a-tour-of-self/">https://sin-ack.github.io/posts/a-tour-of-self/</a></p>
+<p><a href="https://github.com/sin-ack/zigself/">https://github.com/sin-ack/zigself/</a> ??</p>
+<p><a href="https://github.com/tpetricek/nanospeak/">https://github.com/tpetricek/nanospeak/</a></p>
+<p><a href="https://www.cambridge.org/core/books/concepts-in-programming-languages/1C05841AB47B49D12C7FC48D1022F11E">https://www.cambridge.org/core/books/concepts-in-programming-languages/1C05841AB47B49D12C7FC48D1022F11E</a></p>
+<p><a href="http://blog.rfox.eu/en/Programming/Series_about_Self/index.html">http://blog.rfox.eu/en/Programming/Series_about_Self/index.html</a></p>
+<p><a href="http://blog.rfox.eu/en/Programming/tinySelf.html">http://blog.rfox.eu/en/Programming/tinySelf.html</a></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
