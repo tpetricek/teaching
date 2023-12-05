@@ -10,9 +10,9 @@ For my industry and research talks see [my Talks repository](http://github.com/t
 Write your own tiny programming system(s)! (2023)
 -------------------------------------------------
 
-The goal of this course is to teach how fundamental programming language techniques, algorithms and 
-systems work by writing their miniature versions. The course covers multiple paradigms including 
-functional, object-oriented, imperative and logic, as well as end-user programming environments like 
+The goal of this course is to teach how fundamental programming language techniques, algorithms and
+systems work by writing their miniature versions. The course covers multiple paradigms including
+functional, object-oriented, imperative and logic, as well as end-user programming environments like
 spreadsheets. Examples will be given using the F# programming language, which will be briefly introduced.
 
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) and [NPRG077 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG077).
@@ -22,7 +22,8 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) a
  - [**Lab - TinyBASIC**: Tiny interactive imperative programming system](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinybasic.html)
  - [**Lab - TinyHM**: Tiny Hindley-Milner type inference](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyhm.html)
  - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyprolog.html)
- 
+ - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyself.html)
+
 Programming language design (2022)
 ----------------------------------
 
