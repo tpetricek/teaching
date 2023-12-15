@@ -24,6 +24,17 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) a
  - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyprolog.html)
  - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyself.html)
 
+Concepts of Modern Programming Languages (2023)
+-------------------------------------------------
+
+The course will show advanced concepts of OO languages with dynamic typing (demonstrated on
+Groovy), OO languages with static typing (demonstrated on Scala) and OO languages without
+classes (demonstrated on IO and briefly on JavaScript/TypeScript to show the implications).
+
+See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg014/) and [NPRG014 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG014).
+
+- [Advanced types in TypeScript (Guest lecture)](http://tpetricek.github.io/teaching/2023/modern-langauge-concepts/index.html)
+
 Programming language design (2022)
 ----------------------------------
 

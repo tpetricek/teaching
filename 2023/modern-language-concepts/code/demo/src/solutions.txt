@@ -1,0 +1,15 @@
+type Formatted<T> = { [K in keyof T]:T[K] extends number ? string : T[K] extends string ? string : Formatted<T[K]> }
+
+function getBook<E extends boolean>(index:number, detailed:E) : BookInfo<E>
+
+function join<T1, T2>(a1:T1[], a2:T2[], key:keyof(T1 | T2)) : (T1 & T2)[] {
+
+function join<T1, T2, K extends string>
+  ( a1:(T1 & Record<K,string>)[], 
+    a2:(T2 & Record<K,string>)[], key:K) : (T1 & T2)[] {
+  
+type UnArrayAux<T> = T extends (infer U)[] ? UnArrayAux<U> : T;
+type UnArray<T> = T extends (infer U)[] ? UnArrayAux<U>[] : never;
+
+
+function select<T, K extends keyof(T)>(data:T[], key:K) : T[K][] {
