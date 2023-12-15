@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Advanced types in TypeScript (NPRG014)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title nologo"><h1>NPRG014</h1>
+<h2><strong>Advanced types in TypeScript</strong><br /> Guest lecture</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/people/tomaspetricek/">https://d3s.mff.cuni.cz/people/tomaspetricek/</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Where I'm coming from?</h1>
+<ul>
+<li>
+<i class='fa fa-landmark'></i> <strong>PhD, University of Cambridge</strong><br />
+<i class="placeholder"></i>Types for context-aware programming
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Microsoft Research Cambridge</strong><br />
+<i class="placeholder"></i>F# and applied functional programming
+</li>
+<li>
+<i class='fa fa-city'></i> <strong>The Alan Turing Institute, London</strong><br />
+<i class="placeholder"></i>Expert and non-expert tools for data science
+</li>
+<li>
+<i class='fa fa-church'></i> <strong>University of Kent, Canterbury</strong><br />
+<i class="placeholder"></i>Programming systems and history
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/prg.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What is my quest?</h1>
+<p><strong>More programming lan&shy;guage research in Prague</strong></p>
+<p>Ask about reading group!<br />
+Do a PL project or thesis!<br />
+Join us for a PhD?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Language design</h1>
+<h2>Different approaches</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/lambda.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Formal properties</h1>
+<p><strong>Language should be based on sound formal foundations!</strong></p>
+<p>Haskell and pure functional languages</p>
+<p>Self and pure object-oriented programming</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/kt-dr.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Implementation properties</h1>
+<p><strong>Should be easy to compile and close to the underlying system!</strong></p>
+<p>Fortran, C but also<br />
+the Go language</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/vscode.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>User experience properties</h1>
+<p><strong>Language should integrate well with the rest of the ecosystem</strong></p>
+<p>Scratch, HyperTalk, BASIC and aspects of Visual Basic</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Case study: LINQ</h1>
+<div class="body">
+<div>
+<p>LINQ queries in Visual Basic .NET and C#</p>
+<pre><code>Dim db As New northwindDataContext
+Dim ukCompanies =
+  From cust In db.Customers
+  Where cust.Country = "UK"
+  Select cust.CompanyName, cust.City
+</code></pre>
+</div>
+<div class="fragment">
+<p>Why confuse programmers familiar with SQL?</p>
+<pre><code class="language-sql">SELECT [CompanyName], [City]
+WHERE [Country] = 'UK'
+FROM dbo.[Northwind]
+</code></pre>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TypeScript</h1>
+<h2>Design &amp; history</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>TypeScript</h1>
+<h2>Language design motivations</h2>
+<ul>
+<li><i class='fa fa-shoe-prints'></i> Full compatibility with JavaScript</li>
+<li><i class='fa fa-trowel'></i> Support large-scale development</li>
+<li><i class='fa fa-check'></i> Provide checking where possible</li>
+<li><i class='fa fa-brands fa-github'></i> Work with existing JavaScript code!</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/legacy.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Retrofitting programming language to code?</h1>
+</div>
+<div class="fragment">
+<p><strong>Well, actually...</strong></p>
+<p>TypeScript by Microsoft<br />
+Hack by Facebook</p>
+<p>Any new language version?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/dts.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Retrofitting Java&shy;Script with types</h1>
+<p>External definitions for existing libs (<code>.d.ts</code>)</p>
+<p>Not everything can be typed (allow <code>any</code>)</p>
+<p>JavaScript quirks<br />
+(<code>null</code> vs. <code>undefined</code>)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder smaller"><div class="body">
+<h1>TypeScript types evolution</h1>
+<img src="img/ts.png"/>
+<div>
+<h2>Version &lt;2 (2012-16)</h2>
+<ul>
+<li>Conservative extension of JavaScript</li>
+<li>Type system follows the 80%/20% rule</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Versions 2, 3 (2016-20)</h2>
+<ul>
+<li>More type-level gymnastics, closer to 90%</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Version &gt;=4 (2020-...)</h2>
+<ul>
+<li>Even more fancy types, closer to 99%?</li>
+<li>Allows some scary type system hacks!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TypeScript</h1>
+<h2>Practical types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Typing the createElement function</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-typescript">// Union type and null type
+
+getElementById(elementId:string):
+  HTMLElement | null
+
+// Overloaded function
+// String literal types
+
+createElement(tagName:"input"):
+  HTMLInputElement
+
+createElement(tagName:"button"):
+  HTMLButtonElement
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Types concepts</h1>
+<p><strong>Overloaded functions</strong><br />
+But with single implementation!</p>
+<p><strong>Flow-sensitive typing</strong><br />
+To eliminate nulls</p>
+<p><strong>Union and literal types</strong><br />
+More generally useful</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>"Clean" functional design</h1>
+<img src="img/fsharp.png"/>
+<div>
+<h2>Options instead of nulls</h2>
+<pre><code class="language-fsharp">type Option&lt;'T&gt; =
+  | Some of 'T // Option has a value
+  | None       // Option has no value
+</code></pre>
+</div>
+<div class="fragment">
+<h2>Matching instead of flow</h2>
+<pre><code class="language-fsharp">match optElement with
+| None -&gt; failwith "out element missing"
+| Some element -&gt;
+    el.appendChild(input)
+    el.appendChild(btn)
+</code></pre>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Analysis</h1>
+<h2>Flow-sensitive typing</h2>
+<ul>
+<li><i class='fa fa-folder'></i> Compatible with existing JavaScript code</li>
+<li><i class='fa fa-code'></i> No need for extra syntax</li>
+<li><i class='fa fa-hat-wizard'></i> Somewhat unexpected behaviour!</li>
+<li><i class='fa fa-arrow-up-a-z'></i> Type of variable changes with scope</li>
+<li><i class='fa fa-square-xmark'></i> Valid patterns do not pass</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task #1</h1>
+<h2>Break flow-sensitive typing!</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder smaller"><div class="body">
+<h1>Literal and union types</h1>
+<img src="img/ts.png"/>
+<div>
+<h2>Union types</h2>
+<ul>
+<li>Value of one of several types</li>
+<li>Safe languages prefer tagged unions!</li>
+<li>Flow-sensitive typing with <code>typeof</code> works</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Literal types</h2>
+<ul>
+<li>Type of a unique TypeScript value</li>
+<li>Works on values beyond strings, e.g. <code>[42]</code></li>
+<li>Composes with other types, e.g. <code>[0|1, number]</code></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Unions, typeof, array literal types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task #2</h1>
+<h2>Implement bit increment</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code>// Multiple overload signatures
+function speak(animal:"dog") : void
+function speak(animal:"cat") : void
+
+// One compatible implementation
+function speak(animal:string) {
+  switch(animal) {
+    case "dog":
+      console.log("woof")
+      return
+    case "cat":
+      console.log("meow")
+      return
+  }
+}
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Function type overloading</h1>
+<p>Implementation signature is hidden</p>
+<p>Overload signature has to be compatible with the implementation</p>
+<p><strong>Overloads can differ<br />
+in return type!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task #3</h1>
+<h2>Implementing createAnimal function</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Special types</h1>
+<ul>
+<li><i class='fa fa-face-meh'></i> <strong>void</strong> - No value, but usable as return type</li>
+<li><i class='fa fa-face-meh-blank'></i> <strong>never</strong> - No value, represent unreachable code</li>
+<li><i class='fa fa-face-flushed'></i> <strong>unknown</strong> - Cannot be used in any way</li>
+<li><i class='fa fa-face-dizzy'></i> <strong>any</strong> - Unknown, but can be used anywhere</li>
+<li><i class='fa fa-face-tired'></i> <strong>undefined</strong> - Special undefined value</li>
+<li><i class='fa fa-face-sad-cry'></i> <strong>null</strong> - Special null value</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>What can and cannot be done with never</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder smaller"><div class="body">
+<h1>Union and intersection types</h1>
+<img src="img/ts.png"/>
+<div>
+<h2>Union (<code>T1 | T2</code>)</h2>
+<ul>
+<li>
+Represents set union of<br />
+the values of the two types
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Intersection (<code>T1 &amp; T2</code>)</h2>
+<ul>
+<li>
+Represents set intersection<br />
+of the values of the types
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Record extension via intersection types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TypeScript</h1>
+<h2>Algebraic data types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">// Algebraic data type that
+// represents an expression
+type Expr =
+  // Numerical constant
+  | Const of int
+
+  // Named variable
+  | Variable of string
+
+  // Unary &amp; binary operators
+  | Unary of string * Expr
+  | Binary of string * Expr * Expr
+
+  // Function with arguments
+  | Function of string * Expr list
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Algebraic types</h1>
+<p>Popular functional modelling tool</p>
+<p><strong>Entity consists of multiple sub-entities</strong>
+(operator + arguments)</p>
+<p><strong>Entity can be one of several options</strong>
+(number, variable, ...)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Algebraic data types in TypeScript</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Algebraic data types</h1>
+<img src="img/dts.png"/>
+<div>
+<h2>Literal &amp; union types</h2>
+<ul>
+<li>Tag to represent the kind of type</li>
+<li>
+<code>{ t:"s1" } | { t:"s2" }</code><br />
+<code>= { t:"s1" | "s2" }</code>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Flow-sensitive typing</h2>
+<ul>
+<li>Check for a tag determines case</li>
+<li>Similar to pattern matching</li>
+<li>Works well with <code>switch</code>!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task #4</h1>
+<h2>Write a simple expression evaluator</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode smaller"><div class="body1">
+<pre><code class="language-ts">// Contact is an algebraic type
+type Contact =
+    ContactEmail
+  | ContactPhone
+  | ContactAll
+
+interface ContactEmail {
+  type: 'email'
+  email: string
+}
+interface ContactPhone {
+  type: 'phone'
+  number: number[]
+}
+interface ContactAll {
+  type: 'all'
+  email: string
+  number: number[]
+}
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Compare two representations</h1>
+<p><strong>Do they represent the same data?</strong></p>
+<pre><code class="language-ts">interface Student1 {
+  name: string
+  email: string | null
+  number: number[] | null
+}
+
+interface Student2 {
+  name: string
+  contact: Contact
+}
+</code></pre>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Calculating with types</h1>
+<img src="img/algebra.jpg"/>
+<div>
+<h2>Type constructor algebra</h2>
+<ul>
+<li>Record behaves as <span class="math">\(A * B\)</span> or <span class="math">\(A \times B\)</span></li>
+<li>Unions behave as <span class="math">\(A + B\)</span> or <span class="math">\(A \cup B\)</span></li>
+<li>Functions <code>A-&gt;B</code> behave as <span class="math">\(B^A\)</span></li>
+<li>Unit type is <span class="math">\(1\)</span> and void (never) is <span class="math">\(0\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Usual algebraic laws work!</h2>
+<ul>
+<li><span class="math">\(A*(B+C) = A*B + A*C\)</span></li>
+<li><span class="math">\(A * 1 = A\)</span> and <span class="math">\(A * 0 = 0\)</span></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Calculating with types</h1>
+<div class="body">
+<div>
+<p><span class="math">\(Contact = (Phone * Email) + Email + Phone\)</span><br />
+<span class="math">\(Student2\)</span><br />
+<span class="math">\(\quad =Name * Contact\)</span><br />
+<span class="math">\(\quad {\color{green}=Name * ((Phone * Email) + Email + Phone)}\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math">\(Student1\)</span><br />
+<span class="math">\(\quad = Name * (Phone+1) * (Email+1)\)</span><br />
+<span class="math">\(\quad = Name * ((Phone+1) * Email + (Phone+1) * 1)\)</span><br />
+<span class="math">\(\quad = {\color{blue}Name * ((Phone * Email) + Email + Phone }{\color{red}\;+\;1})\)</span></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TypeScript</h1>
+<h2>Type-level computation</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code class="language-js">
+// Returns book information consisting
+// of title and year and description
+// (only when detailed=true)
+function getBook(index, detailed) {
+  let b = lookup(index);
+  if (detailed)
+    return {
+      title:b.title, year:b.year,
+      description:b.description }
+  else
+    return {
+      title:b.title, year:b.year }
+}
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Motivation</h1>
+<p>How to check more dynamic behaviour?</p>
+</div>
+<div class="fragment">
+<p><strong>Dependent types!?</strong></p>
+<p>Return type depends on the value (type) of the argument</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Dependent types</h1>
+<img src="img/dep.png"/>
+<div>
+<h2>Serious type theory business!</h2>
+<ul>
+<li>
+Types corresponding to<br />
+terms in  predicate logic
+</li>
+<li>Used in theorem provers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>More practical uses exist</h2>
+<ul>
+<li>Track number of elements in a list <code>List n T</code></li>
+<li><code>List n T -&gt; List m T -&gt; List (n+m) T</code></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller"><div class="body1">
+<pre><code>type LabelOrId&lt;T&gt; =
+  // If T is a number,
+  // result has id:number
+  T extends number ?
+    { id:number } :
+    // If T is a string
+    // result has label:string
+    T extends string ?
+      { label:string } :
+      // Otherwise return
+      // unusable type
+      never;
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Conditional types</h1>
+<p><code>cond ? type1 : type2</code></p>
+<p><strong>Result type depends<br />
+on another type</strong></p>
+<p>Condition can only check using <code>extends</code> (subtype)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Book info with optional details</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Transforming record types</h1>
+<img src="img/ts.png"/>
+<div>
+<h2>Keyof types</h2>
+<ul>
+<li>Union type of type's keys as literals</li>
+<li><code>{ age:number; name:string }</code></li>
+<li><code>keyof(P) = "age"|"name"</code></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Indexed access types</h2>
+<ul>
+<li>Type of a property of a type</li>
+<li><code>P["age"] = number</code></li>
+<li><code>P[keyof P] = "number"|"string"</code></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Filtering book records by key</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task</h1>
+<h2>Implement well-typed join operation</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Transforming record types using keyof</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/galaxy.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Galaxy brain?</h1>
+<p>Pattern matching at the type
+level using infer/extends</p>
+<p>Type level array and string interpolation</p>
+<p>Representing numbers at the type level</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Flattening array types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Strings &amp; type-level numbers</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/arithmetic.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Arithmetic</h1>
+<p><strong>You can do (big) arithmetic in TypeScript types</strong></p>
+<p>Why?</p>
+<p>Good question...<br />
+but maybe matrix operations?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Task</h1>
+<h2>Figure out how ts-arithmetic works!</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>TypeScript</h1>
+<h2>Conclusions</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Excuse to talk about</h1>
+<ul>
+<li>
+<i class='fa fa-paintbrush'></i> <strong>Programming language design</strong><br />
+<i class="placeholder"></i>Design based on existing codebase is funny!
+</li>
+<li>
+<i class='fa fa-shapes'></i> <strong>Algebraic data types</strong><br />
+<i class="placeholder"></i>Nice and powerful modelling tool
+</li>
+<li>
+<i class='fa fa-not-equal'></i> <strong>Dependent type system concepts</strong><br />
+<i class="placeholder"></i>Weird in TypeScript, but interesting!
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Some practical TypeScript tricks</strong><br />
+<i class="placeholder"></i>Lets you do lots of useful things...
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/prg.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>PL project ideas?</h1>
+<p>Safe data manipulation or charting libraries in TypeScript?</p>
+<p>Types for untyped languages with existing codebase (R, Python)?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="title "><h1>Conclusions</h1>
+<p><strong>Advanced types in TypeScript</strong></p>
+<ul>
+<li>Hidden surprises in a widely used language</li>
+<li>Happens to be unsafe and undecidable!</li>
+<li>Going beyond 80:20 requires lots of magic</li>
+<li>Talk to me about projects &amp; PL reading group!</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
