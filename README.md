@@ -33,7 +33,7 @@ classes (demonstrated on IO and briefly on JavaScript/TypeScript to show the imp
 
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg014/) and [NPRG014 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG014).
 
-- [Advanced types in TypeScript (Guest lecture)](http://tpetricek.github.io/teaching/2023/modern-langauge-concepts/index.html)
+- [Advanced types in TypeScript (Guest lecture)](https://tpetricek.github.io/Teaching/2023/modern-language-concepts/)
 
 Programming language design (2022)
 ----------------------------------
