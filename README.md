@@ -23,6 +23,7 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) a
  - [**Lab - TinyHM**: Tiny Hindley-Milner type inference](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyhm.html)
  - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyprolog.html)
  - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyself.html)
+ - [**Lab - TinyExcel**: Tiny incremental spreadsheet system](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyexcel.html)
 
 Concepts of Modern Programming Languages (2023)
 -------------------------------------------------
