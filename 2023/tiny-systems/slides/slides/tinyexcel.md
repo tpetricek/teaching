@@ -534,8 +534,11 @@ type Address = Index * Index
 1. **"Drag down" formula expanding**  
    Relocating relative references in formula
 
+1. **Reactive event-based structure**  
+   Refactoring code to use graph nodes
+
 1. **Reactive event-based computation**  
-   Implicit dependency graph via events
+   Adding update event handling
 
 1. **Rendering sheets as HTML pages**  
    First step towards a user interface
