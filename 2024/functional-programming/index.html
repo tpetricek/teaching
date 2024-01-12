@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Effects and Coeffects (NAIL097)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.larger p, .content.larger li { font-size:30pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+			.title.condensed li { font-size:24pt; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+			.hljs-string { color:#808000 !important }
+			.img80 img { max-width:80%; }
+
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title nologo"><h1>NAIL097</h1>
+<h2><strong>Effects and coeffects</strong><br /> Guest lecture</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/people/tomaspetricek/">https://d3s.mff.cuni.cz/people/tomaspetricek/</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Where I'm coming from?</h1>
+<ul>
+<li>
+<i class='fa fa-landmark'></i> <strong>PhD, University of Cambridge</strong><br />
+<i class="placeholder"></i>Types for context-aware programming
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Microsoft Research Cambridge</strong><br />
+<i class="placeholder"></i>F# and applied functional programming
+</li>
+<li>
+<i class='fa fa-city'></i> <strong>The Alan Turing Institute, London</strong><br />
+<i class="placeholder"></i>Expert and non-expert tools for data science
+</li>
+<li>
+<i class='fa fa-church'></i> <strong>University of Kent, Canterbury</strong><br />
+<i class="placeholder"></i>Programming systems and history
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/prg.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What is my quest?</h1>
+<p><strong>More programming lan&shy;guage research in Prague!</strong></p>
+<p>Ask about reading group!<br />
+Do a PL project or thesis!<br />
+Join us for a PhD?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Side-effects</h1>
+<h2>Monads and monad transformers</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">// Random number generators
+let rnd = Random()
+rnd.Next()
+
+// Get the current time
+System.DateTime.Now
+
+// Throw an exception
+raise "Something went wrong"
+
+// Write to a file
+File.WriteAllText(
+  "/tmp/test.txt", "Hello!")
+
+// Use mutable state
+let mutable counter = 0
+counter &lt;- counter + 1
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Side-effects</h1>
+<p><strong>Sooner or later, you need to do them!</strong></p>
+<p>Communicating with the outside (network, files, input/output)</p>
+<p>Expressing things on the inside (threads, mutable state, non-determinism, exceptions)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Side effects</h1>
+<h2>Different approaches</h2>
+<ul>
+<li><i class='fa fa-utensils'></i> Allow anywhere but use cautiously</li>
+<li><i class='fa fa-box-archive'></i> Implement and track using monads</li>
+<li><i class='fa fa-shield'></i> Allow but track using effect systems</li>
+<li><i class='fa fa-hand-dots'></i> Implement and track sing effect handlers</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Monads and monad transformers</h1>
+<img src="img/putstrln.png"/>
+<div>
+<h2>Capture effect as monadic type</h2>
+<ul>
+<li>Can fail: <code>a -&gt; Maybe b</code></li>
+<li>Uses state: <code>a -&gt; State b</code></li>
+<li>Interactive:  <code>a -&gt; IO b</code></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Issues with monads</h2>
+<ul>
+<li>They cannot be easily combined!</li>
+<li>Neither: <code>a -&gt; State (Maybe b)</code></li>
+<li>Nor: <code>a -&gt; Maybe (State b)</code></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller2x noborder"><div class="body1">
+<p><img src="img/transformers.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monad transformers</h1>
+<p>Wrap another monad to produce a new one</p>
+</div>
+<div class="fragment">
+<p><strong>Works but not great...</strong></p>
+<p>Only some combinations<br />
+Not an automatic process<br />
+Code becomes ugly</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Effect systems</h1>
+<h2>Effects and effect handlers</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Effects and effect handlers</h1>
+<img src="img/effekt.png"/>
+<div>
+<h2>Effect systems (1980s-90s)</h2>
+<ul>
+<li>Information about effects in types</li>
+<li>Memory, networking, IO</li>
+<li>Mostly theoretical papers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Effect handlers (2010s-20s)</h2>
+<ul>
+<li>New implementation method</li>
+<li>Better tracking in the type system</li>
+<li>Effekt, Eff, Koka, Haskell, OCaml, Scala, ...</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Eff programming language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/vdash.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Type systems</h1>
+<p><strong>Given a variable context <span class="math">\(\Gamma\)</span>, an exp&shy;ression <span class="math">\(e\)</span> has a type <span class="math">\(\tau\)</span>.</strong></p>
+<p>Explain idea in a simple <span class="math">\(\lambda\)</span>-calculus language</p>
+<p>Ignore practical aspects like type inference!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/types.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Type system</h1>
+<p><strong>Derivation rule for each expression</strong></p>
+<p>Expression has a type if there is a derivation</p>
+<p>Does not specify<br />
+type inference!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Sample typing derivation</h1>
+<div class="body">
+<div>
+<p><img src="img/deriv.png" alt="" /></p>
+<p>They are quite tedious to write by hand!</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/types.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Effect systems</h1>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/effects.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Effect systems</h1>
+<p><strong>Adds effect annotations</strong></p>
+<p>Added to expression
+and function type</p>
+<p>Var access &amp; lambda creation are pure</p>
+<p>Application unions<br />
+all effects</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Type system of Eff</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/lang.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Language with effects</h1>
+<p><strong>Effect handlers can be defined and handled like exceptions</strong></p>
+<p>Here just <code>print</code> and <code>get</code></p>
+<p>Types of <code>Get</code> and <code>Print</code> introduce <code>get</code> and <code>print</code></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Typing effectful expression</h1>
+<div class="body">
+<div>
+<p><img src="img/print.png" alt="" /></p>
+<p>Effect annotations combined using union!</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Effects</h1>
+<h2>Interesting and tricky aspects</h2>
+<ul>
+<li><i class='fa fa-trophy'></i> More fine-grained than monads!</li>
+<li><i class='fa fa-paw'></i> Polymorphism is hard to get right</li>
+<li><i class='fa fa-list-ul'></i> Complicates all higher-order functions</li>
+<li><i class='fa fa-circle-half-stroke'></i> Generalizing to other structures than unions</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Monads and effects</h1>
+<h2>How are they related?</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/moggi.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monads and effects</h1>
+<div class="citation">
+<p>(Moggi, 1991)</p>
+</div>
+<p>Monads can be used to model the semantics of side-effects</p>
+<p><strong>Two tiny languages</strong></p>
+<p>One with built-in effects<br />
+One with effects as feature</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller"><div class="body">
+<h1>Monads and category theory</h1>
+<img src="img/cats.png"/>
+<div>
+<h2>Programming language semantics</h2>
+<ul>
+<li>Formally define what programs mean</li>
+<li>Explain subtle language features</li>
+<li>Reason about programs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Category theory</h2>
+<ul>
+<li>Lots of algebraic structures for use!</li>
+<li>Composition is a central concept</li>
+<li>For compositional (functional) programs too!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Category = objects + arrows</h1>
+<div class="body">
+<div>
+<p>A category <span class="math">\(\mathcal{C}\)</span> consists of objects <span class="math">\(obj(\mathcal{C})\)</span> and arrows <span class="math">\(arr(\mathcal{C})\)</span> between objects, i.e.
+<span class="math">\(f : A \rightarrow B\)</span> where <span class="math">\(A, B \in obj(\mathcal{C})\)</span> with:</p>
+<ul>
+<li>
+<p><strong>Arrow composition</strong><br />
+Given <span class="math">\(f : A \rightarrow B, g : B \rightarrow C\)</span>, there is <span class="math">\(f\circ g:A \rightarrow C\)</span>.</p>
+</li>
+<li>
+<p><strong>Associativity</strong><br />
+Given <span class="math">\(f, g, h\)</span>, it holds that <span class="math">\((f\circ g)\circ h = f\circ (g\circ h)\)</span></p>
+</li>
+<li>
+<p><strong>Identity arrow for all</strong> <span class="math">\(B\)</span><br />
+<span class="math">\(id_B : B \rightarrow B\)</span> such that <span class="math">\(id_B \circ f = f\)</span> and <span class="math">\(g \circ id_B = g\)</span></p>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller"><div class="body">
+<h1>Interesting categories</h1>
+<img src="img/cats.png"/>
+<div>
+<h2>Mathematical structures</h2>
+<ul>
+<li>Sets with functions between them</li>
+<li>Numbers with less/greater than</li>
+<li>Vector, topological spaces etc.</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Programming structures</h2>
+<ul>
+<li>Types with functions between them (more or less)</li>
+<li>Classes with subtyping relationship</li>
+<li>Version control with parent relationships (maybe)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content img80"><h1>Types = objects, functions = arrows</h1>
+<div class="body">
+<div>
+<p><img src="img/tup.png" alt="" /></p>
+<p><strong>Arrow composition is function composition!</strong><br />
+Haskell's <code>isZero.fst</code> becomes <span class="math">\(\textit{fst}\,\circ\textit{isZero}\)</span></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Categorical semantics</h1>
+<div class="body">
+<div>
+<p><strong>What is the meaning of <code>a+b</code>?</strong></p>
+<p><span class="math">\(\qquad a\!:\!int,b\!:\!int \;\vdash\, a+b\!:\!int\)</span></p>
+</div>
+<div class="fragment">
+<p>Arrow or morphism between two objects:</p>
+<p><span class="math">\(\qquad int\times int\rightarrow int\)</span></p>
+<p>Yes, you can read this as a function too...</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Categorical semantics</h1>
+<div class="body">
+<div>
+<p><strong>What is the meaning of <span class="math">\(e\)</span>?</strong></p>
+<p><span class="math">\(\qquad v_1\!:\!\tau_1,\ldots,v_n\!:\!\tau_n\vdash e : \tau\)</span></p>
+<p>Arrow or morphism between two objects:</p>
+<p><span class="math">\(\qquad \tau_1\times\ldots\times\tau_n \rightarrow \tau\)</span></p>
+<p>Maps (categorical) product of inputs to output</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/semantics.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Categorical semantics</h1>
+<p><strong>Basics map nicely</strong><br />
+Variable access is<br />
+identity, composition<br />
+is composition</p>
+<p><strong>But more is needed</strong><br />
+Cartesian Closed Categories</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Categorical semantics</h1>
+<div class="body">
+<div>
+<p><strong>But what if there are side-effects?</strong></p>
+<p><span class="math">\(\qquad v_1\!:\!\tau_1,\ldots,v_n\!:\!\tau_n\vdash e : \tau \htmlStyle{color:#8A003B;}{ \,\&amp;\, s}\)</span></p>
+<p>The result is wrapped with a monad <span class="math">\(\htmlStyle{color:#8A003B;}{M}\)</span>!</p>
+<p><span class="math">\(\qquad \tau_1\times\ldots\times\tau_n \rightarrow \htmlStyle{color:#8A003B;}{M}\,\tau\)</span></p>
+<p>"Monad is just a monoid in the category of endofunctors. What is the problem?"</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Definition of a monad</h1>
+<div class="body">
+<div>
+<p>Given a category <span class="math">\(\mathcal{C}\)</span>, a <em>monad</em> is a functor <span class="math">\(\htmlStyle{color:#8A003B;}{M} : \mathcal{C} \rightarrow \mathcal{C}\)</span><br />
+together with mappings (or <em>natural transformations</em>):</p>
+<ul>
+<li><p><span class="math">\(\eta_\tau : \tau \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau)\)</span></p></li>
+<li>
+<p><span class="math">\((-)^*\)</span> which turns an arrow <span class="math">\(f : \tau_1 \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau_2)\)</span><br />
+into an arrow <span class="math">\(f^* :  \htmlStyle{color:#8A003B;}{M}(\tau_1) \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau_2)\)</span></p>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/semantics1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monadic semantics</h1>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/semantics2.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monadic semantics</h1>
+<p><strong>Monad (functor) wraps the output type</strong></p>
+<p>Unit and bind is what we need to compose!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller noborder"><div class="body">
+<h1>Graded monads</h1>
+<img src="img/venn.png"/>
+<div>
+<h2>What about effect annotations?</h2>
+<ul>
+<li>We had effects <span class="math">\(r, s, t\)</span> but just a monad <span class="math">\(M \tau\)</span>!</li>
+<li>Annotate the monad structure as <span class="math">\(M^r \tau\)</span></li>
+<li>Monad composition composes annotations</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Graded monads for effects</h2>
+<ul>
+<li>Unit <span class="math">\(\eta_\tau : \tau \rightarrow M^0(\tau)\)</span></li>
+<li>Bind <span class="math">\((-)^* : (\tau_1 \rightarrow M^r(\tau_2)) \rightarrow (M^s(\tau_1) \rightarrow M^{s\oplus r}(\tau_2))\)</span></li>
+<li>List of length <span class="math">\(n\)</span> with <span class="math">\(*\)</span></li>
+<li>State with lattice of access rights</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content img80"><h1>Semantics with graded monads</h1>
+<div class="body">
+<div>
+<p><img src="img/graded.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Comonads and coeffects</h1>
+<h2>The dual of effects is?</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Context-dependent computations</h1>
+<img src="img/life.gif"/>
+<div>
+<h2>Programming problems</h2>
+<ul>
+<li>Different compilation targets</li>
+<li>Systems with different resources</li>
+<li>Neighbourhood in simulations</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Actual examples of coeffects</h2>
+<ul>
+<li>Tracking of resources (implicit parameters)</li>
+<li>History in data flow languages</li>
+<li>Variable liveness (used or not)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-fsharp">// Reading global state
+System.DateTime.Now
+
+// Data-flow computations
+(x + prev x) / 2
+
+// Implicit parameters
+let foo() = ?x + 1
+let ?x = 1 in foo()
+
+// Game of life
+let this = (* am I alive *)
+let nbr = (* # of neighbours *)
+(this &amp;&amp; (nbr = 2 || nbr = 3))
+|| (not this &amp;&amp; nbr = 3)
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Context-awareness</h1>
+<p><strong>Reader monad is product comonad</strong></p>
+<p><code>a -&gt; M b</code><br />
+<code>a -&gt; (s -&gt; b)</code><br />
+<code>a * s -&gt; b</code><br />
+<code>C a -&gt; b</code></p>
+<p>Other context-related problems</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Definition of a monad (again)</h1>
+<div class="body">
+<div>
+<p>Given a category <span class="math">\(\mathcal{C}\)</span>, a <em>monad</em> is a functor <span class="math">\(\htmlStyle{color:#8A003B;}{M} : \mathcal{C} \rightarrow \mathcal{C}\)</span><br />
+together with mappings (or <em>natural transformations</em>):</p>
+<ul>
+<li><p><span class="math">\(\eta_\tau : \tau \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau)\)</span></p></li>
+<li>
+<p><span class="math">\((-)^*\)</span> which turns an arrow <span class="math">\(f : \tau_1 \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau_2)\)</span><br />
+into an arrow <span class="math">\(f^* :  \htmlStyle{color:#8A003B;}{M}(\tau_1) \rightarrow \htmlStyle{color:#8A003B;}{M}(\tau_2)\)</span></p>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content larger"><h1>Definition of a monad</h1>
+<div class="body">
+<div>
+<p>Given a category <span class="math">\(\mathcal{C}\)</span>, a <em>comonad</em> is a functor <span class="math">\(\htmlStyle{color:#8A003B;}{C} : \mathcal{C} \rightarrow \mathcal{C}\)</span><br />
+together with mappings (or <em>natural transformations</em>):</p>
+<ul>
+<li><p><span class="math">\(\mu_\tau : \htmlStyle{color:#8A003B;}{C}(\tau) \rightarrow \tau\)</span></p></li>
+<li>
+<p><span class="math">\((-)^*\)</span> which turns an arrow <span class="math">\(f : \htmlStyle{color:#8A003B;}{C}(\tau_1) \rightarrow \tau_2\)</span><br />
+into an arrow <span class="math">\(f^* :  \htmlStyle{color:#8A003B;}{C}(\tau_1) \rightarrow \htmlStyle{color:#8A003B;}{C}(\tau_2)\)</span></p>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Stencil computations</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/semantics1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monadic semantics</h1>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/semantics3.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Comonadic semantics</h1>
+<p><strong>Monad (functor) wraps the input type</strong></p>
+<p>Variable context handling becomes tricky!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Coeffects and graded comonads</h1>
+<ul>
+<li>
+<i class='fa fa-book'></i> <strong>Fewer good examples of comonads</strong><br />
+<i class="placeholder"></i>Non-empty list, product (reader), stencils
+</li>
+<li>
+<i class='fa fa-superscript'></i> <strong>Graded comonad capture more than comonads</strong><br />
+<i class="placeholder"></i>Maybe works, because <span class="math">\(\textnormal{Maybe}^{\textnormal{hasValue}} \tau \rightarrow \tau\)</span>
+</li>
+<li>
+<i class='fa fa-crutch'></i> <strong>Needs extra stuff because of variables!</strong><br />
+<i class="placeholder"></i><span class="math">\(C(\tau_0)\times C(\tau_1 \times \ldots \times \tau_n) \rightarrow C(\tau_0 \times \ldots \times \tau_n)\)</span>
+</li>
+<li>
+<i class='fa fa-circle-xmark'></i> <strong>Composition + merging and splitting of contexts</strong><br />
+<i class="placeholder"></i>Composition <span class="math">\(\otimes\)</span> with context merging <span class="math">\(\oplus\)</span> and splitting <span class="math">\(\vee\)</span>
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/types.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Effect systems</h1>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/coeffects.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Coeffect systems</h1>
+<p><strong>Adds coeffect annotations</strong></p>
+<p>Variable access is pure</p>
+<p>Lambda combines available contexts</p>
+<p>Application becomes<br />
+a bit tricky!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<p>Derivations in coeffect playground</p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/dataflow.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dataflow coeffects</h1>
+<p><strong>Two extra operations</strong></p>
+<p>Composition (multipication)</p>
+<p>Split context into two (requires max)</p>
+<p>Merge two contexts (requires min)</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle "><div class="body">
+<h1>Effects and coeffects</h1>
+<h2>Conclusions</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Excuse to talk about</h1>
+<ul>
+<li>
+<i class='fa fa-paintbrush'></i> <strong>Programming language design</strong><br />
+<i class="placeholder"></i>Design based on existing codebase is funny!
+</li>
+<li>
+<i class='fa fa-shapes'></i> <strong>Algebraic data types</strong><br />
+<i class="placeholder"></i>Nice and powerful modelling tool
+</li>
+<li>
+<i class='fa fa-not-equal'></i> <strong>Dependent type system concepts</strong><br />
+<i class="placeholder"></i>Weird in TypeScript, but interesting!
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Some practical TypeScript tricks</strong><br />
+<i class="placeholder"></i>Lets you do lots of useful things...
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller"><div class="body1">
+<p><img src="img/prg.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Project, thesis or PhD on programming?</h1>
+<p>Languages and applications with effects, coeffects &amp; capabilities</p>
+<p>Semantics of interactive programming systems</p>
+<p>Types for data science scripting in Python or R</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="title condensed"><h1>Conclusions</h1>
+<p><strong>Effects and Coeffects</strong></p>
+<ul>
+<li>
+<strong>Effects can be modelled as monads</strong><br />
+But you need grading and more structures
+</li>
+<li>
+<strong>Coeffects to track context-dependence</strong><br />
+Dual to effects, but need different extras!
+</li>
+<li>
+<strong>Coeffects can be modelled as comonads</strong><br />
+But you need grading for interesting cases
+</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 309 (3rd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>References</h1>
+<div class="body">
+<div>
+<ul>
+<li><a href="https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html">https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html</a></li>
+<li><a href="https://en.wikibooks.org/wiki/Haskell/Monad_transformers">https://en.wikibooks.org/wiki/Haskell/Monad_transformers</a></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				katex: {
+			    trust: true,
+			 	},
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
