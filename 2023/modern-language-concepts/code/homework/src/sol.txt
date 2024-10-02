@@ -1,0 +1,129 @@
+interface Operators {
+  "+":(a:number, b:number) => number
+  "-":(a:number, b:number) => number
+  "*":(a:number, b:number) => number
+  "/":(a:number, b:number) => number
+}
+
+let operators : Operators = {
+  "+": (a, b) => a + b,
+  "-": (a, b) => a - b,
+  "*": (a, b) => a * b,
+  "/": (a, b) => a / b
+}
+
+interface NumberToken { kind:"number"; value:number }
+interface OperatorToken { kind:"operator"; operator:keyof Operators }
+
+type Token = NumberToken | OperatorToken
+
+interface NumberEvent { kind:"number"; value:number }
+interface PushOpEvent { kind:"pushop"; operator:keyof Operators }
+interface OtherEvent { kind:"pushnum" | "clearnum" | "eval" }
+
+type CalculatorEvent = NumberEvent | PushOpEvent | OtherEvent
+
+interface State {
+  number:number;
+  tokens:Token[]
+}
+
+
+
+let pad = document.getElementById("pad");
+if (pad == null) throw "!"
+let ops = document.getElementById("ops");
+if (ops == null) throw "!"
+
+let expr = document.createElement("input");
+expr.value = ""
+pad.appendChild(expr)
+
+let num = document.createElement("input");
+num.value = "0"
+pad.appendChild(num)
+
+for(let i=9; i>=0; i--) {
+  let btn = document.createElement("button")
+  btn.innerText = i.toString();
+  btn.onclick = () => trigger({kind:"number", value:i})
+  pad.appendChild(btn)
+}
+let btnu = document.createElement("button")
+btnu.innerText = "⇑";
+btnu.onclick = () => trigger({kind:"pushnum"})
+pad.appendChild(btnu)
+let btnc = document.createElement("button")
+btnc.innerText = "C";
+btnc.onclick = () => trigger({kind:"clearnum"})
+pad.appendChild(btnc)
+
+
+function typedKeys<T>(value: T): (keyof T)[] {
+  return <any>Object.keys(<any>value);
+}
+
+let btn = document.createElement("button")
+btn.innerText = "⇓"
+btn.id="eval"
+btn.onclick = () => trigger({kind:"eval" })
+ops!.appendChild(btn)
+
+typedKeys(operators).forEach(op => {
+  let btn = document.createElement("button")
+  btn.innerText = op
+  btn.onclick = () => trigger({kind:"pushop", operator:op })
+  ops!.appendChild(btn)
+})
+
+var state : State = { number:0, tokens:[] } 
+
+
+
+function update() {
+  num.value = state.number.toString()
+  expr.value = state.tokens.map(tok => {  
+    switch(tok.kind) {
+      case "operator": return tok.operator;
+      case "number": return tok.value.toString(); 
+    }
+  }).join(" ")
+}
+
+function evaltokens() : number {
+  var stack : number[] = []
+  for(var i = 0; i<state.tokens.length; i++) {
+    let tok = state.tokens[i]
+    switch(tok.kind) {
+      case "number": 
+        stack.push(tok.value)
+        break;
+      case "operator": 
+        stack.push(operators[tok.operator](stack.pop()!, stack.pop()!))
+        break;
+    }
+  }
+  return stack.pop()!
+}
+function trigger(evt:CalculatorEvent) {
+  switch(evt.kind) {
+    case "number":
+      state.number = state.number * 10 + evt.value;
+      break;
+    case "pushop":
+      state.tokens.push({ kind:"operator", operator:evt.operator })
+      break;
+    case "pushnum":
+      state.tokens.push({ kind:"number", value:state.number })
+      state.number = 0;
+      break;  
+    case "clearnum":
+      state.number = 0;
+      break;  
+    case "eval":
+      state.number = evaltokens();
+      state.tokens = []
+      break;  
+  }
+  update()
+}
