@@ -554,11 +554,11 @@ type Address = Index * Index
 1. **Adding range selection and array values**  
    Required for the SUM function
 
-1. **Support for sheet live editing**  
-   Updating cells and dependency graph nodes
-
 1. **Adding change visualization**  
    Tracking and showing what has changed
+
+1. **Full support for live editing**  
+   Updating dependencies in the dependency graph
 
 *****************************************************************************************
 - template: subtitle
