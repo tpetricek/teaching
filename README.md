@@ -17,7 +17,7 @@ human-computer interaction methods based on qualitative and quantitative user st
 
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) and [NPRG075 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG075).
 
- - [**Introduction** - Programming language design](https://tpetricek.github.io/Teaching/2024/pl-design/intro.html)
+ - [**Introduction** - Programming language design](https://tpetricek.github.io/teaching/2024/pl-design/intro.html)
 
 Advanced C# Programming - Labs (2024)
 -------------------------------------
@@ -41,13 +41,13 @@ spreadsheets. Examples will be given using the F# programming language, which wi
 
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) and [NPRG077 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG077).
 
- - [**Lecture - Welcome**: Tiny programming system(s)](https://tpetricek.github.io/Teaching/2023/tiny-systems/intro.html)
- - [**Lab - TinyML**: Tiny functional language interpreter](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyml.html)
- - [**Lab - TinyBASIC**: Tiny interactive imperative programming system](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinybasic.html)
- - [**Lab - TinyHM**: Tiny Hindley-Milner type inference](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyhm.html)
- - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyprolog.html)
- - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyself.html)
- - [**Lab - TinyExcel**: Tiny incremental spreadsheet system](https://tpetricek.github.io/Teaching/2023/tiny-systems/tinyexcel.html)
+ - [**Lecture - Welcome**: Tiny programming system(s)](https://tpetricek.github.io/teaching/2023/tiny-systems/intro.html)
+ - [**Lab - TinyML**: Tiny functional language interpreter](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyml.html)
+ - [**Lab - TinyBASIC**: Tiny interactive imperative programming system](https://tpetricek.github.io/teaching/2023/tiny-systems/tinybasic.html)
+ - [**Lab - TinyHM**: Tiny Hindley-Milner type inference](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyhm.html)
+ - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyprolog.html)
+ - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyself.html)
+ - [**Lab - TinyExcel**: Tiny incremental spreadsheet system](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyexcel.html)
 
 Guest lectures (2023/2024)
 --------------------------
@@ -56,22 +56,22 @@ I did guest lectures at two courses! The [Concepts in Modern Programming course]
 The [Functional Programming course](https://github.com/vituscze/fp) ([NAIL097 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NAIL097)) covers
  theoretical foundations of functional programming and their uses, in particular in the environment of Haskell language.
 
-- [**NPRG014**: Advanced Types in TypeScript](https://tpetricek.github.io/Teaching/2023/modern-language-concepts/)
-- [**NAIL097**: Effects and Coeffects](https://tpetricek.github.io/Teaching/2024/functional-programming/)
+- [**NPRG014**: Advanced Types in TypeScript](https://tpetricek.github.io/teaching/2023/modern-language-concepts/)
+- [**NAIL097**: Effects and Coeffects](https://tpetricek.github.io/teaching/2024/functional-programming/)
 
 Teaching at Charles University (2022)
 -------------------------------------
 
-- [**NPRG075** - Programming Language Design](https://tpetricek.github.io/Teaching/2022/pl-design/)
+- [**NPRG075** - Programming Language Design](https://tpetricek.github.io/teaching/2022/pl-design/)
 
 Teaching at University of Kent (2018-2022)
 -----------------------------------------
 
-- [**CO886** - Software Engineering](https://tpetricek.github.io/Teaching/2022/software-engineering/) (2022)
+- [**CO886** - Software Engineering](https://tpetricek.github.io/teaching/2022/software-engineering/) (2022)
 - [**CO886** - Software Engineering - Class Materials](https://github.com/tpetricek/Teaching/tree/master/2022/software-engineering-classes) (2022)
-- [**CO559** - Software Development](https://tpetricek.github.io/Teaching/2022/software-development/) (2022)
-- [**CO582** - Computer Interaction and User Experience](https://tpetricek.github.io/Teaching/2019/human-computer-interaction/) (2019)
-- [**CO880** - Software Project and Dissertation](https://tpetricek.github.io/Teaching/2022/project-workshop/) (2022)
+- [**CO559** - Software Development](https://tpetricek.github.io/teaching/2022/software-development/) (2022)
+- [**CO582** - Computer Interaction and User Experience](https://tpetricek.github.io/teaching/2019/human-computer-interaction/) (2019)
+- [**CO880** - Software Project and Dissertation](https://tpetricek.github.io/teaching/2022/project-workshop/) (2022)
 
 Materials license
 -----------------
