@@ -18,6 +18,7 @@ human-computer interaction methods based on qualitative and quantitative user st
 See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) and [NPRG075 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG075).
 
  - [**Introduction** - Programming language design](https://tpetricek.github.io/teaching/2024/pl-design/intro.html)
+ - [**Design** - Learning from architecture and design](https://tpetricek.github.io/teaching/2024/pl-design/design.html)
 
 Advanced C# Programming - Labs (2024)
 -------------------------------------
