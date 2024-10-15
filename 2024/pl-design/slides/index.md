@@ -8,7 +8,7 @@
 
 ---
 
-  **Tomáš Petříček**, 204 (2nd floor)  
+**Tomáš Petříček**, 204 (2nd floor)  
 _<i class="fa fa-envelope"></i>_ [petricek@d3s.mff.cuni.cz](mailto:petricek@d3s.mff.cuni.cz)  
 _<i class="fa-solid fa-circle-right"></i>_ [https://tomasp.net](https://tomasp.net) | [@tomaspetricek](http://twitter.com/tomaspetricek)
 
@@ -25,7 +25,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 
 [**Introduction** - Programming language design](intro.html)  
 [**Design** - Learning from architecture and design](design.html)  
-**Usability** - Human-centric language design  
+[**Usability** - Human-centric language design](usability.html)  
 **Semantics** - Formal models of programming     
 **Types** - Mathematics and engineering of types   
 **Beyond** - Unexpected perspectives on types   
