@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Human-centric language design | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Human-centric language design</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Tuesday 12:20, S6<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Research methods</h1>
+<h2>Human-computer interaction</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/norman.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>HCI perspective</h1>
+<p><strong>Are programming languages user interfaces?</strong></p>
+</div>
+<div class="fragment">
+<p>The means by which the user and a computer system interact (...)</p>
+<p><strong>Shifts focus on users<br />
+and interaction</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/knobs.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Human factors</h1>
+<p><strong>Equipment interaction incidents by trained users in World War II</strong></p>
+<p>Design equipment<br />
+to minimize potential for problems</p>
+<p>Lab testing and experimental psychology</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/star.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Desktop metaphor</h1>
+<p><strong>Created in the<br />
+1970s at Xerox</strong></p>
+<p>Metaphor as a<br />
+design principle</p>
+<p>Move from solving problems to building new interfaces</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/eniac.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Human actors</h1>
+<p><strong>Improve how users work</strong></p>
+<p>Study actual users in real workplace environment</p>
+<p><strong>Assumptions and methods</strong></p>
+<p>Ethnography, prototyping, participatory design</p>
+<p>Knowledge has limited generalizability</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Research methods</h1>
+<h2>What to study and how</h2>
+<ul>
+<li><i class='fa fa-stopwatch'></i> What is the most effective way of doing X?</li>
+<li><i class='fa fa-heart-crack'></i> What mistakes programmers make and why?</li>
+<li><i class='fa fa-filter'></i> Can we solve X and Y in a unified way?</li>
+<li><i class='fa fa-vr-cardboard'></i> Do systems enable new user experiences?</li>
+</ul>
+</section><section class="lists smaller"><h1>Methodological bias</h1>
+<img src="img/usability/hacking.jpg"/>
+<div>
+<h2>Hierarchy in science</h2>
+<ul>
+<li>Theoreticians over experimentalists</li>
+<li>Everyone knows Einstein's equation</li>
+<li>Nobody Michelson–Morley experiment</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Biases in computing</h2>
+<ul>
+<li>Proofs are the most fundamental!</li>
+<li>Can we measure something objective?</li>
+<li>Running a rigorous user experiment?</li>
+<li>All other evaluation is "too soft"!</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Controlled experiments</h1>
+<h2>Evidence-based language design</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/pi.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Evidence-based language design</h1>
+<p>For each language feature, determine<br />
+the best option experimentally</p>
+<p><strong>How to make user studies as rigorous<br />
+as possible?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Randomized controlled trials</h1>
+<img src="img/usability/bmj.jpg"/>
+<div>
+<h2>Gold standard in medicine</h2>
+<ul>
+<li>Compare treatments or with placebo</li>
+<li>Random allocation of participants</li>
+<li>Blinding and study pre-registration</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Limitations of RCTs</h2>
+<ul>
+<li>Very hard to do properly</li>
+<li>Answers only very limited questions</li>
+<li>Even this may not be rigorous enough!</li>
+</ul>
+</div>
+</section><section class="content randomo noborder"><h1>Case study: Perl vs. Randomo</h1>
+<div class="body">
+<div>
+<p><img src="img/usability/randomo.png" alt="" /></p>
+<p>An Empirical Investigation into Programming Language Syntax (Steffik, Siebert, 2013)</p>
+<style>.randomo img { max-width:85%; margin:-25px 0px 0px 5%; }</style>
+</div>
+</div>
+</section><section class="lists "><h1>Getting it right</h1>
+<img src="img/usability/dice.jpg"/>
+<div>
+<h2>Study setup</h2>
+<ul>
+<li>Copy and modify code sample</li>
+<li>Never programmed before</li>
+<li>Age, gender, language balance</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Statistical evaluation</h2>
+<ul>
+<li>Verified manual rating of accuracy</li>
+<li>Mauchly's sphericity test</li>
+<li>Repeated-measures ANOVA test</li>
+</ul>
+</div>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/usability/results.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Perl vs. Randomo</h1>
+<p>While users of Quorum were able to program statistically significantly more
+accurately than users of Perl (p = .047), and users of Randomo (p = .004),
+Perl users were not able to program significantly more accurately than Randomo users (p = .458).</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Experiments</h1>
+<h2>Studying languages experimentally</h2>
+<ul>
+<li><i class='fa fa-not-equal'></i> Typing discipline, syntax, errors, inheritance</li>
+<li><i class='fa fa-shield-halved'></i> Compare two structurally similar alternatives</li>
+<li><i class='fa fa-users'></i> Study participants with similar backgrounds</li>
+<li><i class='fa fa-puzzle-piece'></i> Does not help with fundamentally new designs</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Empirical studies</h1>
+<h2>Software repository analysis</h2>
+</div>
+</section><section class="lists "><h1>Software repository analysis</h1>
+<img src="img/usability/octo.png"/>
+<div>
+<h2>Study existing codebases</h2>
+<ul>
+<li>Lots of projects on GitHub</li>
+<li>Commit history, bug reports, etc.</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What can we study?</h2>
+<ul>
+<li>What leads to fewer bugs?</li>
+<li>How OSS contributors behave</li>
+<li>How code gets duplicated and reused?</li>
+<li>Code quality and code structure</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/study.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Does strong<br />typing matter?</h1>
+<p><strong>Large scale corpus study</strong></p>
+</div>
+<div class="fragment">
+<p>"[It] appear[s] that "strong typing is modestly better
+than weak typing, and among functional languages, static
+typing is also somewhat better than dynamic typing.""</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/boffins.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Does strong<br />typing matter?</h1>
+<p><strong>Attempt to reproduce the study mostly failed</strong></p>
+<p>"I believe [it does] in my heart of hearts, but it's kind of an impossible experiment to run."</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Repository analysis</h1>
+<h2>How to and limitations</h2>
+<ul>
+<li><i class='fa fa-dumpster'></i> Lots of code on GitHub is useless</li>
+<li><i class='fa fa-images'></i> Focus on somewhat sensible projects!</li>
+<li><i class='fa fa-user-secret'></i> Many hidden factors to account for</li>
+<li><i class='fa fa-scale-balanced'></i> Avoid comparing apples and oranges</li>
+<li><i class='fa fa-play'></i> Studying semantics and runtime is hard</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Usability evaluation</h1>
+<h2>Considered harmful</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/marconi.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Cultural adoption</h1>
+<div class="citation">
+<p>(Greenberg et al. 2008)</p>
+</div>
+<p>"Usability evaluation is appropriate for settings with well-known
+tasks and outcomes. They fail to consider how novel systems will evolve
+and be adopted by a culture over time."</p>
+</div>
+</div>
+</div>
+</section><section class="lists "><h1>Tricky to evaluate</h1>
+<img src="img/usability/console.jpg"/>
+<div>
+<h2>Early designs</h2>
+<ul>
+<li>Purely explorative sketches</li>
+<li>
+Getting the right design vs.<br />
+Getting the design right
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Cultural adoption</h2>
+<ul>
+<li>Hard to imagine future uses</li>
+<li>First radio and automobiles</li>
+<li>Memex, Sketchpad and oNLine System</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/sketchpad.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Evaluating user interface research</h1>
+<div class="citation">
+<p>(Olsen, 2007)</p>
+</div>
+<p><strong>Lively research field in the 1970s and 1980s</strong></p>
+<p>Ubiquitous computing challenges the classic desktop metaphor</p>
+<p><strong>Increasing number<br />
+of non-expert programmers!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>User interfaces</h1>
+<h2>New system and languages</h2>
+<ul>
+<li><i class='fa fa-stopwatch'></i> Reduce time to create new solutions</li>
+<li><i class='fa fa-traffic-light'></i> Least resistance to good solutions</li>
+<li><i class='fa fa-spoon'></i> Lowering skills barrier of users</li>
+<li><i class='fa fa-plug'></i> Power in common unified infrastructure</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Simplifying programming</h1>
+<h2>Data exploration tools</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/nyt.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Programming for data journalists</h1>
+</div>
+<div class="fragment">
+<p>Data transformations using various online data sources</p>
+<p>Too hard for Excel, too complex in Python or R</p>
+<p><strong>Getting it right is very time-consuming!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Data exploration in The Gamma</h2>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/usability/gamma.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Evaluating<br/> The Gamma</h1>
+<p><strong>Can non-experts actually use it?</strong></p>
+<p>Is it better than spreadsheets?</p>
+<p><strong>What desirable<br />
+design characteristics does it have?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Case study: The Gamma</h1>
+<img src="img/usability/qr-ui.png"/>
+<div>
+<h2>Evaluating programming systems</h2>
+<ul>
+<li>Programming tool for journalists</li>
+<li>Olsen's framework for UI systems</li>
+<li><a href="https://people.cs.uchicago.edu/~brianhempel/Evaluating%20User%20Interface%20Systems%20Research%20-%20Graphical%20Summary.pdf">tinyurl.com/nprg075-ui</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Design questions</h2>
+<ul>
+<li>What possible claims can we make?</li>
+<li>What evaluation errors to avoid?</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Methods review</h1>
+<h2>Evaluating programming systems</h2>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/vb4.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Evaluating<br/> HCI toolkits</h1>
+<div class="citation">
+<p>(Ledo et al., 2018)</p>
+</div>
+<p>Research claims made in publications about UI toolkits, etc.</p>
+<p><strong>The same works for languages, libraries, tools, frameworks, ...</strong></p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Evaluation types</h1>
+<h2>What claims can we make?</h2>
+<ul>
+<li><i class='fa fa-film'></i> <strong>Demonstrations</strong> - show what is possible</li>
+<li><i class='fa fa-keyboard'></i> <strong>Usage</strong> - study actual system use</li>
+<li><i class='fa fa-chart-simple'></i> <strong>Performance</strong> - evaluate how well it runs</li>
+<li><i class='fa fa-thumbs-up'></i> <strong>Heuristics</strong> - expert rules of thumb</li>
+</ul>
+</section><section class="content three-column"><h1>Demonstrations</h1>
+<div class="body">
+<div>
+<h3><i class='fa fa-street-view'></i> Showing a novel example</h3>
+<p><img src="img/usability/aspen.jpg" alt="" /></p>
+<p>Can do some-thing previously unthinkable</p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-chart-area'></i> Replicating past examples</h3>
+<p><img src="img/usability/nyt.png" alt="" /></p>
+<p>System makes previously very hard thing easy</p>
+</div>
+<div class="fragment">
+<h3><i class='fa fa-folder-tree'></i> Presenting case studies</h3>
+<p><img src="img/usability/case.png" alt="" /></p>
+<p>Show usability of a system in a range of situations</p>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/aspen-car.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Demo or Die!</h1>
+<p><strong>MIT Media Lab paraphrasing of<br />
+"publish or perish".</strong></p>
+<p>Aspen Movie Map<br />
+The 1978 precursor of Google Street View</p>
+<p><strong>Demo of a radically<br />
+new technology</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/varv.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Varv programming system evaluation</h1>
+<div class="citation">
+<p>(Borowski et al., 2022)</p>
+</div>
+<p>Makes all information visible and modifiable</p>
+<p>Affects the whole developer workflow</p>
+<p><strong>Case studies to illustrate the effects</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists "><h1>Varv evaluation</h1>
+<img src="img/usability/varv-tools.png"/>
+<div>
+<h2>Demonstrate workflow</h2>
+<ul>
+<li>Two concrete usage scenarios</li>
+<li>Step by step description of work</li>
+<li>Using personas for concreteness</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Potential of the system</h2>
+<ul>
+<li>Implications of the design</li>
+<li>Debugging, authoring, tools</li>
+<li>Notebooks, blocks, VS Code, etc.</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/gamma-study.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Usage evaluation of The Gamma</h1>
+<div class="citation">
+<p>(Petricek, 2022)</p>
+</div>
+<p><strong>Can non-programmers really use the system?</strong></p>
+<p>Get non-programmers, ask them to try and watch and note!</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/gamma-results.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>The Gamma evaluation</h1>
+<p><strong>13 participants from business team of a research institute</strong></p>
+<p>Asked to complete<br />
+1 of 4 different tasks</p>
+<p>Evaluated using activity logging, observation and interview</p>
+</div>
+</div>
+</div>
+</section><section class="lists "><h1>Usage evaluation</h1>
+<img src="img/usability/likert.png"/>
+<div>
+<h2>Possible setup</h2>
+<ul>
+<li>Complete a given task</li>
+<li>Observe, log &amp; record</li>
+<li>A/B comparison of variants</li>
+<li>In the lab or in the wild</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Collecting feedback</h2>
+<ul>
+<li>Complete a questionnaire</li>
+<li>Ask to comment (Think aloud)</li>
+<li>Semi-structured interview afterwards</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/vs.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Collecting usage data in the wild</h1>
+<p><strong>Widely used to understand use of commercial systems</strong></p>
+<p>What language or editor features are used, performance, project profiles</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/excel.gif" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Studying how real users use the system</h1>
+<p><strong>Interviews and observation studies of real work</strong></p>
+<p>Two ways of learning complex formulas<br />
+Percolation vs. experts</p>
+</div>
+</div>
+</div>
+</section><section class="image noborder smaller"><div class="body1">
+<p><img src="img/usability/stove.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Heuristics</h1>
+<p><strong>Rules of thumb for evaluating designs<br />
+written by experts</strong></p>
+<p>Evaluation without direct human involvement!</p>
+<p>Example: Match between system and the real world</p>
+<p><strong>Olsen's criteria for user interface systems</strong></p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Heuristic evaluation</h1>
+<img src="img/usability/scratch.png"/>
+<div>
+<h2>Nielsen's usability heuristics</h2>
+<ul>
+<li>Characteristics of a good interface</li>
+<li>General usability guidelines</li>
+<li>Consistency, visibility of state, ...</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Cognitive dimensions of notation</h2>
+<ul>
+<li>Heuristics for assessing notations</li>
+<li>Broad-brush understandable evaluation</li>
+<li>Viscosity, visibility, abstraction, ...</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/drawing.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Technical performance</h1>
+<p><strong>Baseline or improves over state of the art</strong></p>
+<p>Efficiency, lines of code</p>
+<p>Not about usability, but an easy thing to show</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/usability/checklist.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Technical performance</h1>
+<p><strong>Getting it right</strong></p>
+<p>Claims, comparison, benchmarks, metrices, setup, presentation</p>
+<p>See SIGPLAN Empirical Evaluation Checklist</p>
+</div>
+</div>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Usability and evaluation</h2>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/usability/interdisciplinary.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Usability evaluation</h1>
+<p><strong>Evaluating and comparing with existing systems</strong></p>
+<p>Evaluating usability can inspire new designs</p>
+<p>The danger is designing with focus just on<br />
+effective evaluability</p>
+</div>
+</div>
+</div>
+</section><section class="lists smaller"><h1>Reading</h1>
+<img src="img/usability/qr-rx.png"/>
+<div>
+<h2>Reactive programming</h2>
+<ul>
+<li>Introduction to RxJS concepts</li>
+<li>Available at: <a href="https://www.learnrxjs.io/learn-rxjs/concepts/rxjs-primer">https://www.learnrxjs.io/learn-rxjs/concepts/rxjs-primer</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Why read this</h2>
+<ul>
+<li>Widely used practical library!</li>
+<li>But what exactly is going on?</li>
+<li>Does it always behave "intuitively"?</li>
+</ul>
+</div>
+</section><section class="title "><h1>Conclusions</h1>
+<p><strong>Human-centric language design</strong></p>
+<ul>
+<li>Evaluation methods from the HCI field</li>
+<li>Controlled experiments, empirical studies</li>
+<li>Demos, usage, heuristics &amp; performance</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/2)</h1>
+<div class="body">
+<div>
+<p><strong>Methodology</strong></p>
+<ul>
+<li>Greenberg, S. and Buxton, B. (2008) <a href="https://www.billbuxton.com/usabilityHarmful.pdf">Usability Evaluation Considered Harmful (Some of the Time)</a>, CHI</li>
+<li>Ledo et al. (2018). <a href="https://stevenhouben.be/pubs/EvaluationCHI2018.pdf">Evaluation Strategies for HCI Toolkit Research</a></li>
+<li>Olsen (2007). <a href="http://byu.danrolsenjr.org/paperPDFs/EvaluatingSystems.pdf">Evaluating User Interface Systems Research</a>. UIST</li>
+<li>Arnold, K. (2005). <a href="https://queue.acm.org/detail.cfm?id=1071731">Programmers are People, Too</a>, ACM Queue</li>
+</ul>
+<p><strong>Heuristics</strong></p>
+<ul>
+<li>Nielsen, J. (1994). <a href="https://www.nngroup.com/articles/ten-usability-heuristics/">10 Usability Heuristics for User Interface Design</a>. Norman-Nielsen Group</li>
+<li>Blackwell, A., Green, T. (2002). <a href="https://www.cl.cam.ac.uk/~afb21/publications/CarrollChapter.pdf">Notational Systems – the Cognitive Dimensions of Notations framework</a>. (Chapter)</li>
+<li>Berger, E. et al. (2022). <a href="https://raw.githubusercontent.com/SIGPLAN/empirical-evaluation/master/checklist/checklist.pdf">SIGPLAN Empirical Evaluation Checklist</a>. ACM SIGPLAN</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><div class="body">
+<div>
+<p><strong>Examples</strong></p>
+<ul>
+<li>Steffik, A. et al. (2013). <a href="https://www.vidarholen.net/~vidar/An_Empirical_Investigation_into_Programming_Language_Syntax.pdf">An Empirical Investigation into Programming Language Syntax</a>. ACM</li>
+<li>Ray, B. et al. (2014) <a href="https://web.cs.ucdavis.edu/~filkov/papers/lang_github.pdf">A Large Scale Study of Programming Languages and Code Quality in Github</a>, FSE</li>
+<li>Berger, E. et al. (2019) <a href="https://arxiv.org/pdf/1901.10220.pdf">On the Impact of Programming Languages on Code Quality</a>, ACM</li>
+<li>Borowski, M. et al. (2022). <a href="http://vis.csail.mit.edu/pubs/varv.pdf">Varv: Reprogrammable Interactive Sofware as a Declarative Data Structure</a>. CHI</li>
+<li>Petricek, T. (2022). <a href="http://tomasp.net/academic/papers/iterative/iterative.pdf">The Gamma: Programmatic Data Exploration for Non-programmers</a>. VL/HCC</li>
+<li>Sarkar, A, et al. (2018). <a href="https://advait.org/publications-web/sarkar-2018-spreadsheet-learning">How do people learn to use spreadsheets?</a></li>
+</ul>
+<p><strong>Books</strong></p>
+<ul>
+<li>Norman, D. (1988). <a href="https://www.basicbooks.com/titles/don-norman/the-design-of-everyday-things/9780465050659/">The Design of Everyday Things</a>, Basic Books</li>
+<li>Hacking, I. (1983). <a href="https://www.cambridge.org/en/academic/subjects/philosophy/philosophy-science/representing-and-intervening-introductory-topics-philosophy-natural-science">Representing and Intervening</a></li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
