@@ -116,9 +116,13 @@ let wrapCitations = List.collect (function
 // Templates
 // --------------------------------------------------------------------------------------
 
-let iconsTemplate = function
+let iconsTemplateCount = function
+  | Headings(_, [ListBlock(Unordered, items, _)]) -> List.length items
+  | _ -> failwith "Unexpected slide structure in icons template"
+
+let iconsTemplateMaxN n = function
   | Headings(hs, [ListBlock(Unordered, items, _)]) ->
-      let items = items |> List.map (function
+      let items = items |> List.truncate n |> List.map (function
         | [Paragraph(Emphasis([Literal(fa, _)], _)::body, _)] 
         | [Span(Emphasis([Literal(fa, _)], _)::body, _)] -> 
             let nbody = body |> List.collect (function
@@ -130,6 +134,12 @@ let iconsTemplate = function
         | item -> failwithf "Icon template item did not start with *fa-xxx*")
       hs @ [ListBlock(Unordered, items, None)]
   | _ -> failwith "Unexpected slide structure in icons template"
+
+let iconsTemplate = iconsTemplateMaxN 999
+
+let progressiveIconsTemplate nds = 
+  let count = iconsTemplateCount nds
+  [ for i in 1 .. count -> iconsTemplateMaxN i nds ]
 
 let imageOrCodeTemplate = function
   | (CodeBlock _ as par)::pars 
@@ -181,16 +191,17 @@ let titleTemplate pars =
   | _ -> failwith "Failed to split title slide into two parts using HR"
 
 let templates = 
-  [ "title", titleTemplate >> Some
-    "subtitle", subtitleTemplate >> Some
-    "icons", iconsTemplate >> Some
-    "largeicons", iconsTemplate >> Some
-    "lists", listsTemplate >> Some
-    "image", imageOrCodeTemplate >> Some
-    "code", imageOrCodeTemplate >> Some
-    "content", contentTemplate >> Some
-    "default", Some
-    "notes", fun _ -> None ]
+  [ "title", titleTemplate >> List.singleton
+    "subtitle", subtitleTemplate >> List.singleton
+    "icons", iconsTemplate >> List.singleton
+    "largeicons", iconsTemplate >> List.singleton
+    "animicons", progressiveIconsTemplate 
+    "lists", listsTemplate >> List.singleton
+    "image", imageOrCodeTemplate >> List.singleton
+    "code", imageOrCodeTemplate >> List.singleton
+    "content", contentTemplate >> List.singleton
+    "default", List.singleton
+    "notes", fun _ -> [] ]
   |> dict
 
 // --------------------------------------------------------------------------------------
@@ -217,13 +228,12 @@ let processFile fn out =
 
   let slidesHtml = 
     slides
-    |> List.map (List.choose (fun (opts, slide) ->
-      match transformSlide (opts, slide) with 
-      | Some nslide -> 
+    |> List.map (List.collect (fun (opts, slide) ->
+      let nslides = transformSlide (opts, slide) 
+      [ for nslide in nslides ->
           let html = Markdown.ToHtml(MarkdownDocument(nslide, doc.DefinedLinks))
           let cls = opts.TryFind("class") |> Option.defaultValue ""
-          Some($"""<section class="{opts.["template"]} {cls}">{html}</section>""")
-      | _ -> None))
+          $"""<section class="{opts.["template"]} {cls}">{html}</section>""" ]))
     |> List.filter (List.isEmpty >> not)
     |> List.map (fun slides -> $"""<section>{String.concat "" slides}</section>""")
     |> String.concat ""
