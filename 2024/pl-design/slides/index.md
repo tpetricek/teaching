@@ -26,7 +26,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Introduction** - Programming language design](intro.html)  
 [**Design** - Learning from architecture and design](design.html)  
 [**Usability** - Human-centric language design](usability.html)  
-**Semantics** - Formal models of programming     
+[**Semantics** - Formal models of programming](semantics.html)     
 **Types** - Mathematics and engineering of types   
 **Beyond** - Unexpected perspectives on types   
 **Paradigms** - History and philosophy of programming    

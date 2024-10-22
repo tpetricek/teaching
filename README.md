@@ -20,6 +20,7 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) a
  - [**Introduction** - Programming language design](https://tpetricek.github.io/teaching/2024/pl-design/intro.html)
  - [**Design** - Learning from architecture and design](https://tpetricek.github.io/teaching/2024/pl-design/design.html)
  - [**Usability** - Human-centric language design](https://tpetricek.github.io/teaching/2024/pl-design/usability.html)
+ - [**Semantics** - Formal models of programming](https://tpetricek.github.io/teaching/2024/pl-design/semantics.html)
 
 Advanced C# Programming - Labs (2024)
 -------------------------------------
