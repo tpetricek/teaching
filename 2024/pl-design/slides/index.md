@@ -28,7 +28,7 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 [**Usability** - Human-centric language design](usability.html)  
 [**Semantics** - Formal models of programming](semantics.html)     
 [**Assignment** - & How to do programming language research](research.html)  
-**Types** - Mathematics and engineering of types   
+[**Types** - Mathematics and engineering of types](types.html)  
 **Beyond** - Unexpected perspectives on types   
 **Paradigms** - History and philosophy of programming    
 **Close** - Close look at past and today's programs    
