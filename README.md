@@ -23,6 +23,7 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) a
  - [**Semantics** - Formal models of programming](https://tpetricek.github.io/teaching/2024/pl-design/semantics.html)
  - [**Research** - Assignment & How to do programming language research](https://tpetricek.github.io/teaching/2024/pl-design/research.html)
  - [**Types** - Mathematics and engineering of types](https://tpetricek.github.io/teaching/2024/pl-design/types.html)
+ - [**Beyond** - Unexpected perspectives on types](https://tpetricek.github.io/teaching/2024/pl-design/beyond.html)
 
 Advanced C# Programming - Labs (2024)
 -------------------------------------
