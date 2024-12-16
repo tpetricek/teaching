@@ -27,6 +27,7 @@ See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) a
  - [**Philosophy** - History and philosophy of programming](https://tpetricek.github.io/teaching/2024/pl-design/philosophy.html)
  - [**Close** - Close look at past and today's programs](https://tpetricek.github.io/teaching/2024/pl-design/close.html)
  - [**Heuristics** - Heuristic evaluation of programming systems](https://tpetricek.github.io/teaching/2024/pl-design/heuristics.html)
+ - [**Cognition** - Making programming easier and learnable](https://tpetricek.github.io/teaching/2024/pl-design/cognition.html)
 
 
 Advanced C# Programming - Labs (2024)
