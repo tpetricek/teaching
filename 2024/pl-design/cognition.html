@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Making programming easier and learnable | Programming language design (NPRG075)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+			integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				_background:red;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#f47b6a;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0060ff;
+			}
+			a:hover, a:active {
+				color:#66A0FF;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists img { margin-top:20px; float:right; max-width:350px; max-height:400px; }
+			.reveal .lists.smaller img { max-width:280px; max-height:350px; }
+			.lists.border img { border:3px solid black; }
+			.lists.smaller2x img { max-width:200px; max-height:200px; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.animicons p, .animicons li, .largeicons p, .largeicons li { font-size:26pt; }
+			.animicons h2, .largeicons h2, .icons h2 { margin-bottom:0px; }
+			.animicons li, .largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.animicons ul, .largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.animicons i.placeholder, .largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { color:#303030; font-size:80%; width:40px; margin:0px 2px 0px 0px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:400px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			.subtitle.motto h1 { text-align:center; }
+			.subtitle.motto em { font-weight:200; font-style:normal; }
+
+			.mfflogo {
+				position:absolute;
+				right:0px;
+				bottom:0px;
+				width:220px;
+			}
+
+			/* broken in Firefox
+			.slides:has(section.title.present) .mfflogo { display:none; }
+			*/
+
+			.overview .mfflogo { display:none; }
+
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title "><h1>NPRG075</h1>
+<h2>Making programming<br />easier and learnable</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a></p>
+<p><strong>Lectures:</strong> Tuesday 12:20, S6<br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+</section></section><section><section class="lists "><h1>Course feedback</h1>
+<img src="img/cognition/qr-feedback.png"/>
+<div>
+<h2>What do you think</h2>
+<ul>
+<li>I would love to hear from you!</li>
+<li><a href="https://tinyurl.com/nprg075-feedback">tinyurl.com/nprg075-feedback</a></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Some things to consider</h2>
+<ul>
+<li>Topics covered in the course?</li>
+<li>Conventional lecture format?</li>
+<li>Alternatives to assignment?</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Introduction</h1>
+<h2>Programming for non-programmers</h2>
+</div>
+</section><section class="icons "><h1>What &amp; why</h1>
+<h2>Programming for non-programmers</h2>
+<ul>
+<li><i class='fa fa-image'></i> Augmenting human intellect research theme</li>
+<li><i class='fa fa-sack-dollar'></i> Reducing costs of programming for businesses</li>
+<li><i class='fa fa-school'></i> Computer science &amp; general education</li>
+<li><i class='fa fa-brain'></i> Thinking about how to think when programming!</li>
+</ul>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/cs4all.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Computational thinking</h1>
+<p>Is that teaching everyone to code?</p>
+<p>What to teach and<br />
+how to best do it?</p>
+<p><strong>Designing languages for education?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/cognition/turtle.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>LOGO (1967)</h1>
+<p>Characteristics of the era</p>
+<p><strong>Not just a programming language for kids</strong></p>
+<p>Computer environment: people, things, ideas</p>
+<p>Computer culture: a way of thinking about thinking</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/lowcode.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>No-code and<br />low-code</h1>
+<p>Platforms for creating applications with minimal code</p>
+<p><strong>A new take on end-user programming</strong></p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/flowmatic.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>FLOW-MATIC</h1>
+<p>High-level business oriented predecessor of COBOL (1957)</p>
+<p><strong>Makes coding so easy your company will not need programmers!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Methodology</h1>
+<h2>Programming for non-programmers</h2>
+<ul>
+<li><i class='fa fa-person-walking'></i> Metaphors for explaining programming</li>
+<li><i class='fa fa-brain'></i> Cognitive models to understand human thinking</li>
+<li><i class='fa fa-hands'></i> Finding more manageable kinds of interactions</li>
+<li><i class='fa fa-heart-crack'></i> Understanding &amp; assisting with common errors</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>End-user programming</h1>
+<h2>Making programming super easy</h2>
+</div>
+</section><section class="lists smaller"><h1>A small matter of programming</h1>
+<img src="img/cognition/small.jpg"/>
+<div>
+<h2>End-user programming (1993)</h2>
+<ul>
+<li>
+Spreadsheets, CAD systems,<br />
+statistical packages
+</li>
+<li>Task specific systems</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>An elusive dream?</h2>
+<ul>
+<li>Can anyone become a programmer?</li>
+<li>Beyond task-specific?</li>
+<li>Programmable end-user systems?</li>
+</ul>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/cognition/small.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>End-user programming</h1>
+<p><strong>① Very high-level</strong><br />
+Domain-specific languages</p>
+<p><strong>② Spreadsheets</strong><br />
+CAD &amp; statistical systems</p>
+<p><strong>③ User interaction</strong><br />
+New kinds of specifying</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/code.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>High-level languages</h1>
+<p><strong>FLOW-MATIC (1960s)</strong><br />
+English; easily taught to clerical workers</p>
+<p><strong>DSLs (2000s)</strong><br />
+Small languages for specific problems</p>
+<p><strong>Low-code (2020s)</strong><br />
+GUI-based entire<br />
+app development</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/darklang.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Case study: Darklang</h1>
+<p><strong>Domain-specific abstractions for server-less backends</strong></p>
+<ul>
+<li>HTTP handler</li>
+<li>Worker</li>
+<li>Database</li>
+<li>CRON job</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Notations</h1>
+<h2>Limits of high-level notations</h2>
+<ul>
+<li><i class='fa fa-broom'></i> Requires a "tidy" problem domain</li>
+<li><i class='fa fa-language'></i> There is no universal language</li>
+<li><i class='fa fa-wrench'></i> Adaptable notations tend to be complex</li>
+<li><i class='fa fa-microphone'></i> Cannot (should not?) accept human vagueness</li>
+</ul>
+</section><section class="lists smaller border"><h1>What makes programming hard?</h1>
+<img src="img/cognition/proc.png"/>
+<div>
+<h2>Cognitive obstacles</h2>
+<ul>
+<li>
+Loss of direct manipulation<br />
+(and the frame problem)
+</li>
+<li>Use of (specialized) notation</li>
+<li>Abstraction for complexity</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Attention investment model</h2>
+<ul>
+<li>Cognitive obstacles have cost</li>
+<li>Programming as an investment</li>
+<li>When is the gain worth it?</li>
+</ul>
+</div>
+</section><section class="largeicons "><h1>Eliminating cognitive obstacles</h1>
+<ul>
+<li>
+<i class='fa fa-table'></i> <strong>Spreadsheet-based interfaces</strong><br />
+<i class="placeholder"></i>Avoid abstraction and give immediate feedback
+</li>
+<li>
+<i class='fa fa-sterling-sign'></i> <strong>Programming by example</strong><br />
+<i class="placeholder"></i>No need for notation and abstraction
+</li>
+<li>
+<i class='fa fa-hand-pointer'></i> <strong>Direct manipulation</strong><br />
+<i class="placeholder"></i>Manipulate concrete entities &amp; post-hoc abstraction
+</li>
+</ul>
+</section><section class="lists "><h1>Spreadsheets as programming</h1>
+<img src="img/cognition/turing.png"/>
+<div>
+<h2>Are they really programming?</h2>
+<ul>
+<li>Domain-specific, but powerful</li>
+<li>Turing-complete (in a way)</li>
+<li>Lambdas, macros, extensions</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Spreadsheets &amp; programming</h2>
+<ul>
+<li>IDEs can learn about liveness</li>
+<li>Spreadsheets can learn about software engineering</li>
+<li>TechDims: Abstraction construction, feedback loops</li>
+</ul>
+</div>
+</section><section class="image noborder"><div class="body1">
+<p><img src="img/cognition/cuscus.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>General-purpose spreadsheets?</h1>
+<div class="citation">
+<p>(Marasoiu, 2019)</p>
+</div>
+<p><strong>Spreadsheet-based data visualization</strong></p>
+<p>Spreadsheet interface for constructing custom charts</p>
+<p>What else could we express this way?</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/cognition/unimate.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Direct manipulation</h1>
+<p><strong>Complete task manually, have computer repeat it</strong></p>
+<p>Industrial robots, graphics editing, task automation, geometry, formatting</p>
+<p>How to allow for small variation in behaviour?</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/wrangler.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Wrangler</h1>
+<div class="citation">
+<p>(Kandel et al, 2011 )</p>
+</div>
+<p><strong>Data wrangling by direct manipulation</strong></p>
+<p>User cleans with data</p>
+<p>System builds a script</p>
+<p>Attempts to generalize concrete interactions</p>
+</div>
+</div>
+</div>
+</section><section class="lists border"><h1>Programming by example</h1>
+<img src="img/cognition/flash.png"/>
+<div>
+<h2>FlashFill and FlashExtract</h2>
+<ul>
+<li>Write (or select) examples</li>
+<li>System infers patterns</li>
+<li>Refine examples to clarify</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Implementation</h2>
+<ul>
+<li>Synthesize programs to match</li>
+<li>Using carefully chosen small language</li>
+<li>And a suitable search algorithm</li>
+</ul>
+</div>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Education</h1>
+<h2>Teaching programming &amp; thinking</h2>
+</div>
+</section><section class="lists border"><h1>MIT Artificial Intelligence Lab</h1>
+<img src="img/cognition/ailab.jpg"/>
+<div>
+<h2>Minsky &amp; Papert</h2>
+<p>"Seymour Papert and Marvin<br />
+Minsky thought about thinking,
+about children's thinking and<br />
+about machine's thinking."</p>
+</div>
+<div class="fragment">
+<h2>LOGO project &amp; language</h2>
+<ul>
+<li>Computers as "native speakers" of mathematics</li>
+<li>Teach creative and logical thinking</li>
+<li>Giving children tools to learn (Montessori)</li>
+</ul>
+</div>
+</section><section class="lists "><h1>LOGO as a language</h1>
+<img src="img/cognition/flower.png"/>
+<div>
+<h2>Language features</h2>
+<ul>
+<li>Interactive and LISP-inspired</li>
+<li>Lists, recursion, functional</li>
+<li>More of an idea than a language</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>LOGO for education</h2>
+<ul>
+<li>Learning through microworlds</li>
+<li>Give kids the most powerful language created</li>
+<li>Powerful ideas: anthropomorphization, metalanguage</li>
+</ul>
+</div>
+</section><section class="code "><div class="body1">
+<pre><code class="language-basic">TO NOUN
+  OUTPUT PICK [BIRDS DOGS ..]
+END
+TO VERB
+ OUTPUT PICK [HATE BITE LOVE]
+END
+TO ADJECTIVE
+  OUTPUT PICK [RED PECULIAR ..]
+END
+
+PRINT (SENTENCE ADJECTIVE
+  NOUN VERB ADJECTIVE NOUN)
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Microworlds</h1>
+<p><strong>A small domain-specific language for exploring ideas</strong></p>
+<p>Turtle graphics is best known example</p>
+<p>First LOGO example was for word plays</p>
+</div>
+</div>
+</div>
+</section><section class="image smaller"><div class="body1">
+<p><img src="img/cognition/robot.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Turtle microworld</h1>
+<p>On-screen and floor robots</p>
+</div>
+<div class="fragment">
+<p><strong>Great for teaching</strong></p>
+<p>Debug by pretending to be the turtle &amp; follow program</p>
+<p>Does not blame students ("the turtle has a bug")</p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Computer science education</h1>
+<h2>Teaching programming thinking today</h2>
+<ul>
+<li><i class='fa fa-leaf'></i> From 1960s idealism to 2020s pragmatism</li>
+<li><i class='fa fa-microscope'></i> Focus on what we can convincingly study</li>
+<li><i class='fa fa-video-slash'></i> Improving teaching practices &amp; methods</li>
+<li><i class='fa fa-brain'></i> Developing better conceptual frameworks</li>
+</ul>
+</section><section class="lists "><h1>Notional machines</h1>
+<img src="img/cognition/rop.png"/>
+<div>
+<h2>Models for thinking</h2>
+<ul>
+<li>Model of a computer operation</li>
+<li>Helps understand computation</li>
+<li>A "useful lie" for teaching</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Example notional machines</h2>
+<ul>
+<li>Objects and message passing of Smalltalk</li>
+<li>LOGO "little people" metaphor</li>
+<li>Computation as railway track</li>
+</ul>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/man.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Little people metaphor</h1>
+<p><strong>A powerful idea for understanding how programs work</strong></p>
+<p>Function instantiation as a "little men" doing (one step of) work</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/l1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Linked lists (1/2)</h1>
+<p><strong>Boxes with pointers as connecting arrows</strong></p>
+<p>Let's insert 3 in the list between 2 and 4...</p>
+</div>
+</div>
+</div>
+</section><section class="image "><div class="body1">
+<p><img src="img/cognition/l2.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Linked lists (2/2)</h1>
+<p><strong>Boxes with pointers as connecting arrows</strong></p>
+<p>Let's insert 3 in the list between 2 and 4...</p>
+<p><strong>Useful but does not explain everything that pointers can do!</strong></p>
+</div>
+</div>
+</div>
+</section><section class="icons "><h1>Computing education</h1>
+<h2>Basic disagreements about the problem</h2>
+<ul>
+<li><i class='fa fa-wind'></i> Computational thinking &amp; algorithms for all?</li>
+<li><i class='fa fa-icons'></i> Creativity as with LOGO and Sonic Pi?</li>
+<li><i class='fa fa-lock'></i> History and philosophical problems?</li>
+<li><i class='fa fa-industry'></i> How to best teach present-day technology?</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Metaphors</h1>
+<h2>Thinking about programming</h2>
+</div>
+</section><section class="lists smaller border"><h1>Metaphors for programming</h1>
+<img src="img/cognition/lakoff.jpg"/>
+<div>
+<h2>Essence of human thought?</h2>
+<ul>
+<li>Time as resource, Up as positive, ...</li>
+<li>Apparent through our language</li>
+<li>Basic for constructing mathematics?</li>
+<li>Each has fits and misfits</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Metaphors for programming</h2>
+<ul>
+<li>Notional machines (LISP, Smalltalk)</li>
+<li>Thinking about variables, monads</li>
+</ul>
+</div>
+</section><section class="lists "><h1>Two metaphors for variables</h1>
+<img src="img/cognition/vars.png"/>
+<div>
+<h2>Variable as a box</h2>
+<ul>
+<li>You store value in a box</li>
+<li>Variable "contains" a value</li>
+<li>What is stored in a <code>name</code>?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Variable as a label</h2>
+<ul>
+<li>Label you place on a value</li>
+<li>Variable "is" a value</li>
+<li>What is a <code>name</code>?</li>
+</ul>
+</div>
+</section><section class="icons "><h1>Misconceptions</h1>
+<h2>Does the metaphor for variables matter?</h2>
+<ul>
+<li><i class='fa fa-angles-left'></i> What is the meaning of multiple assignment?</li>
+<li><i class='fa fa-box-archive'></i> Box can contain multiple values!</li>
+<li><i class='fa fa-circle-plus'></i> Label will be for computation or addition</li>
+<li><i class='fa fa-trophy'></i> Box metaphor wins, but beware of misfits</li>
+</ul>
+</section><section class="code smaller"><div class="body1">
+<pre><code class="language-haskell">
+class Monad m where
+ (&gt;&gt;=)  ::
+  m a -&gt; (a -&gt; m b) -&gt; m b
+ return ::   
+  a -&gt; m a
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Metaphors for monads</h1>
+<p>Interface capturing a class of computations</p>
+<p>Used for effectful computations in Haskell</p>
+<p><strong>How programmers<br />
+think about them?</strong></p>
+</div>
+</div>
+</div>
+</section><section class="content three-column"><h1>Three metaphors for monads</h1>
+<div class="body">
+<div>
+<h3>Symbolic</h3>
+<p>Meaningless symbolical entity satisfying laws</p>
+<p><img src="img/cognition/mcat.png" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Box</h3>
+<p>Container that can be transformed and un-nested</p>
+<p><img src="img/cognition/mbox.png" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Track</h3>
+<p>Computation that can proceed in multiple ways</p>
+<p><img src="img/cognition/mseq.png" alt="" /></p>
+</div>
+</div>
+</section><section class="icons "><h1>Misconceptions</h1>
+<h2>Common errors in thinking</h2>
+<ul>
+<li><i class='fa fa-ban'></i> Loops terminate when condition turns false</li>
+<li><i class='fa fa-align-left'></i> Sequential statements do not wait</li>
+<li><i class='fa fa-language'></i> Variable name has effect on its behaviour</li>
+<li><i class='fa fa-crosshairs'></i> Missing else branch stops program</li>
+</ul>
+</section></section><section><section class="subtitle "><div class="body">
+<h1>Conclusions</h1>
+<h2>Easier and learnable</h2>
+</div>
+</section><section class="title "><h1>Thank you!</h1>
+<p><strong>Please do keep in touch!</strong></p>
+<ul>
+<li>Do a final project (and get credit as a bonus)</li>
+<li>Sign-up for a follow-up seminar</li>
+<li>Get in touch about MSc or PhD projects</li>
+</ul>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a> | <a href="http://twitter.com/tomaspetricek">@tomaspetricek</a><br />
+<em><i class="fa-solid fa-circle-right"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg075">https://d3s.mff.cuni.cz/teaching/nprg075</a></p>
+</div>
+</section><section class="content condensed"><h1>References (1/3)</h1>
+<div class="body">
+<div>
+<p><strong>End-user programming</strong></p>
+<ul>
+<li>UNIVAC FLOW-MATIC (1957). <a href="http://s3data.computerhistory.org/brochures/univac.flowmatic.1957.102646140.pdf">Introducing a new language for automatic programming</a>. Sperry Rand Corporation</li>
+<li>Bonnie A. Nardi (1993). <a href="https://mitpress.mit.edu/9780262140539/a-small-matter-of-programming/">A Small Matter of Programming</a>. MIT</li>
+<li>Blackwell, A. F. (2002). <a href="https://www.cl.cam.ac.uk/~afb21/publications/HCC02a.pdf">First Steps in Programming: A Rationale for Attention Investment Models</a>. VL/HCC</li>
+<li>Blackwell, A.F., Burnett, M. (2002). <a href="https://ieeexplore.ieee.org/document/1046337">Applying Attention Investment to End-User Programming</a>. VL/HCC</li>
+</ul>
+<p><strong>Spreadsheets</strong></p>
+<ul>
+<li>Marasoiu, M. et al. (2019). <a href="https://link.springer.com/chapter/10.1007/978-3-030-24781-2_8">Cuscus: An End User Programming Tool for Data Visualisation</a>. IS-EUD</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (2/3)</h1>
+<div class="body">
+<div>
+<p><strong>Programming by demonstration</strong></p>
+<ul>
+<li>Smith, D. C. (1977). <a href="https://link.springer.com/book/10.1007/978-3-0348-5744-4">Pygmalion: A Computer program to Model and Stimulate Creative Thought</a>. ISR</li>
+<li>Kandel, S., et al. (2011). <a href="http://vis.stanford.edu/files/2011-Wrangler-CHI.pdf">Wrangler: Interactive Visual Specification of Data Transformation Scripts</a>. CHI</li>
+<li>Cypher A (ed.) (1993). <a href="https://mitpress.mit.edu/9780262527965/watch-what-i-do/">Watch What I Do: Programming by Demonstration</a>. MIT</li>
+</ul>
+<p><strong>Programming by example</strong></p>
+<ul>
+<li>Gulwani, S. et al. (2016). <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/pbe16.pdf">Programming by Examples</a>. DSSE</li>
+<li>Vu Le, Gulwani S. (2014). <a href="http://www-cs-students.stanford.edu/~adityagp/courses/cs598/papers/flash-extract.pdf">FlashExtract: A Framework for Data Extraction by Examples</a>. PLDI</li>
+</ul>
+</div>
+</div>
+</section><section class="content condensed"><h1>References (3/3)</h1>
+<div class="body">
+<div>
+<p><strong>Programming education</strong></p>
+<ul>
+<li>Solomon, C. et al. (2020). <a href="https://ora.ox.ac.uk/objects/uuid:2f350f11-e986-4a08-a5dc-9cf6d5a9d1d4">History of LOGO</a>. HOPL</li>
+<li>Papert S. (1980). <a href="http://worrydream.com/refs/Papert%20-%20Mindstorms%201st%20ed.pdf">Mindstorms: Childern, Computers and Powerful Ideas</a>. Basic Books</li>
+<li>Fincher, S. A. &amp; Robins A. V. (eds.) (2019). <a href="https://www.cambridge.org/core/books/cambridge-handbook-of-computing-education-research/F8CFAF7B81A8F6BF5C663412BA0A943D">The Cambridge Handbook of Computing Education Research</a>. Cambridge</li>
+</ul>
+<p><strong>Metaphors &amp; misconceptions</strong></p>
+<ul>
+<li>Lakoff, G. &amp; Nunez, R. (2001). <a href="https://www.basicbooks.com/titles/george-lakoff/where-mathematics-come-from/9780465037711/">Where Mathematics Come From</a></li>
+<li>Petricek, T. (2018). <a href="http://tomasp.net/academic/papers/monads/monads-programming.pdf">What we talk about when we talk about monads</a></li>
+<li>Hermans, F. et al. (2018). <a href="https://pure.tudelft.nl/ws/portalfiles/portal/47760609/box_label_vars.pdf">Thinking out of the box: comparing metaphors for variables in programming education</a>. WiPSCE</li>
+<li>Swidan, A. et al. (2018). <a href="https://dl.acm.org/doi/10.1145/3230977.3230995">Programming Misconceptions for School Students</a>. ICER</li>
+</ul>
+</div>
+</div>
+</section></section>
+				<img src="img/matfyz.png" class="mfflogo" />
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
