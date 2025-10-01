@@ -1,0 +1,19 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Program.fs.js",
+  "scripts": {
+    "start": "dotnet fable watch --run npx vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^4.4.11"
+  },
+  "dependencies": {
+    "virtual-dom": "^2.1.1"
+  }
+}
