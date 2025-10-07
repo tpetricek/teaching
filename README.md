@@ -7,6 +7,17 @@ and are generally generated from Markdown using [F# Formatting](https://fsprojec
 For my industry and research talks see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials
 (before 2015), check out [my old Documents repository](http://github.com/tpetricek/Documents/).
 
+Write your own tiny programming system(s)! (2025)
+-------------------------------------------------
+
+> The goal of this course is to teach how fundamental programming language techniques, algorithms and
+systems work by writing their miniature versions. The course covers multiple paradigms including
+functional, object-oriented, imperative and logic, as well as end-user programming environments like
+spreadsheets. Examples will be given using the F# programming language, which will be briefly introduced.
+
+For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/).
+For videos, see also [Write your own tiny programming system(s)!](https://www.youtube.com/playlist?list=PLRBVoLoCYzDML8e9g58f6zb-faG1rMHIJ) on YouTube.
+
 Programming Language Design (2024)
 ----------------------------------
 
