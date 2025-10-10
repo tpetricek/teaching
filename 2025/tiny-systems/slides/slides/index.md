@@ -23,9 +23,9 @@ _<i class="fa-solid fa-circle-right"></i>_ https://d3s.mff.cuni.cz/teaching/nprg
 # Lectures and labs
 
 1. [**Lecture - Welcome**: Tiny programming systems](intro.html)  
+1. [**Lab - TinyML**: Tiny functional language interpreter](tinyml.html)  
 
 <!--
-1. [**Lab - TinyML**: Tiny functional language interpreter](tinyml.html)  
 1. [**Lab - TinyBASIC**: Tiny interactive imperative programming system](tinybasic.html)  
 1. [**Lab - TinyHM**: Tiny Hindley-Milner type inference](tinyhm.html)  
 1. [**Lab - TinyProlog**: Tiny declarative logic programming language](tinyprolog.html)  
