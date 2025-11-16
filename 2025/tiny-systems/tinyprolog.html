@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>TinyProlog: Tiny declarative logic programming language | Write your own tiny programming system(s)! (NPRG077)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title nologo swapped"><h1>TinyProlog: Logic programming language</h1>
+<h2>How logic programming works</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Logic programming</h1>
+<ul>
+<li><i class='fa fa-receipt'></i> <strong>Declarative style</strong> - specify what, but not how</li>
+<li><i class='fa fa-list-check'></i> Programs consists of <strong>facts and rules</strong></li>
+<li><i class='fa fa-lightbulb'></i> Evaluation by clever <strong>inference engine</strong></li>
+<li><i class='fa fa-database'></i> <strong>Prolog, Datalog</strong> and basis of other systems</li>
+<li><i class='fa fa-language'></i> Origins in AI and <strong>natural language</strong></li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content noborder two-column"><h1>From inference to programming</h1>
+<div class="body">
+<div>
+<h3>Type inference</h3>
+<ul>
+<li>Program analysis</li>
+<li>Generated constraints</li>
+<li>Unification of types</li>
+<li>Infer type assignment</li>
+<li>Unification + substitution</li>
+</ul>
+</div>
+<div class="fragment">
+<h3>Logic programming</h3>
+<ul>
+<li>Program evaluation</li>
+<li>Handwritten programs</li>
+<li>Unification of terms</li>
+<li>Infer variable assignment</li>
+<li>Unification + substitution</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinyprolog/shrdlu.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>A bit of history</h1>
+<p>Natural language processing in the late 1960s &amp; early 1970s</p>
+<p><strong>SHRDLU, PLANNER</strong></p>
+<p>"Find a block which is taller than the one you are holding and put it into the box."</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder"><div class="body">
+<h1>Prolog then and now</h1>
+<img src="img/tinyprolog/swi.png"/>
+<div>
+<h2>Alain Colmerauer, Marseilles (1972)</h2>
+<ul>
+<li>Natural language processing</li>
+<li>Automatic theorem proving</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Fifth generation systems (1980s)</h2>
+<ul>
+<li>10 year initiative in Japan</li>
+<li>Epoch-making knowledge processing</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Prolog and Datalog today</h2>
+<ul>
+<li>Used in real-world in specialized domains</li>
+<li>Basis of many reasoning &amp; solving systems</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Prolog "Hello world"</h1>
+<img src="img/tinyprolog/british.jpg"/>
+<div>
+<h2>Family tree querying</h2>
+<ul>
+<li>Simple database querying</li>
+<li>Search for data patterns</li>
+<li>
+Grandparent (parent of a parent)<br />
+Father (parent who is male)
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>List processing</h2>
+<ul>
+<li>Linked lists with "cons" and "nil"</li>
+<li>Matching lists with patterns</li>
+<li>Many functions become multi-purpose</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Family tree and lists</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinyprolog/magic.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Magic squares</h1>
+<p><strong>Naive method</strong><br />
+Generate &amp; test<br />
+all permutations</p>
+<p><strong>Better approaches</strong><br />
+Try adding only reasonable options</p>
+<p><strong>Naive is fine for us!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Generating magic squares</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="title nologo swapped"><h1>TinyProlog: Logic programming language</h1>
+<h2>Structure, unification, resolution</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Model of knowledge</h1>
+<img src="img/tinyprolog/cwa.jpg"/>
+<div>
+<h2>Closed world assumption</h2>
+<ul>
+<li>Only declared facts are true</li>
+<li>No unknown children exist!</li>
+<li>Shapes the semantics of Prolog</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Negation in Prolog</h2>
+<ul>
+<li><strong>Yes</strong> means provably true</li>
+<li><strong>No</strong> means not provably true</li>
+<li>False only in a closed world</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image "><div class="body1">
+<p><img src="img/tinyprolog/structure.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>TinyProlog programs</h1>
+<p><strong>Program is a list of clauses which are:</strong></p>
+<p>1) Rules (head + body)
+2) Facts (head)</p>
+<p><strong>A term can be:</strong></p>
+<p>1) Variable<br />
+2) Atom<br />
+3) Predicate</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Theory behind resolution</h1>
+<img src="img/tinyprolog/lt.png"/>
+<div>
+<h2>Prolog programs as logic clauses</h2>
+<ul>
+<li>Horn clause: <span class="math">\(A \leftarrow B_1 \wedge B_2 \wedge \ldots \wedge B_n\)</span></li>
+<li>Equivalent: <span class="math">\(A \vee \neg B_1 \vee \neg B_2 \vee \ldots \vee \neg B_n\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>SLD resolution in Prolog</h2>
+<ul>
+<li>
+Sound and refutation-complete<br />
+resolution for Horn clauses
+</li>
+<li>Will prove 'false' if possible</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>Variables in Prolog clauses</h1>
+<div class="body">
+<div>
+<p>Universally quantified over formula, existentially over body</p>
+<p><span class="math">\(\forall x \forall y (grandparent(x, y) \leftarrow \exists z (parent(x, z) \wedge parent(z, y)))\)</span></p>
+</div>
+<div class="fragment">
+<p>Transformed using standard logical operations</p>
+<p><span class="math">\(\forall x \forall y (grandparent(x, y) \vee \neg \exists z (parent(x, z) \wedge parent(z, y)))\)</span>
+<span class="math">\(\forall x \forall y (grandparent(x, y) \vee \forall z \neg (parent(x, z) \wedge parent(z, y)))\)</span>
+<span class="math">\(\forall x \forall y \forall z (grandparent(x, y) \vee \neg parent(x, z) \vee \neg parent(z, y))\)</span></p>
+</div>
+<div class="fragment">
+<p>We need to use free variables when applying rule!</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons "><h1>Prolog resolution logic</h1>
+<ul>
+<li>
+<i class='fa fa-magnifying-glass'></i> <strong>Start with user query as the goal</strong><br />
+<i class="placeholder"></i>Single (or multiple) term(s) with unbound variables
+</li>
+<li>
+<i class='fa fa-cat'></i> <strong>Find applicable rule/fact by matching its head</strong><br />
+<i class="placeholder"></i>Unification to check if the rule can be applied
+</li>
+<li>
+<i class='fa fa-book'></i> <strong>Generate substitution from the matching</strong><br />
+<i class="placeholder"></i>Substitution generated by unification process
+</li>
+<li>
+<i class='fa fa-rotate-right'></i> <strong>Add goals based on the rule body</strong><br />
+<i class="placeholder"></i>Apply substitution and repeat until all goals solved
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Sketch</h1>
+<h2>How resolution works</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Numbers</h1>
+<h2>Calculating inside Prolog</h2>
+<ul>
+<li><i class='fa fa-forward-step'></i> Peano arithmetic encoded as zero &amp; successor</li>
+<li><i class='fa fa-plug'></i> Constraint Logic Programming (CLP) extensions</li>
+<li><i class='fa fa-arrow-up-1-9'></i> CLP(Z) adds a specialized solver for integers</li>
+<li><i class='fa fa-layer-group'></i> CLP(B), CLP(Q), CLP(R) and more</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Cyclic terms and occurs check</h1>
+<img src="img/tinyprolog/ouroboros.jpg"/>
+<div>
+<h2>Occurs check</h2>
+<ul>
+<li>Avoid terms of the form <code>A = f(A)</code></li>
+<li>Supports rational trees (cyclic terms)</li>
+<li>Not checking is faster, but not right</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Practical Prolog</h2>
+<ul>
+<li>
+Some operations can fail:<br />
+<code>A = 1 + A, B is A.</code>
+</li>
+<li>
+Checks can be turned on:<br />
+<code>set_prolog_flag(occurs_check, true).</code>`
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Enabling occurs check</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="title nologo swapped"><h1>TinyProlog: Logic programming language</h1>
+<h2>F# tricks and step-by-step guide</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a><br />
+<em><i class="fa-solid fa-globe"></i></em> <a href="https://d3s.mff.cuni.cz/teaching/nprg077">https://d3s.mff.cuni.cz/teaching/nprg077</a></p>
+<img src="img/qr.png" id="qr" />
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>Advanced F# features</h1>
+<img src="img/tinyprolog/fsharp.png"/>
+<div>
+<h2>Active patterns</h2>
+<ul>
+<li>Custom patterns for use in <code>match</code></li>
+<li>Match number with <code>Odd</code> or <code>Even</code></li>
+<li>Recognize special forms of terms</li>
+<li>Complete or partial patterns</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Sequence expressions</h2>
+<ul>
+<li>Write code that generates a sequence of items</li>
+<li>Comprehensions (Haskell), generators (JS), ...</li>
+<li>Lazy <code>seq {..}</code> or eager <code>[..]</code> or arrays <code>[|..|]</code></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Demo</h1>
+<h2>Advanced F# features</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>TinyProlog</h1>
+<h2>Code structure</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code "><div class="body1">
+<pre><code class="language-ocaml">(* Recursive term definition *)
+type Term =
+  | Atom of string
+  | Variable of string
+  | Predicate of
+      string * Term list
+  | Call of Term * Term list
+
+(* Facts have empty Body *)
+type Clause =
+  { Head : Term
+    Body : Term list }
+
+(* Create a fact clause *)
+let fact p =
+  { Head = p; Body = [] }
+
+(* Create a rule clause *)
+let rule p b =
+  { Head = p; Body = b }
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>TinyProlog programs</h1>
+<p>Encoded as F# types!</p>
+<p><strong>Atom vs. variable</strong></p>
+<p>Atom is a single data item, thing that exists.</p>
+<p>Variable is a place&shy;holder that we want to assign a term to.</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists "><div class="body">
+<h1>The unification process</h1>
+<img src="img/tinyprolog/unifysm.png"/>
+<div>
+<h2>Tiny implementation</h2>
+<ul>
+<li>Similar to our type inference code!</li>
+<li><code>unify</code> and <code>unifyLists</code> functions</li>
+<li>Generate substitution for variables</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Used in Prolog context</h2>
+<ul>
+<li>Same 2 uses of substitution</li>
+<li>Occurs check done optionally</li>
+<li>
+Use fresh set of variables when<br />
+reusing rules from program database!
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smallcode"><div class="body1">
+<pre><code class="language-ocaml">let rec unifyLists l1 l2 =
+  match l1, l2 with
+  | [], [] -&gt;
+      (* empty substitution*)
+  | h1::t1, h2::t2 -&gt;
+      match unify h1 h2 with
+      | Some(s) -&gt; (*
+         1. substitution 's' to
+            unify 'h1' and 'h2'
+         2. now unifiy 't1' and 't2'
+            recursively &amp; compose
+         3. if not possible, fail *)
+      | _ -&gt; (* fail *)
+  | _ -&gt; (* fail *)
+
+and unify t1 t2 =
+  match t1, t2 with
+  | Atom(a1), Atom(a2) -&gt; (* does 'a1' match 'a2'? *)
+  | Variable(v), t | t, Variable(v) -&gt;
+      (* return a substitution *)
+  | Predicate(p1, args1), Predicate(p2, args2) -&gt;
+      (* if p1 = p2, unify arguments recursively *)
+  | _ -&gt; None
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Unification logic</h1>
+<p>Split into two functions for better readability</p>
+<p><code>unify</code> matches terms</p>
+<p><code>unifyLists</code> matches two lists using <code>unify</code></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller"><div class="body1">
+<pre><code class="language-prolog">% Number: 0
+zero
+
+% Number: 1
+one = s(zero)
+
+% Number: 5
+five = s(s(s(s(s(zero)))))
+
+% Empty list
+empty
+
+% List [1]
+cons(one, empty)
+
+% List [1; 5]
+cons(one, cons(five, empty))
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Adding support for numbers and lists</h1>
+<p><strong>Nothing extra is needed!</strong></p>
+<p>Good enough for a tiny implementation.</p>
+<p>Terribly inefficient and limited if you want to calculate anything!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle "><div class="body">
+<h1>Lab overview</h1>
+<h2>TinyProlog system step-by-step</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinyProlog - Basic tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Implementing basic unification of terms</strong><br />
+Recursively match atoms, variables and predicates</p>
+</li>
+<li>
+<p><strong>Composing and applying substitutions</strong><br />
+To handle multiple occurrences of a variable correctly</p>
+</li>
+<li>
+<p><strong>Searching clauses &amp; variable renaming</strong><br />
+Find applicable rules and relevant facts in program</p>
+</li>
+<li>
+<p><strong>Generating and proving goals recursively</strong><br />
+The key trick! Generate and solve goals in a loop</p>
+</li>
+<li>
+<p><strong>Adding numbers to TinyProlog</strong><br />
+Representing, calculating and pretty printing</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content "><h1>TinyProlog - Bonus and super tasks</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>Lazy search and support for lists</strong><br />
+Refactoring for readability and more pretty printing</p>
+</li>
+<li>
+<p><strong>Generating magic squares in TinyProlog</strong><br />
+In which we find out how slow our implementation is :-)</p>
+</li>
+<li>
+<p><strong>Implementing call and functional maplist</strong><br />
+Adding special predicate for higher-order programming</p>
+</li>
+<li>
+<p><strong>Adding support for occurs checks</strong><br />
+If you want to make it slower and more correct</p>
+</li>
+<li>
+<p><strong>Implementing Prolog-style cut operator</strong><br />
+Super-bonus if you are into Prolog programming...</p>
+</li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons "><h1>Lessons learned</h1>
+<h2>A tiny logic programming language</h2>
+<ul>
+<li><i class='fa fa-right-left'></i> Remarkably similar to ML type inference!</li>
+<li><i class='fa fa-lightbulb'></i> This is not a coincidence...</li>
+<li><i class='fa fa-magnifying-glass'></i> Evaluation as search, not a sequence of steps</li>
+<li><i class='fa fa-gears'></i> Much work needed to make this practical</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="content "><div class="body">
+<div>
+<p><a href="http://alain.colmerauer.free.fr/alcol/ArchivesPublications/PrologHistory/19november92.pdf">http://alain.colmerauer.free.fr/alcol/ArchivesPublications/PrologHistory/19november92.pdf</a></p>
+<p><a href="https://www.metalevel.at/prolog/clpz">https://www.metalevel.at/prolog/clpz</a></p>
+<p><a href="https://github.com/Naereen/Tiny-Prolog-in-OCaml/">https://github.com/Naereen/Tiny-Prolog-in-OCaml/</a></p>
+<p><a href="https://yanniss.github.io/next-paradigm-onward19.pdf">https://yanniss.github.io/next-paradigm-onward19.pdf</a></p>
+<p><a href="https://tgifernando.files.wordpress.com/2013/01/sld_resolution-4spp.pdf">https://tgifernando.files.wordpress.com/2013/01/sld_resolution-4spp.pdf</a></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
