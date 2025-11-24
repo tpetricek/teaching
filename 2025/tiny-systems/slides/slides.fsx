@@ -131,11 +131,12 @@ let iconsTemplate = function
       hs @ [ListBlock(Unordered, items, None)]
   | _ -> failwith "Unexpected slide structure in icons template"
 
-let imageOrCodeTemplate = function
+let imageOrCodeTemplate anim = function
   | (CodeBlock _ as par)::pars
   | (Paragraph([DirectImage _], _) as par)::pars ->
       let pars = pars |> List.map replaceIcons
-      [ InlineHtmlBlock("<div class=\"body1\">", None, None)
+      let cls = if anim then "body1 fragment" else "body1"
+      [ InlineHtmlBlock("<div class=\"" + cls + "\">", None, None)
         par
         InlineHtmlBlock("</div><div class=\"body2\">", None, None)
         yield! fragmentByHr pars |> wrapCitations
@@ -188,8 +189,9 @@ let templates =
     "icons", iconsTemplate >> Some
     "largeicons", iconsTemplate >> Some
     "lists", listsTemplate >> Some
-    "image", imageOrCodeTemplate >> Some
-    "code", imageOrCodeTemplate >> Some
+    "imageanim", imageOrCodeTemplate true >> Some
+    "image", imageOrCodeTemplate false >> Some
+    "code", imageOrCodeTemplate false >> Some
     "content", contentTemplate >> Some
     "default", Some
     "notes", fun _ -> None ]
@@ -322,10 +324,11 @@ let app : WebPart =
 let config =
   { defaultConfig with
       homeFolder = Some (Path.GetFullPath "./output")
+      bindings = [ HttpBinding.createSimple HTTP "127.0.0.1" 8082 ]
       compressedFilesFolder = Some(Path.GetTempPath()) }
 
 let _, start = startWebServerAsync config app
 //Async.Start(start)
-Process.Start(ProcessStartInfo("http://localhost:8080/", UseShellExecute=true))
+Process.Start(ProcessStartInfo("http://localhost:8082/", UseShellExecute=true))
 updateSlides()
 Async.RunSynchronously(start)

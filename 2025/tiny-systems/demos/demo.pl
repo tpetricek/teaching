@@ -21,3 +21,7 @@ append([X|Y],Z,[X|W]) :-
   append(Y,Z,W).
 
 append([],X,X).
+
+
+human(socrates).
+mortal(X) :- human(X).
