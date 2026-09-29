@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cultures of Programming - Part 1 - History of programming and why it matters today</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.15em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>History of programming<br> and why it matters today</h1>
+<h2>Cultures of Programming &mdash; Part 1</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image nologo smaller slide2"data-background-color="#153374" ><div class="body1">
+<p><img src="img/part1/cover.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<p><strong>The history of programming, told through the lens of interactions between five cultures of programming.</strong></p>
+<p>Cultures cooperate, exchange ideas, disagree, struggle for control.</p>
+</div>
+</div>
+</div>
+<style>.slide2 p { color:#F1DEC2; } .slide2  p strong { color:#F1DEC2; } .slide2  .body1 img { border-color:#F1DEC2; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide3"><div class="body1">
+<p><img src="img/part1/knight.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide4"><div class="body1">
+<p><img src="img/part1/knight.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What went wrong?</h1>
+<p>Software update activated unused and wrong code</p>
+</div>
+<div class="fragment">
+<p><strong>Reflections on the issue</strong></p>
+<ul>
+<li>Engineering blogs</li>
+<li>Formal verification talks</li>
+<li>SEC commission analysis</li>
+</ul>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide5"><div class="body">
+<h1>Reflections on the Knight glitch</h1>
+<img src="img/part1/ksteve.jpg"/>
+<div>
+<h2>Mathematical culture</h2>
+<p>Software not formally verified correct!</p>
+</div>
+<div class="fragment">
+<h2>Engineering culture</h2>
+<p>Poor testing and engineering practice</p>
+</div>
+<div class="fragment">
+<h2>Managerial culture</h2>
+<p>Incorrect implementation of oversight processes</p>
+</div>
+</div>
+<style>.slide5 p { margin:5px 0px 20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide6"data-background-color="#153374" ><div class="body">
+<div>
+<p class="cult"><strong>Managerial</strong><br><img src="img/part1/carey.png"/></p>
+<p class="cult"><strong>Hacker</strong><br><img src="img/part1/spacewar.png"/></p>
+<p class="cult"><strong>Humanistic</strong><br><img src="img/part1/perlman.png"/></p>
+<p class="cult"style="margin-right:75px"><strong>Mathematical</strong><br><img src="img/part1/mccarthy.png"/></p>
+<p class="cult"><strong>Engineering</strong><br><img src="img/part1/ibm360.png"/></p>
+</div>
+</div>
+<style>.slide6 .cult { margin-right:30px; text-align:center; padding:0px 10px 0px 10px;display:inline-block;
+background:#2C68AC;} .slide6  strong { color:#F1DEC2; font-size:20pt; } .slide6 
+img { max-height:250px; border-style:none; margin-top:5px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide7"><div class="body">
+<h1>Reflections harder to trace</h1>
+<img src="img/part1/markets.jpg"/>
+<div>
+<h2>Hacker culture</h2>
+<p>System continued running<br />
+for 45 minutes! It should<br />
+have been turned off sooner!</p>
+</div>
+<div class="fragment">
+<h2>Humanistic culture</h2>
+<p>Threats of high-frequency trading<br />
+Automation reorganizes the human</p>
+</div>
+</div>
+<style>.slide7 p { margin:5px 0px 20px 0px; } .slide7  h2 { margin-top:30px;}</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide8"><div class="body">
+<h1>Clashes</h1>
+<h2>What is the problem of programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide9"><div class="body1">
+<p><img src="img/eniac.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Hacker origins</h1>
+<p>“Programming in the early 1950s was a black art,<br />
+a private arcane matter involving only a program&shy;mer,
+a problem, a computer, ... and a primitive assembly program.”</p>
+<p><strong>John Backus (1976)</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide10"><div class="body1">
+<p><img src="img/sage.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Managerial problem</h1>
+<p>“With SAGE, we were faced with programs too large for one person to grasp entirely and also with the need to hire and train large numbers of people to become programmers... We were faced with organizing and managing a whole new art.”</p>
+<p><strong>Herbert Benington (1956)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide10 .body1 { width:400px; } .slide10  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide11"><div class="body1">
+<p><img src="img/dijkstra.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Mathematical science</h1>
+<p>“Program testing can be used to show the presence of bugs, but never to show their absence!” Rather than verifying programs through their testing, we should prove them correct.</p>
+<p><strong>Edsger Dijkstra (1969)</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image nologo slide12"><div class="body1">
+<p><img src="img/nato.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Software engineering</h1>
+<p>“The phrase software engineering was deliberately chosen as provocative... We undoubtedly produce software by backward techniques.”</p>
+<p>The black art of programming has to make way for the science of software engineering!</p>
+<p><strong>NATO Conference on
+Software Engineering (1968)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide12 .body1 { width:400px; } .slide12  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide13"><div class="body1">
+<p><img src="img/bums.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Humanistic problem</h1>
+<p>“Alan Kay is more interested in us kids. He repudiates the manipulative arrogance .. and serves the dictum of Seymour Papert, Should the computer program the kid or should the kid program the computer?”</p>
+<p><strong>Brand, Rolling Stone (1972)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide13 .body1 { width:400px; } .slide13  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide14"><div class="body">
+<h1>Clashes</h1>
+<h2>Correctness, programming education</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide15"><div class="body1">
+<p><img src="img/part1/glitch.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Program errors</h1>
+<p>Glitch art uses errors for critical &amp; aesthetic goals</p>
+</div>
+<div class="fragment">
+<p><strong>Different cultures see errors differently!</strong></p>
+<p>What is error-free?<br />
+How to create it?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide16"><h1>Program errors</h1>
+<h2>What program is correct?</h2>
+<ul>
+<li>
+<i class='fa fa-person-dress'></i> <strong>Managerial and engineering cultures</strong><br />
+<i class="placeholder"></i>Program does what the customer needs
+</li>
+<li>
+<i class='fa fa-file-contract'></i> <strong>Mathematical culture</strong><br />
+<i class="placeholder"></i>Matches a given formal specification
+</li>
+<li>
+<i class='fa fa-tiktok fa-brands'></i> <strong>Humanistic culture</strong><br />
+<i class="placeholder"></i>Programs shape world, question is ill-defined
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide17"><div class="body1">
+<p><img src="img/part1/buttonbox.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Programming education</h1>
+<p>Floor turtle programmed in the LOGO language using a button box</p>
+</div>
+<div class="fragment">
+<p><strong>How to educate good programmers?</strong></p>
+<p>Fundamental concepts!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide18"><h1>Programming education</h1>
+<ul>
+<li>
+<i class='fa fa-computer'></i> <strong>Engineering and mathematical origins</strong><br />
+<i class="placeholder"></i>Numerical analysis, logic circuits, programming
+</li>
+<li>
+<i class='fa fa-person-chalkboard'></i> <strong>Growth of the mathematical culture</strong><br />
+<i class="placeholder"></i>Abstract programming concepts and algorithms
+</li>
+<li>
+<i class='fa fa-terminal'></i> <strong>Hacker culture disagrees</strong><br />
+<i class="placeholder"></i>Programming as a practical skill, taught by doing
+</li>
+<li>
+<i class='fa fa-brain'></i> <strong>Broader humanistic concerns</strong><br />
+<i class="placeholder"></i>Teach "powerful ideas," not programming
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="icons  slide19"><h1>History</h1>
+<h2>Cultures of programming view</h2>
+<ul>
+<li><i class='fa fa-landmark-dome'></i> Cultures emerge early in the history</li>
+<li><i class='fa fa-image'></i> Unique values, views, methods, aesthetics</li>
+<li><i class='fa fa-chess-rook'></i> Stable over history of programming</li>
+<li><i class='fa fa-comments'></i> Not always shared communities</li>
+<li><i class='fa fa-people-line'></i> Inherently pluralistic discipline?</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide20"><div class="body">
+<h1>Cultures of Programming</h1>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="02-cultures.html"><i class="fa fa-arrow-right"></i>Continue to Part 2</a></h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,73 @@
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdLight.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdLightOblique.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Futura Std – Medium */
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdMedium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdMediumOblique.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Futura Std – Bold */
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdBold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdBoldOblique.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Futura Std – Extra Bold */
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdExtraBoldOblique.woff") format("woff");
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Futura Std – Heavy */
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdHeavy.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura Std";
+  src: url("FuturaStdHeavyOblique.woff") format("woff");
+  font-weight: 900;
+  font-style: italic;
+}

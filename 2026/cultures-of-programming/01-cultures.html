@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Computational Substrates for Document-Oriented Programming</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.1em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>Hackers, engineers, managers, mathematicians and humanists</h1>
+<h2>Cultures of Programming &mdash; Part 1</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image nologo smaller slide2"data-background-color="#153374" ><div class="body1">
+<p><img src="img/lecture1/cover.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<p><strong>The history of programming, told through the lens of interactions between five cultures of programming.</strong></p>
+<p>Cultures cooperate, exchange ideas, disagree, struggle for control.</p>
+</div>
+</div>
+</div>
+<style>.slide2 p { color:#F1DEC2; } .slide2  p strong { color:#F1DEC2; } .slide2  .body1 img { border-color:#F1DEC2; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide3"><div class="body1">
+<p><img src="img/lecture1/knight.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide4"><div class="body1">
+<p><img src="img/lecture1/knight.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What went wrong?</h1>
+<p>Software update activated unused and wrong code</p>
+</div>
+<div class="fragment">
+<p><strong>Reflections on the issue</strong></p>
+<ul>
+<li>Engineering blogs</li>
+<li>Formal verification talks</li>
+<li>SEC commission analysis</li>
+</ul>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide5"><div class="body">
+<h1>Reflections on the Knight glitch</h1>
+<img src="img/lecture1/ksteve.jpg"/>
+<div>
+<h2>Mathematical culture</h2>
+<p>Software not formally verified correct!</p>
+</div>
+<div class="fragment">
+<h2>Engineering culture</h2>
+<p>Poor testing and engineering practice</p>
+</div>
+<div class="fragment">
+<h2>Managerial culture</h2>
+<p>Incorrect implementation of oversight processes</p>
+</div>
+</div>
+<style>.slide5 p { margin:5px 0px 20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide6"data-background-color="#153374" ><div class="body">
+<div>
+<p class="cult"><strong>Managerial</strong><br><img src="img/lecture1/carey.png"/></p>
+<p class="cult"><strong>Hacker</strong><br><img src="img/lecture1/spacewar.png"/></p>
+<p class="cult"><strong>Humanistic</strong><br><img src="img/lecture1/perlman.png"/></p>
+<p class="cult"style="margin-right:75px"><strong>Mathematical</strong><br><img src="img/lecture1/mccarthy.png"/></p>
+<p class="cult"><strong>Engineering</strong><br><img src="img/lecture1/ibm360.png"/></p>
+</div>
+</div>
+<style>.slide6 .cult { margin-right:30px; text-align:center; padding:0px 10px 0px 10px;display:inline-block;
+background:#2C68AC;} .slide6  strong { color:#F1DEC2; font-size:20pt; } .slide6 
+img { max-height:250px; border-style:none; margin-top:5px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide7"><div class="body">
+<h1>Reflections harder to trace</h1>
+<img src="img/lecture1/markets.jpg"/>
+<div>
+<h2>Hacker culture</h2>
+<p>System continued running<br />
+for 45 minutes! It should<br />
+have been turned off sooner!</p>
+</div>
+<div class="fragment">
+<h2>Humanistic culture</h2>
+<p>Threats of high-frequency trading<br />
+Automation reorganizes the human</p>
+</div>
+</div>
+<style>.slide7 p { margin:5px 0px 20px 0px; } .slide7  h2 { margin-top:30px;}</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide8"><div class="body">
+<h1>Clashes</h1>
+<h2>What is the problem of programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide9"><div class="body1">
+<p><img src="img/eniac.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Hacker origins</h1>
+<p>“Programming in the early 1950s was a black art,<br />
+a private arcane matter involving only a program&shy;mer,
+a problem, a computer, ... and a primitive assembly program.”</p>
+<p><strong>John Backus (1976)</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide10"><div class="body1">
+<p><img src="img/sage.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Managerial problem</h1>
+<p>“With SAGE, we were faced with programs too large for one person to grasp entirely and also with the need to hire and train large numbers of people to become programmers... We were faced with organizing and managing a whole new art.”</p>
+<p><strong>Herbert Benington (1956)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide10 .body1 { width:400px; } .slide10  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide11"><div class="body1">
+<p><img src="img/dijkstra.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Mathematical science</h1>
+<p>“Program testing can be used to show the presence of bugs, but never to show their absence!” Rather than verifying programs through their testing, we should prove them correct.</p>
+<p><strong>Edsger Dijkstra (1969)</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image nologo slide12"><div class="body1">
+<p><img src="img/nato.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Software engineering</h1>
+<p>“The phrase software engineering was deliberately chosen as provocative... We undoubtedly produce software by backward techniques.”</p>
+<p>The black art of programming has to make way for the science of software engineering!</p>
+<p><strong>NATO Conference on
+Software Engineering (1968)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide12 .body1 { width:400px; } .slide12  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide13"><div class="body1">
+<p><img src="img/bums.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Humanistic problem</h1>
+<p>“Alan Kay is more interested in us kids. He repudiates the manipulative arrogance .. and serves the dictum of Seymour Papert, Should the computer program the kid or should the kid program the computer?”</p>
+<p><strong>Brand, Rolling Stone (1972)</strong></p>
+</div>
+</div>
+</div>
+<style>.slide13 .body1 { width:400px; } .slide13  .body1 img { max-width:360px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide14"><h1>History</h1>
+<h2>Cultures of programming view</h2>
+<ul>
+<li><i class='fa fa-landmark-dome'></i> Cultures emerge early in the history</li>
+<li><i class='fa fa-image'></i> Unique values, views, methods, aesthetics</li>
+<li><i class='fa fa-chess-rook'></i> Stable over history of programming</li>
+<li><i class='fa fa-comments'></i> Not always shared communities</li>
+<li><i class='fa fa-people-line'></i> Inherently pluralistic discipline?</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide15"><div class="body">
+<h1>Mathematical</h1>
+<h2>Program as a mathematical entity</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide16"><div class="body">
+<div>
+<p>eniac programming / plugging cables</p>
+<p>numerical analysis</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide17"><div class="body">
+<div>
+<p>program as a mathematical entity</p>
+<p>analysis of program correctness</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide18"><div class="body">
+<div>
+<p>establishing CS in academic context</p>
+<p>"science of automobiles"</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide19"><div class="body">
+<div>
+<p>Algol - object of beauty</p>
+<p>[algorithms ACM]</p>
+<p>reference language
+implementation language
+publication language</p>
+<p>somewhat formal definition</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide20"><div class="body">
+<div>
+<p>other achievements</p>
+<p>algol
+CompCert and sel4
+complexity theory
+theory of programming languages
+type systems!</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide21"><div class="body">
+<h1>Hacker</h1>
+<h2>The hands-on imperative</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide22"><div class="body">
+<div>
+<p>direct engagement</p>
+<p>batch</p>
+<p>hackers at MIT</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide23"><div class="body">
+<div>
+<p>TX-0 and PDP-1</p>
+<p>community of tinkerers</p>
+<p>TechModelRailwayClub(TMRC) "hackers"</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide24"><div class="body">
+<div>
+<p>HAKMEM</p>
+<p>from
+pseudo-Gaussian distributedrandomvariableto
+an electrical circuit for an amplifier (“submitted without further explanation or cautions”).</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide25"><div class="body">
+<div>
+<p>information sharing
+(ARPANET)</p>
+<p>exploring possibilities
+(Spacewar!)</p>
+<p>only skill matters
+not“boguscriteriasuchasdegrees,age,race,
+sex,orposition.”</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide26"><div class="body">
+<div>
+<p>UNIX and C and politics (GNU)</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide27"><div class="body">
+<h1>Managerial</h1>
+<h2>Software development lifecycles</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide28"><div class="body">
+<div>
+<p>x</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide29"><div class="body">
+<h1>Engineering</h1>
+<h2>A Proper engineering discipline</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide30"><div class="body">
+<div>
+<p>x</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide31"><div class="body">
+<h1>Humanistic</h1>
+<h2>New Media for Thinking</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide32"><div class="body">
+<div>
+<p>x</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide33"><div class="body">
+<h1>Collaborations</h1>
+<h2>The birth of programming languages</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists nologo slide34"><div class="body">
+<h1>Programming language</h1>
+<img src="img/eniac.jpg"/>
+<div>
+<h2>Programming before</h2>
+<ul>
+<li>Direct machine control</li>
+<li>Plugging cables in ENIAC</li>
+<li>Idiosyncratic machine codes</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Remarkable idea!</h2>
+<ul>
+<li>New framing metaphor</li>
+<li>New formal models</li>
+<li>Implementation techniques</li>
+</ul>
+</div>
+</div>
+<style>.slide34 img { max-width:400px !important; max-height:400px !important; margin-top:-0px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide35"><div class="body1">
+<p><img src="img/translation.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Mathematical culture</h1>
+<p><strong>Translation metaphor for programming (1950s)</strong></p>
+<p>From human language to formal logic and linguistics</p>
+<p>Formal grammars for language description</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide36"><div class="body1">
+<p><img src="img/subroutines.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Hacker culture</h1>
+<p><strong>Clever tricks (1950s)</strong></p>
+<p>External form allows subroutine libraries</p>
+<p>Interpretive routines for extra EDSAC codes</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide37"><div class="body1">
+<p><img src="img/univac.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Managerial need</h1>
+<p><strong>User groups and computer installation managers</strong></p>
+<p>Common universal notations</p>
+<p>Cross-machine compatibility<br />
+Allow program exchange<br />
+Teaching at universities</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide38"><div class="body">
+<div>
+<p><img src="img/flowmatic.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder nologo slide39"><div class="body">
+<h1>Limits of collaboration</h1>
+<img src="img/babel.png"/>
+<div>
+<h2>Meeting of cultures but...</h2>
+<ul>
+<li><strong>COBOL</strong> for managerial business use</li>
+<li><strong>Algol</strong> for mathematical theory</li>
+<li><strong>LISP</strong> for AI hackers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Boundary object</h2>
+<ul>
+<li>Shared understanding, but not focus</li>
+<li>Exchange of ideas between cultures</li>
+<li>Failure of universal languages</li>
+</ul>
+</div>
+</div>
+<style>.slide39 .body img { margin:-50px -50px 0px 0px !important; max-width:1000px !important; max-height:500px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide40"><div class="body">
+<h1>Aesthetics</h1>
+<h2>Disagreements on values</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="codeanim code slide41"><div class="body1 fragment">
+<pre><code class="language-text">float Q_rsqrt( float number )
+{
+  long i;
+  float x2, y;
+  const float threehalfs = 1.5F;
+
+  x2 = number * 0.5F;
+  y  = number;
+
+  // evil floating point bit level hacking
+  i  = * ( long * ) &amp;y;             
+  // what the fuck?
+  i  = 0x5f3759df - ( i &gt;&gt; 1 );
+  y  = * ( float * ) &amp;i;
+
+  // 1st iteration
+  y  = y * ( threehalfs - ( x2 * y * y ) );
+  // 2nd iteration, this can be removed
+  // y  = y * ( threehalfs - ( x2 * y * y ) );
+  return y;
+}
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What code is beautiful?</h1>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Hacker culture</strong></p>
+<p>Values clever code that shows understanding of the machine operation</p>
+</div>
+</div>
+</div>
+<style>.slide41 h1 { font-family:Felipa; } .slide41  pre { margin-right:20px; } .slide41  pre code { font-size:12pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="code code larger slide42"><div class="body1">
+<pre><code class="language-text">#define submerge const char*_=O%239?" ":"\t;\t";O*=2654435761;int
+#define _cOb8(...) int s,on,__VA_ARGS__;int main(int O, char**Q)
+
+  _cOb8(o_,     _oO8ocQOcOb,       _ocQbo8oo,      _oO8ocOb_
+    ){ ;           { ;;;              ;;}             ;{
+      ;;             ;{              ; }              {;;}
+     }   float   the;;  static things ;; for (;;){ us :;;
+    ; ;  break; the;  ;; long grass  ;unsigned squall  ; }
+   { } ; while (1){soft:;  submerge us;;    in: sleep (0) ;
+    ; ;  printf    (_);   quietly :on  ;;   the; soil:; };
+   {{ };           ; ; ;;             ;{ ;            }; {
+  {  ;   shake: time (1) ;register   *_, the =clock(s  );
+    ;} ; volatile    *_,  winds     ; ;  double wills ;{
+      ;  char the    ,*   fire     ;; short companion,*_;}
+    ; {  union    {}*_,  together  ;; ;   void *warms  ;}
+   } ;;            ;{;              ;} ;              ;;
+    ; ;  if (1) wet  :;    raise    (1);  struct{}ure  ;; ;
+   ; ;   free (0);for(;;){  newborn :; ;     daughter :; ;
+   ;{ ;  extern al,  **     world   ,*re;const ructed  ;};
+ ;  ; ;  continue;on:;;    floods   :; ;    of: water :;};}
+; ;{ ; ;          ;; {  ;          ; }  ;             }  ; ;  }
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Beautiful code</h1>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Humanistic culture</strong></p>
+<p>Use double coding to speak to the human as well as<br />
+to the machine</p>
+</div>
+</div>
+</div>
+<style>.slide42 h1 { font-family:Felipa; } .slide42  pre { margin-right:20px; } .slide42  pre code { font-size:10pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image larger slide43"><div class="body1">
+<p><img src="img/mvc.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What code is beautiful</h1>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Engineering culture</strong></p>
+<p>Simple, well-structured. Readability is valued more than cleverness.</p>
+</div>
+</div>
+</div>
+<style>.slide43 h1 { font-family:Felipa; } .slide43  .body1 img { margin-top:60px; border:solid 10px #2C68AC; border-radius:20px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image larger slide44"><div class="body1">
+<p><img src="img/micro.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What code is beautiful</h1>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Mathematical culture</strong></p>
+<p>Code achieves great expressivity using a combination of small number of orthogonal features.</p>
+</div>
+</div>
+</div>
+<style>.slide44 h1 { font-family:Felipa; } .slide44  .body1 img { margin-top:70px; border:solid 10px #2C68AC; border-radius:20px; background-color;red; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image larger slide45"><div class="body1">
+<p><img src="img/mills.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What code is beautiful</h1>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Managerial culture</strong></p>
+<p>Structure of code enables appropriate organization of development teams and project management.</p>
+<!-- Chief prgrammer teamms from: https://athena.ecs.csus.edu/~buckley/CSc191/Chief_Programmer_Teams-Baker-Mills.pdf -->
+</div>
+</div>
+</div>
+<style>.slide45 h1 { font-family:Felipa; } .slide45  .body1 img { margin-top:0px; border:solid 10px #2C68AC; border-radius:20px; background-color;red; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide46"><h1>Aesthetics</h1>
+<h2>Materiality of programming</h2>
+<ul>
+<li><i class='fa fa-pen-nib'></i> Code matters for hackers and humanists</li>
+<li><i class='fa fa-not-equal'></i> For mathematicians code is just maths</li>
+<li><i class='fa fa-cog'></i> Engineers value code quality and structure</li>
+<li><i class='fa fa-user-tie'></i> Code is secondary for managerial culture</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide47"><div class="body">
+<h1>Clashes</h1>
+<h2>Struggle for control over a concept</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide48"><h1>Object-orientation</h1>
+<h2>Struggle for control over a concept</h2>
+<ul>
+<li><i class='fa fa-cart-flatbed-suitcase'></i> <strong>1960s</strong> - Mathematical simulations in <strong>Simula</strong></li>
+<li><i class='fa fa-tablet-screen-button'></i> <strong>1970s</strong> - Personal dynamic media in <strong>Smalltalk</strong></li>
+<li><i class='fa fa-computer'></i> <strong>1980s</strong> - From <strong>Smalltalk</strong> to <strong>C++</strong> and <strong>Java</strong></li>
+<li><i class='fa fa-industry'></i> <strong>1990s</strong> - <strong>UML</strong> and new development processes</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide49"><div class="body1">
+<p><img src="img/nygaard-dahl.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h2>SIMULA "1"</h2>
+<p>Activity declarations<br />
+and processes</p>
+<p>Remote accessing</p>
+</div>
+<div class="fragment">
+<h2>SIMULA 67</h2>
+<p>Classes and objects</p>
+<p>Record handling inspired by Hoare</p>
+</div>
+</div>
+</div>
+<style>.slide49 h2 { margin:30px 0px 0px 0px; font-size:28pt; font-weight:500; } .slide49  p { margin:15px 0px 0px 0px; line-height:1.1em; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide50"><div class="body">
+<h1>Three cultures of Smalltalk</h1>
+<img src="img/byte.jpg"/>
+<div>
+<h2>Humanistic (early 70s)</h2>
+<p>"Computer for Children of All Ages"<br />
+Learning and educational focus</p>
+</div>
+<div class="fragment">
+<h2>Hacker (late 70s)</h2>
+<p>Experimentation tool at Xerox PARC</p>
+</div>
+<div class="fragment">
+<h2>Engineering (80s-90s)</h2>
+<p>From Tektronix to IBM Visual Age<br />
+Test-driven development, design patterns</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column nologo slide51"><h1>Object-oriented methodology</h1>
+<div class="body">
+<div>
+<p><strong>How do you design<br />
+software using objects?</strong></p>
+<p>Objects as active actors<br />
+Responsibilities of objects</p>
+<p><img src="img/doos.png" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>From objects to software development processes</strong></p>
+<p>Objects support requirements analysis, team structuring</p>
+<p><img src="img/uml.png" alt="" /></p>
+</div>
+</div>
+<style>.slide51 .body img { max-width:180px; margin-left:30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide52"><h1>Object-orientation</h1>
+<h2>Disagreements and struggles for control</h2>
+<ul>
+<li><i class='fa fa-shapes'></i> What is object-orientation about</li>
+<li><i class='fa fa-folder-open'></i> Software malleability and openness</li>
+<li><i class='fa fa-brands fa-black-tie'></i> Help programmers vs. manage programmers</li>
+<li><i class='fa fa-circle-question'></i> Degree of incommensurability</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide53"><div class="body">
+<h1>Conclusions</h1>
+<h2>Cultures of Programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="title nologo slide54"><h1>Cultures of Programming</h1>
+<p>All models are wrong, but some are useful<br />
+Framing history and current debates<br />
+Programming is a pluralistic enterprise</p>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague<br />
+<a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a>  |
+<a href="https://tomasp.net">tomasp.net</a></p>
+<p><strong>Open-access book and exhibition</strong><br />
+Available at <a href="https://tomasp.net/cultures">tomasp.net/cultures</a></p>
+<img src="img/qr.png" class="qr" />
+</div>
+<style>.slide54 .qr { position:absolute; right:0px; bottom:30px; width:220px; border:solid 6px black; } .slide54  .body p { margin-bottom:40px;}</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide55"><div class="body">
+<h1>Bonus slides</h1>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide56"><div class="body">
+<h1>Collaborations</h1>
+<h2>The history of programming with types</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide57"><h1>History of types</h1>
+<ul>
+<li><i class='fa fa-pen-nib'></i> <strong>1903</strong> - Avoiding logical paradoxes (Russell)</li>
+<li><i class='fa fa-gears'></i> <strong>1956</strong> - Numbers in two modes (FORTRAN)</li>
+<li><i class='fa fa-database'></i> <strong>1957</strong> - Data description cards (FLOW-MATIC)</li>
+<li><i class='fa fa-clipboard'></i> <strong>1974</strong> - Abstract data types (Clu)</li>
+<li><i class='fa fa-terminal'></i> <strong>1978</strong> - Meta-language for a theorem prover (ML)</li>
+<li><i class='fa fa-not-equal'></i> <strong>1989</strong> - Types in proof assistants (Alf and Rocq)</li>
+<li><i class='fa fa-hand-pointer'></i> <strong>2012</strong> - Unsound type systems (TypeScript)</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column nologo slide58"><h1>Types in programming</h1>
+<div class="body">
+<div>
+<p><strong>FORmula TRANslator<br />
+rather than a language</strong></p>
+<p>Arguments in fixed or<br />
+floating-point mode</p>
+<p><img src="img/fortran.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>Algorithmic Language</strong></p>
+<p>Types (integer, real, Boolean) denote properties of values;<br />
+Subscripts for arrays</p>
+<p><img src="img/algol.jpg" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide59"><div class="body1">
+<p><img src="img/comtran.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>IBM COMTRAN</h1>
+<p><strong>Electronic versions of paper-based records</strong></p>
+<p>Data records with specific string formatting</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide60"><div class="body">
+<h1>Towards a universal language</h1>
+<img src="img/receptacle.png"/>
+<div>
+<h2>Mathematical models</h2>
+<ul>
+<li>Data spaces (McCarthy, '59)</li>
+<li>Product <span class="math">\(A \times B\)</span>, union <span class="math">\(A \oplus B\)</span></li>
+<li>Set-theoretical types (Hoare, '72)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Types in Algol 68</h2>
+<ul>
+<li>A long and difficult struggle</li>
+<li>
+Whereas ALGOL 60 has values of [three types],<br />
+ALGOL 68 features an infinity of “modes”.
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide61"><div class="body">
+<h1>From mathematics to engineering</h1>
+<img src="img/liskov.jpg"/>
+<div>
+<h2>Lambda-calculus models (Morris '69)</h2>
+<p>Models type checking via derivation rules</p>
+</div>
+<div class="fragment">
+<h2>Types are not sets (Morris '73)</h2>
+<p>Authentication and secrecy problems<br />
+Now in Cedar system at Xerox PARC</p>
+</div>
+<div class="fragment">
+<h2>Abstract data types (Liskov '74)</h2>
+<p>Type checking done at runtime in Clu<br />
+Cites Reynolds ("personal communication")</p>
+</div>
+</div>
+<style>.slide61 .body img { max-width:220px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide62"><div class="body1">
+<p><img src="img/ml.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>LCF/ML (1978)</h1>
+<p><strong>Abstract data types</strong><br />
+for proof terms</p>
+<p><strong>Data types</strong><br />
+for convenient programming</p>
+<p><strong>Type checking</strong><br />
+for proof correctness</p>
+</div>
+</div>
+</div>
+<style>.slide62 .body1 img { margin-top:40px; border:solid 10px #2C68AC; border-radius:20px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide63"><h1>Types</h1>
+<h2>Cultural reconciliation at last...?</h2>
+<ul>
+<li><i class='fa fa-not-equal'></i> Proof assistants and dependent types</li>
+<li><i class='fa fa-globe'></i> Type providers and data as types</li>
+<li><i class='fa fa-right-left'></i> Modelling types as relations</li>
+<li><i class='fa fa-list'></i> Unsound type systems for the real world</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
