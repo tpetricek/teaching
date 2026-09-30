@@ -55,7 +55,6 @@ For my industry and research talks see [my Talks repository](http://github.com/t
   (But the 2024 version is better!)
 
 ## Courses at University of Kent (2018-2022)
------------------------------------------
 
 - [**CO886** - Software Engineering](https://tpetricek.github.io/teaching/2022/software-engineering/) (2022)
 - [**CO886** - Software Engineering - Class Materials](https://github.com/tpetricek/Teaching/tree/master/2022/software-engineering-classes) (2022)
@@ -63,8 +62,7 @@ For my industry and research talks see [my Talks repository](http://github.com/t
 - [**CO582** - Computer Interaction and User Experience](https://tpetricek.github.io/teaching/2019/human-computer-interaction/) (2019)
 - [**CO880** - Software Project and Dissertation](https://tpetricek.github.io/teaching/2022/project-workshop/) (2022)
 
-Materials license
------------------
+## Materials license
 
 The presentations and documents available in the repository are available under the Creative
 Commons Attribution 2.5 license.  This means that you can copy, distribute and remix the work,
