@@ -7,86 +7,54 @@ and are generally generated from Markdown using [F# Formatting](https://fsprojec
 For my industry and research talks see [my Talks repository](http://github.com/tpetricek/Talks/) and for older materials
 (before 2015), check out [my old Documents repository](http://github.com/tpetricek/Documents/).
 
-Write your own tiny programming system(s)! (2025)
--------------------------------------------------
+## Current courses at Matfyz
 
-> The goal of this course is to teach how fundamental programming language techniques, algorithms and
-systems work by writing their miniature versions. The course covers multiple paradigms including
-functional, object-oriented, imperative and logic, as well as end-user programming environments like
-spreadsheets. Examples will be given using the F# programming language, which will be briefly introduced.
+* **Theory of Programming Languages (2026)** -
+  For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg085/).
+  See slides for [Introduction and operational semantics](https://tpetricek.github.io/teaching/2026/theory-pl/01-intro.html),  and more coming soon.
 
-For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/).
-For videos, see also [Write your own tiny programming system(s)!](https://www.youtube.com/playlist?list=PLRBVoLoCYzDML8e9g58f6zb-faG1rMHIJ) on YouTube.
+* **Cultures of programming (2026)** -
+  For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg088/).
+  See slides for [Part 1](https://tpetricek.github.io/teaching/2026/cultures-of-programming/01-introduction.html), [Part 2](https://tpetricek.github.io/teaching/2026/cultures-of-programming/02-cultures.html), and more coming soon.
 
-Programming Language Design (2024)
-----------------------------------
+* **Functions, trees, processes (2026)** -
+  For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg086/).
+  See slides for [Introduction](https://tpetricek.github.io/teaching/2026/functions-trees/intro.html),  and more coming soon.
 
-> The goal of this course is to show students how to design better programming languages, developer tools,
-development frameworks and libraries. The course covers rigorous methods for programming language and
-library design, ranging from formal methods based on logic and programming language theory, to
-human-computer interaction methods based on qualitative and quantitative user studies.
+## Past courses at Matfyz
 
-See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/) and [NPRG075 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG075).
+* **Write your own tiny programming system(s)! (2025)** -
+  For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/).
+  For videos, see also [Write your own tiny programming system(s)!](https://www.youtube.com/playlist?list=PLRBVoLoCYzDML8e9g58f6zb-faG1rMHIJ) on YouTube.
 
- - [**Introduction** - Programming language design](https://tpetricek.github.io/teaching/2024/pl-design/intro.html)
- - [**Design** - Learning from architecture and design](https://tpetricek.github.io/teaching/2024/pl-design/design.html)
- - [**Usability** - Human-centric language design](https://tpetricek.github.io/teaching/2024/pl-design/usability.html)
- - [**Semantics** - Formal models of programming](https://tpetricek.github.io/teaching/2024/pl-design/semantics.html)
- - [**Research** - Assignment & How to do programming language research](https://tpetricek.github.io/teaching/2024/pl-design/research.html)
- - [**Types** - Mathematics and engineering of types](https://tpetricek.github.io/teaching/2024/pl-design/types.html)
- - [**Beyond** - Unexpected perspectives on types](https://tpetricek.github.io/teaching/2024/pl-design/beyond.html)
- - [**Philosophy** - History and philosophy of programming](https://tpetricek.github.io/teaching/2024/pl-design/philosophy.html)
- - [**Close** - Close look at past and today's programs](https://tpetricek.github.io/teaching/2024/pl-design/close.html)
- - [**Heuristics** - Heuristic evaluation of programming systems](https://tpetricek.github.io/teaching/2024/pl-design/heuristics.html)
- - [**Cognition** - Making programming easier and learnable](https://tpetricek.github.io/teaching/2024/pl-design/cognition.html)
+* **Programming Language Design (2024)** -
+  For more information see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/).
+  Slides are available [here](https://tpetricek.github.io/teaching/2024/pl-design/). Start
+  [here](https://tpetricek.github.io/teaching/2024/pl-design/#/1) for links to individual lectures.
 
+* **Advanced C# Programming - Labs (2024)** -
+  See [the official course page](https://d3s.mff.cuni.cz/teaching/nprg038/). I created
+  [additional materials and demos from my labs](https://github.com/tpetricek/nprg038-advanced-csharp-labs).
 
-Advanced C# Programming - Labs (2024)
--------------------------------------
+* **Write your own tiny programming system(s)! (2023)** -
+  See [the archived course page](https://d3s.mff.cuni.cz/teaching/nprg077/2023-24/) with
+  recorded videos from 2023 (but 2025 is better!). Slides are available
+  [here](https://tpetricek.github.io/teaching/2023/tiny-systems/). Start
+  [here](https://tpetricek.github.io/teaching/2023/tiny-systems/#/1) for links to individual lectures.
 
-> In this course students will explore .NET platform's advanced programming techniques and
-internals, and specialized parts of standard .NET libraries. Successful completion of the course should
-give students a good knowledge of the wide range of features provided by the .NET platform, and allow
-them to effectively use the gained knowledge in real-life projects developed for .NET platform.
+* Guest lecture at **Concepts in Modern Programming (2023)** -
+  You can find slides from my lecture [Advanced Types in TypeScript here](https://tpetricek.github.io/teaching/2023/modern-language-concepts/).
 
-See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg038/) and [NPRG077 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG038).
+* Guest lecture at **Functional Programming (2023)** -
+  You can find slides from my lecture [Effects and Coeffects here](https://tpetricek.github.io/teaching/2024/functional-programming/).
 
-* [**NPRG038**: Additional materials and demos from my labs](https://github.com/tpetricek/nprg038-advanced-csharp-labs)
+* **Programming Language Design (2022)** -
+  For more information see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg075/).
+  Archived slides are available [here](https://tpetricek.github.io/teaching/2022/pl-design/). Start
+  [here](https://tpetricek.github.io/teaching/2022/pl-design/#/1) for links to individual lectures.
+  (But the 2024 version is better!)
 
-Write your own tiny programming system(s)! (2023)
--------------------------------------------------
-
-> The goal of this course is to teach how fundamental programming language techniques, algorithms and
-systems work by writing their miniature versions. The course covers multiple paradigms including
-functional, object-oriented, imperative and logic, as well as end-user programming environments like
-spreadsheets. Examples will be given using the F# programming language, which will be briefly introduced.
-
-See also [the official course page](https://d3s.mff.cuni.cz/teaching/nprg077/) and [NPRG077 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG077).
-
- - [**Lecture - Welcome**: Tiny programming system(s)](https://tpetricek.github.io/teaching/2023/tiny-systems/intro.html)
- - [**Lab - TinyML**: Tiny functional language interpreter](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyml.html)
- - [**Lab - TinyBASIC**: Tiny interactive imperative programming system](https://tpetricek.github.io/teaching/2023/tiny-systems/tinybasic.html)
- - [**Lab - TinyHM**: Tiny Hindley-Milner type inference](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyhm.html)
- - [**Lab - TinyProlog**: Tiny declarative logic programming language](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyprolog.html)
- - [**Lab - TinySelf**: Tiny prototype-based object-oriented language](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyself.html)
- - [**Lab - TinyExcel**: Tiny incremental spreadsheet system](https://tpetricek.github.io/teaching/2023/tiny-systems/tinyexcel.html)
-
-Guest lectures (2023/2024)
---------------------------
-
-I did guest lectures at two courses! The [Concepts in Modern Programming course](https://d3s.mff.cuni.cz/teaching/nprg014/) ([NPRG014 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NPRG014)) shows interesting and advanced concepts of modern object-oriented programming languages and demonstrate their application together with practical exercises.
-The [Functional Programming course](https://github.com/vituscze/fp) ([NAIL097 in SIS](https://is.cuni.cz/studium/predmety/index.php?do=predmet&kod=NAIL097)) covers
- theoretical foundations of functional programming and their uses, in particular in the environment of Haskell language.
-
-- [**NPRG014**: Advanced Types in TypeScript](https://tpetricek.github.io/teaching/2023/modern-language-concepts/)
-- [**NAIL097**: Effects and Coeffects](https://tpetricek.github.io/teaching/2024/functional-programming/)
-
-Teaching at Charles University (2022)
--------------------------------------
-
-- [**NPRG075** - Programming Language Design](https://tpetricek.github.io/teaching/2022/pl-design/)
-
-Teaching at University of Kent (2018-2022)
+## Courses at University of Kent (2018-2022)
 -----------------------------------------
 
 - [**CO886** - Software Engineering](https://tpetricek.github.io/teaching/2022/software-engineering/) (2022)
