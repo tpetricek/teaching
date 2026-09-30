@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Theory of Programming Languages</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 40pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 34pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG085: <strong>Theory of Programming Languages</strong></h1>
+<h2>Course introduction</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong> and <strong>Vít Šefl</strong></p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a> | <a href="mailto:sefl@ksvi.mff.cuni.cz">sefl@ksvi.mff.cuni.cz</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a> &nbsp;|&nbsp; <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:36pt; letter-spacing:-1px } .slide1  h2 { font-size:32pt; margin-top:-35px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="content  slide2"><h1>Examination</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/disputation.jpg" alt="" /></p>
+<p>To pass the course, you need to suc&shy;cessfully pass an oral exam at the end.</p>
+<p><strong>Test understanding of semantics &amp; types</strong></p>
+<ul>
+<li>Use semantics to perform reduction</li>
+<li>Show that a property holds for given rules</li>
+<li>General questions</li>
+</ul>
+<p><strong>Practical details and arrangements</strong></p>
+<ul>
+<li>Only topics covered during the lectures</li>
+<li>Extra literature is helpful but not required</li>
+<li>Sign up via SIS</li>
+</ul>
+</div>
+</div>
+<style>.slide2 img { float:right; max-width:260px;margin:0px 0px 10px 10px; } .slide2  p { font-size:22pt; } .slide2  li { font-size:22pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller slide3"><div class="body">
+<h1>Literature</h1>
+<img src="img/intro/tapl.jpg"/>
+<div>
+<h2>Langauge semantics</h2>
+<ul>
+<li><a href="https://www.cl.cam.ac.uk/teaching/2526/Semantics/materials.html">Semantics of Programming Languages</a> (Cambridge)</li>
+<li>Types and programming languages  (Pierce)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Types and lambda calculus</h2>
+<ul>
+<li>Practical foundations for programming languages (R. Harper)</li>
+<li>Software foundations (B. Yorgey et al)</li>
+<li>Advanced topics in types and programming languages (ed: Pierce)</li>
+<li>The lambda calculus: its syntax and semantics (H. P. Barendregt)</li>
+</ul>
+</div>
+</div>
+<style>.slide3 li { font-size:22pt; } .slide3  .body img { position:relative; top:-20px }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide4"><h1>Study materials</h1>
+<div class="body">
+<div>
+<ol>
+<li>
+<p><strong>The lectures will be recorded</strong>. The recordings<br />
+will be made available in some way.</p>
+</li>
+<li><p>If there's interest, we could make a <strong>Discord server</strong> like we did last year (for Principles) and share the study materials there as well.</p></li>
+</ol>
+</div>
+</div>
+<style>.slide4 p { font-size:30pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide5"><h1>Goals</h1>
+<h2>After the course, you should be able to:</h2>
+<ul>
+<li><i class='fa fa-arrow-right'></i> Define an operational model of a PL</li>
+<li><i class='fa fa-square-check'></i> Add a type system to a programming language</li>
+<li><i class='fa fa-divide'></i> Read, write and use formal derivation rules</li>
+<li><i class='fa fa-chalkboard'></i> Understand basic properties of these models &amp; systems</li>
+<li><i class='fa fa-volume-high'></i> Appreciate how the simplest systems can be expressive</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide6"><h1>Goals</h1>
+<div class="body">
+<div>
+<ol>
+<li><p><strong>Type systems and semantics are deep topics</strong> and we'll only scratch the surface.</p></li>
+<li><p>For example, we won't cover <strong>denotational semantics, axiomatic semantics</strong>, subtyping, set-theoretic types, gradual typing, etc.</p></li>
+<li>
+<p>However, the course will give you the<br />
+<strong>core tools to delve deeper</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<style>.slide6 li { font-size:30pt; margin-bottom:30px; padding-right:40px } .slide6  p { font-size:30pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide7"><h1>Outline (1/2)</h1>
+<div class="body">
+<div>
+<p>The imperative part of the course will mostly<br />
+be given by Tomáš; the functional part by <em>Vít</em>.</p>
+<p><strong>The current plan for this semester is:</strong></p>
+<ol>
+<li>Intro, motivation, simple imperative language (now!)</li>
+<li><em>Refresher on semantics, lambda calculus, and types</em></li>
+<li>Simple type system for an imperative language</li>
+<li>Basic properties of these models</li>
+<li>Data types, evaluation contexts, evaluation order</li>
+<li><em>Deeper dive into lambda calculus, data via functions</em></li>
+</ol>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide8"><h1>Outline (2/2)</h1>
+<div class="body">
+<div>
+<ol>
+<li><em>Term representation, simply typed lambda calculus</em></li>
+<li><em>Church/Curry-style formulation, quantification</em></li>
+<li><em>Hindley-Milner type system, type inference</em></li>
+<li>Adding functions to an imperative language</li>
+<li><em>Advanced type systems</em> (bonus topic)</li>
+<li>Practical applications (bonus topic)</li>
+</ol>
+</div>
+</div>
+<style>.slide8 ol { counter-reset: item 6; list-style: none; } .slide8  ol li { counter-increment: item; } .slide8  ol li::before { content: counter(item) ". "; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide9"><div class="body">
+<h1>Motivation</h1>
+<h2>Why theory of programming languages</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content three-column slide10"><h1>What is a language?</h1>
+<h2>What is the meaning of a program</h2>
+<div class="body">
+<div>
+<p><img src="img/intro/perl.png" alt="" /></p>
+<p><strong>Whatever the interpreter does</strong></p>
+</div>
+<div class="fragment">
+<p><img src="img/intro/algol.png" alt="" /></p>
+<p><strong>English language specification</strong></p>
+</div>
+<div class="fragment">
+<p><img src="img/intro/sml.png" alt="" /></p>
+<p><strong>Mathematical formal definition</strong></p>
+</div>
+</div>
+<style>.slide10 .body { margin-left:-10px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide11"><div class="body">
+<h1>Mathematical formal definition</h1>
+<img src="img/intro/bnf.png"/>
+<div>
+<h2>Language syntax</h2>
+<ul>
+<li>What is a valid program</li>
+<li>BNF definition from Algol 60</li>
+<li>Abstract syntactic structure</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Language semantics</h2>
+<ul>
+<li>What happens when program runs</li>
+<li>This took much longer to figure out!</li>
+<li>Reduction rules ala lambda calculus (one option)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide12"><h1>Type systems and safety</h1>
+<ul>
+<li>
+<i class='fa fa-shapes'></i> <strong>Typed and untyped languages</strong><br />
+<i class="placeholder"></i>Define (nontrivial) set of possible values of variable
+</li>
+<li>
+<i class='fa fa-bug'></i> <strong>Trapped errors</strong> vs. <strong>untrapped errors</strong><br />
+<i class="placeholder"></i>Trapped stopped execution, untrapped go unnoticed
+</li>
+<li>
+<i class='fa fa-plug-circle-xmark'></i> <strong>Safe programming language</strong><br />
+<i class="placeholder"></i>No program can produce an untrapped error
+</li>
+<li>
+<i class='fa fa-brands fa-js'></i> <strong>Safe programming languages</strong><br />
+<i class="placeholder"></i>Can be both typed (OCaml) and untyped (JavaScript)
+</li>
+<li><i class='fa fa-up-right-from-square'></i> See <a href="https://courses.grainger.illinois.edu/cs421/fa2018/CS421A/resources/cardelli.pdf">Type Systems</a> by Luca Cardelli</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle  slide13"><div class="body">
+<h1>Demo</h1>
+<h2>Why theory of programming languages</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide14"><div class="body">
+<h1>Semantics and type-safety</h1>
+<img src="img/intro/plan.png"/>
+<div>
+<h2>Operational semantics</h2>
+<ul>
+<li>Define how programs run</li>
+<li>Program produces a value</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Type systems</h2>
+<ul>
+<li>Define what is well-typed</li>
+<li>No invalid operations can happen</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Type-safe language</h2>
+<ul>
+<li>Well-typed programs do not go wrong</li>
+<li>Also - determinacy, unique typing</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide15"><div class="body">
+<h1>Operational semantics</h1>
+<h2>Small imperative language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code nologo slide16"><div class="body1">
+<pre><code class="language-fsharp">// Computing a factorial
+// of value in 'l1'. Stores
+// the result in 'l2'.
+
+let l1 = ref 5
+let l2 = ref 1
+
+while !l1 &gt;= 1 do
+  l2 := !l2 * !l1
+  l1 := !l1 + -1
+done
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>L1 language</h1>
+<p>Minimal imperative language a bit like subset of ML or F#</p>
+</div>
+<div class="fragment">
+<p><strong>No normal variables!</strong></p>
+<p>Stores are special<br />
+and assumed (no let)</p>
+<p><strong>Expression-based</strong></p>
+<p>assign, read, <code>if</code>, <code>while</code>, sequencing, operators</p>
+</div>
+</div>
+</div>
+<style>.slide16 pre code { font-size:20pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle  slide17"><div class="body">
+<h1>Demo</h1>
+<h2>Factorial in a subset of F#</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide18"><div class="body1">
+<p><img src="img/intro/l1defs.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Syntax definition</h1>
+<p><strong>Concrete primitives and abstract locations</strong></p>
+<p>We treat primitives<br />
+as sets and name members as <span class="math">\(b \in \mathbb{B}\)</span>,<br />
+<span class="math">\(n\in\mathbb{Z}\)</span> and <span class="math">\(l\in\mathbb{L}\)</span></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image image slide19"><div class="body1">
+<p><img src="img/intro/l1syntax.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Syntax definition</h1>
+<p><strong>BNF-like notation,<br />
+but think of it as a definition of a set.</strong></p>
+<p><span class="math">\(:=\)</span> defines a set<br />
+<span class="math">\(|\)</span> lists options</p>
+<p>Keywords are <strong>bold</strong><br />
+and <span class="math">\(n,b,l,e,op\)</span> are members of other sets</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide20"><h1>Modelling store</h1>
+<div class="body">
+<div>
+<h3>What is the evaluation state</h3>
+<ul>
+<li>How does the expression <span class="math">\(l_1\!:=\,!l_1\!+\!1;\; !l_1\)</span> evaluate?</li>
+<li>Depends on what is the value of <span class="math">\(l_1\)</span> at the start!</li>
+</ul>
+</div>
+<div class="fragment">
+<h3>Modelling store</h3>
+<ul>
+<li>Stores <span class="math">\(s\)</span> are final partial functions from <span class="math">\(\mathbb{L}\)</span> to <span class="math">\(\mathbb{Z}\)</span></li>
+<li>Assign integer to some of the possible locations</li>
+</ul>
+</div>
+<div class="fragment">
+<h3>Evaluation, revisited</h3>
+<ul>
+<li>Evaluate <span class="math">\(l_1\!:=\,!l_1\!+\!1;\; !l_1\)</span> with store <span class="math">\(s = \{ l_1 \mapsto 41 \}\)</span></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide21"><h1>Evaluation as transition</h1>
+<div class="body">
+<div>
+<h3>Program evaluates step-by-step</h3>
+<ul>
+<li>One-step reduction relation <span class="math">\(\langle e, s \rangle \rightarrow \langle e', s' \rangle\)</span></li>
+<li>Program <span class="math">\(e\)</span> with store <span class="math">\(s\)</span> reduces to <span class="math">\(e'\)</span> with store <span class="math">\(s'\)</span></li>
+<li>One step is one primitive operation!</li>
+</ul>
+<h3>Whole program reduction</h3>
+<ul>
+<li>Keep reducing <span class="math">\(\langle e, s \rangle \rightarrow \ldots \rightarrow \langle e', s' \rangle\)</span></li>
+<li>Until <span class="math">\(e'\)</span> is a value, i.e., <span class="math">\(e \in \mathbb{Z} \;\cup\; \mathbb{B} \;\cup\; \{ \texttt{skip} \}\)</span></li>
+<li>Some programs can keep reducing indefinitely!</li>
+<li>Some programs can get stuck, i.e., <span class="math">\(1 + \texttt{true}\)</span></li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="imageanim image slide22"><div class="body1 fragment">
+<p><img src="img/intro/eval.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Reduction example</h1>
+</div>
+<div class="fragment">
+<p><strong>Proceeds step-by-step</strong></p>
+<p>Not how real programs run on a computer!</p>
+<p><strong>Formal model</strong></p>
+<p>Defined by a set of reduction rules</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide23"><h1>More formally</h1>
+<div class="body">
+<div>
+<h3>Transition system</h3>
+<ul>
+<li>A set <span class="math">\(\textit{Config}\)</span> and a binary relation <span class="math">\(\rightarrow\;\in\textit{Config}\times\!\textit{Config}\)</span></li>
+<li>In our case <span class="math">\(\textit{Config}=\textit{Expr}\times(\mathbb{L}\rightarrow\mathbb{Z})\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<h3>What can happen</h3>
+<ul>
+<li><em>Values</em> represent results <span class="math">\(v \in V = \mathbb{Z} \;\cup\; \mathbb{B} \;\cup\; \{ \texttt{skip} \}\)</span></li>
+<li>
+<span class="math">\(\langle e, s \rangle \not\rightarrow\)</span> <em>cannot be reduced</em>, i.e., <br />
+there is no <span class="math">\(\langle e', s' \rangle\)</span> such that <span class="math">\(\langle e, s \rangle \rightarrow \langle e', s' \rangle\)</span>
+</li>
+<li>Expression is <em>stuck</em> if it cannot be reduced &amp; is not a value</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide24"><div class="body1">
+<p><img src="img/intro/rules1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Basic rules</h1>
+<p>If the <em>preconditions</em> (above) and <em>side conditions</em> (beside) holds, transition applies</p>
+<p><strong>Some reductions require a derivation tree with several rules!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="imageanim image slide25"><div class="body1 fragment">
+<p><img src="img/intro/reduction1.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Basic example</h1>
+<p><span class="math">\((1+1)+(20+20)\)</span></p>
+<p>Simple enough, but what exact steps?</p>
+</div>
+<div class="fragment">
+<p><strong>Evaluation order can matter in subtle ways!</strong></p>
+<p>For example C pattern</p>
+<p><code>if (nd &amp;&amp; nd-&gt;next)</code><br />
+&nbsp;&nbsp;&nbsp;<code>nd-&gt;next = NULL;</code></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide26"><h1>Store and sequencing rules</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/rules2.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide27"><h1>Conditionals and while rules</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/rules3.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide28"><h1>Reduction</h1>
+<h2>Modelling program execution</h2>
+<ul>
+<li><i class='fa fa-traffic-light'></i> Reductions must exactly follow rules!</li>
+<li><i class='fa fa-explosion'></i> Details matter in subtle ways (TypeScript..)</li>
+<li><i class='fa fa-arrow-down-short-wide'></i> Evaluation order, store preconditions, &amp; more</li>
+<li><i class='fa fa-tree'></i> Sequence of steps <span class="math">\(\rightarrow\)</span> with derivation trees</li>
+<li><i class='fa fa-triangle-exclamation'></i> Learn how to apply rules!</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide29"><div class="body">
+<h1>Conclusions</h1>
+<h2>Introduction &amp; small imperative language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide30"><h1>Conclusions</h1>
+<ul>
+<li><i class='fa fa-video'></i> Recordings will appear on the course web page</li>
+<li><i class='fa fa-arrow-right'></i> Operational semantics to model execution</li>
+<li><i class='fa fa-check'></i> Types and properties to follow soon</li>
+<li><i class='fa fa-not-equal'></i> Functional features based on lambda calculus</li>
+<li><i class='fa fa-shapes'></i> Types are more than sets of values</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
