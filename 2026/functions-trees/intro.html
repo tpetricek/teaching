@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Functions, trees, processes (NPRG086)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG086: <strong>Functions, trees, processes</strong></h1>
+<h2>Course introduction</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:42pt; } .slide1  h2 { font-size:35pt; margin-top:-30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content three-column slide2"><h1>Who are we</h1>
+<div class="body">
+<div>
+<p><strong>David Corfield</strong></p>
+<p>philosophy of mathematics</p>
+<p><img src="img/intro/dc.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>Jaroslav Nesetril</strong></p>
+<p>discrete mathematics</p>
+<p><img src="img/intro/jn.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>Tomas Petricek</strong></p>
+<p>programming languages</p>
+<p><img src="img/intro/tp.jpg" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide3"><h1>Computer science concepts</h1>
+<div class="body">
+<div>
+<p id="words" style="width:90%;height:480px"></p>
+<script type="text/javascript">
+function placeWords(words, container, maxTries = 200, gap = 4) {
+  container.style.position = "relative";
+  const W = container.clientWidth, H = container.clientHeight;
+  //const W = 810, H = 480;
+  const placed = [];
+  const overlaps = (a, b) =>
+    a.x < b.x + b.w + gap && b.x < a.x + a.w + gap &&
+    a.y < b.y + b.h + gap && b.y < a.y + a.h + gap;
+  for (const word of words) {
+    const el = document.createElement("span");
+    el.innerHTML = word;
+    Object.assign(el.style, { position: "absolute", whiteSpace: "nowrap" });
+    container.appendChild(el);
+    const { width: w, height: h } = el.getBoundingClientRect();
+    let ok = false;
+    for (let i = 0; i < maxTries && !ok; i++) {
+      const r = { x: Math.random() * (W - w), y: Math.random() * (H - h), w, h };
+      if (!placed.some(p => overlaps(r, p))) {
+        placed.push(r);
+        el.style.left = r.x + "px";
+        el.style.top = r.y + "px";
+        ok = true;
+      }
+    }
+    if (!ok) el.remove(); // no free spot found
+  }
+}
+let words = ["<b>tree</b>", "<b>function</b>", "process", "<b>monad</b>", "object",
+  "type", "effect", "event", "graph", "flow", "address"]
+window.onload = function() { placeWords(words, document.getElementById("words")); }
+</script>
+</div>
+</div>
+<style>.slide3 p { font-weight:400; font-size:32pt }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide4"><h1>Philosophy</h1>
+<h2>Computer science concepts</h2>
+<ul>
+<li><i class='fa fa-tree'></i> Where do they come from?</li>
+<li><i class='fa fa-clock-rotate-left'></i> How do they change over time?</li>
+<li><i class='fa fa-comments'></i> Do we agree what they mean?</li>
+<li><i class='fa fa-flask'></i> How they cross disciplines?</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide5"><div class="body">
+<h1>Philosophy of mathematics and physics</h1>
+<img src="img/intro/poly.png"/>
+<div>
+<h2>Mathematics</h2>
+<ul>
+<li><strong>Polyhedra</strong> (<span class="math">\(E = V + F - 2\)</span>)</li>
+<li><strong>Functions</strong> (non-differentiable)</li>
+<li><strong>Groups</strong> (monster group)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Physics</h2>
+<ul>
+<li><strong>Phlogiston</strong> (fire-like element)</li>
+<li><strong>Electrons</strong> (can spray them)</li>
+<li><strong>Temperature</strong> (and measurement)</li>
+</ul>
+</div>
+</div>
+<style>.slide5 h1 { font-size:40pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide6"><div class="body">
+<h1>Why three people</h1>
+<img src="img/intro/monads.png"/>
+<div>
+<h2>Monad</h2>
+<ul>
+<li>Originates in category theory</li>
+<li>Used in formal semantics</li>
+<li>Implemented in Haskell and C#</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Tree</h2>
+<ul>
+<li>Minimum spanning tree</li>
+<li>B-tree in databases and file systems</li>
+<li>Decision trees in machine learning</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide7"><div class="body">
+<h1>Course</h1>
+<h2>Practical info</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide8"><h1>Course timeline (1/2)</h1>
+<div class="body">
+<div>
+<h3>Winter semester - Oct, Nov (NPRG086)</h3>
+<ul>
+<li><strong>Week 1</strong> (1 Oct) - Introduction</li>
+<li><strike><strong>Week 2</strong> (8 Oct) - Cancelled due to travel</strike></li>
+<li><strong>Week 3</strong> (15 Oct) - Functions in mathematics (DC)</li>
+<li><strong>Week 4</strong> (22 Oct) - Functions in early days of programming (TP)</li>
+<li><strong>Week 5</strong> (29 Oct) - Functions and constructivism (DC)</li>
+<li><strong>Week 6</strong> (5 Nov) - Functional programming (TP)</li>
+<li><strong>Week 7</strong> (12 Nov) - Monads and their origins (DC)</li>
+<li><strong>Week 8</strong> (19 Nov) - Monads in functional programming (TP)</li>
+<li><strong>Week 9</strong> (26 Nov) - Monads, continuations, constructivism (DC)</li>
+</ul>
+<p><strong>Please note that the plan is subject to change!</strong></p>
+</div>
+</div>
+<style>.slide8 li { font-size:24pt; } .slide8  h1 { margin-bottom:10px; } .slide8  h3 { margin-top:30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide9"><h1>Course timeline (2/2)</h1>
+<div class="body">
+<div>
+<h3>Winter semester - Dec, Jan (NPRG086)</h3>
+<ul>
+<li><strong>Week 10</strong> (3 Dec) - Trees as a programming construct (TP)</li>
+<li><strong>Week 11</strong> (10 Dec) - Trees and their origins (JN)</li>
+<li><strong>Week 12</strong> (17 Dec) - Trees in discrete mathematics (JN)</li>
+<li><strong>Week 13</strong> (7 Jan) - Trees in discrete mathematics (JN)</li>
+</ul>
+<h3>Summer semester (NPRG087)</h3>
+<ul>
+<li>Continue by looking at more entities</li>
+<li><strong>Objects</strong> - in philosophy, object-oriented languages</li>
+<li><strong>Types</strong> - from foundations of mathematics to programming</li>
+<li><strong>Processes</strong> - operating systems, formal models and biology</li>
+<li><strong>Others</strong> - Graphs, Matrices, Quaternions, ???</li>
+</ul>
+</div>
+</div>
+<style>.slide9 li { font-size:24pt; } .slide9  h1 { margin-bottom:10px; } .slide9  h3 { margin-top:30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide10"><h1>How to get credits</h1>
+<div class="body">
+<div>
+<blockquote>
+<p>The exam can be completed either as an oral exam covering topics discussed during the given semester, or as an individual project on a topic agreed with the instructors.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<br>
+<h3>Individual project</h3>
+<ul>
+<li>Look at a concept or entity of your own choice!</li>
+<li>Look at a perspective that we've missed!</li>
+<li>Talk to us to discuss practical arrangements</li>
+<li>Write about it or present your findings</li>
+</ul>
+<p><strong>Talk to us to discuss ideas!</strong></p>
+</div>
+</div>
+<style>.slide10 blockquote { margin-left:0px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide11"><div class="body">
+<h1>Background</h1>
+<h2>History of computing</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide12"><div class="body">
+<h1>Histories of programming</h1>
+<img src="img/intro/sammet.jpg"/>
+<div>
+<h2>First hand accounts</h2>
+<ul>
+<li>Framing and own history</li>
+<li>ACM HOPL, talks and blogs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>History of science</h2>
+<ul>
+<li>History from technical perspective</li>
+<li>Each claim needs hard evidence!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Technology and society</h2>
+<ul>
+<li>Broader socio-technical issues</li>
+<li>Archives, letters, oral interviews</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide13"><h1>Science, technology, society (STS)</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/hicks.jpg" alt="" />
+<img src="img/intro/ensmenger.jpg" alt="" />
+<img src="img/intro/rankin.jpg" alt="" /></p>
+</div>
+</div>
+<style>.slide13 img { max-height:400px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide14"><div class="body">
+<h1>Programming the ENIAC</h1>
+<img src="img/intro/eniac.png"/>
+<div>
+<h2>ENIAC (1945)</h2>
+<ul>
+<li>First "programmable, electronic, general-purpose digital" computer</li>
+<li>Programmed by plugging cables</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Questioning the "first"</h2>
+<ul>
+<li>Program not stored in memory</li>
+<li>Not that different from Harvard Mark I?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>How exactly did the programming work?</h2>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide15"><div class="body1">
+<p><img src="img/intro/inaction.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>History of<br> the ENIAC</h1>
+<p>Document design, construction, testing, and use by the military</p>
+<p><strong>Reconfiguration of ENIAC in 1947-48</strong><br />
+and the atomic<br />
+fission simulation</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image bigger slide16"><div class="body1">
+<p><img src="img/intro/converter.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Conversion</h1>
+<p>Inspired by later EDVAC report</p>
+<p>"the storage of programming data by means of the function table"</p>
+<p><strong>51 Order Code</strong><br />
+developed in 1947</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide17"><div class="body">
+<h1>Histories</h1>
+<h2>Functional programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide18"><h1>Popular history of functional programming</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/church.jpg" alt="" /></p>
+<h3>Alonzo Church (1936)</h3>
+<p>Lambda calculus model<br />
+based on pure functions</p>
+<br><br>
+<h3>John McCarthy (1960)</h3>
+<p><img src="img/intro/mccarthy.jpg" alt="" /></p>
+<p>Creates the LISP language<br />
+based on the lambda calculus</p>
+</div>
+</div>
+<style>.slide18 img { float:right; max-width:300px; margin-left:20px; } .slide18  h1 { font-size:38pt; letter-spacing:-1px }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide19"><h1>Popular history of functional programming</h1>
+<div class="body">
+<div>
+<p><img src="img/intro/milner.jpg" alt="" /></p>
+<h3>Robin Milner (1973)</h3>
+<p>ML language adds static types<br />
+with automatic type inference</p>
+<br>
+<br>
+<p><img src="img/intro/spj.jpg" alt="" /></p>
+<h3>Simon Peyton Jones (1990)</h3>
+<p>Created Haskell, a statically-typed<br />
+and lazy functional language</p>
+</div>
+</div>
+<style>.slide19 img { float:right; max-width:300px; margin-left:20px; } .slide19  h1 { font-size:38pt; letter-spacing:-1px }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide20"><h1>What is wrong?</h1>
+<h2>Just about everything...</h2>
+<ul>
+<li>
+<i class='fa fa-brands fa-black-tie'></i> <strong>Narrow "great men" reading</strong><br />
+<i class="placeholder"></i>None of these were created by a single person
+</li>
+<li>
+<i class='fa fa-diamond-turn-right'></i> <strong>Retrospective reading</strong><br />
+<i class="placeholder"></i>Lambda calculus not a programming language!
+</li>
+<li>
+<i class='fa fa-user-xmark'></i> <strong>Many claims factually wrong</strong><br />
+<i class="placeholder"></i>LISP had AI origins, not lambda calculus
+</li>
+<li>
+<i class='fa fa-seedling'></i> <strong>Invents a story of progress</strong><br />
+<i class="placeholder"></i>Towards static types and laziness
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide21"><div class="body">
+<h1>Histories</h1>
+<h2>Looking more carefully</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide22"><div class="body">
+<h1>Lambda calculus and programming</h1>
+<img src="img/intro/hilbert.jpg"/>
+<div>
+<h2>Origins of lambda calculus (1930s)</h2>
+<ul>
+<li>Foundations of mathematics (Hilbert)</li>
+<li>Russell's paradox <span class="math">\(R = \{ x \,|\, x \notin x \}\)</span></li>
+<li>Avoid paradox without types</li>
+<li>Based on <em>functions</em> not <em>sets</em></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Lambda calculus is inconsistent</h2>
+<ul>
+<li>Kleene-Rosser paradox</li>
+<li>Let <span class="math">\(R = \lambda x.\neg (x ~ x)\)</span> then <span class="math">\(R~R = \neg (R ~ R)\)</span></li>
+<li>Does not work! Unless you add types ala Russell</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide23"><div class="body1">
+<p><img src="img/intro/lispman.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>LISP origins</h1>
+<p><strong>FOTRAN</strong> for numerical computing, <strong>COBOL</strong> for business records</p>
+<p>Manipulation of symbolic expressions in the context of <em>good old fashioned AI</em></p>
+<p><strong>Initial project was an addition to for FOTRAN</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide24"><h1>LISP origins</h1>
+<h2>Demystifying the history of LISP</h2>
+<ul>
+<li><i class='fa fa-book'></i> Only thing from lambda calculus is <code>LAMBDA</code></li>
+<li><i class='fa fa-route'></i> Had assignments and <code>goto</code> before conditionals</li>
+<li><i class='fa fa-quote-left'></i> Used first-order M-expressions at first</li>
+<li><i class='fa fa-square-root-variable'></i> Had dynamic scoping until Scheme (1975)</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide25"><div class="body">
+<h1>Rediscovering lambda calculus</h1>
+<img src="img/intro/duke.jpg"/>
+<div>
+<h2>Mervyn Pragnell's group</h2>
+<ul>
+<li>Unofficial logic reading group</li>
+<li>Got to know about the <span class="math">\(\lambda\)</span>-calculus</li>
+<li>Penrose <span class="math">\(\rightarrow\)</span> Strachey <span class="math">\(\rightarrow\)</span> Landin</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Landin and lambda calculus</h2>
+<ul>
+<li>Formal model of the Algol language</li>
+<li>Mostly forgotten languages...</li>
+<li>Work on abstract data types</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="imageanim image smaller slide26"><div class="body1 fragment">
+<p><img src="img/intro/fortran.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Origins of types</h1>
+</div>
+<div class="fragment">
+<p><strong>FORTRAN for IBM 704</strong></p>
+<p>[A function] may be desired to state the argument either in <em>fixed or floating point</em>;
+similarly the function itself may be in either of these <strong>modes</strong>. Thus a function
+of a single argument has 4 possible mode configurations.</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide27"><div class="body">
+<h1>Types appear in Algol 58</h1>
+<img src="img/intro/syntax.png"/>
+<div>
+<h2>May 58 meeting</h2>
+<ul>
+<li>European and US group meeting</li>
+<li>None uses <em>type</em> in prior reports</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Preliminary report</h2>
+<p>No reference to logic or <span class="math">\(\lambda\)</span>-calculus</p>
+<blockquote>
+<p>Integers are of type integer. All other numbers are of type real. (...)
+The various "types" (integer, real, Boolean) basically denote properties of values.</p>
+</blockquote>
+</div>
+</div>
+<style>.slide27 blockquote { margin-left:0px; margin-top:-10px }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="imageanim image smaller2x noborder slide28"><div class="body1 fragment">
+<p><img src="img/intro/notsets.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What are types?</h1>
+<p>Sets of possible values</p>
+<p>Cartesian products<br />
+to model records</p>
+</div>
+<div class="fragment">
+<p><strong>Types are not sets (1974)</strong></p>
+<p>Inspired by Landin's work<br />
+but does not cite typed<br />
+lambda calculus</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide29"><div class="body">
+<h1>Logic of computable functions</h1>
+<img src="img/intro/scott.jpg"/>
+<div>
+<h2>Dana Scott (1969)</h2>
+<ul>
+<li><em>A type-theoretical alternative to ISWIM, CUCH, OWHY</em> (unpublished manuscript)</li>
+<li>Logic for reasoning about computation</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Ensures meaning using types</h2>
+<blockquote>
+<p>The first confusion we should avoid is that between <em>logical</em> types and what we might call <em>data</em> types. The former are what we invoke to study the latter.</p>
+</blockquote>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide30"><h1>Types</h1>
+<h2>Towards types in ML</h2>
+<ul>
+<li><i class='fa fa-arrow-up-right-dots'></i> Directly inspired by the LCF logic</li>
+<li><i class='fa fa-lock'></i> Authentication and secrecy for proof objects</li>
+<li><i class='fa fa-eye'></i> Unaware of a lot of work in logic (Hindely-Milner)</li>
+<li><i class='fa fa-shapes'></i> Later additions add tuples and data types</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide31"><div class="body">
+<h1>Conclusions</h1>
+<h2>Functions, trees, processes</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide32"><h1>Conclusions</h1>
+<ul>
+<li>
+<i class='fa fa-microchip'></i> <strong>We need rigorous technical history too!</strong><br />
+<i class="placeholder"></i>Complement first-hand accounts and social history
+</li>
+<li>
+<i class='fa fa-laptop-code'></i> <strong>Programming entities are interesting!</strong><br />
+<i class="placeholder"></i>They change meaning and cross boundaries
+</li>
+<li>
+<i class='fa fa-eye'></i> <strong>Starting with functions, monads and trees</strong><br />
+<i class="placeholder"></i>Help us look deeper and broader!
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
