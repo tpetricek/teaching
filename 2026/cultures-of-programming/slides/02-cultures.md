@@ -479,4 +479,4 @@ How computers alienate artists from their work?
 - template: subtitle
 
 # Cultures of Programming
-## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 3](02-cultures.html)
+## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 3](03-language.html)

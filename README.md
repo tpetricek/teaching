@@ -15,7 +15,12 @@ For my industry and research talks see [my Talks repository](http://github.com/t
 
 * **Cultures of programming (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg088/).
-  See slides for [Part 1](https://tpetricek.github.io/teaching/2026/cultures-of-programming/01-introduction.html), [Part 2](https://tpetricek.github.io/teaching/2026/cultures-of-programming/02-cultures.html), and more coming soon.
+  See slides for 
+   [Part 1](https://tpetricek.github.io/teaching/2026/cultures-of-programming/01-introduction.html), 
+   [Part 2](https://tpetricek.github.io/teaching/2026/cultures-of-programming/02-cultures.html), 
+   [Part 3](https://tpetricek.github.io/teaching/2026/cultures-of-programming/03-language.html), 
+   [Part 4](https://tpetricek.github.io/teaching/2026/cultures-of-programming/04-structured.html), 
+  and more coming soon.
 
 * **Functions, trees, processes (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg086/).
