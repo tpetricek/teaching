@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cultures of Programming - Part 2 - Hackers, engineers, managers, mathematicians and humanists</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.15em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>The invention of a programming language</h1>
+<h2>Cultures of Programming &mdash; Part 3</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<style>.slide1 h1 { letter-spacing:-2px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column slide2"><h1>How did we get</h1>
+<div class="body">
+<div>
+<p><strong>From plugging cables...</strong><br />
+Programming the ENIAC</p>
+<p><img src="img/part3/eniacsq.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>...to languages?</strong><br>
+Algol language definition</p>  
+<p><img src="img/part3/algolsq.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide3"><div class="body">
+<h1>Metaphors</h1>
+<h2>Computers as giant electronic brains</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide4"><div class="body1">
+<p><img src="img/part3/four.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>What was a com&shy;puter in the 1940s?</h1>
+<p><strong>Female computers doing numerical calculations by hand!</strong></p>
+<p>Patsy Simmers, Mrs. Gail Taylor, Mrs. Milly Beck, Mrs. Norma Stec</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide5"><div class="body1">
+<p><img src="img/part3/eniac.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>ENIAC 1945 demonstration</h1>
+<p>Trajectory of a shell in
+20 sec, not 40 hours</p>
+<p>Labeled ping pong balls showing the "memory"</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide6"><div class="body">
+<h1>Electronic brains</h1>
+<img src="img/part3/think.jpg"/>
+<div>
+<h2>Popular imagination</h2>
+<ul>
+<li>Anthropomorphic metaphor</li>
+<li>Portrayal in media</li>
+<li>Berkeley's 1949 book</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Cybernetics movement</h2>
+<ul>
+<li>Post-World War II movement</li>
+<li>Self-regulative control systems</li>
+<li>Electronic and biological alike</li>
+</ul>
+</div>
+</div>
+<style>.slide6 .body img { max-height:450px !important; max-width:500px !important; margin-top:-100px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide7"><div class="body">
+<h1>Collaboration</h1>
+<h2>Hacker programming tricks</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide8"><div class="body">
+<h1>EDSAC computer (1949)</h1>
+<img src="img/part3/edsac.jpg"/>
+<div>
+<h2>Initial orders</h2>
+<ul>
+<li>Read program from the tape</li>
+<li>Support for sub-routines</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>External orders</h2>
+<ul>
+<li>Non-standard codes</li>
+<li>Interpretive routines</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Debugging tricks</h2>
+<ul>
+<li>Step-by-step execution</li>
+<li>Postmortem tapes</li>
+</ul>
+</div>
+</div>
+<style>.slide8 h1 { margin-bottom:20px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide9"><div class="body1">
+<p><img src="img/part3/library.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Sub-routine library</h1>
+<p><strong>Open sub-routines</strong><br />
+Copied at each point</p>
+<p><strong>Closed sub-routines</strong><br />
+Using control transfer</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide10"><h1>Program coding</h1>
+<h2>Before a language</h2>
+<ul>
+<li><i class='fa fa-arrows-to-circle'></i> <strong>Brief Code</strong> - John Mauchly (BINAC, 1949)</li>
+<li><i class='fa fa-greater-than-equal'></i> <strong>A-0</strong> - Grace Hopper (UNIVAC, 1951-2)</li>
+<li><i class='fa fa-square-root-variable'></i> <strong>Autocode</strong> - Alick Glennie (Manchester, 1952)</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image noborder slide11"><div class="body1">
+<p><img src="img/part3/shortcode.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Brief Code /<br> Short Code</h1>
+<p>Step 2 to Step 3 translation done automatically<br> by an editor</p>
+</div>
+<div class="fragment">
+<p><strong>Not exactly a <br> language yet...</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide12"><div class="body">
+<h1>Collaboration</h1>
+<h2>Mathematical theories</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide13"><div class="body">
+<h1>Formal language</h1>
+<img src="img/part3/tarski.jpg"/>
+<div>
+<h2>Language models in logic</h2>
+<ul>
+<li>Tarski, Carnap, early 20th century</li>
+<li>Language starts with a set of symbols</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Language models in linguistics</h2>
+<ul>
+<li>Formal structural linguistics</li>
+<li>Ongoing research on machine translation</li>
+<li>Chomsky's grammars (late 1950s)</li>
+</ul>
+</div>
+</div>
+<style>.slide13 .body img { margin-top:-50px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide14"><div class="body1">
+<p><img src="img/part3/translation.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Translation metaphor</h1>
+<p>Hopper's illustration of the A-2 compiler (1954)</p>
+</div>
+<div class="fragment">
+<p><strong>From giant electronic brains to logic and linguistics</strong></p>
+<p>Formal languages and grammars for description</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide15"><div class="body">
+<h1>Collaboration</h1>
+<h2>Managerial need</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide16"><div class="body">
+<h1>Software gap</h1>
+<img src="img/part3/ibm-man.png"/>
+<div>
+<h2>More software needed</h2>
+<ul>
+<li>Industry crisis perception</li>
+<li>
+Getting the computers<br />
+to do what we need!
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Programming is the limit</h2>
+<ul>
+<li>Creating software is hard</li>
+<li>Hiring programmers is hard</li>
+<li>Also, excluding women did not help!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide17"><div class="body1">
+<p><img src="img/part3/univac.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Automatic coding</h1>
+<p>User groups and computer installation managers</p>
+<p><strong>Solve the software gap!</strong></p>
+</div>
+<div class="fragment">
+<p>Common universal notations<br />
+Cross-machine compatibility<br />
+Allow program exchange<br />
+Teaching at universities</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide18"><div class="body">
+<div>
+<p><img src="img/part3/flowmatic.png" alt="" /></p>
+<p><strong>Would you guess the publication year (1957)?</strong></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide19"><div class="body">
+<h1>Collaboration</h1>
+<h2>Programming language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide20"><div class="body1">
+<p><img src="img/part3/fortran.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>IBM FORTRAN<br> FORmula TRANslator</h1>
+<p>John Backus (IBM, 1957)</p>
+<p>Translation metaphor, hacker tricks, managerial need</p>
+</div>
+<div class="fragment">
+<p><strong>Not referred to as a programming language!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide21"><div class="body">
+<div>
+<p><img src="img/part3/syntax.png" alt="" /></p>
+<p><strong>International Algebraic Language (IAL, 1958)</strong></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide22"><div class="body">
+<h1>Algol - Algorithmic Language</h1>
+<img src="img/part3/algol-20.jpg"/>
+<div>
+<h2>Scientific notation</h2>
+<ul>
+<li>Extension of mathematical language</li>
+<li>Description of algorithms in publication</li>
+<li>Translatable into machine programs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Independent of a computer</h2>
+<blockquote>
+<p>A formal mathematical, linguistic object, not just a
+messy adjunct to the technical business of getting a computer to run.</p>
+</blockquote>
+</div>
+</div>
+<style>.slide22 .body img { max-width:230px !important; margin-bottom:30px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="largeicons  slide23"><h1>Programming language</h1>
+<h2>Remarkable new idea</h2>
+<ul>
+<li>
+<i class='fa fa-keyboard'></i> <strong>Hacker culture</strong><br />
+<i class="placeholder"></i>Implementation tricks, sub-routines, external codes
+</li>
+<li>
+<i class='fa fa-hard-drive'></i> <strong>Managerial culture</strong><br />
+<i class="placeholder"></i>Needs to simplify programming and universal codes
+</li>
+<li>
+<i class='fa fa-right-long'></i> <strong>Mathematical culture</strong><br />
+<i class="placeholder"></i>Formal description using language of logic
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists noborder nologo slide24"><div class="body">
+<h1>Limits of collaboration</h1>
+<img src="img/babel.png"/>
+<div>
+<h2>Meeting of cultures but...</h2>
+<ul>
+<li><strong>Algol</strong> for mathematical theory</li>
+<li><strong>COBOL</strong> for managerial business use</li>
+<li><strong>LISP</strong> for symbolic AI and hackers</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Boundary object</h2>
+<ul>
+<li>Shared understanding</li>
+<li>Exchange of ideas between cultures</li>
+<li>Failure of universal languages</li>
+</ul>
+</div>
+</div>
+<style>.slide24 .body img { margin:-50px -50px 0px 0px !important; max-width:1000px !important; max-height:500px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide25"><div class="body">
+<h1>Cultures of Programming</h1>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="04-structured.html"><i class="fa fa-arrow-right"></i>Continue to Part 4</a></h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
