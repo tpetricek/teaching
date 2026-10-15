@@ -65,11 +65,11 @@ Formal mathematical reasoning
 # Algol paradigm
 ## Proving programs correct
 
-- *fa-cog* **Peter Naur (1966)**  
+- *fa-image* **Peter Naur (1966)**  
    Proofs of algorithms by general snapshots
-- *fa-cog* **Robert Floyd (1967)**  
+- *fa-paperclip* **Robert Floyd (1967)**  
    Assigning meaning to programs
-- *fa-cog* **Tony Hoare (1969)**  
+- *fa-square-check* **Tony Hoare (1969)**  
    An axiomatic basis for computer programming
 
 ----------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ then $\{P\}\,c_1;c_2\,\{R\}$
 ----------------------------------------------------------------------------------------------------
 - template: lists
 - class: nologo
- 
+
 # Proofs of programs in practice
 
 ![](img/part4/cacm.jpg)
