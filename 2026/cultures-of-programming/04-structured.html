@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Cultures of Programming - Part 2 - Hackers, engineers, managers, mathematicians and humanists</title>
+		<title>Cultures of Programming - Part 4 - Mathematical science of computation and structured programming</title>
 		<link rel="stylesheet" href="reveal/reveal.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="img/fonts/futura.css">
@@ -226,15 +226,15 @@ Formal mathematical reasoning</p>
 <h2>Proving programs correct</h2>
 <ul>
 <li>
-<i class='fa fa-cog'></i> <strong>Peter Naur (1966)</strong><br />
+<i class='fa fa-image'></i> <strong>Peter Naur (1966)</strong><br />
 <i class="placeholder"></i>Proofs of algorithms by general snapshots
 </li>
 <li>
-<i class='fa fa-cog'></i> <strong>Robert Floyd (1967)</strong><br />
+<i class='fa fa-paperclip'></i> <strong>Robert Floyd (1967)</strong><br />
 <i class="placeholder"></i>Assigning meaning to programs
 </li>
 <li>
-<i class='fa fa-cog'></i> <strong>Tony Hoare (1969)</strong><br />
+<i class='fa fa-square-check'></i> <strong>Tony Hoare (1969)</strong><br />
 <i class="placeholder"></i>An axiomatic basis for computer programming
 </li>
 </ul>
@@ -315,23 +315,167 @@ then <span class="math">\(\{P\}\,c_1;c_2\,\{R\}\)</span></p>
 <h1>Mathematical culture</h1>
 <h2>Structuring programs</h2>
 </div>
-<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide13"><div class="body">
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide13"><div class="body1">
+<p><img src="img/part4/edsac.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
 <div>
-<p>TODO</p>
+<h1>EDSAC instructions</h1>
+<p>EDSAC initial orders (first few instructions)</p>
+<p><strong>Low-level assembly-like</strong><br />
+Write to register<br />
+Transfer control (jump)<br />
+Basic arithmetic</p>
+<p><a href="https://www.cl.cam.ac.uk/~mr10/Edsac/edsacposter.pdf">See the EDSAC poster</a></p>
 </div>
 </div>
-<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide14"><div class="body">
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide14"><div class="body">
+<h1>Structured programming</h1>
+<img src="img/part4/factorial3.png"/>
+<div>
+<h2>Block-based languages</h2>
+<ul>
+<li>Control structures like <code>while</code> and <code>if</code> instead of <code>goto</code></li>
+<li>Popularized by Algol</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>For structured programming</h2>
+<ul>
+<li>Supports reasoning and readability</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Against structured programming</h2>
+<ul>
+<li>Can we trust compiler generated code?</li>
+<li>Can we really express everything well?</li>
+</ul>
+</div>
+</div>
+<style>.slide14 .body img { max-width:430px !important; } .slide14  h1 { margin-bottom:20px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide15"><div class="body1">
+<p><img src="img/part4/harmful.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dijkstra (1968)</h1>
+<p>"...the quality of program&shy;mers is a decreasing function of the
+density of <code>go to</code> statements in the programs they produce."</p>
+<p>"...the <code>go to</code> statement should be abolished from all 'higher level'
+programming languages"</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide16"><div class="body">
+<h1>Dijkstra on the go to statement</h1>
+<img src="img/part4/dijkstra.jpg"/>
+<div>
+<h2>Making programs understandable</h2>
+<ul>
+<li>Programs are read more than written</li>
+<li>Shorten conceptual gap between static program and dynamic process</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>You do not need go to</h2>
+<ul>
+<li>Structured program theorem (Böhm–Jacopini)</li>
+<li>Any flowchart can be encoded using just three control structures (sequence, selection, iteration)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide17"><h1>Formal reasoning about programs</h1>
+<div class="body">
+<div>
+<p><img src="img/part4/factorial3.png" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>Why structured programming helps</strong></p>
+<ul>
+<li>Recall that if <span class="math">\(\{P\}c_1\{Q\}\)</span> and <span class="math">\(\{Q\}c_2\{R\}\)</span> then <span class="math">\(\{P\}c_1;c_2\{Q\}\)</span></li>
+<li>Works better with block-based languages!</li>
+<li>No need to model register and memory states</li>
+</ul>
+</div>
+</div>
+<style>.slide17 .body img { max-width:600px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide18"><div class="body">
 <h1>Managerial culture</h1>
 <h2>Structuring teams</h2>
 </div>
-<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide15"><div class="body">
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide19"><div class="body1">
+<p><img src="img/part4/datamation.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
 <div>
-<p>TODO</p>
+<h1>Revolution in programming</h1>
+<div class="citation">
+<p>(Datamation magazine, 1973)</p>
+</div>
+<p>According to guest editor McCracken, structured programming is a major intellectual invention that will revolutionize the way programs are produced. Our articles on this subject approach the issue in several ways. Before reading them, be sure to read the overview.</p>
 </div>
 </div>
-<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide16"><div class="body">
+</div>
+<style>.slide19 p { font-size:24pt; } .slide19  .body1 { width:380px !important;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide20"><div class="body">
+<h1>Chief Programmer Teams</h1>
+<img src="img/part4/cpt.png"/>
+<div>
+<h2>Project management at IBM</h2>
+<ul>
+<li>New York Times data bank project</li>
+<li>Overall structure by one person</li>
+<li>Chief programmer + support</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Structured programming</h2>
+<ul>
+<li>
+Top-down design of programs vs.<br />
+top-down management of teams
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide21"><div class="body1">
+<p><img src="img/part4/plight.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dijkstra's response</h1>
+<p><strong>How to program if you cannot</strong></p>
+<p>"the prevailing management philosophy [makes] companies as independent as possible of the competence of their employees"</p>
+</div>
+</div>
+</div>
+<style>.slide21 p { font-size:24pt; } .slide21  .body1 { width:400px !important;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide22"><div class="body">
+<h1>Structured programming</h1>
+<img src="img/part4/revolution.png"/>
+<div>
+<h2>Mathematical culture</h2>
+<ul>
+<li>Mathematical reasoning</li>
+<li>Compositional semantics</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Engineering culture</h2>
+<ul>
+<li>Understanding code</li>
+<li>Individual responsibility</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Managerial culture</h2>
+<ul>
+<li>Top-down software development</li>
+<li>Structuring teams</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide23"><div class="body">
 <h1>Cultures of Programming</h1>
-<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="05-xx.html"><i class="fa fa-arrow-right"></i>Continue to Part 5</a></h2>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="05-proofs.html"><i class="fa fa-arrow-right"></i>Continue to Part 5</a></h2>
 </div>
 <img src="img/cuni.png" class="mfflogo" /></section></section>
 			</div>

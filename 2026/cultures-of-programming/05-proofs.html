@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cultures of Programming - Part 5 - Fundamental limits of proofs of programs</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.15em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>Fundamental limits of proofs of programs</h1>
+<h2>Cultures of Programming &mdash; Part 5</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<style>.slide1 h1 { letter-spacing:-1px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Algol</h1>
+<h2>Object of mathematical beauty</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide3"><div class="body1">
+<p><img src="img/part5/algol.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Algol report (1960)</h1>
+<p>Formally describes language syntax</p>
+<p><strong>What about semantics?</strong><br />
+What happens when programs are executed?</p>
+</div>
+<div class="fragment">
+<p><strong>Turns out to be harder!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide4"><div class="body">
+<h1>Early semantics of Algol</h1>
+<img src="img/part5/randell.jpg"/>
+<div>
+<h2>Microalgol (McCarthy, 1964)</h2>
+<ul>
+<li>Small subset, but includes <code>goto</code></li>
+<li>Defined as a function <span class="math">\(\texttt{micro}(\pi,\xi)\)</span></li>
+<li>Mathematically-defined interpreter</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Axiomatic basis (Hoare, 1969)</h2>
+<ul>
+<li>Axioms of fortran constructs</li>
+<li>For example: <span class="math">\(\{ p(f) \} x := f \{ p(x) \}\)</span>.</li>
+<li>Admits that <code>goto</code> is difficult</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide5"><div class="body">
+<div>
+<p><img src="img/part5/micro.png" alt="" /></p>
+<p><strong>Microalgol definition by McCarthy</strong><br />
+Program <span class="math">\(\pi\)</span>, execution state <span class="math">\(\xi\)</span></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide6"><h1>Early days optimism</h1>
+<div class="body">
+<div>
+<p><img src="img/part5/mccarthy.jpg" alt="" /></p>
+<p><em>"Those difficulties can be resolved and that a clear description
+of the state of an Algol computation will clarify the problem of compiler design."</em></p>
+<blockquote>
+<p>(McCarthy, 1964)</p>
+</blockquote>
+<p><img src="img/part5/hoare.jpg" alt="" /></p>
+<p><em>"The practical advantages of program proving will eventually outweigh
+the difficulties."</em></p>
+<blockquote>
+<p>(Hoare, 1969)</p>
+</blockquote>
+</div>
+</div>
+<style>.slide6 blockquote p { text-align:right; font-style:normal; } .slide6  .body img { float:right; max-width:250px; margin-left:70px; } .slide6  p em { font-style:normal; font-weight:400; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide7"><div class="body1">
+<p><img src="img/part5/moses.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Mosses (1974)</h1>
+<p>Method by Strachey</p>
+<p><strong>Assign mathematical object to constructs</strong></p>
+<p>Terms of <span class="math">\(\lambda\)</span> calculus!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide8"><div class="body">
+<h1>Vienna Development Method</h1>
+<img src="img/part5/vdm.jpg"/>
+<div>
+<h2>Tool-supported definition</h2>
+<ul>
+<li>Aim to model more complex PL/1</li>
+<li>Vienna Definition Language (VDL)</li>
+<li>Algol as the starting point</li>
+<li>50 page long definition</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Formalising Algol in VDL</h2>
+<ul>
+<li>Machine-checked definition</li>
+<li>67 page definition (1968) ala McCarthy</li>
+<li>book-chapter length (1978) after Mosses</li>
+</ul>
+</div>
+</div>
+<style>.slide8 .body img { max-width:230px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide9"><h1>Algol</h1>
+<h2>Many formal definitions</h2>
+<ul>
+<li><i class='fa fa-circle-dot'></i> Small subset vs. full language</li>
+<li><i class='fa fa-book-skull'></i> Surprised "is's as long as it is"!</li>
+<li><i class='fa fa-arrows-turn-to-dots'></i> "Algol 60 is just not nearly as well-behaved"</li>
+<li><i class='fa fa-square fa-regular'></i> 60 pages of definitions, no theorems!</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide10"><div class="body">
+<h1>From Algol 60 to Algol 68</h1>
+<img src="img/part5/revised68.jpg"/>
+<div>
+<h2>Further development</h2>
+<ul>
+<li>Universal language aims</li>
+<li>More orthogonal definitions</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Sources of complexity</h2>
+<ul>
+<li>Using meta-grammar and grammar</li>
+<li>Modes (<code>ref</code>,<code>proc</code>,<code>struct</code>,<code>union</code>,<code>flex</code>)</li>
+<li>Coercions (dereferencing, deproceduring, uniting, widening, rowing, and voiding)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Maybe not so bad today!</h2>
+</div>
+</div>
+<style>.slide10 .body img { max-width:220px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide11"><div class="body">
+<h1>Mathematical programme</h1>
+<img src="img/part5/nato.jpg"/>
+<div>
+<h2>Programming problems</h2>
+<p>"Facing tasks of completely different<br />
+and still growing scope and scale."</p>
+<p>From "expressing programs in a language" to "language to support good practices."</p>
+</div>
+<div class="fragment">
+<h2>Responses to complications</h2>
+<ul>
+<li>IFIP WG 2.3 on Programming Methodology</li>
+<li>NATO Software Engineering conference (1968)</li>
+</ul>
+</div>
+</div>
+<style>.slide11 p { margin-bottom:10px; } .slide11  h2 { margin:20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide12"><div class="body">
+<h1>Proofs of programs</h1>
+<h2>Social processes</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide13"><div class="body">
+<h1>De Millo, Lipton &amp; Perlis</h1>
+<img src="img/part5/mackenzie.jpg"/>
+<div>
+<h2>Met at Yale University seminar</h2>
+<ul>
+<li>De Millo visiting Lipton</li>
+<li>Presenting verification research</li>
+<li>Extensive algorithm proof</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Perlis' question</h2>
+<p>"Why does it take 20 pages to prove a program
+that is obviously correct?"</p>
+<p><strong>What does it take to convince a human?</strong></p>
+</div>
+</div>
+<style>.slide13 p { margin-bottom:10px; } .slide13  h2 { margin:20px 0px 10px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide14"><div class="body">
+<div>
+<p><img src="img/part5/proofs.png" alt="" /></p>
+<p><strong>Proofs in logic</strong><br />
+Finite sequences of propositions, each of which is<br />
+an axiom, an assumption or follows from earlier<br />
+propositions by a rule of inference.</p>
+<p><strong>Proofs in practice</strong><br />
+Mix of natural and formal language, aimed to<br />
+convince another qualified colleague</p>
+</div>
+</div>
+<style>.slide14 img { max-width:600px; } .slide14  p { letter-spacing:-0.5px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide15"><div class="body">
+<h1>Source of confidence</h1>
+<img src="img/part5/cacm.jpg"/>
+<div>
+<h2>Central to mathematical practice</h2>
+<ul>
+<li>Taught at universities</li>
+<li>Discussed at whiteboard sessions</li>
+<li>Mathematicians enjoy elegance &amp; tricks</li>
+<li>Believe it could be elaborated</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Proofs of programs differ</h2>
+<ul>
+<li>Bound to be secondary</li>
+<li>Programs are written to be run</li>
+<li>Certification does not play the same role</li>
+<li>Repetitive, large number of cases</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide16"><div class="body">
+<h1>Letters to the editor</h1>
+<img src="img/part5/cacm2.jpg"/>
+<div>
+<h2>Computer scientists</h2>
+<ul>
+<li>A pamphlet from the Middle Ages (Dijkstra)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Industry readership</h2>
+<ul>
+<li>Wisdom, fairness, style, rigour, and wit</li>
+<li>First article enjoyed since joining the ACM</li>
+<li>Cannot recall a single instance in which a proof of a program's correctness would have been useful</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide17"><div class="body">
+<h1>Proofs of programs</h1>
+<h2>Engineering and managerial answers</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide18"><h1>Proofs of programs</h1>
+<ul>
+<li>
+<i class='fa fa-shapes'></i> <strong>De Millo et al. mix many cultures</strong><br />
+<i class="placeholder"></i>Mathematical with humanistic and engineering twist
+</li>
+<li>
+<i class='fa fa-subscript'></i> <strong>Purely mathematical verification bound to fail</strong><br />
+<i class="placeholder"></i>Real-world software systems are too complex
+</li>
+<li>
+<i class='fa fa-pen-to-square'></i> <strong>1960s proofs by hand no longer suffice</strong> <br />
+<i class="placeholder"></i>Response comes from different perspectives!
+</li>
+<li>
+<i class='fa fa-industry'></i> <strong>Managerial and engineering approaches</strong><br />
+<i class="placeholder"></i>Scaling proof methods to real-world systems
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide19"><div class="body1">
+<p><img src="img/part5/clean.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Cleanroom Software Engineering</h1>
+<p>Harlan Mills at IBM<br />
+PhD in game theory</p>
+<p><strong>Extension of Chief Programmer Teams</strong></p>
+<p>"Software engineering without mathematical verification is no more than a buzzword."</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide20"><div class="body">
+<h1>Cleanroom Software Engineering</h1>
+<img src="img/part5/cleansq.png"/>
+<div>
+<h2>Surgical team model</h2>
+<ul>
+<li>Extends Chief Programmer Teams</li>
+<li>Lead surgeon, supported by assistants</li>
+<li>Controlled environment (cleanroom)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Managing reliability</h2>
+<ul>
+<li>Review conformance to specification rigorously</li>
+<li>Degree of rigor a managerial choice</li>
+<li>
+Statistical control of <em>reliability over a<br />
+probability distribution of usage scenarios</em>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide21"><h1>Mechanical proof checking</h1>
+<div class="body">
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide22"><h1>Mechanical proof checking</h1>
+<div class="body">
+<div>
+<p><img src="img/part5/mccarthy.jpg" alt="" /></p>
+<p><em>"One should prove that [a program]
+meets its specifications, and this proof should be checked by a computer program."</em></p>
+<blockquote>
+<p>(McCarthy, 1963)</p>
+</blockquote>
+</div>
+<div class="fragment">
+<br><br>
+<p><em>"A mechanical theorem prover does not act as an oracle ... but as an implacable
+sceptic that insists on all assumptions being stated and all claims justified."</em></p>
+<blockquote>
+<p>(Rushby &amp; Von Henke, 1990)</p>
+</blockquote>
+</div>
+</div>
+<style>.slide22 blockquote p { text-align:right; font-style:normal; } .slide22  .body img { float:right; max-width:230px; margin-left:40px; } .slide22  p em { font-style:normal; font-weight:400; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide23"><h1>Mechanical proof checking</h1>
+<ul>
+<li>
+<i class='fa fa-chalkboard'></i> <strong>Logic theorist</strong> (Newell &amp; Simon, 1950-1960s)<br />
+<i class="placeholder"></i>AI will be able to do more than just check!
+</li>
+<li>
+<i class='fa fa-cog'></i> <strong>Robert Boyer &amp; J Strother Moore</strong> (1970s)<br />
+<i class="placeholder"></i>Proves (with luck) properties of LISP-like programs
+</li>
+<li>
+<i class='fa fa-chess-rook'></i> <strong>LCF prover</strong> (Milner, 1970s) <br />
+<i class="placeholder"></i>Motivated by compiler proofs, ML meta-langauge
+</li>
+<li>
+<i class='fa fa-table-columns'></i> <strong>Separation logic</strong> (2000s)<br />
+<i class="placeholder"></i>Infer static analyser by Facebook
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide24"><h1>Formal verification in practice</h1>
+<div class="body">
+<div>
+<p><img src="img/part5/sel4.jpg" alt="" /></p>
+<p><strong>sel4 microkernel</strong><br />
+A range of mission<br />
+critical projects</p>
+<p><strong>CompCert compiler</strong><br />
+Faster than gcc without (untrusted) optimizations</p>
+<p><strong>Verification tools</strong><br />
+Static Driver Verifier at Microsoft, Infer at Facebook</p>
+</div>
+</div>
+<style>.slide24 .body img { float:right; max-width:480px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide25"><div class="body">
+<h1>Proofs of programs</h1>
+<h2>Fundamental limitations</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide26"><div class="body">
+<div>
+<p><img src="img/part5/sift.png" alt="" /></p>
+<p><strong>Software Implemented Fault Tolerance</strong></p>
+<p><em>Proof could only be completed if they also had a precise specification of how the
+underlying microprocessor executes instructions and also the timing of such execution.</em></p>
+<blockquote>
+<p>Boyer and Moore (1983)</p>
+</blockquote>
+</div>
+</div>
+<style>.slide26 img { max-width:650px; } .slide26  blockquote p { text-align:right; font-style:normal; } .slide26  p em { font-style:normal; font-weight:400; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists nologo slide27"><div class="body">
+<h1>Ballistic Missile Early-Warning System</h1>
+<img src="img/part5/norad.jpg"/>
+<div>
+<h2>Brian Cantwell Smith (1985)</h2>
+<ul>
+<li>Mistook rising moon for a missile</li>
+<li>If it was verified, should it be trusted?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Inherent limitations</h2>
+<ul>
+<li>Models ignore timing or the moon</li>
+<li>Programs are not abstract mathematical entities</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Proofs check compatibility of two descriptions!</h2>
+</div>
+</div>
+<style>.slide27 h1 { font-size:42pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide28"><div class="body">
+<h1>Hardware verification</h1>
+<img src="img/part5/rsre.jpg"/>
+<div>
+<h2>VIPER microprocessor</h2>
+<p>The first commercial microprocessor with both
+a formal specification and a proof that the chip conforms to it</p>
+</div>
+<div class="fragment">
+<h2>Avra Cohn's comment</h2>
+<p>Device can be described ... and the description verified; but ...there
+is no way to assure the accuracy of the description</p>
+</div>
+<div class="fragment">
+<h2>Lawsuit about the nature of the proof!</h2>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide29"><h1>Proofs</h1>
+<h2>Programs vs mathematics</h2>
+<ul>
+<li><i class='fa fa-not-equal'></i> Programs are not mathematical entities</li>
+<li><i class='fa fa-microchip'></i> Real hardware and real world!</li>
+<li><i class='fa fa-clock'></i> Non-determinism, temperature, etc.</li>
+<li><i class='fa fa-search'></i> Mathematical model is never fully detailed</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide30"><div class="body">
+<h1>The very idea (Fetzer, 1987)</h1>
+<img src="img/part5/help.jpg"/>
+<div>
+<h2>Verification is nonsensical</h2>
+<ul>
+<li>
+Program is a different kind of <br />
+thing than mathematics
+</li>
+<li>Category mistake</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What can verification mean?</h2>
+<ul>
+<li>
+<strong>Machine as formal entity</strong><br />
+Valid, but does not say anything
+</li>
+<li>
+<strong>Machine as empirical description</strong><br />
+Proof is empirical knowledge
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide31"><div class="body">
+<h1>Reaction to the paper</h1>
+<img src="img/part5/acm.png"/>
+<div>
+<h2>Letter by computer scientists</h2>
+<ul>
+<li>Attacks a parody of verification</li>
+<li>Not a serious scientific analysis</li>
+<li>
+Ill-informed, irresponsible, <br />
+and dangerous article
+</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Reveals something true</h2>
+<ul>
+<li>Earlier critiques say similar thing!</li>
+<li>Ignored or hidden in long reports...</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="largeicons  slide32"><h1>Beyond mathematical culture</h1>
+<ul>
+<li>
+<i class='fa fa-chalkboard'></i> <strong>Old-school proofs on whiteboard</strong><br />
+<i class="placeholder"></i>Do not scale for problems like Algol definition!
+</li>
+<li>
+<i class='fa fa-stethoscope'></i> <strong>Response involves other cultures</strong><br />
+<i class="placeholder"></i>Managerial Cleanroom, engineering tools
+</li>
+<li>
+<i class='fa fa-user-group'></i> <strong>Shifting meaning of proofs</strong><br />
+<i class="placeholder"></i>From social activity to checkmark with caveats
+</li>
+<li>
+<i class='fa fa-language'></i> <strong>Different kinds of proofs</strong><br />
+<i class="placeholder"></i>CompCert vs. programming language theory
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide33"><div class="body">
+<h1>Cultures of Programming</h1>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="06-xxx.html"><i class="fa fa-arrow-right"></i>Continue to Part 6</a></h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
