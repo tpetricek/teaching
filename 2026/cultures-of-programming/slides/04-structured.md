@@ -1,4 +1,4 @@
-- title: Cultures of Programming - Part 2 - Hackers, engineers, managers, mathematicians and humanists
+- title: Cultures of Programming - Part 4 - Mathematical science of computation and structured programming
 
 ****************************************************************************************************
 - template: title
@@ -157,9 +157,89 @@ then $\{P\}\,c_1;c_2\,\{R\}$
 ## Structuring programs
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: image
 
-TODO
+![](img/part4/edsac.png)
+
+# EDSAC instructions
+
+EDSAC initial orders (first few instructions)
+
+**Low-level assembly-like**  
+Write to register  
+Transfer control (jump)  
+Basic arithmetic
+
+[See the EDSAC poster](https://www.cl.cam.ac.uk/~mr10/Edsac/edsacposter.pdf)
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+- style: .body img { max-width:430px !important; } h1 { margin-bottom:20px; }
+
+# Structured programming
+
+![](img/part4/factorial3.png)
+
+## Block-based languages
+
+- Control structures like `while` and `if` instead of `goto`
+- Popularized by Algol
+
+## For structured programming
+
+- Supports reasoning and readability
+
+## Against structured programming
+
+- Can we trust compiler generated code?
+- Can we really express everything well?
+
+----------------------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/part4/harmful.png)
+
+# Dijkstra (1968)
+
+"...the quality of program&shy;mers is a decreasing function of the
+density of `go to` statements in the programs they produce."
+
+"...the `go to` statement should be abolished from all 'higher level'
+programming languages"
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Dijkstra on the go to statement
+
+![](img/part4/dijkstra.jpg)
+
+## Making programs understandable
+
+- Programs are read more than written
+- Shorten conceptual gap between static program and dynamic process
+
+## You do not need go to
+
+- Structured program theorem (Böhm–Jacopini)
+- Any flowchart can be encoded using just three control structures (sequence, selection, iteration)
+
+----------------------------------------------------------------------------------------------------
+- template: content
+- style: .body img { max-width:600px; }
+
+# Formal reasoning about programs
+
+![](img/part4/factorial3.png)
+
+---
+
+**Why structured programming helps**
+
+- Recall that if $\{P\}c_1\{Q\}$ and $\{Q\}c_2\{R\}$ then $\{P\}c_1;c_2\{Q\}$
+- Works better with block-based languages!
+- No need to model register and memory states
 
 ****************************************************************************************************
 - template: subtitle
@@ -168,12 +248,68 @@ TODO
 ## Structuring teams
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: image
+- style: p { font-size:24pt; } .body1 { width:380px !important;}
 
-TODO
+![](img/part4/datamation.png)
+
+# Revolution in programming
+(Datamation magazine, 1973)
+
+According to guest editor McCracken, structured programming is a major intellectual invention that will revolutionize the way programs are produced. Our articles on this subject approach the issue in several ways. Before reading them, be sure to read the overview.
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Chief Programmer Teams
+
+![](img/part4/cpt.png)
+
+## Project management at IBM
+- New York Times data bank project
+- Overall structure by one person
+- Chief programmer + support
+
+## Structured programming
+- Top-down design of programs vs.  
+  top-down management of teams
+
+----------------------------------------------------------------------------------------------------
+- template: image
+- style: p { font-size:24pt; } .body1 { width:400px !important;}
+
+![](img/part4/plight.png)
+
+# Dijkstra's response
+
+**How to program if you cannot**
+
+"the prevailing management philosophy [makes] companies as independent as possible of the competence of their employees"
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Structured programming
+
+![](img/part4/revolution.png)
+
+## Mathematical culture
+
+- Mathematical reasoning
+- Compositional semantics
+
+## Engineering culture
+
+- Understanding code
+- Individual responsibility
+
+## Managerial culture
+
+- Top-down software development
+- Structuring teams
 
 ****************************************************************************************************
 - template: subtitle
 
 # Cultures of Programming
-## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 5](05-xx.html)
+## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 5](05-proofs.html)
