@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Theory of Programming Languages</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 40pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 34pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG085: <strong>Theory of Programming Languages</strong></h1>
+<h2>Properties of a small imperative language</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong> and <strong>Vít Šefl</strong></p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a> | <a href="mailto:sefl@ksvi.mff.cuni.cz">sefl@ksvi.mff.cuni.cz</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a> &nbsp;|&nbsp; <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:36pt; letter-spacing:-1px } .slide1  h2 { font-size:32pt; margin-top:-35px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Properties</h1>
+<h2>Programming language theories</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide3"><div class="body1">
+<p><img src="img/properties/unsound.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Scala and Java<br> are unsound</h1>
+<p>Unexpected interaction between <em>subtyping</em> and <em>implicit nulls</em>.</p>
+<p><strong>Sound in isolation!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide4"><div class="body">
+<h1>Why bother with properties?</h1>
+<img src="img/properties/tapl.jpg"/>
+<div>
+<h2>Understanding subtle cases</h2>
+<ul>
+<li>What relates to what</li>
+<li>Corner cases worth checking</li>
+<li>Basis for larger proofs</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>What we want to know</h2>
+<ul>
+<li>Language evaluation is deterministic</li>
+<li>Type system is sound</li>
+<li>Type inference is decidable</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide5"><h1>Language evaluation is deterministic</h1>
+<div class="body">
+<div>
+<h3>Theorem (Determinacy)</h3>
+<p>If <span class="math">\(\langle e, s \rangle \rightarrow \langle e', s'\rangle\)</span> and
+also <span class="math">\(\langle e, s \rangle \rightarrow \langle e'', s''\rangle\)</span><br />
+then <span class="math">\(e'=e''\)</span> and <span class="math">\(s'=s''\)</span>.</p>
+<br>
+</div>
+<div class="fragment">
+<h3>Property of evaluation</h3>
+<ul>
+<li>No mention of types - just reduction relation</li>
+<li>Not necessarily through the same reduction!</li>
+<li>Does not hold for some languages (e.g., concurrency)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide6"><h1>Well-typed programs do not get stuck</h1>
+<div class="body">
+<div>
+<h3>Theorem (Safety)</h3>
+<p>If <span class="math">\(\Gamma \vdash e : \tau\)</span> and <span class="math">\(dom(\Gamma)\subseteq dom(s)\)</span> and
+<span class="math">\(\langle e, s \rangle \rightarrow^{*} \langle e', s'\rangle\)</span><br />
+then either
+<span class="math">\(e'\)</span> is a value or there exist <span class="math">\(e'', s''\)</span> such<br />
+that <span class="math">\(\langle e', s' \rangle \rightarrow \langle e'', s''\rangle\)</span>.</p>
+<br>
+</div>
+<div class="fragment">
+<h3>Combination of two properties</h3>
+<ul>
+<li><strong>Progress</strong> - a well-typed program is a value or can reduce</li>
+<li><strong>Preservation</strong> - reduction preserves the type of a program</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide7"><div class="body">
+<h1>Induction</h1>
+<h2>Proof technique</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller nologo slide8"><div class="body">
+<h1>Three forms of induction</h1>
+<img src="img/properties/karaji.png"/>
+<div>
+<h2>Induction over natural numbers</h2>
+<p><span class="math">\(\forall x\in\mathbb{N}.\Phi(x)\)</span>  if <span class="math">\(\Phi(0)\)</span> and <span class="math">\(\Phi(x)\Rightarrow\Phi(x+1)\)</span></p>
+</div>
+<div class="fragment">
+<h2>Induction over structure of a term</h2>
+<p>Show that <span class="math">\(\forall e\in\mathbb{E}.\Phi(e)\)</span> by showing <span class="math">\(\Phi(e)\)</span> holds for<br />
+leaves and <span class="math">\(\Phi(e_1),\ldots,\Phi(e_n) \Rightarrow \Phi(\texttt{op}(e_1, \ldots, e_n))\)</span></p>
+</div>
+<div class="fragment">
+<h2>Induction over a relation</h2>
+<p>Show that <span class="math">\(\forall x.R(x) \Rightarrow \Phi(x)\)</span> by showing <span class="math">\(\Phi(J)\)</span> holds for axioms (no assumptions) and <span class="math">\(\Phi(x)\)</span> follows from assumptions <span class="math">\(\Phi(x_1), \ldots, \Phi(x_n)\)</span> for each rule
+<span class="math">\(\dfrac{x_1, \ldots, x_n}{x}\)</span>.</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide9"><h1>Induction</h1>
+<h2>Three properties</h2>
+<ul>
+<li><i class='fa fa-arrows-to-dot'></i> <strong>Determinacy</strong> - induction over term structure</li>
+<li><i class='fa fa-arrow-right'></i> <strong>Progress</strong> - induction over <span class="math">\(\vdash\)</span> relation</li>
+<li><i class='fa fa-lock'></i> <strong>Preservation</strong> - induction over <span class="math">\(\rightarrow\)</span> relation</li>
+<li><i class='fa fa-regular fa-square-check'></i> <strong>Safety</strong> - induction over <span class="math">\(\rightarrow^{*}\)</span> relation</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide10"><div class="body">
+<h1>Determinacy</h1>
+<h2>Property of evaluation</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide11"><h1>Determinacy</h1>
+<div class="body">
+<div>
+<p><img src="img/properties/determinacy.png" alt="" /></p>
+<p>Induction over the structure of expressions</p>
+</div>
+</div>
+<style>.slide11 img { max-width:650px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide12"><div class="body1">
+<p><img src="img/properties/determinacy-big.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Determinacy</h1>
+<p>See <a href="img/properties/l1-determinacy.pdf">details (PDF)</a></p>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Remarks</strong></p>
+<p>Values do not reduce</p>
+<p>Careful treatment of what rules could have been used</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide13"><div class="body">
+<h1>Soundness</h1>
+<h2>Progress and preservation</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide14"><h1>Progress</h1>
+<div class="body">
+<div>
+<p><img src="img/properties/progress.png" alt="" /></p>
+<p>Induction over the derivation of <span class="math">\(\vdash\)</span></p>
+</div>
+</div>
+<style>.slide14 img { max-width:650px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide15"><div class="body1">
+<p><img src="img/properties/progress-big.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Progress</h1>
+<p>See <a href="img/properties/l1-progress.pdf">details (PDF)</a></p>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Remarks</strong></p>
+<p>Inversion lemma to know what values can have a given type</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide16"><h1>Preservation</h1>
+<div class="body">
+<div>
+<p><img src="img/properties/preservation.png" alt="" /></p>
+<p>Induction over the derivation of <span class="math">\(\rightarrow\)</span></p>
+</div>
+</div>
+<style>.slide16 img { max-width:650px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide17"><div class="body1">
+<p><img src="img/properties/preservation-big.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Progress</h1>
+<p>See <a href="img/properties/l1-preservation.pdf">details (PDF)</a></p>
+</div>
+<div class="fragment">
+<br>
+<p><strong>Remarks</strong></p>
+<p>Induction over reduction relation, assuming any<br />
+context <span class="math">\(\Gamma\)</span> and type <span class="math">\(\tau\)</span></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide18"><h1>Well-typed programs do not get stuck</h1>
+<div class="body">
+<div>
+<h3>Theorem (Safety)</h3>
+<p>If <span class="math">\(\Gamma \vdash e : \tau\)</span> and <span class="math">\(dom(\Gamma)\subseteq dom(s)\)</span> and
+<span class="math">\(\langle e, s \rangle \rightarrow^{*} \langle e', s'\rangle\)</span><br />
+then either
+<span class="math">\(e'\)</span> is a value or there exist <span class="math">\(e'', s''\)</span> such<br />
+that <span class="math">\(\langle e', s' \rangle \rightarrow \langle e'', s''\rangle\)</span>.</p>
+</div>
+<div class="fragment">
+<h3>Proof by induction</h3>
+<p>Induction over <span class="math">\(\rightarrow^{*}\)</span>. Reduction preserves type (preservation)
+and thus becomes value or can continue further (progress).</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide19"><div class="body">
+<h1>Conclusions</h1>
+<h2>Properties of a small imperative language</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide20"><h1>Conclusions</h1>
+<ul>
+<li><i class='fa fa-regular fa-square'></i> Phew, proving this is really hard!</li>
+<li><i class='fa fa-robot'></i> Same structure for verified proofs in Rocq/Lean</li>
+<li><i class='fa fa-chess'></i> Induction over terms or relations is useful!</li>
+<li><i class='fa fa-arrow-right-arrow-left'></i> Progress and preservation is a good framing</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
