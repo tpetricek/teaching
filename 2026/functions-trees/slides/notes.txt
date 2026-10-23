@@ -1,0 +1,37 @@
+FROM DISCUSSION WITH DAVID
+==========================
+
+functions as monsters
+- no derrivatives
+-> in computing, when "function" becomes sequence of instructions and has side-effects
+(not so much in functional world)
+
+---
+when is function used for the first time for something that's not a number?
+Dedekind
+
+domain vs. codomain
+in FORTRAN: Thus a function
+of a single argument has 4 possible mode configurations; in general\a function
+of n arguments will have 2n+l mode configurations
+
+" Thus a complete set of names for the sine function might be"
+(sine function is the mathematical one)
+
+-> mathematical/numerical analysis
+
+----
+when did functions start to be used for non-number values?
+
+FLOW-MATIC uses functions:
+https://archive.org/details/bitsavers_univacflowProgrammingSystem1958_9367413/page/n87/mode/2up?q=function
+
+
+what is the meaning of:
+
+ Specialization of a function to meet a particular requirement is made by the proper choice of option in the FLOW-MATIC code, and by the Data Designs. A major feature of the FLOW-MATIC Library is that it contains routines capable of generating machine coding to handle a large variety of programming and data situations.
+
+
+====
+contingent nature - many things random
+self-correction - maybe LISP -> Scheme (how about common lisp?)

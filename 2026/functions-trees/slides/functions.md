@@ -15,87 +15,60 @@ _<i class="fa-brands fa-bluesky"></i>_ [@tomasp.net](https://bsky.app/profile/to
 _<i class="fa fa-globe"></i>_ [https://tomasp.net](https://tomasp.net)  
 
 ****************************************************************************************************
-- template: content
-
-functions as monsters
-- no derrivatives
--> in computing, when "function" becomes sequence of instructions and has side-effects
-(not so much in functional world)
-
----
-when is function used for the first time for something that's not a number?
-Dedekind
-
-domain vs. codomain
-in FORTRAN: Thus a function
-of a single argument has 4 possible mode configurations; in general\a function
-of n arguments will have 2n+l mode configurations
-
-" Thus a complete set of names for the sine function might be"
-(sine function is the mathematical one)
-
--> mathematical/numerical analysis
-
-----
-when did functions start to be used for non-number values?
-
-FLOW-MATIC uses functions:
-https://archive.org/details/bitsavers_univacflowProgrammingSystem1958_9367413/page/n87/mode/2up?q=function
-
-
-what is the meaning of:
-
- Specialization of a function to meet a particular requirement is made by the proper choice of option in the FLOW-MATIC code, and by the Data Designs. A major feature of the FLOW-MATIC Library is that it contains routines capable of generating machine coding to handle a large variety of programming and data situations.
-
-
-====
-contingent nature - many things random
-self-correction - maybe LISP -> Scheme (how about common lisp?)
-
-****************************************************************************************************
-- template: subtitle
-
-# Course
-## Background
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-todo: timeline (for the course)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-todo: ...?
-
-****************************************************************************************************
 - template: subtitle
 
 # Functions
 ## Background
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: icons
 
-Three layers
+# Functions
+## History of mathematics
 
-- intuition
-- formalism
-- implementation
+- *fa-chart-line* **Leibniz (1680s)** - Functions live on a curve
+- *fa-subscript* **Euler (1748)** - Functions as an analytical formula
+- *fa-angle-up* **D'Alambert (1747)** - Plucked string outside math
+- *fa-fire* **Fourier (1810s)** - Heat and combination of sines
+- *fa-arrow-right* **Dedekind (1888)** - Mapping between collections
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: image
+- class: smaller
 
-# Mathematical background
+![](img/functions/model.png)
 
-(Many different views, to be clarified by David's lectures!)
+# How entities evolve
 
-* **Leibniz (17th century)** function as a geometrical curve?
-* **Euler (18th century)** function as a dependence; function as analytical formula
-* **Bourbaki (1939)** function as a subset of a cartesian product
-* **Church (1941)** function a correspondence rule (applied to obtain another thing)
+**Three levels**
 
-Typically numerical operations; Church starts thinking about more symbolic operations
+Intuitions  
+Formalisms  
+Implementation  
+
+---
+
+**Concepts exist at  
+all three levels**
+
+When one changes   
+others adapt
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Interactions in mathematics
+
+![](img/functions/bars.jpg)
+
+## Geometric motivation
+- Intuitive idea about functions
+- Leads to first definition attempts
+
+## Physics challenges
+- Plucked strings and heat
+- Needs more than smooth functions!
+- Function as a mapping
 
 ****************************************************************************************************
 - template: subtitle
@@ -104,190 +77,286 @@ Typically numerical operations; Church starts thinking about more symbolic opera
 ## Early machines
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: image
 
-TODO: What 1940s computers looked like!
+![](img/functions/ascc.jpg)
 
-----------------------------------------------------------------------------------------------------
-- template: content
+# Harvard Mark 1  ASCC (1944)
 
-### ASCC (Harvard Mark 1), early 40s
+**Electromechanical general purpose computer**
 
-> As described above, subroutines, as reusable sequences of instructions, were held
-as physically distinct program tapes on the ASCC and the Bell Labs machine (Priestley)
+Reads instructions from a punched tape
 
-(word routine in use already, but not subroutine)
-
-### Curry (1949/50) c.f. de Mol & Bullynck (Haskell paper)
-
-Curry (lack of subroutines on ENIAC before reprogramming):
-
->The present report is an attack on this prob-
-lem from the standpoint of composition of computing schedules [...] This
-problem is here attacked theoretically by using techniques similar to
-those used in some phases of mathematical logic.
-
-ENIAC after reprogramming:
-
-> This is in fact, another new “first” claim. Haigh et. al. claim that the Monte Carlo program “was the first code with a closed subroutine to be executed,”
-[CHM](https://computerhistory.org/blog/the-neverending-quest-for-firsts/)
+Synchronized by 15m rotating drive shaft
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: lists
 
-### von Neumann - Draft report on EDVAC; Turing's ACE
+# Programming the ASCC (1944)
 
-EDVAC "automatic calculator" vs. ACE "universal machine"
+![](img/functions/tape.jpg)
 
+## Iteration and loops
+- Load a starting tape
+- Then endless tape (physical loop)
 
-### Turing's Automatic Computing Engine (ACE)
+## Reusable sequences
+- Implementing a function
+- Held on physically different tapes
 
-**Subsidiary operations & BURY/UNBURRY (stack)**
+## Subsidiary sequence control
+- Automating program execution
+- Commands to switch control between units
 
-(reminiscent of the way things are defined in his mathematical formalism of m-machines c.f. Priestley p.144)
+<!-- todo find exact reference in manual for use of 'function'
+https://www.bitsavers.org/pdf/harvard/MarkI_operMan_1946.pdf -->
 
-> When we wish to start on a **subsidiary operation** we need only
-> make a note of where we left off the major operation and then
-> apply the first instruction of the subsidiary.  When the subsidiary
-> is over we look up the note and continue with the major operation.
+----------------------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/functions/bell.jpg)
+
+# Bell Labs Relay machines (1947)
+
+**Routine tapes**
+
+Usually endless loops of instructions that transfer control at the end
+
+---
+
+_"The solution of an equation
+in general requires reference to tables of
+functions, trigonometric, logarithmic, etc."_
+
+<!-- Priestley talks about this and https://www.worldradiohistory.com/Archive-Bell-Laboratories-Record/40s/Bell-Laboratories-Record-1947-02.pdf has the quote -->
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Programming the ENIAC
+
+![](img/functions/eniac.jpg)
+
+## Initial configuration (1945)
+- Programmed by plugging cables!
+- 3 function tables store 104 entities
+- can be _set up for interpolation routines_
+- A report mentions _sub-routine_
+
+## After reprogramming (1948)
+- Interprets instructions
+- Monte Carlo simulation using a closed subroutine (via control transfer)
 
 <!--
-Each subsidiary operation can end with instructions for this
-recovery of the note.  How is the burying and disinterring of the
-note to be done?  There are of course many ways.  One is to keep a
-list of these notes in one or more standard size delay lines (1024),
-with the most recent last.  The position of the most recent of these
-will be kept in a fixed TS, and this reference will be modified
-every time a subsidiary is started or finished.  The burying and
-disinterring processes are fairly elaborate, but there is
-fortunately no need to repeat the instructions involved, each time,
-the burying being done through a standard instruction table BURY,
-and the disinterring by the table UNBURY.
+for the first info, see: https://pubs.ams.org/MCOM/1946-02-015/S0025-5718-1946-0018977-0
+first subroutine see
+https://computerhistory.org/blog/the-neverending-quest-for-firsts/
+and more importantly:
+https://lists.sigcis.org/archives/list/members@lists.sigcis.org/thread/VLING3E2G6MPNF4OZYZVR3YDBGHGMPK3/
 -->
 
-BURY/UNBURRY instructions
+----------------------------------------------------------------------------------------------------
+- template: content
+- style: blockquote { margin:0px; }
 
-https://mark.people.clemson.edu/subroutines.html
+### Curry's theory of program composition (1948-50)
+
+> Principal bottleneck is the _planning of the computation_ [...]
+Ways of shortening this process, and of systemizing it, so that a part
+of the work can be done by the technically trained personnel or by
+machines, are much desired. The present report is an attack on this
+problem from the standpoint of _composition of computing schedules_ [...] This
+problem is here attacked theoretically by using techniques similar to
+those used in some phases of _mathematical logic_.
+
+---
+
+**Prefigures many later ideas, but not modern terms**
+
+- Calculus of program composition
+- Substitution with address adjustment
+
+<!-- Haskell before Haskell paper (de Mol et al.)-->
 
 ----------------------------------------------------------------------------------------------------
 - template: content
+- class: two-column
+- style: img { max-height:260px; margin:20px 0px; }
 
-### Goldstine & von Neumann - Planning and coding report
+# EDVAC and ACE computers
 
-Free vs. bound variables ("borrowed from formal logic")
+**EDVAC (1949)**
 
-> [First kind] assumes a sequence of different values in the course of the
-procedure (...) it "from the outside". Such a variable is called
-a **bound variable**. Second [is]
-essentially the same thing as a parameter (...) a value has to be substituted for it
-and attributed to it ("from the outside"), ... Such a variable is called a
-**free variable**.
+Mauchly, Eckert, von Neu&shy;mann, First Draft 1945
 
-But **not in the context of subroutines!**
+![](img/functions/edvac.jpg)
 
-----------------------------------------------------------------------------------------------------
-- template: content
+---
 
-### Goldstine & von Neumann - Planning and coding report
+**ACE (1950)**
 
-**Background** Coding vs. programming in the 1940s
+Automatic Computing Engine, designed by Turing in 1945
 
->  We call the coded sequence of a problem a routine, and one which
-is formed with the purpose of possible stibstitution into other routines, a
-subroutine.
-
-(Also imagine "library" of such subroutines)
-
-Concerned with "substitution" (copying order sequence into the problem c.f. linking)
-
-Orders of different kinds; those with addresses require rewriting the address
+![](img/functions/ace.jpg)
 
 ----------------------------------------------------------------------------------------------------
 - template: content
+- style: blockquote { margin:0px; }
 
-### Mauchly
+# Engineering vs. logic foundations
 
-(PREPARATION OF PROBLEMS FOR EDVAC-TYPE MACHINES)
+> [W]hereas von Neumann set out to design
+an _automatic calculator_, Turing was more concerned to produce a practical version
+of the _universal machine_.
 
-> ... even fairly elementary processes should be made a matter of subroutine.
-(...) those of any complexity presumably ought to be in a library - that is, a set of magnetic
- tapes  in which previously coded problems of permanent value are stored.
+<br>
 
-----------------------------------------------------------------------------------------------------
-- template: content
+>  The ACE
+(...) maintained a strict distinction between memory and control reminiscent
+of the universal machine, whereas the EDVAC complicated this (..) with
+special-purpose units.
 
-### Hopper's A-0
-
-program = "a sequence of subroutines and its arguments"; "compiling" = assembling a program from programs made up previously
-
-### Mauchly's Short Code
-
-talks about "library of functions"
+(**from Priestley's Science of Operations**)
 
 ----------------------------------------------------------------------------------------------------
 - template: content
+- style: blockquote { margin:20px 0px; }
+
+# Programming the ACE (1945)
+
+### Subsidiary operations and BURY/UNBURRY
+
+> When we wish to start on a _subsidiary operation_ we need only
+make a note of where we left off the major operation and then
+apply the first instruction of the subsidiary.
+
+<!-- x -->
+
+> When the subsidiary
+is over we look up the note  
+and continue with the _major operation_.
+
+<!-- x -->
+
+> the burying being done through a standard instruction table BURY,
+and the disinterring by the table UNBURY.              
+
+<!-- from https://mark.people.clemson.edu/subroutines.html -->
+
+----------------------------------------------------------------------------------------------------
+- template: image
+
+![](img/functions/planning.png)
+
+# Planning and Coding report
+
+Started while ENIAC was still programmed by plugging cables
+
+Later parts after ENIAC reprogramming & Manchester Baby
+
+**Envisions a lot of later programming**
+
+----------------------------------------------------------------------------------------------------
+- template: content
+- class: nologo
+- style: h1 { margin-bottom:20px; } blockquote { margin:0px; }
+
+# Subroutine terminology
+
+### Preparation of Problems for EDVAC-Type Machines  (Mauchly, 1947)
+
+> ... even fairly elementary processes should be made a matter of _subroutine_.
+(...) those of any complexity presumably ought to be in a _library_ - that is, a set of magnetic
+tapes <!-- in which previously coded problems of permanent value are stored. -->
+
+### Planning and coding of problems for an electronic computing instrument (1947)
+
+> We call the coded sequence of a problem a _routine_, and one which
+is formed with the purpose of possible _substitution_ into other routines, a
+_subroutine_. (...) properly organized automatic, high speed establishment will
+include an extensive collection of such subroutines (...) i.e. a "library"
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Mathematical and logical influences
+
+![](img/functions/planning.png)
+
+## Bound variable
+- "assumes a sequence of different values in the course of the
+procedure"
+- impossible to set from the outside
+
+## Free variable
+- fixed throughout the procedure, essentially a parameter
+- a value has to be substituted for it
+
+## "Borrowed from formal logic"
+
+<!-- von-neumann-1948-full.pdf, p.20 -->
+
+----------------------------------------------------------------------------------------------------
+- template: content
+- style: img { float:right; max-width:300px; } blockquote { margin:0px; }
 
 # EDSAC (Cambridge)
 
-Second edition report (1951)
+![](img/functions/subroutines.jpg)
 
-> Since an automatic computing machine can perform
-only a very limited number of basic operations, a mathematical calcula
-tion usually requires an extended sequence of orders. It is often convenient
+**Second edition report (1951)**
+
+> ... a mathematical calculation usually requires an extended sequence of orders. It is often convenient
 to break up this sequence of orders into self-contained groups of orders
-called subroutines.
+called _subroutines_.
 
-Rewriting addresses:
+**Rewriting addresses**
 
 > The written and punched form is called the
-external form, and the form inside the machine the internal form.
-
-"library of subroutines" [c.f. PHOTO FROM POSTER]
+_external form_, and the form inside the machine the _internal form_.
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: lists
+- style: p { font-size:24pt; line-height:1.1em; } h1 { margin-bottom:10px; font-size:42pt; } img { margin:20px; }
+- class: nologo
 
-### Open vs. closed subroutines
+# Open vs. closed subroutines
 
-[An **open] subroutine** .. is entered immediately after the execution of
-the order coming before it in the store and, when the subroutine has done
-its work, control passes to the order immediately following it.
+![](img/functions/wilkes.jpg)
 
-**closed subroutine** ... can be
-placed anywhere in the store, and is entered by a jump order and left by
-another jump order.  [TP: Stores return address]
+## Open subroutine
+Entered immediately after the execution of
+the order coming before it (...) control passes to the order immediately following it.
 
-**Interpretive subroutines** ..  enable the programmer to write
-.. in an order code which may be quite
-different from the basic order code of the machine. [These]
-interpretive orders .. do not enter the control circuits of the machine
-but are extracted .. one by one, by the interpretive subroutine, which
+## Closed subroutine
+Placed anywhere in the store, entered by a jump order and left by
+another jump order
+
+## Interpretive subroutines
+
+Order code different from the basic order code of the machine.
+Extracted one by one, by the interpretive subroutine, which
 examines them, and carries out the appropriate operations.
 
 
+<!--
+Hopper's A-0
+program = "a sequence of subroutines and its arguments"; "compiling" = assembling a program from programs made up previously
+Mauchly's Short Code
+talks about "library of functions"
+-->
+
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: largeicons
 
 # Early machines
 
-1. Subroutines terminology used consistently
-2. Subroutines implement mathematical functions (sin, etc.)
-3. Occasional link to logic (von Neumann) but not functions
-4. Engineering concerns about rewriting addresses
-5. Library metaphor based on actual shelves; occasional "library of functions"
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Other notes
-
-c.f. numerical analysis - Sam (correctness of approximations)
--> done but not visible in technical manuals
-
-Intel's FDIV error
-(and floating point numbers generally - date to FORTRAN or earlier?)
-
-(when programming hits real entities)
+- *fa-subscript* Subroutines implementing functions (since 1947)
+- *fa-arrow-right* Links to logic (Curry, von Neumann) but not functions
+- *fa-book* Library of functions as intuitive metaphor
+- *fa-bridge* Engineering concerns about address rewriting
+- *fa-calculator* Numerical analysis of computation processes
 
 ****************************************************************************************************
 - template: subtitle
@@ -296,493 +365,210 @@ Intel's FDIV error
 ## From FORTRAN to Algol
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: image
 
-### ADES (Automatic Digital Encoding System)
+![](img/functions/ades.png)
 
-(1955; still before FORTRAN and Algol)
+# Automatic Digital Encoding System
 
-> The ADES language is essentially mathematical in structure. It
-is based on the theory of the recursive functions and the schemata
-for such functions, as given by Kleene. [BL 56', p. 72]
-The ADES approach to automatic programming is believed to be
-entirely new. Mathematically, it has its foundations in the
-bedrock of the theory of recursive functions.
+Recursive functions theory of Kleene
 
-(knuth-trabb-pardo, p81)
+Left Polish notation
 
-* line 2 defines a function (using Polish notation)
+**Before FOTRAN, but largely forgotten**
 
-**Talks about function definitions!**
+<!-- see knuth-trabb-pardo, p81 -->
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: lists
+- class: smaller nologo
+- style: h1 { margin-bottom:10px; } h2 { font-size:30pt; margin:10px 0px 0px 0px; }
 
-### 1945 FORTRAN [report](https://softwarepreservation.computerhistory.org/FORTRAN/BackusEtAl-Preliminary%20Report-1954.pdf)
+# Functions in FORTRAN
 
-- functions are single-valued; no specific list e.g., sin, sqrt, ...
-- formulas; even for print/IO, goto formula; no mention of (sub)routines
+![](img/functions/fortran.png)
 
-### 1956 FOTRAN for IBM 704 [manual](https://archive.computerhistory.org/resources/text/Fortran/102649787.05.01.acc.pdf)
+## FORTRAN report (1954)
+
+- Control formulas (goto), IO formulas
+- List of functions but no subroutines
+
+## FOTRAN for IBM 704 (1956)
 
 - "Pre-written routines to evaluate any single-valued functions of any number o f arguments"
-- Library subroutines exist on the master FORTRANtape in relocatable binary form.
-- `[X]SIN[0|1]F` naming scheme for functions; modes for floating/fixed
+- Library .. on the master tape in relocatable form
 
-[towards FORTRAN II](https://mcjones.org/dustydecks/archives/2005/08/07/46/) - adding CALL, SUB DEF
+## FORTRAN II (1958)
+
+- Subroutines (`SUB DEF`) called using `CALL` statement
+- Functions defined by formula, or subprogram (`FUNCTION`)
+
+<!--
+1954 report
+https://softwarepreservation.computerhistory.org/FORTRAN/BackusEtAl-Preliminary%20Report-1954.pdf
+1956 manual
+https://archive.computerhistory.org/resources/text/Fortran/102649787.05.01.acc.pdf
+and
+see towards FORTRAN II: https://mcjones.org/dustydecks/archives/2005/08/07/46/ on
+adding CALL, SUB DEF
+...
+1958  FOTRAN II
+ `CALL` / `SUBROUTINE` (called using `CALL`) / `FUNCTION` (called as functions)
+ uses `<name> = expr` for returns (`RETURN` dropped)
+-->
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: lists
+- class: smaller nologo
+- style: h1 { margin-bottom:20px; } h2 { font-size:30pt; margin:0px 0px 0px 0px; } ul { margin-bottom:20px;}
 
-### 1958 - FOTRAN II
+# Procedures and functions in Algol
 
-- `CALL` / `SUBROUTINE` (called using `CALL`) / `FUNCTION` (called as functions)
-- uses `<name> = expr` for returns (`RETURN` dropped)
+![](img/functions/algol.png)
 
-----------------------------------------------------------------------------------------------------
-- template: content
+## Preliminary report (1958)
 
-# Algol
+- Function definition (`=expr`), call is expression
+- Procedures (`PROCEDURE`) call is a statement
 
-[Preliminary report (1958)](https://dl.acm.org/doi/pdf/10.1145/377924.594925)
+## Revised Algol 60
+- Unified procedures and functions (return)
+- Many calling conventions and recursion make it hard!
 
-- Function (call) is expression; Procedure (call) is a statement
-- Function declaration (=expr) vs. procedure declaration (statements with return)
-  - hidden parameters are bound variables within function
+## Restrictionists vs. Trickologists
+"The mathematical concept of a _function as a mapping from domain to range_ ... which absolutely excludes any kind of so-called side effects."
 
-Algol 60
- - unifies functions and procedures as just procedures that may return
- - admins side-effects in procedures
- - added recursive procedure declarations (hard to implement!)
- - call by name vs. call by value
-
-(Controversy reported in HOPL papers)
-
->  essentially the mathematical concept of a function as a mapping from domain to range ...
+<!--
+essentially the mathematical concept of a function as a mapping from domain to range ...
 absolutely excludes any kind of so-called side effects.
+c.f. The remaining trouble spots in ALGOL 60
+[Preliminary report (1958)](https://dl.acm.org/doi/pdf/10.1145/377924.594925)
+-->
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: icons
 
-Early programming languages
+# Functions
+## In early programming languages
 
-1. Subroutine terminology slowly abandoned
-2. Functions vs. procedures (this will keep playing role later)
-3. More mathematical motivations, some worry about side effects
+- *fa-signature* Subroutine terminology slowly abandoned
+- *fa-list* Function becomes sequence of instructions
+- *fa-scissors* Distinction between functions vs. procedures
+- *fa-terminal* Mathematical ideas, worry about side effects
 
 
 ****************************************************************************************************
 - template: subtitle
 
 # Functions
-## From BCLP to C
+## From CLP to C
 
 ----------------------------------------------------------------------------------------------------
 - template: content
+- style: li { font-size:24pt; }
 
-### CPL (1963) - includes Strechey, Landin (TODO: semantics history)
+# CPL programming language (1963)
 
-- function (inside expressions) vs. routine (as a command)
-- but make explicit reference to Church and lambda calculus (where clauses)
+### Functions and routines
+- _Function_ (named expression), _routine_ (command sequence)
+- A function defined with `≡` uses its free variables directly (by reference), one defined with `=` has them evaluated ... (by value).
 
-Free variables in function definitions [1965 manual](https://www.chilton-computing.org.uk/acl/pdfs/cpl.pdf)
+---
 
-- a function defined with ≡ uses its free variables directly (by reference), one defined with = has them evaluated and fixed at the time of definition (by value).
-- direct lambda calculus terminology use!
+### Logical influence
+- Designers include Strachey and Landin (c.f. semantics)
+- Explicit reference to Church and $\lambda$ calculus (`where` clauses)
+- "...the results of functions
+may be lists, arrays and functions themselves,
+but not routines." (1963)
 
-> In addition to single values, the results of functions
-may be lists, arrays (see later) and functions themselves,
-but not routines. (1963)
+
+<!--
+reference to Church from:
+https://www.holypython.com/wp-content/uploads/2022/10/CPL_Main_Features.pdf
+Free variables in function definitions - 1965 manual: https://www.chilton-computing.org.uk/acl/pdfs/cpl.pdf
+-->
 
 ----------------------------------------------------------------------------------------------------
 - template: content
+- style: blockquote { margin:0px; } h3 { letter-spacing:-0.5px;}
 
-Strachey complains [in 1967 lecture notes [published 2000]](https://facweb.cdm.depaul.edu/smitsch/courses/csc447fa23/assets/articles/strachey-fundamental-concepts-in-programming-languages.pdf):
+# First-class functions (Strachey)
 
-> procedures in ALGOL are second class citizen
+### Fundamental Concepts in Programming Languages (1967)
 
-```
-(if x > 1 then a else b) + 6
-(if x > 1 then sin else cos)(x)
-```
-
+> Procedures in ALGOL are second class (...) we can write:
+>
+> ```
+> (if x > 1 then a else b) + 6
+> ```
+>
+> We cannot correctly write:
+>
+> ```
+> (if x > 1 then sin else cos)(x)
+> ```
+>
 > nor can we write a type procedure (ALGOL’s nearest approach to a function) with a result
 which is itself a procedure.
 
-----------------------------------------------------------------------------------------------------
-- template: content
-
-**CPL** was slow to be implemented
-
-**BCPL** (1967) - Basic Combined Programming Language
- - drops closures and uses only 'functions', no routines
-
-**B** - Thompson & Ritchie - directly based on BCPL, leading to "functions" in C
+<!--
+https://facweb.cdm.depaul.edu/smitsch/courses/csc447fa23/assets/articles/strachey-fundamental-concepts-in-programming-languages.pdf
+-->
 
 ----------------------------------------------------------------------------------------------------
-- template: content
+- template: largeicons
 
-### From CPL to C
+# History
+## From CPL to BCPL and B
 
-1. More direct links to lambda calculus (via work on semantics)
-2. Importing interesting concepts (variable capture, first class)
-3. Implementation limits the potential (CPL -> BCPL -> B simplification)
-4. Name _function_ is left, but without the content!
+- *fa-church* **CPL (1963) Cambridge Programming Language**  
+  Slow to be implemented - returning functions is hard!
+- *fa-cogs* **BCPL (1967) Basic Combined Programming Language**  
+  Drops closures; uses only 'functions', no routines
+- *fa-terminal* **B (1969) - Thompson & Ritchie**   
+  BCPL subset with new syntax; only function definitions
+  <!--
+  https://web.archive.org/web/20150611114427/https://www.bell-labs.com/usr/dmr/www/kbman.pdf
+  functions can be returned but presumably just pointers
+  routine still used informally in the memo
+  -->
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Evolution from CPL to C
+
+![](img/functions/c.jpg)
+
+## Logical influence in CPL
+- Direct links to lambda calculus
+- Strachey's work on semantics
+- Variable capture, first class
+
+## Implementation wins in C
+- Simplification process (CPL, BCPL, B)
+- First-class functions become pointers
+- Routines become also functions
 
 ****************************************************************************************************
 - template: subtitle
 
 # Functions
-## LISP
+## Early observations
 
 ----------------------------------------------------------------------------------------------------
-- template: content
-
-[Priestley on origins of LISP](https://link.springer.com/article/10.1007/s11023-017-9432-7)
-
-> LISP was not based on the lambda calculus, despite using the word
-"LAMBDA" to denote functions. At the time he invented LISP. McCarthy
-was aware of (Church 1941) but had not studied it.
-
-### Real history of LISP
-
-1. AI origins (Newell and Simon languages for list processing and AI)
-2. McCarthy's involvement in FLPL adding lists to FORTRAN (do not make a new language!)
-3. conditional expression `XIF`, recursive function theory (again!)
-    (see [letter to the editor](https://dl.acm.org/doi/pdf/10.1145/368405.1773349))
-4. Lambda notation for creating functions to be used as arguments
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# LISP 1.5
-
-Borrows the lambda notation from lambda calculus
-
-Implementation in terms of association list (a-list); variables pushed on a-list, looked up in the current a-list on call
-
-**This is dynamic scoping not what you get in lambda calculus!**
-
-Also, `print` is a function of one argument (side-effects)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Funarg problem
-
-How to find values for free variables e.g. `X` in `(LAMBDA (Y) (CONS (CAR X) Y))`
-
-[History of LISP](http://jmc.stanford.edu/articles/lisp/lisp.pdf)
-
-- James R. Slagle's program that does not work (assumes lexical scoping)
-- Steve Russell's `FUNARG` captures current a-list (environment)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Meanwhile
-
-Landin's work on modelling ALGOL using Church's lambda calculus
-[paper](https://www.cs.cmu.edu/~crary/819-f09/Landin64.pdf)
-
-> We represent the value of a $\lambda$-expression by a
-bundle of information called a "closure," comprising the
-$\lambda$-expression and the environment relative to which
-it was evaluated.
-
-Work in the context of formal semantics of programming languages
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-### Back to LISP
-
-Moses's "The function of FUNCTION in LISP, or why the FUNARG problem should be called the environment problem"
-
-identifies the funarg problem, with reference to Landin and lambda calculus
-
-Sussman and Steele's Scheme made lexical scoping with full closures the default following Landin
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# LISP History
-
-1. Origins in AI, with weak inspiration from lambda calculus
-2. Funarg problem shows it is different; fixed via workarounds
-3. Later rethinking takes lambda calculus seriously -> Scheme
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Conclusions
-
-Theory finally meets practice, but only after LISP?
-
-****************************************************************************************************
-- template: subtitle
-
-# Functions
-## Functional programming
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-### Actual history of FP <-> LC
-
-Landin (introduced to LC by Penrose via Mervy Pragnell's underground reading group)
-[see talk](https://smlfamily.github.io/history/ML2015-talk.pdf)
-
-- The mechanical evaluation of expressions (1964)
-- A correspondence between ALGOL 60 and LC (1965)
-- A Generalization of Jumps and Labels (1965)  
-  (program body closure - a precursor of continuations)
-- The next 700 programming languages (1966) - ISWIM  
-  (implemented as PAL at MIT; in BCPL! included James H. Morris, whose PhD introduced types in modern PL sense in 1968)
-
-**Prehistory of "modern FP" here...**
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-### Mechanical evaluation (1964)
-
-Introduces "closure" (see above) noting
-
-> Closures are roughly the same as McCarthy's "FUNARG" lists
-
-### 700 PLs - Landin (1966)
-
-> The word "denotative" seems more appropriate than nonprocedural, declarative or functional.
-> The antithesis of denotative is "imperative."
-
-"Function definitions" in a modern FP sense
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Early FP-like languages
-
-### PAL (MIT, 1967) [manual](https://softwarepreservation.computerhistory.org/PAL/Pal-ref-man.pdf)
-
-- simple applicative subset (lambdas, functions, tuples, conditional, let)
-- imperative (assignment, goto)
-
-### POP-2 (Edinburgh, 1970)
-
-Inspired by Algol, but "functions first-class" (Burstall addressing Strachey's complaint about Algol); but maybe less function-oriented than PAL
-
-**Scoping still not settled**
-
-- POP-1 had dynamic scoping, with _frozen formals_ `(% ... %)` akin to FUNARG
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# More theory
-
-### Dana Scott (70s)
-
-denotational semanitcs, domain theory... (later link to categiries)
-
-### Morris, Reynolds (70s)
-
-theory of type structure (typed lambda calculus as a programming language)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# LCF/ML (from late 70s)
-
-- Stanford - LCF an interactive theorem prover (made thinkable by hardware advances?)
-- Edinburgh LCF (late 70s)
-- ML as a meta-language for LCF
-- becomes a programming language; HOPE adds data types etc.
-- VAX ML, Standard ML (formal definition in 1990)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-### Can Programming Be Liberated from the von Neumann Style? A Functional Style and Its Algebra of Programs
-
-Backus, Turing Award lecutre (1978)
-
-- **functional programming** terminology
-- algebra of programs and formal reasoning about them
-
-> Just as structured programming eschews many control statements to obtain programs
-> with simpler structure, better properties, and uniform methods for understanding their behavior,
-> so functional programming eschews the lambda expression, substitution, and multiple
-> function types.
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Unexpected effects!?
-
-* People agree with the diagnosis (von Neumann bottleneck)
-* People adopted the term **functional programming**
-* They mostly kept lambda functions and variables
-* Historiographical impact - links FP to lambda calculus -> Mythology
-  (ignores "styles" c.f. Priestley; only languages)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-Caveats:
-
-[Dijkstra](https://www.cs.utexas.edu/~EWD/transcriptions/EWD06xx/EWD692.html)
-
->In short, the article is a progress report on a valid research effort but suffers badly from aggressive overselling of its significance, long before convincing results have been reached. This is the more regrettable as it has been published by way of Turing Award Lecture.
-
-Also:
-
-- Algebra of programs exists, but more academic
-- Later work on FP tries to develop optimizations...
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Conclusions
-
-1. Formal link to lambda calculus established firmly
-2. Treating functions as first-class values
-3. Purity and scoping remain disputed territory!
-4. Backus has effect mainly on an intuitive level??
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Functional programming
-
-### SASL (Turner, 1978), KRC (Turner, 1982)
-Lazy, purely functional
-
-### Miranda (Turner, 1985)
-Turner, Miranda: purely functional + non-strict + Hindley–Milner polymorphism in one language
-
-### Haskell (1990)
-program is a function, mostly follows Miranda, type classes as a novelty
-
-Also:
-
-**"Why functional programming matter" (Hughes, 1984-89)** - builds more the FP intution
-
-****************************************************************************************************
-- template: content
-
-(side-note)
-
-### Continuations - capturing the "program body closure" as a function
-
-How to deal with jumps without jumps?
-
-- van Wijngaarden's (1964): "Provide each procedure declaration with an extra formal parameter... and insert at the end of its body a goto statement leading to that formal parameter."
-
-- Wadsworth (1970/71) "a concept for 'the meaning of the rest of the program'", and reports: "Once I'd coined the word [continuation] it all clicked and the rest followed."
-
-****************************************************************************************************
-- template: subtitle
-
-# Functions
-## Conclusions
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Conclusions
-
-1. **Machine lineage** vs. **mathematical lineage**
-2. First attempt to use mathematics/LC fail (von Neuman & Goldstine; Landin & Strachey; ADES based on theory of recursive functions)
-3. Post-LIPS import of lambda succeeds - why? it is actually implemented and 'works'!
-
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Conclusions
-
-1. Mathematical intuition and engineering implementation disconnected at first (function vs subroutine)
-2. Engineering notion develops without link to theory or intuition
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Imports
-
-**Nothing is done properly though!**
-
-- free and bound variables imported by von neumann
-- everyone imports 'function' (sin, etc.)
-- Church imports lambda notation
-- as much from Recursive function theory as Lambda Calculuc
-
-(Later, Scheme does it right)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# What is a function?
-
-- different operationalizations??
-
-### Monster-baring?
-
-- **pseudo**-functions (like print, and other effects) in [LISP 1.5](https://softwarepreservation.computerhistory.org/LISP/book/LISP%201.5%20Programmers%20Manual.pdf)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Naming
-
-- Routines and subroutines in the early days
-- Functions struggle to materialize before Bacus
-- Functional programming - shift after Backus
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Many ideas struggle
-
-(Maybe before firm link across levels is established?)
-
-- first class-nes (ALGOL, LISP)
-- link to lambda calculus (ADES and LISP based on recursive theory)
-- free and bound variables (von Neumann report, lambda calculus)
-- others? continuations (many names and different implementations over time; subroutine itself)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-# Interactions
-
-- Practice develops first from scratch (subroutines)
-- Intuition is imported from commonsense mathematics (functions implemented by subroutines)
-- Later intuition (lambda calculus) reveals gaps
-- Theory develops later, transforming practice (Scheme)
-- Purity is an attempt to make FP more "mathematical"
-- Laziness is an implementation aspect not existing in mathematical functions (but existing in LC)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-----------------------------------------------------------------------------------------------------
-- template: content
-
-xx
+- template: largeicons
+
+# Early observations
+
+- *fa-tape* **Routines develop on implementation level**  
+  Subsidiary sequences, open/closed sub-routines
+- *fa-subscript* **Initial intuition from mathematics**  
+  Subroutines implement math functions
+- *fa-filter* **Meaning of concepts change**  
+  Functions equated with subroutines over time
+- *fa-spinner* **Implementation forces simplifications**  
+  First-class functions and other ideas abandoned
+- *fa-graduation-cap* **Formal level exists throughout**  
+  Recursive function theory, variable handling, etc.
