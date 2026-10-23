@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Functions, trees, processes (NPRG086)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG086: <strong>Functions, trees, processes</strong></h1>
+<h2>Functions from the programming perspective</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:42pt; } .slide1  h2 { font-size:35pt; margin-top:-30px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Functions</h1>
+<h2>Background</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide3"><h1>Functions</h1>
+<h2>History of mathematics</h2>
+<ul>
+<li><i class='fa fa-chart-line'></i> <strong>Leibniz (1680s)</strong> - Functions live on a curve</li>
+<li><i class='fa fa-subscript'></i> <strong>Euler (1748)</strong> - Functions as an analytical formula</li>
+<li><i class='fa fa-angle-up'></i> <strong>D'Alambert (1747)</strong> - Plucked string outside math</li>
+<li><i class='fa fa-fire'></i> <strong>Fourier (1810s)</strong> - Heat and combination of sines</li>
+<li><i class='fa fa-arrow-right'></i> <strong>Dedekind (1888)</strong> - Mapping between collections</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide4"><div class="body1">
+<p><img src="img/functions/model.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>How entities evolve</h1>
+<p><strong>Three levels</strong></p>
+<p>Intuitions<br />
+Formalisms<br />
+Implementation</p>
+</div>
+<div class="fragment">
+<p><strong>Concepts exist at<br />
+all three levels</strong></p>
+<p>When one changes<br />
+others adapt</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide5"><div class="body">
+<h1>Interactions in mathematics</h1>
+<img src="img/functions/bars.jpg"/>
+<div>
+<h2>Geometric motivation</h2>
+<ul>
+<li>Intuitive idea about functions</li>
+<li>Leads to first definition attempts</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Physics challenges</h2>
+<ul>
+<li>Plucked strings and heat</li>
+<li>Needs more than smooth functions!</li>
+<li>Function as a mapping</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide6"><div class="body">
+<h1>Functions</h1>
+<h2>Early machines</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide7"><div class="body1">
+<p><img src="img/functions/ascc.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Harvard Mark 1  ASCC (1944)</h1>
+<p><strong>Electromechanical general purpose computer</strong></p>
+<p>Reads instructions from a punched tape</p>
+<p>Synchronized by 15m rotating drive shaft</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide8"><div class="body">
+<h1>Programming the ASCC (1944)</h1>
+<img src="img/functions/tape.jpg"/>
+<div>
+<h2>Iteration and loops</h2>
+<ul>
+<li>Load a starting tape</li>
+<li>Then endless tape (physical loop)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Reusable sequences</h2>
+<ul>
+<li>Implementing a function</li>
+<li>Held on physically different tapes</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Subsidiary sequence control</h2>
+<ul>
+<li>Automating program execution</li>
+<li>Commands to switch control between units</li>
+</ul>
+<!-- todo find exact reference in manual for use of 'function'
+https://www.bitsavers.org/pdf/harvard/MarkI_operMan_1946.pdf -->
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide9"><div class="body1">
+<p><img src="img/functions/bell.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Bell Labs Relay machines (1947)</h1>
+<p><strong>Routine tapes</strong></p>
+<p>Usually endless loops of instructions that transfer control at the end</p>
+</div>
+<div class="fragment">
+<p><em>"The solution of an equation
+in general requires reference to tables of
+functions, trigonometric, logarithmic, etc."</em></p>
+<!-- Priestley talks about this and https://www.worldradiohistory.com/Archive-Bell-Laboratories-Record/40s/Bell-Laboratories-Record-1947-02.pdf has the quote -->
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide10"><div class="body">
+<h1>Programming the ENIAC</h1>
+<img src="img/functions/eniac.jpg"/>
+<div>
+<h2>Initial configuration (1945)</h2>
+<ul>
+<li>Programmed by plugging cables!</li>
+<li>3 function tables store 104 entities</li>
+<li>can be <em>set up for interpolation routines</em></li>
+<li>A report mentions <em>sub-routine</em></li>
+</ul>
+</div>
+<div class="fragment">
+<h2>After reprogramming (1948)</h2>
+<ul>
+<li>Interprets instructions</li>
+<li>Monte Carlo simulation using a closed subroutine (via control transfer)</li>
+</ul>
+<p><!--
+for the first info, see: https://pubs.ams.org/MCOM/1946-02-015/S0025-5718-1946-0018977-0
+first subroutine see
+https://computerhistory.org/blog/the-neverending-quest-for-firsts/
+and more importantly:
+https://lists.sigcis.org/archives/list/members@lists.sigcis.org/thread/VLING3E2G6MPNF4OZYZVR3YDBGHGMPK3/
+--></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide11"><div class="body">
+<div>
+<h3>Curry's theory of program composition (1948-50)</h3>
+<blockquote>
+<p>Principal bottleneck is the <em>planning of the computation</em> [...]
+Ways of shortening this process, and of systemizing it, so that a part
+of the work can be done by the technically trained personnel or by
+machines, are much desired. The present report is an attack on this
+problem from the standpoint of <em>composition of computing schedules</em> [...] This
+problem is here attacked theoretically by using techniques similar to
+those used in some phases of <em>mathematical logic</em>.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><strong>Prefigures many later ideas, but not modern terms</strong></p>
+<ul>
+<li>Calculus of program composition</li>
+<li>Substitution with address adjustment</li>
+</ul>
+<!-- Haskell before Haskell paper (de Mol et al.)-->
+</div>
+</div>
+<style>.slide11 blockquote { margin:0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column slide12"><h1>EDVAC and ACE computers</h1>
+<div class="body">
+<div>
+<p><strong>EDVAC (1949)</strong></p>
+<p>Mauchly, Eckert, von Neu&shy;mann, First Draft 1945</p>
+<p><img src="img/functions/edvac.jpg" alt="" /></p>
+</div>
+<div class="fragment">
+<p><strong>ACE (1950)</strong></p>
+<p>Automatic Computing Engine, designed by Turing in 1945</p>
+<p><img src="img/functions/ace.jpg" alt="" /></p>
+</div>
+</div>
+<style>.slide12 img { max-height:260px; margin:20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide13"><h1>Engineering vs. logic foundations</h1>
+<div class="body">
+<div>
+<blockquote>
+<p>[W]hereas von Neumann set out to design
+an <em>automatic calculator</em>, Turing was more concerned to produce a practical version
+of the <em>universal machine</em>.</p>
+</blockquote>
+<br>
+<blockquote>
+<p>The ACE
+(...) maintained a strict distinction between memory and control reminiscent
+of the universal machine, whereas the EDVAC complicated this (..) with
+special-purpose units.</p>
+</blockquote>
+<p>(<strong>from Priestley's Science of Operations</strong>)</p>
+</div>
+</div>
+<style>.slide13 blockquote { margin:0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide14"><h1>Programming the ACE (1945)</h1>
+<div class="body">
+<div>
+<h3>Subsidiary operations and BURY/UNBURRY</h3>
+<blockquote>
+<p>When we wish to start on a <em>subsidiary operation</em> we need only
+make a note of where we left off the major operation and then
+apply the first instruction of the subsidiary.</p>
+</blockquote>
+<!-- x -->
+<blockquote>
+<p>When the subsidiary
+is over we look up the note<br />
+and continue with the <em>major operation</em>.</p>
+</blockquote>
+<!-- x -->
+<blockquote>
+<p>the burying being done through a standard instruction table BURY,
+and the disinterring by the table UNBURY.</p>
+</blockquote>
+<!-- from https://mark.people.clemson.edu/subroutines.html -->
+</div>
+</div>
+<style>.slide14 blockquote { margin:20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide15"><div class="body1">
+<p><img src="img/functions/planning.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Planning and Coding report</h1>
+<p>Started while ENIAC was still programmed by plugging cables</p>
+<p>Later parts after ENIAC reprogramming &amp; Manchester Baby</p>
+<p><strong>Envisions a lot of later programming</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide16"><h1>Subroutine terminology</h1>
+<div class="body">
+<div>
+<h3>Preparation of Problems for EDVAC-Type Machines  (Mauchly, 1947)</h3>
+<blockquote>
+<p>... even fairly elementary processes should be made a matter of <em>subroutine</em>.
+(...) those of any complexity presumably ought to be in a <em>library</em> - that is, a set of magnetic
+tapes <!-- in which previously coded problems of permanent value are stored. --></p>
+</blockquote>
+<h3>Planning and coding of problems for an electronic computing instrument (1947)</h3>
+<blockquote>
+<p>We call the coded sequence of a problem a <em>routine</em>, and one which
+is formed with the purpose of possible <em>substitution</em> into other routines, a
+<em>subroutine</em>. (...) properly organized automatic, high speed establishment will
+include an extensive collection of such subroutines (...) i.e. a "library"</p>
+</blockquote>
+</div>
+</div>
+<style>.slide16 h1 { margin-bottom:20px; } .slide16  blockquote { margin:0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide17"><div class="body">
+<h1>Mathematical and logical influences</h1>
+<img src="img/functions/planning.png"/>
+<div>
+<h2>Bound variable</h2>
+<ul>
+<li>
+"assumes a sequence of different values in the course of the
+procedure"
+</li>
+<li>impossible to set from the outside</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Free variable</h2>
+<ul>
+<li>fixed throughout the procedure, essentially a parameter</li>
+<li>a value has to be substituted for it</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>"Borrowed from formal logic"</h2>
+<!-- von-neumann-1948-full.pdf, p.20 -->
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide18"><h1>EDSAC (Cambridge)</h1>
+<div class="body">
+<div>
+<p><img src="img/functions/subroutines.jpg" alt="" /></p>
+<p><strong>Second edition report (1951)</strong></p>
+<blockquote>
+<p>... a mathematical calculation usually requires an extended sequence of orders. It is often convenient
+to break up this sequence of orders into self-contained groups of orders
+called <em>subroutines</em>.</p>
+</blockquote>
+<p><strong>Rewriting addresses</strong></p>
+<blockquote>
+<p>The written and punched form is called the
+<em>external form</em>, and the form inside the machine the <em>internal form</em>.</p>
+</blockquote>
+</div>
+</div>
+<style>.slide18 img { float:right; max-width:300px; } .slide18  blockquote { margin:0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists nologo slide19"><div class="body">
+<h1>Open vs. closed subroutines</h1>
+<img src="img/functions/wilkes.jpg"/>
+<div>
+<h2>Open subroutine</h2>
+<p>Entered immediately after the execution of
+the order coming before it (...) control passes to the order immediately following it.</p>
+</div>
+<div class="fragment">
+<h2>Closed subroutine</h2>
+<p>Placed anywhere in the store, entered by a jump order and left by
+another jump order</p>
+</div>
+<div class="fragment">
+<h2>Interpretive subroutines</h2>
+<p>Order code different from the basic order code of the machine.
+Extracted one by one, by the interpretive subroutine, which
+examines them, and carries out the appropriate operations.</p>
+<!--
+Hopper's A-0
+program = "a sequence of subroutines and its arguments"; "compiling" = assembling a program from programs made up previously
+Mauchly's Short Code
+talks about "library of functions"
+-->
+</div>
+</div>
+<style>.slide19 p { font-size:24pt; line-height:1.1em; } .slide19  h1 { margin-bottom:10px; font-size:42pt; } .slide19  img { margin:20px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide20"><h1>Early machines</h1>
+<ul>
+<li><i class='fa fa-subscript'></i> Subroutines implementing functions (since 1947)</li>
+<li><i class='fa fa-arrow-right'></i> Links to logic (Curry, von Neumann) but not functions</li>
+<li><i class='fa fa-book'></i> Library of functions as intuitive metaphor</li>
+<li><i class='fa fa-bridge'></i> Engineering concerns about address rewriting</li>
+<li><i class='fa fa-calculator'></i> Numerical analysis of computation processes</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide21"><div class="body">
+<h1>Functions</h1>
+<h2>From FORTRAN to Algol</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide22"><div class="body1">
+<p><img src="img/functions/ades.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Automatic Digital Encoding System</h1>
+<p>Recursive functions theory of Kleene</p>
+<p>Left Polish notation</p>
+<p><strong>Before FOTRAN, but largely forgotten</strong></p>
+<!-- see knuth-trabb-pardo, p81 -->
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller nologo slide23"><div class="body">
+<h1>Functions in FORTRAN</h1>
+<img src="img/functions/fortran.png"/>
+<div>
+<h2>FORTRAN report (1954)</h2>
+<ul>
+<li>Control formulas (goto), IO formulas</li>
+<li>List of functions but no subroutines</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>FOTRAN for IBM 704 (1956)</h2>
+<ul>
+<li>"Pre-written routines to evaluate any single-valued functions of any number o f arguments"</li>
+<li>Library .. on the master tape in relocatable form</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>FORTRAN II (1958)</h2>
+<ul>
+<li>Subroutines (<code>SUB DEF</code>) called using <code>CALL</code> statement</li>
+<li>Functions defined by formula, or subprogram (<code>FUNCTION</code>)</li>
+</ul>
+<!--
+1954 report
+https://softwarepreservation.computerhistory.org/FORTRAN/BackusEtAl-Preliminary%20Report-1954.pdf
+1956 manual
+https://archive.computerhistory.org/resources/text/Fortran/102649787.05.01.acc.pdf
+and
+see towards FORTRAN II: https://mcjones.org/dustydecks/archives/2005/08/07/46/ on
+adding CALL, SUB DEF
+...
+1958  FOTRAN II
+ `CALL` / `SUBROUTINE` (called using `CALL`) / `FUNCTION` (called as functions)
+ uses `<name> = expr` for returns (`RETURN` dropped)
+-->
+</div>
+</div>
+<style>.slide23 h1 { margin-bottom:10px; } .slide23  h2 { font-size:30pt; margin:10px 0px 0px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller nologo slide24"><div class="body">
+<h1>Procedures and functions in Algol</h1>
+<img src="img/functions/algol.png"/>
+<div>
+<h2>Preliminary report (1958)</h2>
+<ul>
+<li>Function definition (<code>=expr</code>), call is expression</li>
+<li>Procedures (<code>PROCEDURE</code>) call is a statement</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Revised Algol 60</h2>
+<ul>
+<li>Unified procedures and functions (return)</li>
+<li>Many calling conventions and recursion make it hard!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Restrictionists vs. Trickologists</h2>
+<p>"The mathematical concept of a <em>function as a mapping from domain to range</em> ... which absolutely excludes any kind of so-called side effects."</p>
+<!--
+essentially the mathematical concept of a function as a mapping from domain to range ...
+absolutely excludes any kind of so-called side effects.
+c.f. The remaining trouble spots in ALGOL 60
+[Preliminary report (1958)](https://dl.acm.org/doi/pdf/10.1145/377924.594925)
+-->
+</div>
+</div>
+<style>.slide24 h1 { margin-bottom:20px; } .slide24  h2 { font-size:30pt; margin:0px 0px 0px 0px; } .slide24  ul { margin-bottom:20px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide25"><h1>Functions</h1>
+<h2>In early programming languages</h2>
+<ul>
+<li><i class='fa fa-signature'></i> Subroutine terminology slowly abandoned</li>
+<li><i class='fa fa-list'></i> Function becomes sequence of instructions</li>
+<li><i class='fa fa-scissors'></i> Distinction between functions vs. procedures</li>
+<li><i class='fa fa-terminal'></i> Mathematical ideas, worry about side effects</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide26"><div class="body">
+<h1>Functions</h1>
+<h2>From CLP to C</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide27"><h1>CPL programming language (1963)</h1>
+<div class="body">
+<div>
+<h3>Functions and routines</h3>
+<ul>
+<li><em>Function</em> (named expression), <em>routine</em> (command sequence)</li>
+<li>A function defined with <code>≡</code> uses its free variables directly (by reference), one defined with <code>=</code> has them evaluated ... (by value).</li>
+</ul>
+</div>
+<div class="fragment">
+<h3>Logical influence</h3>
+<ul>
+<li>Designers include Strachey and Landin (c.f. semantics)</li>
+<li>Explicit reference to Church and <span class="math">\(\lambda\)</span> calculus (<code>where</code> clauses)</li>
+<li>
+"...the results of functions
+may be lists, arrays and functions themselves,
+but not routines." (1963)
+</li>
+</ul>
+<!--
+reference to Church from:
+https://www.holypython.com/wp-content/uploads/2022/10/CPL_Main_Features.pdf
+Free variables in function definitions - 1965 manual: https://www.chilton-computing.org.uk/acl/pdfs/cpl.pdf
+-->
+</div>
+</div>
+<style>.slide27 li { font-size:24pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide28"><h1>First-class functions (Strachey)</h1>
+<div class="body">
+<div>
+<h3>Fundamental Concepts in Programming Languages (1967)</h3>
+<blockquote>
+<p>Procedures in ALGOL are second class (...) we can write:</p>
+<pre><code>(if x &gt; 1 then a else b) + 6
+</code></pre>
+<p>We cannot correctly write:</p>
+<pre><code>(if x &gt; 1 then sin else cos)(x)
+</code></pre>
+<p>nor can we write a type procedure (ALGOL’s nearest approach to a function) with a result
+which is itself a procedure.</p>
+</blockquote>
+<!--
+https://facweb.cdm.depaul.edu/smitsch/courses/csc447fa23/assets/articles/strachey-fundamental-concepts-in-programming-languages.pdf
+-->
+</div>
+</div>
+<style>.slide28 blockquote { margin:0px; } .slide28  h3 { letter-spacing:-0.5px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide29"><h1>History</h1>
+<h2>From CPL to BCPL and B</h2>
+<ul>
+<li>
+<i class='fa fa-church'></i> <strong>CPL (1963) Cambridge Programming Language</strong><br />
+<i class="placeholder"></i>Slow to be implemented - returning functions is hard!
+</li>
+<li>
+<i class='fa fa-cogs'></i> <strong>BCPL (1967) Basic Combined Programming Language</strong><br />
+<i class="placeholder"></i>Drops closures; uses only 'functions', no routines
+</li>
+<li>
+<i class='fa fa-terminal'></i> <strong>B (1969) - Thompson &amp; Ritchie</strong> <br />
+<i class="placeholder"></i>BCPL subset with new syntax; only function definitions
+<!--
+https://web.archive.org/web/20150611114427/https://www.bell-labs.com/usr/dmr/www/kbman.pdf
+functions can be returned but presumably just pointers
+routine still used informally in the memo
+-->
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide30"><div class="body">
+<h1>Evolution from CPL to C</h1>
+<img src="img/functions/c.jpg"/>
+<div>
+<h2>Logical influence in CPL</h2>
+<ul>
+<li>Direct links to lambda calculus</li>
+<li>Strachey's work on semantics</li>
+<li>Variable capture, first class</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Implementation wins in C</h2>
+<ul>
+<li>Simplification process (CPL, BCPL, B)</li>
+<li>First-class functions become pointers</li>
+<li>Routines become also functions</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide31"><div class="body">
+<h1>Functions</h1>
+<h2>Early observations</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide32"><h1>Early observations</h1>
+<ul>
+<li>
+<i class='fa fa-tape'></i> <strong>Routines develop on implementation level</strong><br />
+<i class="placeholder"></i>Subsidiary sequences, open/closed sub-routines
+</li>
+<li>
+<i class='fa fa-subscript'></i> <strong>Initial intuition from mathematics</strong><br />
+<i class="placeholder"></i>Subroutines implement math functions
+</li>
+<li>
+<i class='fa fa-filter'></i> <strong>Meaning of concepts change</strong><br />
+<i class="placeholder"></i>Functions equated with subroutines over time
+</li>
+<li>
+<i class='fa fa-spinner'></i> <strong>Implementation forces simplifications</strong><br />
+<i class="placeholder"></i>First-class functions and other ideas abandoned
+</li>
+<li>
+<i class='fa fa-graduation-cap'></i> <strong>Formal level exists throughout</strong><br />
+<i class="placeholder"></i>Recursive function theory, variable handling, etc.
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
