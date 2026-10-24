@@ -2,6 +2,8 @@
 
 ****************************************************************************************************
 - template: title
+- class: blue
+- background-image: img/part4/syntax-blue.png
 
 # Mathematical science of computation<br> and structured programming
 ## Cultures of Programming &mdash; Part 4
@@ -13,6 +15,96 @@
 _<i class="fa fa-envelope"></i>_ [tomas@tomasp.net](mailto:tomas@tomasp.net)  
 _<i class="fa fa-globe"></i>_ [https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net](https://tomasp.net)  
 _<i class="fa-brands fa-bluesky"></i>_ [@tomasp.net](https://bsky.app/profile/tomasp.net)    
+
+****************************************************************************************************
+- template: subtitle
+
+# Mathematical culture
+## Structuring programs
+
+----------------------------------------------------------------------------------------------------
+- template: image
+
+![](img/part4/edsac.png)
+
+# EDSAC instructions
+
+EDSAC initial orders (first few instructions)
+
+**Low-level assembly-like**  
+Write to register  
+Transfer control (jump)  
+Basic arithmetic
+
+[See the EDSAC poster](https://www.cl.cam.ac.uk/~mr10/Edsac/edsacposter.pdf)
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+- style: .body img { max-width:430px !important; } h1 { margin-bottom:20px; }
+
+# Structured programming
+
+![](img/part4/factorial3.png)
+
+## Block-based languages
+
+- Control structures like `while` and `if` instead of `goto`
+- Popularized by Algol
+
+## For structured programming
+
+- Supports reasoning and readability
+
+## Against structured programming
+
+- Can we trust compiler generated code?
+- Can we really express everything well?
+
+----------------------------------------------------------------------------------------------------
+- template: image
+- class: smaller
+
+![](img/part4/harmful.png)
+
+# Dijkstra (1968)
+
+"...the quality of program&shy;mers is a decreasing function of the
+density of `go to` statements in the programs they produce."
+
+"...the `go to` statement should be abolished from all 'higher level'
+programming languages"
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+
+# Dijkstra on the go to statement
+
+![](img/part4/dijkstra.jpg)
+
+## Making programs understandable
+
+- Programs are read more than written
+- Shorten conceptual gap between static program and dynamic process
+
+## You do not need go to
+
+- Structured program theorem (Böhm–Jacopini)
+- Any flowchart can be encoded using just three control structures (sequence, selection, iteration)
+
+----------------------------------------------------------------------------------------------------
+- template: content
+- style: .body img { max-width:600px; }
+
+# Formal reasoning about programs
+
+![](img/part4/factorial3.png)
+
+---
+
+**Why structured programming helps**
+
+- Works better with block-based languages!
+- No need to model register and memory states
 
 ****************************************************************************************************
 - template: subtitle
@@ -149,97 +241,6 @@ then $\{P\}\,c_1;c_2\,\{R\}$
 - Find $f^{th}$ element in an array and rearrange
 - $A[1],\ldots,A[f-1]\leq A[f]\leq A[f+1],\ldots,A[N]$
 - ... it may be possible to enlist the aid of a computer
-
-****************************************************************************************************
-- template: subtitle
-
-# Mathematical culture
-## Structuring programs
-
-----------------------------------------------------------------------------------------------------
-- template: image
-
-![](img/part4/edsac.png)
-
-# EDSAC instructions
-
-EDSAC initial orders (first few instructions)
-
-**Low-level assembly-like**  
-Write to register  
-Transfer control (jump)  
-Basic arithmetic
-
-[See the EDSAC poster](https://www.cl.cam.ac.uk/~mr10/Edsac/edsacposter.pdf)
-
-----------------------------------------------------------------------------------------------------
-- template: lists
-- style: .body img { max-width:430px !important; } h1 { margin-bottom:20px; }
-
-# Structured programming
-
-![](img/part4/factorial3.png)
-
-## Block-based languages
-
-- Control structures like `while` and `if` instead of `goto`
-- Popularized by Algol
-
-## For structured programming
-
-- Supports reasoning and readability
-
-## Against structured programming
-
-- Can we trust compiler generated code?
-- Can we really express everything well?
-
-----------------------------------------------------------------------------------------------------
-- template: image
-- class: smaller
-
-![](img/part4/harmful.png)
-
-# Dijkstra (1968)
-
-"...the quality of program&shy;mers is a decreasing function of the
-density of `go to` statements in the programs they produce."
-
-"...the `go to` statement should be abolished from all 'higher level'
-programming languages"
-
-----------------------------------------------------------------------------------------------------
-- template: lists
-
-# Dijkstra on the go to statement
-
-![](img/part4/dijkstra.jpg)
-
-## Making programs understandable
-
-- Programs are read more than written
-- Shorten conceptual gap between static program and dynamic process
-
-## You do not need go to
-
-- Structured program theorem (Böhm–Jacopini)
-- Any flowchart can be encoded using just three control structures (sequence, selection, iteration)
-
-----------------------------------------------------------------------------------------------------
-- template: content
-- style: .body img { max-width:600px; }
-
-# Formal reasoning about programs
-
-![](img/part4/factorial3.png)
-
----
-
-**Why structured programming helps**
-
-- Recall that if $\{P\}c_1\{Q\}$ and $\{Q\}c_2\{R\}$ then $\{P\}c_1;c_2\{Q\}$
-- Works better with block-based languages!
-- No need to model register and memory states
 
 ****************************************************************************************************
 - template: subtitle

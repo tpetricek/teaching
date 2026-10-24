@@ -1,0 +1,1 @@
+# python scripts/recolor.py slides/img/part1/coverw.png slides/img/part1/coverw-blue.png "#153374" "#2C68AC"

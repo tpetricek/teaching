@@ -2,6 +2,8 @@
 
 ****************************************************************************************************
 - template: title
+- class: blue
+- background-image: img/part1/markets-blue.jpg
 
 # History of programming<br> and why it matters today
 ## Cultures of Programming &mdash; Part 1

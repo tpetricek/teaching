@@ -2,6 +2,8 @@
 
 ****************************************************************************************************
 - template: title
+- class: blue
+- background-image: img/part2/spacewar-blue.jpg
 
 # Hackers, engineers, managers, mathematicians and humanists
 ## Cultures of Programming &mdash; Part 2

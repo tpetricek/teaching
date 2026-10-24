@@ -3,6 +3,8 @@
 ****************************************************************************************************
 - template: title
 - style: h1 { letter-spacing:-1px; }
+- class: blue
+- background-image: img/part5/thule-blue.jpg
 
 # Fundamental limits of proofs of programs
 ## Cultures of Programming &mdash; Part 5
@@ -110,13 +112,12 @@ Terms of $\lambda$ calculus!
 - Aim to model more complex PL/1
 - Vienna Definition Language (VDL)
 - Algol as the starting point
-- 50 page long definition
 
 ## Formalising Algol in VDL
 
 - Machine-checked definition
 - 67 page definition (1968) ala McCarthy
-- book-chapter length (1978) after Mosses
+- Book-chapter length (1978) ala Mosses
 
 ----------------------------------------------------------------------------------------------------
 - template: icons
@@ -152,21 +153,22 @@ Terms of $\lambda$ calculus!
 - template: lists
 - style: p { margin-bottom:10px; } h2 { margin:20px 0px; }
 
-# Mathematical programme
+# Minority report
 
 ![](img/part5/nato.jpg)
 
 ## Programming problems
 
-"Facing tasks of completely different  
+- Many see Algol 68 as a failure
+- "Facing tasks of completely different  
 and still growing scope and scale."
-
-From "expressing programs in a language" to "language to support good practices."
 
 ## Responses to complications
 
 - IFIP WG 2.3 on Programming Methodology
 - NATO Software Engineering conference (1968)
+- From "expressing programs in a language"  
+  to "language to support good practices."
 
 ****************************************************************************************************
 - template: subtitle
@@ -369,6 +371,8 @@ Static Driver Verifier at Microsoft, Infer at Facebook
 ![](img/part5/sift.png)
 
 **Software Implemented Fault Tolerance**
+
+---
 
 _Proof could only be completed if they also had a precise specification of how the
 underlying microprocessor executes instructions and also the timing of such execution._

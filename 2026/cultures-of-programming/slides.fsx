@@ -234,8 +234,10 @@ let processFile fn out =
           let slideno = counter ()
           let html = Markdown.ToHtml(MarkdownDocument(nslide, doc.DefinedLinks))
           let cls = opts.TryFind("class") |> Option.defaultValue ""
-          let bg = opts.TryFind("background-color") |> Option.map (fun clr ->
+          let bgc = opts.TryFind("background-color") |> Option.map (fun clr ->
             $"""data-background-color="{clr}" """)|> Option.defaultValue ""
+          let bgi = opts.TryFind("background-image") |> Option.map (fun img ->
+            $"""data-background="{img}" """)|> Option.defaultValue ""
           let sty = opts.TryFind("style") |> Option.map (fun sty ->
             let reg = System.Text.RegularExpressions.Regex("[^}]+{[^}]*}")
             let sty =
@@ -243,7 +245,7 @@ let processFile fn out =
               |> String.concat " "
             $"<style>{sty}</style>") |> Option.defaultValue ""
           let cls = cls + $" slide{slideno}"
-          Some($"""<section class="{opts.["template"]} {cls}"{bg}>{html}{sty}{logo}</section>""")
+          Some($"""<section class="{opts.["template"]} {cls}"{bgc}{bgi}>{html}{sty}{logo}</section>""")
       | _ -> None))
     |> List.filter (List.isEmpty >> not)
     |> List.map (fun slides -> $"""<section>{String.concat "" slides}</section>""")

@@ -3,6 +3,8 @@
 ****************************************************************************************************
 - template: title
 - style: h1 { letter-spacing:-2px; }
+- class: blue
+- background-image: img/part3/library-blue.jpg
 
 # The invention of a programming language
 ## Cultures of Programming &mdash; Part 3
