@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cultures of Programming - Part 7 - Visions for the future of computing</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.15em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+      .title.blue h1, .title.blue h2, .title.blue p { color:#F1DEC2; }
+      .title.blue a { color:#F1DEC2; text-decoration:underline; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title blue slide1"data-background="img/part7/memex-blue.jpg" ><h1>Visions for the future of computing</h1>
+<h2>Cultures of Programming &mdash; Part 7</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Humanistic essays</h1>
+<h2>Imagining the future of computing</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide3"><div class="body1">
+<p><img src="img/part7/think.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>As we may think (1945)</h1>
+<p>"Consider a future device ... in which an individual stores all his books .. and communications, and which is mechanized so that it may be consulted with exceeding speed and flexibility. It is an enlarged intimate supplement to his memory."</p>
+</div>
+</div>
+</div>
+<style>.slide3 .body1 { width:400px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide4"><div class="body">
+<h1>Vannevar Bush</h1>
+<img src="img/part7/bush.jpg"/>
+<div>
+<h2>Background</h2>
+<ul>
+<li>Electrical Engineering at MIT (1919)</li>
+<li>Analog differential analyzer</li>
+<li>Inventor, science administrator</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Library problem</h2>
+<ul>
+<li>Modern scientific enterprise</li>
+<li>Need to "plough through hundreds of materials"</li>
+<li>Analog vision, based on microfiche</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide5"><div class="body1">
+<p><img src="img/part7/desk.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Bush's Memex system</h1>
+<p>Electromechanical device for information management</p>
+<p><strong>Associative trails</strong><br />
+Allows "linking" of files across human knowledge</p>
+<p><strong>Personal annotations</strong><br />
+Drawn on the desk, photographed and linked</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide6"><div class="body1">
+<p><img src="img/part7/symbiosis.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Man-Computer Symbiosis (1960)</h1>
+</div>
+<div class="fragment">
+<p>The hope is that, in not too many years, human brains and computing machines will be coupled together very tightly, and that the resulting partnership will think as no human brain has ever thought and process data in a way not approached by the information-handling machines we know today.</p>
+</div>
+</div>
+</div>
+<style>.slide6 .body1 { width:400px; } .slide6  h1 { font-size:26pt; letter-spacing:-1px; } .slide6  p { font-size:25pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide7"><div class="body">
+<h1>J. C. R. Licklider</h1>
+<img src="img/part7/jcr.jpg"/>
+<div>
+<h2>Background</h2>
+<ul>
+<li>PhD in psychoacoustics research</li>
+<li>Human factors of the SAGE system</li>
+<li>Moved from MIT to BBN</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Time-sharing systems</h2>
+<ul>
+<li>
+Learned about the idea from<br />
+Christopher Strachey
+</li>
+<li>Prototyped BBN Time-Sharing System</li>
+<li>Director at ARPA (1962, 1974)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide8"><h1>ARPA</h1>
+<h2>Information Processing Techniques Office</h2>
+<ul>
+<li><i class='fa fa-jet-fighter'></i> Command and control research for military</li>
+<li><i class='fa fa-keyboard'></i> Time-sharing via Project MAC, CTSS &amp; Multics</li>
+<li><i class='fa fa-network-wired'></i> ARPANET, the predecessor of the Internet</li>
+<li><i class='fa fa-users-rectangle'></i> Community behind NLS and Xerox PARC</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide9"><div class="body1">
+<p><img src="img/part7/klee.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Frieder Nake</h1>
+</div>
+<div class="fragment">
+<p><strong>Computer art pioneer</strong></p>
+<p>Two exhibitions<br />
+in Stuttgart and<br />
+New York in 1965</p>
+<p>Noll's study with recon&shy;struction of Mondrian's "Composition with Lines"</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide10"><div class="body1">
+<p><img src="img/part7/noart.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>There should be no computer art (1971)</h1>
+<p>"It seems to me that computer art is nothing but one of the latest fashions"</p>
+<p>"Computers ought not to be used for the creation of another art fashion."</p>
+</div>
+<div class="fragment">
+<p><strong>"Computers can and should be used in art in order to draw attention to new circumstances and connections and to forget art."</strong></p>
+</div>
+</div>
+</div>
+<style>.slide10 .body1 { width:350px; } .slide10  h1 { font-size:25pt; letter-spacing:-1.2px; } .slide10  p { font-size:25pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide11"><h1>Future of computing</h1>
+<h2>Humanistic perspectives</h2>
+<ul>
+<li><i class='fa fa-earth-americas'></i> What could computing do in the future?</li>
+<li><i class='fa fa-children'></i> Human at the centre of these visions!</li>
+<li><i class='fa fa-brain'></i> Empowering human to achieve more</li>
+<li><i class='fa fa-image'></i> Critical of the current practice</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide12"><div class="body">
+<h1>Programming</h1>
+<h2>Man-machine symbiosis</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide13"><div class="body1">
+<p><img src="img/part7/sketchpad.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Ivan Sutherland's Sketchapd (1963)</h1>
+<p>Predecessor of CAD systems for TX-2 with custom HW tweaks</p>
+<ul>
+<li>Light pen input</li>
+<li>Prototype-based abstraction model</li>
+<li>Visual constraints</li>
+</ul>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide14"><div class="body">
+<div>
+<iframe width="840" height="472" src="https://www.youtube.com/embed/6orsmFndx_o?si=yisLyHjg060JvcS-&amp;start=518" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide15"><div class="body">
+<h1>Ivan and Bert Sutherland</h1>
+<img src="img/part7/sutherland-prog.png"/>
+<div>
+<h2>Sketchpad project (1963)</h2>
+<ul>
+<li>"Communication system" in a subtitle</li>
+<li>Sketching, drawing, modelling</li>
+<li>Most expensive computer at the time</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Follow up project (1966)</h2>
+<ul>
+<li>Online graphical specification of computer procedures</li>
+<li>Programming using (then ubiquitous) flow-charts</li>
+<li>Inspired later tablet-based GRAIL system</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide16"><div class="body1">
+<p><img src="img/part7/pilot.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>A Step Toward Man-Computer Symbiosis</h1>
+<p>Warren Teitelman (1966)</p>
+<p><strong>Sources of inspiration</strong></p>
+<ul>
+<li>Interactive LISP editor</li>
+<li>Man-Computer Symbiosis</li>
+<li>Experimenting with running program in AI context</li>
+</ul>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide17"><div class="body">
+<h1>Lisp programming systems</h1>
+<img src="img/part7/interlisp.png"/>
+<div>
+<h2>PILOT</h2>
+<ul>
+<li>List transformation language FLIP</li>
+<li>Advising to modify procedures</li>
+<li>Lisp as a programming system</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>DWIM</h2>
+<ul>
+<li>Auto-correction system for Interlisp</li>
+<li>Parenthesisation and typos fixed interactively at runtime</li>
+<li>"Damn Warren's Infernal Machine"</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide18"><div class="body1">
+<p><img src="img/part7/symbolics.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Lisp machines</h1>
+<p>Lisp as the operating system with interactive programming support</p>
+</div>
+<div class="fragment">
+<p><strong>Accidental motivation</strong><br />
+PDP-10 used 36-bit words, subsequent computers had less</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide19"><div class="body">
+<h1>Programming</h1>
+<h2>Thinking about thinking</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide20"><div class="body1">
+<p><img src="img/part7/logo.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Logo environment (1967)</h1>
+<p>"The computer can be a mathe&shy;matics-speaking and analphabetic-speaking entity.
+We are learning how to make computers with which children love to communicate.
+When this communication occurs, children learn mathematics as a living language."</p>
+<p><strong>Piaget's theory of active learning</strong></p>
+</div>
+</div>
+</div>
+<style>.slide20 .body1 { width:350px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide21"><div class="body">
+<h1>MIT AI Lab</h1>
+<img src="img/part7/ailab.jpg"/>
+<div>
+<h2>Minsky and Papert</h2>
+<ul>
+<li>
+Extraordinary learning <br />
+in the hacker community
+</li>
+<li>Education research at BBN</li>
+<li>Thinking in humans, thinking in machines</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>LOGO research</h2>
+<ul>
+<li>Teaching "powerful ideas" such as meta-language</li>
+<li>Microwords for linguistics and drawing (turtle)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide22"><div class="body1">
+<p><img src="img/part7/buttonbox.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>"Revolutionary" educational ideas</h1>
+<p>Let children learn by working on their own</p>
+<p>Button box to see how early can kids learn</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide23"><div class="body">
+<div>
+<p><img src="img/part7/serendipity.png" alt="" /></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content nologo slide24"><div class="body">
+<div>
+<img src="img/part7/spi-out.png" style="float:right;max-width:350px">
+<h1>Serendipity</h1>
+<p>Computer environment made up of people, things, ideas.
+A way of thinking about computers and about learning
+and about talking about what you were doing.</p>
+<img src="img/part7/spi-in.png" style="max-width:250px;float:right; margin-top:20px">
+<ul>
+<li>
+Learning happens when<br />
+unexpected things happen
+</li>
+<li>Supportive environment</li>
+<li>Attention to wording</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="largeicons  slide25"><h1>Humanistic and hacker views</h1>
+<ul>
+<li>
+<i class='fa fa-hand'></i> <strong>Direct interaction with computer</strong><br />
+<i class="placeholder"></i>Supports human learning and understanding
+</li>
+<li>
+<i class='fa fa-rotate-right'></i> <strong>Modifying programs live</strong><br />
+<i class="placeholder"></i>Rapid feedback, guides understanding
+</li>
+<li>
+<i class='fa fa-money-bill-1'></i> <strong>At odds with managerial and engineering needs</strong><br />
+<i class="placeholder"></i>Too expensive, too easy to break
+</li>
+<li>
+<i class='fa fa-computer-mouse'></i> <strong>Exploring novel interfaces</strong><br />
+<i class="placeholder"></i>Visual programming, leverage visual thinking
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="content  slide26"><div class="body">
+<div>
+<p>Mother of All demos</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide27"><div class="body">
+<h1>Cultures of Programming</h1>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="08-xx.html"><i class="fa fa-arrow-right"></i>Continue to Part 8</a></h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
