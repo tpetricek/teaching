@@ -11,20 +11,19 @@ For my industry and research talks see [my Talks repository](http://github.com/t
 
 * **Theory of Programming Languages (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg085/).
-  See slides for [Introduction and operational semantics](https://tpetricek.github.io/teaching/2026/theory-pl/01-intro.html),  and more coming soon.
+  See slides for [Introduction and operational semantics](https://tpetricek.github.io/teaching/2026/theory-pl/01-intro.html), [Types for an imperative language](https://tpetricek.github.io/teaching/2026/theory-pl/03-types.html), [Properties of a small imperative language](https://tpetricek.github.io/teaching/2026/theory-pl/04-properties.html), and [Tuples, records and subtyping](https://tpetricek.github.io/teaching/2026/theory-pl/05-data.html). More slides coming soon.
 
 * **Cultures of programming (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg088/).
-  See slides for 
-   [Part 1](https://tpetricek.github.io/teaching/2026/cultures-of-programming/01-introduction.html), 
-   [Part 2](https://tpetricek.github.io/teaching/2026/cultures-of-programming/02-cultures.html), 
-   [Part 3](https://tpetricek.github.io/teaching/2026/cultures-of-programming/03-language.html), 
-   [Part 4](https://tpetricek.github.io/teaching/2026/cultures-of-programming/04-structured.html), 
-  and more coming soon.
+  See [list of currently available slides](https://tpetricek.github.io/teaching/2026/cultures-of-programming/#/1)
+  and [Cultures of programming lectures on YouTube](https://www.youtube.com/watch?v=Kjf6Min5UPw&list=PLa2r9y-Zblm0).
 
 * **Functions, trees, processes (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg086/).
-  See slides for [Introduction](https://tpetricek.github.io/teaching/2026/functions-trees/intro.html),  and more coming soon.
+  See slides for [Introduction](https://tpetricek.github.io/teaching/2026/functions-trees/intro.html),
+  [functions on early computers](https://tpetricek.github.io/teaching/2026/functions-trees/machines.html),
+  [functions and functional programming](https://tpetricek.github.io/teaching/2026/functions-trees/functional.html);
+  and more coming soon.
 
 ## Past courses at Matfyz
 
