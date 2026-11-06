@@ -484,4 +484,4 @@ is no way to assure the accuracy of the description
 - template: subtitle
 
 # Cultures of Programming
-## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 6](06-xxx.html)
+## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 6](06-mit.html)

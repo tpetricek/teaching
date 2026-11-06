@@ -26,6 +26,8 @@ _<i class="fa-brands fa-bluesky"></i>_ [@tomasp.net](https://bsky.app/profile/to
 - [**Part 3:** The invention of a programming language](03-language.html)
 - [**Part 4:** Mathematical science and structured programming](04-structured.html)
 - [**Part 5:** Fundamental limits of proofs of programs](05-proofs.html)
+- [**Part 6:** Interactive programming at MIT](06-mit.html)
+- [**Part 7:** Visions for the future of computing](07-visions.html)
 - (...)
 
 ****************************************************************************************************
