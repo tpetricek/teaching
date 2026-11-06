@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Functions, trees, processes (NPRG086)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG086: <strong>Functions, trees, processes</strong></h1>
+<h2>Functions and functional programming</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:42pt; } .slide1  h2 { font-size:35pt; margin-top:-30px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>From Lisp</h1>
+<h2>Functional language?</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide3"><div class="body1">
+<p><img src="img/functional/minds.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Origins</h1>
+<h2>Mark Priestley on Lisp</h2>
+<blockquote>
+<p>LISP was not based on the lambda calculus, despite using the word
+"LAMBDA" to denote functions. ... McCarthy
+was aware of (Church 1941) but had not studied it.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<style>.slide3 blockquote { margin-left:0px; } .slide3  .body1 { max-width:380px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide4"><div class="body">
+<h1>Real origins of Lisp</h1>
+<img src="img/functional/geometry.png"/>
+<div>
+<h2>Geometry theory machine</h2>
+<ul>
+<li>Theorems in plane geometry</li>
+<li>Own research on AI topics</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>FLPL (1958)</h2>
+<ul>
+<li>FORTRAN-compiled List-Processing Language</li>
+<li>Using 36-bit words for linked lists</li>
+<li>No recursion and other limitations</li>
+</ul>
+<!--
+https://instadeq.com/blog/posts/no-code-history-the-geometry-theorem-machine-1959/
+https://github.com/amno1/as-powerful-as-possible/blob/master/04%20FLPL.org
+-->
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide5"><div class="body1">
+<p><img src="img/functional/ial.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Dear Editor:</h1>
+<p>Two proposed additions<br />
+to IAL (later Algol)</p>
+<p><em>1. Conditional expression</em><br />
+<em>2. Recursive functions</em></p>
+</div>
+<div class="fragment">
+<p>The first was added, the second not forbidden</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide6"><div class="body">
+<h1>LISP I - Manual (1960)</h1>
+<img src="img/functional/funcs.png"/>
+<div>
+<h2>Two notations</h2>
+<ul>
+<li>"Normal" M-expressions</li>
+<li>List-based S-expressions</li>
+<li><code>LAMBDA</code> in the latter</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Language features</h2>
+<ul>
+<li>Lists based on FLPL</li>
+<li>First-class recursion support</li>
+<li>Imperative programming with <code>goto</code></li>
+<li>Higher-order functions like <code>maplist</code></li>
+</ul>
+</div>
+</div>
+<style>.slide6 .body img { max-width:450px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide7"><div class="body1">
+<p><img src="img/functional/eval.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Theoretical links</h1>
+<p><strong>Theory of recursive functions</strong><br />
+Refernece to partial recursive functions</p>
+<p><strong>Universal function</strong><br />
+<code>eval</code> function - first theoretical idea, later implemented</p>
+<p><em>(No reference to ADES)</em></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide8"><h1>Lisp</h1>
+<h2>How functions and variables worked</h2>
+<ul>
+<li><i class='fa fa-arrow-right'></i> Reduction in lambda-calculus <span class="math">\((\lambda x.e_1) e_2 \rightarrow_\beta e_1[x/e_2]\)</span></li>
+<li><i class='fa fa-microchip'></i> Not practical for actual implementation!</li>
+<li><i class='fa fa-list'></i> Variables stored in association list (a-list)</li>
+<li><i class='fa fa-list-check'></i> Most recent variable from a-list used</li>
+<li><i class='fa fa-eye'></i> Dynamic scoping - not as in lambda calculus!</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide9"><div class="body">
+<div>
+<h3>The Function of FUNCTION in LISP: Why the FUNARG problem Should be Called the Environment Problem</h3>
+<p><img src="img/functional/funarg.png" alt="" /></p>
+<ul>
+<li><code>a</code> assigned <code>2</code> inside <code>g</code></li>
+<li>function <code>f</code> is then returned</li>
+<li><code>a</code> assigned <code>0</code> before calling it</li>
+</ul>
+<br><br>
+</div>
+<div class="fragment">
+<h3>Not obvious!</h3>
+<ul>
+<li>Weizenbaum (1968), <em>The FUNARG Problem Explained</em></li>
+<li>Moses (1970), <em>The Function of FUNCTION in LISP Why the FUNARG problem...</em></li>
+<li>Sandewall (1971), <em>A proposed solution to the FUNARG problem</em></li>
+<li>Steele &amp; Sussman (1975), <em>The Lambda papers</em></li>
+</ul>
+</div>
+</div>
+<style>.slide9 img { float:right; max-height:350px; } .slide9  ul li { font-size:20pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide10"><h1>Faulty function (LISP I)</h1>
+<div class="body">
+<div>
+<p><img src="img/functional/slagle.png" alt="" /></p>
+<p>I must confess that I regarded this difficulty as just a bug and expressed confidence that
+Steve Russell would soon fix it. He did fix it, but by inventing the so-called FUNARG
+device that took the lexical environment along with the functional argument.</p>
+<div style="text-align:right">
+<p><em>(McCarthy, 1978)</em></p>
+</div>
+</div>
+</div>
+<style>.slide10 img { max-width:60%; margin:0px 20% 20px 20%; } .slide10  p { font-size:24pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide11"><h1>Aside: Semantics of Algol</h1>
+<div class="body">
+<div>
+<h3>The mechanical evaluation of expressions (1964)</h3>
+<blockquote>
+<p>We represent the value of a <span class="math">\(\lambda\)</span>-expression by a
+bundle of information called a "closure," comprising the
+<span class="math">\(\lambda\)</span>-expression and the environment relative to which
+it was evaluated.</p>
+</blockquote>
+<h3>Language semantics motivation</h3>
+<ul>
+<li>Landin's model of Algol using lambda calculus</li>
+<li>Recall Mervyn Pragnell's reading group!</li>
+<li>"similar to FUNARG" and in contrast to "literal substitution"</li>
+</ul>
+<!-- https://www.cs.cmu.edu/~crary/819-f09/Landin64.pdf -->
+</div>
+</div>
+<style>.slide11 blockquote p { font-size:24pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide12"><h1>Language semantics</h1>
+<div class="body">
+<div>
+<h3>How to model <code>goto</code> and returns?</h3>
+<ul>
+<li>
+<p><em>van Wijngaarden (1964)</em>: "Provide each procedure declaration with an extra formal
+parameter... and insert at the end [goto] leading to that formal parameter."</p>
+</li>
+<li>
+<p>Many names for the concept: <em>Landin (1964)</em> SECD "dump",
+<em>Mazurkiewicz (1969)</em> "tail function", <em>Morris (1970)</em> "label values",
+<em>Abdali (1973)</em> "program remainder"</p>
+</li>
+<li>
+<p><em>Wadsworth (1970)</em> "Once I'd coined the word [continuation] it all clicked and
+the rest followed."</p>
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide13"><h1>Continuations</h1>
+<h2>Shifting motivations</h2>
+<ul>
+<li>
+<i class='fa fa-person-chalkboard'></i> <strong>Programming language semantics</strong><br />
+<i class="placeholder"></i>Wijngaarden, Landin, Morris, Wadsworth
+</li>
+<li>
+<i class='fa fa-not-equal'></i> <strong>Proving program properties</strong><br />
+<i class="placeholder"></i>Mazurkiewicz, Strachey
+</li>
+<li>
+<i class='fa fa-cog'></i> <strong>Managing environments efficiently</strong><br />
+<i class="placeholder"></i>Fischer, Steele and Sussman
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide14"><h1>Scheme: The Lambda papers</h1>
+<ul>
+<li>
+<i class='fa fa-terminal'></i> <strong>Scheme: An Interpreter for Extended LC</strong> (1975)<br />
+<i class="placeholder"></i>Lexically scoped Lisp with closures, explaining actors
+</li>
+<li>
+<i class='fa fa-code'></i> <strong>Lambda: The Ultimate Imperative</strong> (1976)<br />
+<i class="placeholder"></i>GOTO, assignment and loops modelled with CPS
+</li>
+<li>
+<i class='fa fa-tag'></i> <strong>Lambda: The Ultimate Declarative</strong> (1976) <br />
+<i class="placeholder"></i>Lambda as naming; does not need to return!
+</li>
+<li>
+<i class='fa fa-bolt'></i> <strong>Debunking the "Expensive Procedure Call" Myth</strong> (1977)<br />
+<i class="placeholder"></i>Using tail calls to compile calls effectively
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists nologo slide15"><div class="body">
+<h1>Lessons from the Lisp history</h1>
+<img src="img/functional/sicp.jpg"/>
+<div>
+<h2>Functions in Lisp</h2>
+<ul>
+<li>Funarg problem fixed via workarounds</li>
+<li>"Monster" function to be "fixed"</li>
+<li>15 years from Lisp to Scheme!</li>
+<li>Not a practical engineering problem?</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Influences across levels</h2>
+<ul>
+<li>AI motivations, weak lambda calculus link</li>
+<li>Continuations move from semantics to implementation</li>
+<li>Theoretical influence leads to (successful) Scheme</li>
+</ul>
+</div>
+</div>
+<style>.slide15 .body img { max-width:260px !important; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide16"><div class="body">
+<h1>Towards Haskell</h1>
+<h2>Functional programming!</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide17"><h1>Peter Landin</h1>
+<div class="body">
+<div>
+<h3>Actual lambda calculus influence</h3>
+<p>From Roger Penrose via Mervy Pragnell's reading group</p>
+</div>
+<div class="fragment">
+<h3>Lambda calculus for semantics and design</h3>
+<ul>
+<li>The mechanical evaluation of expressions (1964)</li>
+<li>A correspondence between ALGOL 60 and LC (1965)</li>
+<li>A Generalization of Jumps and Labels (1965)</li>
+<li>The next 700 programming languages (1966)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide18"><div class="body">
+<h1>Peter Landin</h1>
+<img src="img/functional/landin.png"/>
+<div>
+<h3>Papers on semantics</h3>
+<ul>
+<li>SECD (stack, env, control, dump)</li>
+<li>Language constructs translate to LC</li>
+<li>Closure = function + environment</li>
+</ul>
+</div>
+<div class="fragment">
+<h3>ISWIM and 700 PLs</h3>
+<ul>
+<li>Design range of LC-based languages</li>
+<li>Prefers <em>denotative</em> over <em>functional</em> or <em>declarative</em></li>
+<li>Function definitions in a modern functional sense</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide19"><div class="body">
+<h1>Early functional-style languages</h1>
+<img src="img/functional/pal.png"/>
+<div>
+<h2>PAL (MIT, 1967)</h2>
+<!-- [manual](https://softwarepreservation.computerhistory.org/PAL/Pal-ref-man.pdf)-->
+<ul>
+<li>ISWIM implementation in BCPL</li>
+<li><em>Small applicative subset</em> (lambdas, functions, tuples, conditional, let)</li>
+<li><em>Imperative</em> (assignment, goto)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>COWSEL/POP-1 (1966)</h2>
+<ul>
+<li>Partial function application (misnomer)</li>
+<li>Dynamic scoping (for memory/engineering reasons)</li>
+<li>Frozen formals <code>(% ... %)</code> akin to <code>FUNARG</code></li>
+</ul>
+<!-- https://web.archive.org/web/20010414045135/http://www-robotics.cs.umass.edu/~pop/pop_development.html -->
+</div>
+<div class="fragment">
+<h2>POP-2 (Edinburgh, 1970)</h2>
+<ul>
+<li>Algol-inspired with "functions first-class"</li>
+<li>Burstall addressing Strachey's complaint about Algol</li>
+</ul>
+</div>
+</div>
+<style>.slide19 li { font-size:24pt; } .slide19  h2 { font-size:26pt; margin:10px 0px 5px 0px; } .slide19  h1 { font-size:36pt; margin:0px 0px 20px 0px;} .slide19  ul { margin-bottom:20px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide20"><h1>Theoretical work</h1>
+<h2>Typed lambda calculus</h2>
+<ul>
+<li><i class='fa fa-file'></i> Scott (1970s) - <em>Type-theoretical alternative to ISWIM</em></li>
+<li><i class='fa fa-superscript'></i> Typed LC model with denotational semantics</li>
+<li><i class='fa fa-heart-crack'></i> Functions are partial (bottom element)</li>
+<li><i class='fa fa-arrow-rotate-left'></i> Made unnecessary by model of untyped LC</li>
+<li><i class='fa fa-shapes'></i> Morris, Reynolds (1970s) - <em>Theory of type structure</em></li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists smaller nologo slide21"><div class="body">
+<h1>LCF/ML (Milner, late 1970s)</h1>
+<img src="img/functional/milner.jpg"/>
+<div>
+<h2>LCF theorem prover</h2>
+<ul>
+<li>Aims to prove compiler correctness</li>
+<li>Scott's <em>Logic for Computable Function</em></li>
+<li>
+Interactive <em>Stanford LCF</em> theorem prover<br />
+(made possible by time-sharing?)
+</li>
+<li><em>Edinburgh LCF</em> adds meta-language</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Meta-language</h2>
+<ul>
+<li>Write code to construct theorems in LCF</li>
+<li>Types used to ensure correctness</li>
+<li>Becomes a programming language (HOPE, VAX ML, SML)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide22"><h1>Formal verification</h1>
+<h2>From PL/CV to NuPrl</h2>
+<ul>
+<li><i class='fa fa-check'></i> <em>PL/1</em> language with support for correctness proofs</li>
+<li><i class='fa fa-arrow-right'></i> Difficulties getting "functions right" (first-class)</li>
+<li><i class='fa fa-graduation-cap'></i> <em>ALGOL 68</em> does not; <span class="math">\(\lambda\)</span>-calculus "not respectable"</li>
+<li><i class='fa fa-subscript'></i> <em>Martin-Löf's</em> theory to clarify "intuitionistic mathematics"</li>
+<li><i class='fa fa-square-check'></i> Adopted by Constable for <em>Nuprl</em> (PL/CV follow-up)</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide23"><h1>Functional programming</h1>
+<div class="body">
+<div>
+<h3>Can Programming Be Liberated from the von Neumann Style? A Functional Style and Its Algebra of Programs</h3>
+<p>Backus, Turing Award lecutre (1978)</p>
+</div>
+<div class="fragment">
+<blockquote>
+<p>Just as structured programming eschews many control statements to obtain programs
+with simpler structure, better properties, and uniform methods for understanding their behavior,
+so functional programming eschews the lambda expression, substitution, and multiple
+function types.</p>
+</blockquote>
+<p><strong>Functional programming terminology, but talks about
+algebra of programs and formal reasoning</strong></p>
+</div>
+</div>
+<style>.slide23 blockquote { margin-left:0px; } .slide23  blockquote p { font-size:24pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide24"><h1>Backus lecture</h1>
+<h2>Unexpected effects</h2>
+<ul>
+<li><i class='fa fa-hourglass'></i> Agreement on <em>von Neumann bottleneck</em></li>
+<li><i class='fa fa-users'></i> Adoption of the term <em>functional programming</em></li>
+<li><i class='fa fa-x'></i> Most kept lambda functions and variables</li>
+<li><i class='fa fa-church'></i> Presents past work from LC perspective</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide25"><div class="body">
+<div>
+<!--
+-> Mythology
+(ignores "styles" c.f. Priestley; only languages)
+~
+[Dijkstra](https://www.cs.utexas.edu/~EWD/transcriptions/EWD06xx/EWD692.html)
+-->
+<h1>Caveats</h1>
+<h3>Dijkstra's criticism of the talk</h3>
+<blockquote>
+<p>In short, the article is a progress report on a valid research effort but suffers badly from aggressive overselling of its significance, long before convincing results have been reached. This is the more regrettable as it has been published by way of Turing Award Lecture.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<h3>Well-founded critique</h3>
+<ul>
+<li>Algebra of programs exists, but more academic</li>
+<li>Later work on FP tries to develop optimizations...</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide26"><h1>Functional programming</h1>
+<div class="body">
+<div>
+<h3>SASL (Turner, 1978), KRC (Turner, 1982)</h3>
+<p>Lazy, purely functional programming languages</p>
+<h3>Miranda (Turner, 1985)</h3>
+<p>Purely functional, non-strict language with<br />
+Hindley–Milner polymorphism in one system</p>
+<h3>Haskell (1990)</h3>
+<p>Program is a function, mostly follows Miranda,<br />
+Type classes as a main additional novelty</p>
+<!--
+Also:
+**"Why functional programming matter" (Hughes, 1984-89)** - builds more the FP intution
+-->
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide27"><div class="body">
+<h1>Conclusions</h1>
+<h2>Functional programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide28"><h1>Many ideas struggle</h1>
+<div class="body">
+<div>
+<h3>Possibly before firm link across formal, <br> implementation and intuitive levels?</h3>
+<ul>
+<li><em>First-class functions</em> (ALGOL, PL/CV, LISP)</li>
+<li>Links to <em>recursion</em> &amp; <em>lambda calculus</em> (ADES, LISP)</li>
+<li><em>Variable binding</em> (von Neumann) and <em>scoping</em> (LISP)</li>
+<li><em>Continuations</em> (from semantics to implementation)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide29"><h1>Interactions across levels</h1>
+<div class="body">
+<div>
+<h3>Between theory and practice</h3>
+<ul>
+<li>Translation to a small formal model</li>
+<li>ISWIM as theory, Scheme as implementation</li>
+<li>Not obvious well-documented link</li>
+</ul>
+<h3>From theory to intuition</h3>
+<ul>
+<li>Backus' FP system and von Neuman bottleneck</li>
+<li>Main effect on thinking about functional programming!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide30"><h1>Monsters</h1>
+<ul>
+<li>
+<i class='fa fa-skull-crossbones'></i> <strong>Pseudo-functions with effects (print) in LISP 1.5</strong><br />
+<i class="placeholder"></i>Eliminated in pure functional languages
+</li>
+<li>
+<i class='fa fa-dragon'></i> <strong>Laziness in LC, but not mathematical functions</strong><br />
+<i class="placeholder"></i>Simplifies calling conventions of Algol
+</li>
+<li>
+<i class='fa fa-bugs'></i> <strong>Funarg problem seen as something to be fixed</strong><br />
+<i class="placeholder"></i>Fixes eventually replaced by different approach
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide31"><div class="body">
+<div>
+<!--
+    - **pseudo**-functions (like print, and other effects) in [LISP 1.5](https://softwarepreservation.computerhistory.org/LISP/book/LISP%201.5%20Programmers%20Manual.pdf)
+    - laziness is a funny aspect
+    ~
+    OTHER NOTES
+    ~
+    1. **Machine lineage** vs. **mathematical lineage**
+    2. First attempt to use mathematics/LC fail (von Neuman & Goldstine; Landin & Strachey; ADES based on theory of recursive functions)
+    3. Post-LIPS import of lambda succeeds - why? it is actually implemented and 'works'!
+    ~
+    1. Mathematical intuition and engineering implementation disconnected at first (function vs subroutine)
+    2. Engineering notion develops without link to theory or intuition
+    ~
+    # Imports
+    ~
+    **Nothing is done properly though!**
+    ~
+    - free and bound variables imported by von neumann
+    - everyone imports 'function' (sin, etc.)
+    - Church imports lambda notation
+    - as much from Recursive function theory as Lambda Calculuc
+    (Later, Scheme does it right)
+    ~
+    # What is a function?
+    - different operationalizations??
+    # Naming
+    ~
+    - Routines and subroutines in the early days
+    - Functions struggle to materialize before Bacus
+    - Functional programming - shift after Backus
+    - template: content
+    ~
+    # Interactions
+    ~
+    - Practice develops first from scratch (subroutines)
+    - Intuition is imported from commonsense mathematics (functions implemented by subroutines)
+    - Later intuition (lambda calculus) reveals gaps
+    - Theory develops later, transforming practice (Scheme)
+    - Purity is an attempt to make FP more "mathematical"
+    - Laziness is an implementation aspect not existing in mathematical functions (but existing in LC)
+-->
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
