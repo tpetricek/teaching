@@ -21,8 +21,9 @@ For my industry and research talks see [my Talks repository](http://github.com/t
 * **Functions, trees, processes (2026)** -
   For more information, see [the official course page](https://d3s.mff.cuni.cz/teaching/nprg086/).
   See slides for [Introduction](https://tpetricek.github.io/teaching/2026/functions-trees/intro.html),
-  [functions on early computers](https://tpetricek.github.io/teaching/2026/functions-trees/machines.html),
-  [functions and functional programming](https://tpetricek.github.io/teaching/2026/functions-trees/functional.html);
+  [Functions on early computers](https://tpetricek.github.io/teaching/2026/functions-trees/machines.html),
+  [Functions and functional programming](https://tpetricek.github.io/teaching/2026/functions-trees/functional.html),
+  [Monads](https://tpetricek.github.io/teaching/2026/functions-trees/monads.html);
   and more coming soon.
 
 ## Past courses at Matfyz
