@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Functions, trees, processes (NPRG086)</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style type="text/css">
+
+ 			@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:ital,wght@0,100;0,300;0,700;1,100&family=Titillium+Web:wght@200;400;600&display=swap');
+			.reveal .slides {
+				text-align:left;
+				xbackground:yellow;
+				color:#003657;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:600 44pt 'Titillium Web', sans-serif;
+				padding:0px;
+				margin:0px;
+				color:#d22d40;
+				line-height:1.2em;
+			}
+			h2 {
+				font:200 40pt 'Titillium Web', sans-serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:100 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+      p em, li em {
+        color:#d22d40;
+        font-style:normal;
+      }
+			h3 {
+				font:700 30pt 'Roboto', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 em {
+				font-style:normal;
+				font-weight:300;
+			}
+			strong {
+				font-weight:300;
+			}
+			a {
+				text-decoration:none;
+				color:#0065A0;
+			}
+			a:hover, a:active {
+				color:#0081CC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			.smallcode pre code {
+				font-size:15pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:#008000 !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:26pt; margin-bottom:20px; margin-top:0px; } /* was 40px */
+			.content p { margin-bottom:20px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.two-column pre, .content.two-column blockquote { margin-left:0px; }
+			.content.three-column img { max-width:200px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:30px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:26pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; }
+			.title h2 { margin-top:-40px; font-weight:200; }
+      .title p em { color:#003657; }
+			.title.swapped h1 { font-size:34pt; font-weight:200; margin-top:20px; }
+			.title.swapped h2 { margin-top:-30px; color:#d22d40; font-weight:400; }
+			.title h2 strong { font-weight:400; }
+			.title .body { position:absolute; bottom:40px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:24pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 p { margin:50px 0px 0px 0px; }
+			.image .body1 img { max-width:500px;max-height:500px; border:3px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.image p { margin-top:20px; font-size:26pt; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+      .image.bigger .body1 { width:560px; }
+			.image.bigger .body1 img { max-width:540px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+			.image.smaller2x .body1 { width:420px; }
+			.image.smaller2x .body1 img { max-width:380px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:#d22d40; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; }
+			.code li { margin:0px; font-size:26pt; }
+			.code ul { position:relative; left:35px; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+      .code.larger .body1 { width:560px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:120px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+
+			/* DECK-SPECIFIC */
+			#qr { position:absolute; right:-50px; bottom:-30px; width:150px; border:60px solid white; }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title  slide1"><h1>NPRG086: <strong>Functions, trees, processes</strong></h1>
+<h2>Monads in functional programming</h2>
+<div class="body">
+<p><strong>Tomáš Petříček</strong>, 204 (2nd floor)<br />
+<em><i class="fa fa-envelope"></i></em> <a href="mailto:petricek@d3s.mff.cuni.cz">petricek@d3s.mff.cuni.cz</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net"><a href="https://tomasp.net">https://tomasp.net</a></a></p>
+</div>
+<style>.slide1 h1 { font-size:42pt; } .slide1  h2 { font-size:35pt; margin-top:-30px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Background</h1>
+<h2>Thinking about monads</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide3"><div class="body">
+<div>
+<p><img src="img/monads/shirt.jpg" alt="" /></p>
+</div>
+</div>
+<style>.slide3 .body img { margin:0px 200px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide4"><h1>Monads in category theory</h1>
+<div class="body">
+<div>
+<p>A <em>monad</em> over a category <span class="math">\(\mathcal{C}\)</span> is a triple <strong><span class="math">\((T, \eta, \mu)\)</span></strong>
+where<br /> <strong><span class="math">\(T : \mathcal{C} \rightarrow \mathcal{C}~\)</span></strong> is a functor, <strong><span class="math">\(\eta : {Id}_{\mathcal{C}} \rightarrow T\)</span></strong> and<br />
+<strong><span class="math">\(\mu : T^2 \rightarrow T\)</span></strong> are natural transformations such that:</p>
+<p><span class="math">\[\begin{array}{l}
+\mu_{A} \circ T \mu_A = \mu_{A} \circ \mu_{T A} \\
+\mu_{A} \circ \eta_{T A} = \mathit{id}_{T A} = \mu_{A} \circ T \eta_{A}
+\end{array}\]</span></p>
+<p><span class="math">\[\definecolor{mc}{RGB}{137,64,96}
+\newcommand{\mbnd}{&gt;\!\hspace{-0.25em}&gt;\!\hspace{-0.27em}=}\]</span></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide5"><h1>Monads in programming</h1>
+<div class="body">
+<div>
+<p>A <em>monad</em> is a triple <span class="math">\((M, \mathit{unit}, \mbnd)\)</span> consisting of a type<br />
+constructor <span class="math">\(M\)</span> and two operations of the following types:</p>
+<p><span class="math">\[\begin{array}{lcl}
+\mbnd &amp;::&amp; M x \rightarrow (x\rightarrow M y) \rightarrow M y\\
+\mathit{unit} &amp;::&amp; x\rightarrow M x\\
+\end{array}\]</span></p>
+<p>These operations must satisfy the following laws:<br /></p>
+<p><span class="math">\[\begin{array}{l}
+\mathit{unit}~a~\mbnd~f ~=~ f a\\
+m~\mbnd~\mathit{unit} ~=~ m\\
+(m~\mbnd~f)~\mbnd~g ~=~ m~\mbnd~(\lambda x.f x~\mbnd~g)
+\end{array}\]</span></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle  slide6"><div class="body">
+<h1>Metaphors</h1>
+<h2>Explaining monads</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide7"><h1>Monads as a formal entity</h1>
+<div class="body">
+<div>
+<h3>Monad is a data type</h3>
+<p>Data type <code>M a</code> with operations (satisfying monad laws)</p>
+<p>Operation <code>return</code> has a type <code>a -&gt; M a</code><br />
+Operation <code>&gt;&gt;=</code> has a type <code>(a -&gt; M b) -&gt; (M a -&gt; M b)</code></p>
+</div>
+<div class="fragment">
+<h3>Many examples of monads</h3>
+<ul>
+<li><code>List a</code> - list of zero or more <code>a</code> values</li>
+<li><code>Maybe a</code> - either <code>Just a</code> or <code>Nothing</code></li>
+<li><code>Reader a</code> and <code>State a</code> for managing state...</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide8"><h1>Monads as containers</h1>
+<div class="body">
+<div>
+<h3>Monad is like a box of things</h3>
+<img src="img/monads/box-1.png" style="width:80%;border-style:none;margin:0px;margin-top:20px" class="fragment"/>
+<img src="img/monads/box-2.png" style="width:80%;border-style:none;margin:0px" class="fragment"/>
+<img src="img/monads/box-3.png" style="width:80%;border-style:none;margin:0px" class="fragment"/>
+<img src="img/monads/box-4.png" style="width:80%;border-style:none;margin:0px" class="fragment"/>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content noborder slide9"><h1>Monads as computations</h1>
+<div class="body">
+<div>
+<h3>Monad is like a railway track</h3>
+<img src="img/monads/rail-0.png" style="width:90%;margin:0px;margin-top:50px" class="fragment"/>
+<br />
+<br />
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content noborder slide10"><h1>Monads as computations</h1>
+<div class="body">
+<div>
+<h3>Monad is like a railway track</h3>
+<img src="img/monads/rail-1.png" style="width:90%;margin:0px;margin-top:50px" />
+<br />
+<br />
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content noborder slide11"><h1>Monads as computations</h1>
+<div class="body">
+<div>
+<h3>Monad is like a railway track</h3>
+<img src="img/monads/rail-2.png" style="width:90%;margin:0px;margin-top:50px" />
+<br />
+<br />
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content noborder slide12"><h1>Monads as computations</h1>
+<div class="body">
+<div>
+<h3>Monad is like a railway track</h3>
+<img src="img/monads/rail-3.png" style="width:90%;margin:0px;margin-top:50px" />
+<br />
+<br />
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide13"><h1>Metaphors</h1>
+<h2>Thinking about monads</h2>
+<ul>
+<li><i class='fa fa-brain'></i> Cognitive view of maths (Lakoff &amp; Núñez)</li>
+<li><i class='fa fa-car-side'></i> Movement when composing computations</li>
+<li><i class='fa fa-gift'></i> Inside/outside when using containers</li>
+<li><i class='fa fa-rainbow'></i> Metaphors criticised as too concrete!</li>
+<li><i class='fa fa-cart-shopping'></i> Symbol pushing also a metaphor...</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide14"><div class="body">
+<h1>Origins</h1>
+<h2>Programming with monads (1985-95)</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide15"><h1>Functions</h1>
+<h2>Problematic extra behaviour</h2>
+<ul>
+<li><i class='fa fa-arrow-rotate-right'></i> <strong>Partiality</strong> - function not defined / not terminating</li>
+<li><i class='fa fa-heart-crack'></i> <strong>Exceptions</strong> - computations fail with no result</li>
+<li><i class='fa fa-computer-mouse'></i> <strong>Input/output</strong> - interaction with the environment</li>
+<li><i class='fa fa-code-fork'></i> <strong>Non-determinism</strong> - produce multiple results</li>
+<li><i class='fa fa-font'></i> <strong>Parsers</strong> - detect patterns in input stream</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide16"><div class="body">
+<h1>Two struggles with extra behaviour</h1>
+<img src="img/monads/semantics.jpg"/>
+<div>
+<h2>Formal semantics</h2>
+<ul>
+<li>Formal model of real-world programming languages</li>
+<li>Deal with messy aspects of reality</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Language design</h2>
+<ul>
+<li>Unify handling of multiple aspects</li>
+<li>Encode extras in pure languages</li>
+<li>
+Most can be encoded already,<br />
+but some cannot (input/output)
+</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller nologo slide17"><div class="body1">
+<p><img src="img/monads/partial.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Case #1: Partiality</h1>
+<h2>(Moggi, 1988)</h2>
+<p>Reasoning about partial functions that may fail or may not terminate</p>
+<p><strong>Defines category of<br />
+partial functions</strong></p>
+<p>Dana Scott's domain-theoretic models &amp; LCF</p>
+<p><strong>Language semantics</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide18"><div class="body">
+<h1>Case #2: Lists of successes <em>(Wadler, 1985)</em></h1>
+<img src="img/monads/replace.png"/>
+<div>
+<h2>Model extras as lists</h2>
+<ul>
+<li>Failures (one or zero)</li>
+<li>Backtracking (lazy lists)</li>
+<li>Parsing (list of matches)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>List comprehensions notation</h2>
+<ul>
+<li>Miranda's <code>[ a + b | a &lt;- foo, b &lt;- foo ]</code></li>
+<li>
+Translated to list-processing primitives<br />
+<code>flatMap : a list -&gt; (a -&gt; b list) -&gt; b list</code>
+</li>
+<li>Syntax works for many extras!</li>
+<li>Not recognized as monadic (yet)</li>
+</ul>
+</div>
+</div>
+<style>.slide18 h1 em { font-weight:400; font-style:normal; } .slide18  h1 { font-size:37pt; } .slide18 
+img { max-width:450px !important;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide19"><div class="body">
+<h1>Lists and exceptions <em>(Spivey, 1989 &amp; 1990)</em></h1>
+<img src="img/monads/spivey.png"/>
+<div>
+<h2>Theory of lists (1989)</h2>
+<ul>
+<li>Categorical model of lists &amp; expr trees</li>
+<li>"monads seem especially promising"</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Theory of exceptions (1990)</h2>
+<ul>
+<li><span class="math">\(\bullet : (\alpha \rightarrow \beta) \rightarrow \textnormal{maybe}~\alpha \rightarrow \textnormal{maybe}~\beta\)</span></li>
+<li><span class="math">\(prop : \textnormal{maybe}~(\textnormal{maybe}~\alpha) \rightarrow \textnormal{maybe}~\alpha\)</span></li>
+<li><span class="math">\(succeed : \alpha \rightarrow \alpha\)</span> [sic]</li>
+<li>Monad, forming category via Kleisli construction</li>
+<li>Derive laws of list comprehensions</li>
+</ul>
+</div>
+</div>
+<style>.slide19 h1 em { font-weight:400; font-style:normal; } .slide19  h1 { font-size:37pt; } .slide19 
+li { list-style-type:square; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide20"><h1>Kent Applicative Operating System</h1>
+<div class="body">
+<div>
+<p><img src="img/monads/kent.jpg" alt="" /></p>
+<p><strong>John Cupitt</strong> (Kent, 1988, 1989)
+14,000 lines of Miranda code</p>
+<p>Refined Simon Thompsons interaction combinators</p>
+<pre><code class="language-text">return : a -&gt; interact a
+comp : (a -&gt; interact b) -&gt; (interact a -&gt; interact b)
+</code></pre>
+<p>Based on stream-based input/output model (Landin, 1970s)<br />
+<code>Dialogue = [Response] -&gt; [Request]</code> (Haskell 1.2, 1985)</p>
+<p>Monadic operations but without reference!</p>
+</div>
+</div>
+<style>.slide20 img { float:right; max-width:350px; margin-top:-20px; } .slide20  h1 { font-size:36pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide21"><h1>Notions of computation &amp; monads <em>(Moggi, 89-91)</em></h1>
+<div class="body">
+<div>
+<p>Cites discussion with Martin Hyland at PhD defence<br />
+Categorical semantics of computation based on monads</p>
+<p><img src="img/monads/moggi.png" alt="" /></p>
+</div>
+</div>
+<style>.slide21 h1 em { font-weight:200; font-style:normal; } .slide21  h1 { font-size:34pt; letter-spacing:-1.5px; } .slide21 
+img { max-width:700px; margin-left:80px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide22"><h1>Model</h1>
+<h2>Supercooled liquid?</h2>
+<ul>
+<li><i class='fa fa-arrow-left'></i> List comprehensions syntax</li>
+<li><i class='fa fa-square'></i> Two ways of expressing monads (bind/join)</li>
+<li><i class='fa fa-repeat'></i> Links to monads in category theory</li>
+<li><i class='fa fa-list'></i> Definitions of monads for common extras</li>
+<li><i class='fa fa-building-columns'></i> Oxford, Edinburgh, Kent, Glasgow</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide23"><div class="body1">
+<p><img src="img/monads/compre.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Comprehending monads</h1>
+<h2>(Wadler, 1990-92)</h2>
+<p><strong>Monads for design</strong></p>
+<p>Examples of monads from Moggi - strictness, parsers, state, exceptions, IO</p>
+<p>From list comprehensions to monad comprehensions</p>
+<p>Join or "container" model</p>
+</div>
+</div>
+</div>
+<style>.slide23 h1 { font-size:28pt; } .slide23  h2 { font-size:26pt; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide24"><div class="body">
+<h1>Applications</h1>
+<h2>Lazy functional IO</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide25"><h1>Changing world <em>(Wadler, 1990)</em></h1>
+<div class="body">
+<div>
+<p>An old canard against functional languages is that they cannot change the world:</p>
+<p>They do not "naturally" cope with changes of state, such as altering a location in memory,
+changing a pixel on a display, or sensing when a key is pressed.</p>
+</div>
+</div>
+<style>.slide25 p { font-size:30pt; font-style:italic; } .slide25  h1 em { font-style:normal; font-weight:300; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide26"><div class="body">
+<h1>Earlier ways of handling IO</h1>
+<img src="img/monads/wadler.jpg"/>
+<div>
+<h2>Stream-based models</h2>
+<ul>
+<li><code>[Response]-&gt;[Request]</code> function</li>
+<li>Recursion to manage state</li>
+<li>Use combinators to compose</li>
+<li>Haskell 1.2 original model</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>World-based models</h2>
+<ul>
+<li>Take <code>World</code> and return new <code>World</code></li>
+<li>Can be duplicated, used &amp; discarded!</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide27"><div class="body1">
+<p><img src="img/monads/linear.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Linear types can change the world</h1>
+<h2>(Wadler, 1990)</h2>
+<p>Two operations to rule out!</p>
+<ul>
+<li><code>dup a = (a, a)</code></li>
+<li><code>kill a = ()</code></li>
+</ul>
+<p>Type system based on ideas from linear logic</p>
+<p><strong>Lot to add to Haskell!</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content bigger slide28"><h1>Imperative functional programming<br> <em>(Peyton Jones &amp; Wadler, 1993)</em></h1>
+<div class="body">
+<div>
+<p><img src="img/monads/io.png" alt="" /></p>
+<h3>Works thanks to laziness!</h3>
+<ul>
+<li>Type <code>IO a</code> for effectful computations</li>
+<li>Operation <code>seqIO : IO () -&gt; IO a -&gt; IO a</code></li>
+</ul>
+</div>
+</div>
+<style>.slide28 h1 { font-size:30pt; } .slide28  h1 em { font-style:normal; font-weight:200; } .slide28  img { max-height:250px; margin-left:80px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide29"><h1>Monads</h1>
+<h2>Handling input and output</h2>
+<ul>
+<li><i class='fa fa-ice-cream'></i> Linear types fit research programme!</li>
+<li><i class='fa fa-cogs'></i> Sound theory, impractical for implementation</li>
+<li><i class='fa fa-computer'></i> Monads as an alternative practical solution</li>
+<li><i class='fa fa-clipboard-question'></i> Unclear what the IO monad denotes</li>
+<li><i class='fa fa-comments'></i> Criticisms - is it even a monad??</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide30"><div class="body">
+<h1>Not the essence</h1>
+<h2>Metaphors and syntax</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide31"><h1>Essence of Functional Programming <em>(Wadler, 1992)</em></h1>
+<div class="body">
+<div>
+<p><img src="img/monads/regret.png" alt="" /></p>
+</div>
+<div class="fragment">
+<h3>Why have regrets about syntax?</h3>
+<p>Syntax is not <strong>the essence</strong> of the idea!<br />
+Becomes very useful and important in practice...<br />
+Not part of the research programme?</p>
+</div>
+</div>
+<style>.slide31 h1 { font-size:30pt; } .slide31  h1 em { font-style:normal; font-weight:200; } .slide31 
+img { margin-bottom:40px;}</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content two-column slide32"><h1>Two notations for monads</h1>
+<div class="body">
+<div>
+<h3>Comprehensions</h3>
+<p>Existed before for lists<br />
+Used to handle extras!</p>
+<pre><code>  [ a + b |
+      a &lt;- foo
+      b &lt;- bar ]
+</code></pre>
+<p>Generalized but dropped<br />
+<strong>Monad as container</strong></p>
+</div>
+<div class="fragment">
+<h3>Monad syntax</h3>
+<p>Introduced in IO context
+Launchbury's Gofer (1993)</p>
+<pre><code class="language-text">{ a &lt;- foo;
+  b &lt;- bar
+  return (a + b) }
+</code></pre>
+<p>Added to Haskell in 96<br />
+<strong>Monad as computation</strong></p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide33"><div class="body1">
+<p><img src="img/monads/sql.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>SQL comprehensions</h1>
+<p><strong>Bringing back monad comprehensions</strong></p>
+<p>Requires additional operations: groupWith, filter, zipWith, etc.</p>
+<p>Practical motivation, no categorical model!</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide34"><h1>The F# Computation Zoo</h1>
+<div class="body">
+<div>
+<p><img src="img/monads/zoo.png" alt="" /></p>
+</div>
+</div>
+<style>.slide34 .body img { transform: scale(1.1); margin-left:40px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide35"><h1>Monads</h1>
+<h2>Comprehensions and do notation</h2>
+<ul>
+<li><i class='fa fa-seedling'></i> Essential part of the origins!</li>
+<li><i class='fa fa-box-archive'></i> Comprehensions for containers</li>
+<li><i class='fa fa-circle-play'></i> Do notation for computations</li>
+<li><i class='fa fa-newspaper'></i> Interesting research extensions</li>
+<li><i class='fa fa-wand-sparkles'></i> Syntax seen as spurious design aspect</li>
+<li><i class='fa fa-hand'></i> In principle not needed, but...</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide36"><div class="body">
+<h1>Challenges</h1>
+<h2>Monadic parsers (or not)</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide37"><h1>Tempting harmful abstraction?</h1>
+<div class="body">
+<div>
+<p><code>Parser a</code> reads input string and produces value <code>a</code></p>
+</div>
+<div class="fragment">
+<ul>
+<li>
+<p>Parse one thing and then another thing<br />
+<code>Parser a -&gt; Parser b -&gt; Parser (a * b)</code></p>
+</li>
+<li>
+<p>Try parsing in two ways, use the first success<br />
+<code>Parser a -&gt; Parser a -&gt; Parser a</code></p>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Parsers can be extended to support<br />
+monadic operations <code>&gt;&gt;=</code> and <code>return</code>.</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="code smaller slide38"><div class="body1">
+<pre><code class="language-haskell">-- Parse array literal
+ints :: Parser [Int]
+ints =
+ [ n:ns |
+    _ &lt;- char ’[’
+    n &lt;- int
+    ns &lt;- many nint
+    _ &lt;- char ’]’]
+
+-- Parse int after comma
+nint :: Parser Int
+nint =
+ [ x |
+    _ &lt;- char ’,’
+    x &lt;- int ]    
+</code></pre>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Monadic parsers</h1>
+<p>Monadic compre&shy;hensions helpful for readability!</p>
+<p><strong>Variables <code>n</code> and <code>ns</code> in<br />
+scope after bound</strong></p>
+<p>Useful for IO and other monads, not much here...</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide39"><h1>Parsers</h1>
+<h2>Monadic operations</h2>
+<ul>
+<li><i class='fa fa-square-xmark'></i> <strong>Hutton (1989-90)</strong> - no monadic bind</li>
+<li><i class='fa fa-square-minus'></i> <strong>Wadler (1987)</strong> - using <code>flatMap</code></li>
+<li><i class='fa fa-square-plus'></i> <strong>Wadler (1990-92)</strong> - monadic bind added</li>
+<li><i class='fa fa-square-plus'></i> <strong>Hutton &amp; Meijer (1996)</strong> - monadic parsers!</li>
+<li><i class='fa fa-square-up-right'></i> <strong>Wadler (1997)</strong> - far superior style!</li>
+<li><i class='fa fa-square-xmark'></i> <strong>Swierstra &amp; Duponcheel (1996)</strong> - drop bind</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide40"><h1>Tempting harmful abstraction?</h1>
+<div class="body">
+<div>
+<h3>Swierstra &amp; Duponcheel (1996)</h3>
+<p>The normal disadvantages of conventional [monadic] parsers,
+such as their lack of speed and their poor error reporting are remedied.</p>
+<p>The techniques [do not] extend to monadic parsers. [T]he monadic
+formulation [causes] the evaluation of the parser construction over and over (...).</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide41"><div class="body">
+<h1>Challenges</h1>
+<h2>Composing monadic effects</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide42"><h1>Monad transformers to effect handlers</h1>
+<ul>
+<li>
+<i class='fa fa-layer-group'></i> <strong>Composing using monad transformers (1995)</strong><br />
+<i class="placeholder"></i>Layers of effects, <code>lift</code> operations through the stack
+</li>
+<li>
+<i class='fa fa-link-slash'></i> <strong>Transformers break down</strong><br />
+<i class="placeholder"></i>Order fixed early, liftings multiply, <code>catch</code> and <code>callcc</code> hard
+</li>
+<li>
+<i class='fa fa-shapes'></i> <strong>Algebraic effects, revisiting theory (2001)</strong><br />
+<i class="placeholder"></i>Semantics with effects as operations with equations
+</li>
+<li>
+<i class='fa fa-hand-sparkles'></i> <strong>From exception handlers to effect handlers</strong><br />
+<i class="placeholder"></i>Shift to design, add practically-motivated handlers
+</li>
+</ul>
+<style>.slide42 h1 { font-size:36pt; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide43"><div class="body">
+<h1>Conclusions</h1>
+<h2>Monads in programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="largeicons  slide44"><h1>History &amp; philosophy of monads</h1>
+<ul>
+<li>
+<i class='fa fa-arrow-right'></i> <strong>Still dealing with functions...</strong> <br />
+<i class="placeholder"></i>How to model or implement extra behaviours?
+</li>
+<li>
+<i class='fa fa-not-equal'></i> <strong>Strong "Algol" research programme</strong><br />
+<i class="placeholder"></i>Language should have a clean formal model!
+</li>
+<li>
+<i class='fa fa-search'></i> <strong>Same structure discovered repeatedly</strong><br />
+<i class="placeholder"></i>Multiple implementations, discoveries in theory
+</li>
+<li>
+<i class='fa fa-worm'></i> <strong>Less room for entity evolution?</strong> <br />
+<i class="placeholder"></i>Equivalent definitions chosen as needed
+</li>
+</ul>
+<style>.slide44 h1 { font-size:36pt; }</style><img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          TeX: { extensions: ["color.js"] },
+          jax: ["input/TeX","output/HTML-CSS"]
+      });
+    </script>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+
+    <script>
+        // Configure MathJax BEFORE loading it
+        window.MathJax = {
+            loader: {
+                load: ['[tex]/color']
+            },
+            tex: {
+                packages: {
+                    '[+]': ['color']
+                },
+                inlineMath: [
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ],
+                displayMath: [
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ]
+            }
+        };
+
+        Reveal.initialize({
+            plugins: [
+                RevealHighlight,
+                RevealMath.MathJax3
+            ],
+            mathjax3: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js'
+            },
+            hash: true,
+            pdfSeparateFragments: false,
+            transition: "none",
+            controls: false
+        });
+
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
