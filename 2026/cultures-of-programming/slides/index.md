@@ -2,6 +2,9 @@
 
 ****************************************************************************************************
 - template: title
+- class: blue nologo
+- background-image: img/part7/memex-blue.jpg
+- style: h1 { font-size:60pt; margin:30px -100px 20px -100px; } h2 { font-size:46pt; margin:0px -100px; } .body { margin:0px -100px 30px -100px; } .body p { font-size:30pt; }
 
 # Cultures of Programming
 ## The Development of Programming<br/> Concepts and Methodologies

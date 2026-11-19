@@ -182,18 +182,53 @@
 			</div>
 		</div>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          TeX: { extensions: ["color.js"] },
+          jax: ["input/TeX","output/HTML-CSS"]
+      });
+    </script>
+
 		<script src="reveal/reveal.js"></script>
 		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
 		<script src="reveal/plugin/highlight/highlight.js"></script>
 		<script src="reveal/plugin/math/math.js"></script>
-		<script language="javascript" type="text/javascript">
-			Reveal.initialize({
-				plugins: [ RevealHighlight, RevealMath.KaTeX ],
-				hash:true,
-				pdfSeparateFragments: false,
-				transition:"none",
-				controls:false
-			});
+
+    <script>
+        // Configure MathJax BEFORE loading it
+        window.MathJax = {
+            loader: {
+                load: ['[tex]/color']
+            },
+            tex: {
+                packages: {
+                    '[+]': ['color']
+                },
+                inlineMath: [
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ],
+                displayMath: [
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ]
+            }
+        };
+
+        Reveal.initialize({
+            plugins: [
+                RevealHighlight,
+                RevealMath.MathJax3
+            ],
+            mathjax3: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js'
+            },
+            hash: true,
+            pdfSeparateFragments: false,
+            transition: "none",
+            controls: false
+        });
+
 			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
 			websocket.onmessage = function (evt) {
 				window.setTimeout(function(){ window.location.reload(); }, 1000);

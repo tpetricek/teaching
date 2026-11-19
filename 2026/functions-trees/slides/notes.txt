@@ -1,3 +1,100 @@
+ON MONADS
+=========
+
+Hi,
+
+Lots of interesting historical detail in
+
+The Category Theoretic Understanding of Universal Algebra: Lawvere Theories and Monads
+======================================================================================
+
+Martin Hyland, John Power 1
+
+"6 Computational Effects
+We now jump from the mid 1960s to the late 1980s. In the meantime, the notion of
+monad had been consolidated as the primary category-theoretic formulation of uni-
+versal algebra, as witnessed by its prominent role in Mac Lane’s influential text [31],
+where Lawvere theories are only mentioned in the final line of the chapter on mon-
+ads. Simultaneously and independently, computer scientists had begun to take an
+interest in category theory in connection with denotational semantics. Then, in
+1987, Eugenio Moggi completed his PhD thesis at the University of Edinburgh un-
+der Gordon Plotkin, with Martin Hyland his external examiner. At precisely that
+point, Moggi’s new idea of computational effects came to the attention of experi-
+enced category theorists.
+A defining moment came at Moggi’s oral defence. Moggi had completed a tech-
+nical thesis on partiality, and the discussion turned to future work. He then intro-
+duced his new idea of notions of computation and proposed using monads to model
+them. It immediately struck Hyland as a particularly elegant idea, involving an
+enrichment of a basic type theory with terms having computational meaning. He
+M. Hyland, J. Power / Electronic Notes in Theoretical Computer Science 172 (2007) 437–458 451
+was very encouraging. It did not occur to Hyland, in the circumstances of the time,
+to mention universal algebra or Lawvere theories: rather he tried to learn about the
+computational concepts from the monads, having no independent understanding of
+them on the basis of which to apply critical judgement.
+A year later, at the Constructive Logic and Category Theory workshop at the
+Isle of Thorns, Peter Freyd, who was the leading North American category theorist
+connected with computer science at the time, first heard Moggi’s idea. He too
+was impressed and said so to Hyland who was sitting by him, and to others. But
+again the ideas of universal algebra and Lawvere theories did not crop up in the
+discussions of Moggi’s ideas.
+Moggi’s work was soon published prominently in [33,35] and has been enor-
+mously influential as a meta-principle for thinking about programming languages.
+And it was some ten years before the move from monads to the Lawvere theories
+that give rise to them began to change the emphasis of this line of research. It is
+only now after a further five years of research that we begin to see the impact of
+that change. From Moggi’s assignment to each set X of the set T X of values as-
+sociated with a computational effect, one has passed to the study of the operations
+associated with the computational effect. Given that in most cases a choice of T X is
+apparent on the basis of some kind of computational intuition, the process is a kind
+of reverse engineering. Moreover one does not merely want the clone of an algebraic
+theory but rather a good choice of primitives in which to couch the theory, with
+a good choice of axioms. The recognition (see section 7) that Moggi’s monad for
+side-effects arises from the computationally natural operations lookup and update
+subject to computationally natural equations was critical to the development of the
+ideas: we describe this case in Example 6.2 below. The general situation of know-
+ing the monad and reconstructing the theory is not that familiar in mathematics:
+theory has had to be developed adequately to ground the practice, and the compu-
+tationally significant examples have had to be worked through. This has resulted in
+a series of recent papers [37,38,39,40,41,42]. But one should recognise that issues of
+presentation are also mathematically significant. Famously for instance the theory
+of groups has a presentation in terms of division, but that presentation generally
+seems to be of little interest."
+This seems to be part of a larger campaign to choose Lawvere theories over monads.
+The key seems to be the description in terms of generators/signature and equations.
+
+This came up when Tomas Jakl was here. I believe his project is to provide a similar presentation
+of comonads. I think he suggested Hyland wasn't now fully in agreement with his former self.
+
+Back then they point out things like
+
+"One thing which tells in favour of the Lawvere theory point of view is that the
+natural combinations of computational effects correspond to natural combinations
+of Lawvere theories, notably sum and tensor "
+
+Nice bit of counter-factual history
+
+"So one wonders:
+What might have happened in 1987 had the connection with universal algebra
+been noticed at the time? More to the point, one wonders what will happen from
+now?
+We end the paper with speculative answers to those questions:
+• Perhaps computational effects might be seen as an instance and development of
+universal algebra? Continuations would not be regarded as a computational effect
+but rather as a distinct notion. It would still have its own body of theory, and
+one would still study the relationship between it and computational effects; but
+perhaps it would not be regarded as a computational effect?
+• Monads appear quite directly in the study of continuations. So perhaps the notion
+of monad might be seen as a generalised semantics of continuations? With the
+unit and counit being regarded as generalised forms of thunk and force?
+• Perhaps the construction sending a Lawvere theory L to the monad TL might be
+seen as providing mathematical support to a CP S-transform? One could give se-
+mantics for the λc-calculus and the computational meta-language that look quite
+different to each other, the former in terms of closed F reyd-categories [42,44],
+and the latter in terms of monads. One might focus on the first-order fragment
+of the λc-calculus: Lawvere theories immediately provide models, and one can
+readily produce a sound and complete class of them [44]"
+Best, David
+
 FROM DISCUSSION WITH DAVID
 ==========================
 
