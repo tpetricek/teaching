@@ -251,13 +251,16 @@ PDP-10 used 36-bit words, subsequent computers had less
 ----------------------------------------------------------------------------------------------------
 - template: image
 - style: .body1 { width:350px; }
+- class: nologo
 
 ![](img/part7/logo.jpg)
 
 # Logo environment (1967)
 
-"The computer can be a mathe&shy;matics-speaking and analphabetic-speaking entity.
+"The computer can be a mathe&shy;matics-speaking ... entity.
+
 We are learning how to make computers with which children love to communicate.
+
 When this communication occurs, children learn mathematics as a living language."
 
 **Piaget's theory of active learning**
@@ -278,6 +281,7 @@ When this communication occurs, children learn mathematics as a living language.
 - Thinking in humans, thinking in machines
 
 ## LOGO research
+- Not about teaching programming to kids!
 - Teaching "powerful ideas" such as meta-language
 - Microwords for linguistics and drawing (turtle)
 
@@ -317,6 +321,114 @@ and about talking about what you were doing.
 - Attention to wording
 
 ****************************************************************************************************
+- template: subtitle
+
+# Programming
+## Augmenting Human Intellect
+
+----------------------------------------------------------------------------------------------------
+- template: image
+- class: smaller2x
+- style: h1 { letter-spacing:-1px; font-size:30pt; }
+
+![](img/part7/sri.png)
+
+# Augmenting Human Intellect
+
+(Douglas Engelbart, 1962)
+
+"Improving the intellectual effectiveness of the
+individual human being"
+
+<br>
+
+---
+
+**Douglas Engelbart**
+
+Read "As We May Think" and decided to return to university
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+- class: bigger
+
+# Human artifact interface
+
+![](img/part7/hci.png)
+
+## Humanistic vision
+
+"Increasing the capability of a man to approach a complex problem situation,
+to gain comprehension  ... and to derive solutions to problems."
+
+## H-LAM/T
+
+- Human using Language Artifacts  
+  Methodology in which he is Trained
+- General points, specific examples,  
+  idiosyncratic details
+
+----------------------------------------------------------------------------------------------------
+- template: content
+- style: p { font-size:28pt; }
+
+# "Augmented" architect at work
+
+"He sits at a working station that has a visual display screen some three feet on
+a side; this is his working surface and is controlled by a computer (his 'clerk')"
+
+"With a 'pointer' he indicates two points of interest, moves
+his left hand rapidly over the keyboard, and the distance and elevation
+between the points indicated appear on the right-hand third of the screen."
+
+----------------------------------------------------------------------------------------------------
+- template: image
+
+![](img/part7/demo.jpg)
+
+# oNLine System
+
+"The Mother of All Demos"
+1968 demo
+
+- GUI + mouse
+- Tele-conferencing
+- Interactive shared document editing
+
+----------------------------------------------------------------------------------------------------
+- template: icons
+
+# oNLine System
+## Augmenting Human Intellect
+
+- *fa-sack-dollar* Project funded by Licklider through ARPA
+- *fa-compass-drafting* Links "As We May Think" and "Scratchapd"
+- *fa-computer-mouse* Took people weeks to use the system!
+- *fa-clapperboard* Inspiring vision of the future
+
+----------------------------------------------------------------------------------------------------
+- template: lists
+- class: bigger2x
+- style: .body img {margin-top:-20px !important;}
+
+# Almost anything goes?
+
+![](img/part7/arpanet-72.png)
+
+## IPTO office at ARPA
+
+- Funding a community
+
+## Diversity of methods
+
+- Hackers (Peter Deutsch)
+- Engineers (Chuck Thacker)
+- Humanists (Alvy Ray Smith), mathematicians (James Morris)
+
+## Little managerial culture
+- Interactivity and counter-cultural tendencies?
+
+****************************************************************************************************
 - template: largeicons
 
 # Humanistic and hacker views
@@ -330,16 +442,8 @@ and about talking about what you were doing.
 - *fa-computer-mouse* **Exploring novel interfaces**  
   Visual programming, leverage visual thinking
 
-
-
-****************************************************************************************************
-- template: content
-
-Mother of All demos
-
-
 ****************************************************************************************************
 - template: subtitle
 
 # Cultures of Programming
-## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 8](08-xx.html)
+## [<i class="fa fa-house"></i> Home](/) &nbsp;&nbsp;  [<i class="fa fa-arrow-right"></i>Continue to Part 8](08-interactive.html)
