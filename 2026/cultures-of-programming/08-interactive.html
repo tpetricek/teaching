@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cultures of Programming - Part 8 - Personal interactive programming</title>
+		<link rel="stylesheet" href="reveal/reveal.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="img/fonts/futura.css">
+		<style type="text/css">
+			.reveal .slide-background { background:#F1DEC2; }
+		</style>
+		<style type="text/css">
+			@import url('https://fonts.googleapis.com/css2?family=Felipa&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+			/*
+			dark blue #153374
+			light blue #2C68AC
+			beige #F1DEC2
+			*/
+			.reveal .slides {
+				text-align:left;
+				color:#153374;
+			}
+			section {
+				height:620px; /* 700-60 */
+				width:900px !important; /* 960-60 */
+				padding:40px 30px 40px 30px;
+			}
+			.overview section {
+				width:960px !important;
+			}
+			h1 {
+				font:400 46pt 'Futura Std', serif;
+				padding:0px;
+				margin:0px;
+				color:#153374;
+				line-height:1.15em;
+			}
+			h2 {
+				font:300 40pt 'Futura Std', serif;
+				line-height:1.2em;
+				padding:0px;
+				margin:0px 0px 50px 0px;
+			}
+			p, li {
+				font:300 32pt 'Futura Std', sans-serif;
+				margin:0px;
+				padding:0px;
+			}
+			h3 {
+				font:600 30pt 'Futura Std', sans-serif;
+				color:yellow;
+				margin:0px;
+				padding:0px;
+			}
+			strong {
+				font-weight:500;
+			}
+			a {
+				text-decoration:none;
+				color:#2C68AC;
+			}
+			a:hover, a:active {
+				color:#2C68AC;
+			}
+
+			blockquote p {
+				font-style:italic;
+			}
+
+			p code, li code {
+				font:400 22pt 'Roboto Mono', monospace;
+			}
+			pre {
+				background:#2C68AC;
+				border-radius:20px;
+			}
+			pre code {
+				font:400 17pt 'Roboto Mono', monospace;
+			}
+			pre code.hljs {
+				color:white;
+				background:transparent;
+			}
+			.smallcode pre code {
+				font-size:12pt;
+			}
+
+			pre {
+				margin:25px 0px 25px 50px;
+			}
+
+			.hljs-comment { color:yellow !important; }
+
+			i { width:56px; text-align:left; }
+
+			.math { font-size:20pt; }
+
+			.lists p, .lists li { font-size:26pt; color:#2C68AC; }
+			.lists ul { margin:10px 0px 40px 40px; padding:0px; }
+			.lists p { margin:10px 0px 40px 0px; }
+			.lists h1 { margin-bottom:40px; }
+			.lists h2 { margin:0px; padding:0px; font:300 30pt 'Roboto', sans-serif; }
+			.lists .decor { margin-top:20px; float:right; max-width:350px; max-height:400px; border:3px solid black; }
+			.lists .decor pre { margin:15px; padding:0px; }
+			.reveal .lists .body img { border:3px solid black; margin-top:20px; float:right; max-width:280px; max-height:350px; }
+			.reveal .lists.bigger .body img { max-width:340px; max-height:350px; }
+      .reveal .lists.bigger2x .body img { max-width:400px; max-height:400px; }
+			.reveal .lists.smaller .body img { max-width:200px; max-height:200px; }
+			.reveal .lists.noborder .body img { border-style:none; }
+			.lists.condensed p, .lists.condensed li { font-size:24pt }
+			.lists.condensed p { margin:5px 0px 20px 0px; }
+			.lists.condensed h2 { font-size:28pt; }
+			.lists.condensed h1 { margin-bottom: 20px; }
+
+			.content h1 { margin-bottom:40px; }
+			.content h2 { margin-top:-40px; }
+			.content h3 { font-size:32pt; margin-bottom:20px; margin-top:40px; }
+			.content p { margin-bottom:20px; color:#2C68AC; }
+			.content p strong { color:#153374; }
+			.content.two-column p { margin-bottom:5px; }
+			.content p, .content li { font-size:26pt; }
+			.content.condensed h1 { margin-bottom:10px; }
+			.content.condensed p, .content.condensed li { font-size:22pt; }
+			.content.two-column .body div { width:450px; float:left; }
+			.content.three-column .body div { width:280px; margin-left:10px; margin-right:10px; float:left; }
+			.content.three-column img { max-width:240px; text-align:center; }
+			.content.three-column.smaller img { max-width:140px; text-align:center; margin-left:40px; }
+			.content img { max-width:100%; max-height:450px; border:3px solid black; }
+			.content.two-column img { max-width:70%; margin-top:20px; margin-left:0px; }
+			.content.noborder img { border-style:none; }
+			.content.three-column h3, .content.two-column h3 { margin-bottom:5px; margin-top:0px; }
+
+			.largeicons p, .largeicons li { font-size:28pt; }
+			.largeicons h2, .icons h2 { margin-bottom:0px; margin-top:10px; font-size:34pt; }
+			.largeicons li, .icons li { list-style-type:none; padding:0px; margin:15px 0px 15px 0px; color:#2C68AC; }
+			.largeicons ul, .icons ul { margin:50px 0px 0px 0px;padding:0px; }
+			.largeicons i.placeholder, .icons i.placeholder { width:65px; display:inline-block; }
+
+			.title h1 { margin-bottom:40px; font-size:40pt; font-weight:400 }
+			.title h2 { margin-top:-20px; font-size:34pt; font-weight:200; color:#2C68AC; }
+			.title li { font-size:30pt; margin-bottom:20px; }
+			.title .body { position:absolute; bottom:0px; width:900px; }
+			.title .body p { margin:0px 0px 20px 0px; padding:0px; font-size:26pt; }
+			.title i { font-size:80%; width:32px; margin:0px 0px 0px 4px; }
+      .title.blue h1, .title.blue h2, .title.blue p { color:#F1DEC2; }
+      .title.blue a { color:#F1DEC2; text-decoration:underline; }
+
+			.image .body1 { width:520px;margin-right:30px;height:620px;float:left;text-align:center; }
+			.image .body1 img { max-width:500px;max-height:500px; border:5px solid black; }
+			.image h1 { font-size:32pt; margin-bottom:30px; }
+			.image p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.image p strong { color:#153374; }
+			.image .citation p { margin-top:-25px; margin-bottom:30px; }
+			.image.smaller .body1 { width:460px; }
+			.image.smaller .body1 img { max-width:440px; }
+      .image.smaller2x .body1 { width:400px; }
+			.image.smaller2x .body1 img { max-width:400px; }
+			.image.larger .body1 { width:520px; }
+			.image.larger .body1 img { max-width:500px; }
+			.image.noborder img { border-style:none; }
+			.image li { margin:0px; font-size:26pt; }
+			.image ul { position:relative; left:35px; }
+
+			.code .body1 { width:520px;margin-right:30px;height:620px;float:left;}
+			.code h1 { font-size:32pt; margin-bottom:30px; }
+			.code h2 { font-size:32pt; margin-top:-30px; color:yellow; font-weight:400; }
+			.code p { margin-top:20px; font-size:26pt; color:#2C68AC; }
+			.code p strong { color:#153374; }
+			.code .citation p { margin-top:-25px; margin-bottom:30px; }
+			.code.smaller .body1 { width:460px; }
+			.code.larger .body1 { width:580px; }
+			.code pre { margin-left:0px; padding:20px; }
+
+			section.subtitle { height:auto; }
+			section.subtitle .body { padding:215px 0px 215px 0px; }
+			section.subtitle h1 { font-size:55pt; font-family:Felipa; margin-bottom:12px; }
+			section.subtitle h2 { font-size:35pt; font-family:Felipa; }
+
+			.mfflogo { position:absolute; right:30px; bottom:0px; width:140px; border-style:none !important; }
+			.nologo .mfflogo { display:none; }
+			@media print { .mfflogo { right:0px; bottom:0px; width:100px; } }
+		</style>
+	</head>
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section><section class="title blue slide1"data-background="img/part8/trinity-blue.jpg" ><h1>Personal interactive programming</h1>
+<h2>Cultures of Programming &mdash; Part 8</h2>
+<div class="body">
+<p><strong>Tomas Petricek</strong>, Charles University, Prague</p>
+<p><em><i class="fa fa-envelope"></i></em> <a href="mailto:tomas@tomasp.net">tomas@tomasp.net</a><br />
+<em><i class="fa fa-globe"></i></em> <a href="https://tomasp.net">https:/<span style="margin:0px 0px 0px -12px">/</span>tomasp.net</a><br />
+<em><i class="fa-brands fa-bluesky"></i></em> <a href="https://bsky.app/profile/tomasp.net">@tomasp.net</a></p>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide2"><div class="body">
+<h1>Xerox</h1>
+<h2>Personal Dynamic Media</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide3"><div class="body">
+<h1>Personal computer for children of all ages</h1>
+<img src="img/part8/dynabook.jpg"/>
+<div>
+<h2>Alan Kay</h2>
+<ul>
+<li>Member of the ARPA community</li>
+<li>Cites many humanistic influences</li>
+<li>Dynabook project at Xerox PARC</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Humanistic vision</h2>
+<ul>
+<li>Using a computer also means programming</li>
+<li>Looks like iPad but that's not it...</li>
+<li>Smalltalk as the medium for it</li>
+</ul>
+</div>
+</div>
+<style>.slide3 h1 { font-size:38pt; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller2x slide4"><div class="body1">
+<p><img src="img/part8/alto.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Xerox Alto</h1>
+<div class="citation">
+<p>(aka Interim Dynabook)</p>
+</div>
+<p>Xerox blocked proposal<br />
+to buy PDP-10 for PARC</p>
+</div>
+<div class="fragment">
+<p><strong>We'll build our own</strong></p>
+<p>Kay's vision meets Butler Lampson and Charles Thacker</p>
+<p>Microcoded architecture<br />
+No central processing unit</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide5"><div class="body">
+<h1>Personal Dynamic Media</h1>
+<img src="img/part8/dynamic.png"/>
+<div>
+<h2>Kay and Goldberg (1977)</h2>
+<ul>
+<li>Kids use water colors, color TV, etc.</li>
+<li>"Medium is the message"</li>
+<li>Smalltalk as mode of interaction</li>
+<li>Adaptable meta-medium</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Meta-medium for communication</h2>
+<ul>
+<li>Simulation system for a decision theorists</li>
+<li>Electronic circuit designer for a student</li>
+<li>Drawing &amp; animation system for a child</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide6"><div class="body1">
+<p><img src="img/part8/byte.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>BYTE (1981)</h1>
+<p>Releasing Smalltalk<br />
+to the wider public</p>
+<p><strong>Conceptual shift</strong></p>
+<ul>
+<li>Smalltalk design principles</li>
+<li>Object-oriented system</li>
+<li>
+Progress from end user<br />
+to system developer
+</li>
+</ul>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide7"><div class="body">
+<h1>Let's burn our disk packs...</h1>
+<img src="img/part8/diskpacks.png"/>
+<div>
+<h2>Group meeting in 1976</h2>
+<ul>
+<li>"Dynabook for children" losing</li>
+<li>No organism can live in its own waste</li>
+<li>Vision needs a fresh start!</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Two eras of Smalltalk</h2>
+<ul>
+<li>Humanistic culture prior to 1976</li>
+<li>Engineering and hacker post 1976</li>
+<li>Kay continues working on Note Taker</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide8"><div class="body">
+<h1>Xerox</h1>
+<h2>Research and business</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide9"><div class="body1">
+<p><img src="img/part8/pygmalion.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Pygmalion</h1>
+<div class="citation">
+<p>(David C. Smith, 1975)</p>
+</div>
+<p>Largest Smalltalk-72 program ever written</p>
+<p><strong>Pioneered icons and programming by demonstration</strong></p>
+<p>Thesis with humanistic links<br />
+Art theory, cognitive science</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger slide10"><div class="body">
+<h1>Self programming system (1987)</h1>
+<img src="img/part8/self.png"/>
+<div>
+<h2>Pure evolution of Smalltalk</h2>
+<ul>
+<li>Simple prototype-based OO</li>
+<li>Unify fields and variables</li>
+<li>Objects exist in space</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Legacy of Self</h2>
+<ul>
+<li>Mostly engineering results!</li>
+<li>Optimizing virtual machine</li>
+<li>Ideas adopted by V8 (in Chrome)</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller nologo slide11"><div class="body1">
+<p><img src="img/part8/boxer.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Boxer (diSessa, 1985)</h1>
+<p>Integrated computational environment
+for naive and inexperienced users</p>
+<p>Interactive physics textbooks</p>
+<p><strong>Two design principles</strong></p>
+<ul>
+<li>Spatial metaphor</li>
+<li>Naive realism</li>
+</ul>
+<p>Educational humanistic focus</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller2x slide12"><div class="body1">
+<p><img src="img/part8/star.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Xerox Star</h1>
+<p>Commercialising Xerox PARC "office of the future" vision</p>
+<ul>
+<li>Graphical interface of Smalltalk</li>
+<li>Icons of Pygmalion</li>
+<li>Documents rather than apps!</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Commercial failure</strong><br />
+Too expensive and too late?</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide13"><div class="body">
+<h1>Microcomputers</h1>
+<h2>Programming for everyone</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide14"><div class="body1">
+<p><img src="img/part8/intel4004.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Intel 4004 (1971)</h1>
+<p>First microprocessor
+"computer on a chip"</p>
+<p>"Calculator" compared with Xerox Alto!</p>
+<p>Building a computer easier and cheaper</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists nologo slide15"><div class="body">
+<h1>Altair 8800</h1>
+<img src="img/part8/popel.jpg"/>
+<div>
+<h2>Computer for tinkerers</h2>
+<ul>
+<li>Kit with 8-bit Intel 8008 CPU</li>
+<li>Available for $397 (~2k now)</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>Altair capabilities</h2>
+<ul>
+<li>More like TX-0 than Alto!</li>
+<li>Switches to set memory values</li>
+<li>Extensible architecture for more!</li>
+<li>Affordable enough for fun</li>
+</ul>
+</div>
+</div>
+<style>.slide15 .body img { max-width:600px !important; max-height:480px !important; margin-top:-40px !important }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide16"><div class="body1">
+<p><img src="img/part8/brew.gif" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Homebrew Computer Club</h1>
+<div class="citation">
+<p>(Menlo Park, 1975)</p>
+</div>
+<p>Do it yourself culture
+Kids with toys to Xerox</p>
+<p><strong>Hacker culture without direct links to MIT</strong></p>
+<p>Wozniak and Jobs found Apple Computers</p>
+</div>
+</div>
+</div>
+<style>.slide16 .body1 img { margin-top:30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide17"><h1>Microcomputer "Trinity of 1977"</h1>
+<div class="body">
+<div>
+<p><img src="img/part8/trinity.jpg" alt="" /></p>
+<p>Make computers cheaply available to millions</p>
+</div>
+</div>
+<style>.slide17 h1 { font-size:38pt; margin:0px 0px 20px 0px; } .slide17  .body img { max-width:870px; }</style><img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide18"><div class="body">
+<h1>Homebrew</h1>
+<h2>The rise of BASIC</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="lists bigger2x slide19"><div class="body">
+<h1>Beginner's All-purpose Symbolic Instruction Code</h1>
+<img src="img/part8/basic64.png"/>
+<div>
+<h2>Dartmouth time-sharing</h2>
+<ul>
+<li>Every student should use it!</li>
+<li>Writing numerical programs</li>
+<li>Easier to use than FORTRAN</li>
+</ul>
+</div>
+<div class="fragment">
+<h2>BASIC on microcomputers</h2>
+<ul>
+<li>Micro-Soft BASIC for Altair 8800</li>
+<li>Later <code>PEEK</code>, <code>POKE</code> and <code>SYS</code> makes it more powerful</li>
+<li>More than a language...</li>
+</ul>
+</div>
+</div>
+<style>.slide19 h1 { font-size:34pt; letter-spacing:-1px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="lists  slide20"><div class="body">
+<h1>BASIC as a language</h1>
+<img src="img/part8/dijkstra.jpg"/>
+<div>
+<h2>Dijkstra (1975)</h2>
+<p>It is practically impossible to teach good programming to students that have
+had a prior exposure to BASIC: as potential programmers they are mentally
+mutilated beyond hope of regeneration.</p>
+</div>
+<div class="fragment">
+<h2>Basic as a programming system</h2>
+<ul>
+<li>Great fit for machines it ran on</li>
+<li>Enabled active learning culture</li>
+</ul>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide21"><div class="body1">
+<p><img src="img/part8/peoples.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Timesharing BASIC</h1>
+<p>New Hampshire, Minnesota &amp; Illinois</p>
+<p>Dispersed diverse communities around education &amp; games</p>
+<p><strong>Humanistic culture distinct from the Silicon Valley hackers</strong></p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide22"><h1>Hobbyist computing magazines</h1>
+<div class="body">
+<div>
+<p><img src="img/part8/c64-p1.png" alt="" />
+<img src="img/part8/c64-p2.png" alt="" /></p>
+</div>
+</div>
+<style>.slide22 img { margin-left:30px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="icons  slide23"><h1>Microcomputers</h1>
+<h2>Fulfilling the Dynabook dream</h2>
+<ul>
+<li><i class='fa fa-terminal'></i> Microcomputers boot into BASIC terminal</li>
+<li><i class='fa fa-gamepad'></i> Engagement with code encourages curiosity</li>
+<li><i class='fa fa-memory'></i> Simple language with escape hatches</li>
+<li><i class='fa fa-user-graduate'></i> Progress from user to programmer</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide24"><div class="body">
+<h1>Struggle</h1>
+<h2>Interactive programming</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image  slide25"><div class="body1">
+<p><img src="img/part8/xerox-star.png" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Commercialization of Xerox research</h1>
+<p>Interactive programming not desirable for office applications</p>
+</div>
+<div class="fragment">
+<p><strong>Engineering and managerial culture</strong></p>
+<p>Too fragile, protecting intellectual property</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="image smaller slide26"><div class="body1">
+<p><img src="img/part8/apple2.jpg" alt="" /></p>
+</div><div class="body2">
+<div class="body">
+<div>
+<h1>Commercialization<br> of microcomputers</h1>
+<p>Apple II increasingly bought for running existing apps</p>
+<p><strong>Called the VisiCalc machine by Wall Street traders</strong></p>
+<p>VisiCalc and Hypercard still visionary, but more narrow</p>
+</div>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="subtitle  slide27"><div class="body">
+<h1>Struggle</h1>
+<h2>Computer generated music</h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide28"><h1>The League of Automatic Music Composers</h1>
+<div class="body">
+<div>
+<p><img src="img/part8/league.jpg" alt="" />
+<img src="img/part8/league.png" alt="" /></p>
+<p><strong>Using KIM-1 microcomputer (1978)</strong><br />
+Network of microcomputers to synthesize music<br />
+Composition through unexpected interactions</p>
+</div>
+</div>
+<style>.slide28 .body img { height:380px; max-height:380px !important; } .slide28  h1 { font-size:36pt; margin:0px 0px 20px 0px; }</style><img src="img/cuni.png" class="mfflogo" /></section><section class="content  slide29"><div class="body">
+<div>
+<p><img src="img/part8/algorave.png" alt="" /></p>
+<p><strong>Live coding - TOPLAP manifesto (2004)</strong><br />
+"Obscurantism is dangerous. Show us your screens"</p>
+</div>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="largeicons  slide30"><h1>Interactive programming</h1>
+<ul>
+<li>
+<i class='fa fa-floppy-disk'></i> <strong>Innovation linked to new technologies</strong><br />
+<i class="placeholder"></i>Interactive way of programming appears first
+</li>
+<li>
+<i class='fa fa-desktop'></i> <strong>Humanistic and hacker reasons</strong> <br />
+<i class="placeholder"></i>Empowerment for education and technical reasons
+</li>
+<li>
+<i class='fa fa-brands fa-black-tie'></i> <strong>Engineers and managers kill it?</strong><br />
+<i class="placeholder"></i>Intellectual property, reliability, predictability
+</li>
+<li>
+<i class='fa fa-lightbulb'></i> <strong>Reinvented across many disciplines</strong><br />
+<i class="placeholder"></i>From TX-0 to microcomputers and live coding
+</li>
+</ul>
+<img src="img/cuni.png" class="mfflogo" /></section></section><section><section class="subtitle  slide31"><div class="body">
+<h1>Cultures of Programming</h1>
+<h2><a href="/"><i class="fa fa-house"></i> Home</a> &nbsp;&nbsp;  <a href="09-debugging.html"><i class="fa fa-arrow-right"></i>Continue to Part 9</a></h2>
+</div>
+<img src="img/cuni.png" class="mfflogo" /></section></section>
+			</div>
+		</div>
+
+		<script src="reveal/reveal.js"></script>
+		<link rel="stylesheet" href="reveal/plugin/highlight/style.css">
+		<script src="reveal/plugin/highlight/highlight.js"></script>
+		<script src="reveal/plugin/math/math.js"></script>
+		<script language="javascript" type="text/javascript">
+			Reveal.initialize({
+				plugins: [ RevealHighlight, RevealMath.KaTeX ],
+				hash:true,
+				pdfSeparateFragments: false,
+				transition:"none",
+				controls:false
+			});
+			websocket = new WebSocket("ws://" + window.location.host + "/websocket");
+			websocket.onmessage = function (evt) {
+				window.setTimeout(function(){ window.location.reload(); }, 1000);
+			};
+		</script>
+
+	</body>
+</html>
